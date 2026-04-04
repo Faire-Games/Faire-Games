@@ -1,0 +1,3 @@
+# # Skip configuration for Tetris module
+#build:
+#  contents:

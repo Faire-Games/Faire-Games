@@ -1,0 +1,3 @@
+# # Skip configuration for BlockBlast module
+#build:
+#  contents:

@@ -1,0 +1,3 @@
+# # Skip configuration for FaireGames module
+#build:
+#  contents:
