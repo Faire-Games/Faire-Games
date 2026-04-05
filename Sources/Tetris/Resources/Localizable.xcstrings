@@ -97,9 +97,6 @@
         }
       }
     },
-    "BLOCK FALL" : {
-
-    },
     "Cancel" : {
       "comment" : "Button title indicating that the operation should be cancelled",
       "extractionState" : "stale",
@@ -424,6 +421,9 @@
         }
       }
     },
+    "Quit Game" : {
+
+    },
     "Resume" : {
 
     },
@@ -489,6 +489,9 @@
           }
         }
       }
+    },
+    "SIRTET" : {
+
     },
     "System" : {
       "comment" : "Menu item indicating that the appearance should be in the default system mode",

@@ -448,6 +448,21 @@ struct BlockBlastGameView: View {
                         )
                 }
                 .padding(.top, 8)
+
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .padding(.horizontal, 40)
+                        .padding(.vertical, 12)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
+                        )
+                }
             }
             .padding(32)
             .background(

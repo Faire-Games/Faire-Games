@@ -7,6 +7,8 @@ import FaireGamesModel
 import BlockBlast
 import Tetris
 
+let gamePreviewIconSpan = 250.0
+
 struct ContentView: View {
     @State var appPreferences = AppPreferences()
     @State var showSettings = false
@@ -21,11 +23,11 @@ struct ContentView: View {
                         .foregroundStyle(.white)
                         .padding(.top, 12)
 
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 16)], spacing: 16) {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: gamePreviewIconSpan + 30.0), spacing: 16)], spacing: 16) {
                         NavigationLink(destination: BlockBlastContainerView()) {
                             VStack(spacing: 10) {
                                 BlockBlastIcon()
-                                    .frame(width: 120, height: 120)
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                 Text("Block Blast!")
                                     .font(.headline)
@@ -41,7 +43,7 @@ struct ContentView: View {
                         NavigationLink(destination: TetrisContainerView()) {
                             VStack(spacing: 10) {
                                 TetrisIcon()
-                                    .frame(width: 120, height: 120)
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                 Text("Sirtet") // ("Tetris")
                                     .font(.headline)
@@ -65,7 +67,7 @@ struct ContentView: View {
                 )
                 .ignoresSafeArea()
             )
-            .navigationTitle("Faire Games")
+            .navigationTitle("Fair Games")
             #if !os(macOS)
             .toolbarColorScheme(.dark, for: .navigationBar)
             #endif

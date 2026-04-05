@@ -63,6 +63,7 @@
     },
     "Appearance" : {
       "comment" : "Settings select label for the interface style of the controls (light, dark, or default)",
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -89,9 +90,6 @@
           }
         }
       }
-    },
-    "Bazinga!" : {
-
     },
     "Block Blast!" : {
 
@@ -131,6 +129,7 @@
     },
     "Dark" : {
       "comment" : "Menu item indicating that the appearance should be in dark mode",
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -188,7 +187,7 @@
         }
       }
     },
-    "Faire Games" : {
+    "Fair Games" : {
 
     },
     "Favorite" : {
@@ -289,6 +288,7 @@
     },
     "Light" : {
       "comment" : "Menu item indicating that the appearance should be in light mode",
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -318,6 +318,7 @@
     },
     "Name" : {
       "comment" : "Placeholder title for the Name field in a form",
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -405,9 +406,6 @@
         }
       }
     },
-    "Preferences" : {
-
-    },
     "Save" : {
       "comment" : "Button title indicating that the current contents should be saved",
       "extractionState" : "stale",
@@ -467,8 +465,12 @@
         }
       }
     },
+    "Sirtet" : {
+
+    },
     "System" : {
       "comment" : "Menu item indicating that the appearance should be in the default system mode",
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {

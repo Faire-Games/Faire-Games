@@ -6,7 +6,7 @@ import OSLog
 import SwiftUI
 
 /// A logger for the FaireGames module.
-let logger: Logger = Logger(subsystem: "org.appfair.app.Faire-Game", category: "FaireGames")
+let logger: Logger = Logger(subsystem: "org.appfair.app.Faire-Games", category: "FaireGames")s
 
 /// The shared top-level view for the app, loaded from the platform-specific App delegates below.
 ///

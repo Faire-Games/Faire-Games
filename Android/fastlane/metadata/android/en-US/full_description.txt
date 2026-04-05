@@ -1,1 +1,20 @@
-A great new app built with Skip!
+Faire Games is a free, open-source collection of classic puzzle and arcade games for iOS and Android.
+
+<b>BLOCK BLAST</b>
+Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Simple to learn, endlessly challenging to master.
+
+<b>SIRTET</b>
+The timeless falling-block game you know and love. Guide tetrominoes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking. Aim for the elusive four-line Sirtet clear for maximum points.
+
+<b>FEATURES</b>
+&#8226; Beautiful 3D block rendering with smooth animations
+&#8226; Haptic feedback that brings every move to life (can be toggled in settings)
+&#8226; High score tracking to beat your personal best
+&#8226; Drag-and-drop controls for Block Blast
+&#8226; Intuitive tap and swipe controls for Sirtet
+&#8226; Dark theme designed for comfortable play
+&#8226; Auto-pause when you switch away from the app
+&#8226; No ads, no in-app purchases, no tracking
+&#8226; 100% free and open source
+
+More games coming soon. Faire Games is distributed through App Fair and built with Skip, running natively on both iOS and Android from a single codebase.
