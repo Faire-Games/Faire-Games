@@ -433,6 +433,7 @@ struct TetrisGameView: View {
     @State var showClearEffect: Bool = false
     @State var clearEffectText: String = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(\.scenePhase) var scenePhase
     @Environment(AppPreferences.self) var appModel: AppPreferences
 
     func playHaptic(_ pattern: HapticPattern) {
@@ -443,12 +444,11 @@ struct TetrisGameView: View {
 
     var body: some View {
         GeometryReader { geo in
-            // Reserve space for header (~36), stats (~30), preview bar (~60), padding (~30)
-            let chromeHeight: CGFloat = 160
+            // Reserve space for header (~36), stats (~50), padding (~20)
+            let chromeHeight: CGFloat = 110
             let maxCellFromHeight = (geo.size.height - chromeHeight) / CGFloat(TetrisModel.rows)
             let maxCellFromWidth = (geo.size.width - 16) / CGFloat(TetrisModel.cols)
             let cellSize = max(min(maxCellFromWidth, maxCellFromHeight), 8.0)
-            let previewCellSize = cellSize * 0.55
 
             ZStack {
                 // Background
@@ -467,18 +467,12 @@ struct TetrisGameView: View {
                     headerView
                         .padding(.bottom, 4)
 
-                    // Stats row
-                    statsRow
+                    // Stats row with next piece preview
+                    statsRow(cellSize: cellSize)
                         .padding(.bottom, 6)
 
                     // Game board — full width
                     boardView(cellSize: cellSize)
-
-                    Spacer(minLength: 4)
-
-                    // Next pieces preview — at bottom
-                    previewBar(cellSize: previewCellSize)
-                        .padding(.bottom, 8)
                 }
                 .padding(.horizontal, 8)
                 .padding(.top, 4)
@@ -502,6 +496,12 @@ struct TetrisGameView: View {
         #endif
         .onAppear { startTimer() }
         .onDisappear { stopTimer() }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase != .active && !game.isGameOver && !game.isPaused {
+                game.isPaused = true
+                stopTimer()
+            }
+        }
     }
 
     // MARK: - Header
@@ -541,11 +541,13 @@ struct TetrisGameView: View {
 
     // MARK: - Stats Row
 
-    var statsRow: some View {
+    func statsRow(cellSize: CGFloat) -> some View {
         HStack(spacing: 0) {
             statBox(label: "SCORE", value: "\(game.score)")
             Spacer()
             statBox(label: "LEVEL", value: "\(game.level)")
+            Spacer()
+            nextPiecePreview(cellSize: cellSize * 0.45)
             Spacer()
             statBox(label: "LINES", value: "\(game.totalLinesCleared)")
             Spacer()
@@ -561,7 +563,7 @@ struct TetrisGameView: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.white.opacity(0.5))
             Text(value)
-                .font(.callout)
+                .font(.title3)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.white)
                 .monospaced()
@@ -660,70 +662,71 @@ struct TetrisGameView: View {
         .frame(width: cellSize, height: cellSize)
     }
 
-    // MARK: - Preview Bar (3 next pieces at bottom)
+    // MARK: - Next Piece Preview
 
-    func previewBar(cellSize: CGFloat) -> some View {
-        HStack(spacing: 16) {
-            Text("NEXT")
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundStyle(Color.white.opacity(0.5))
+    func nextPiecePreview(cellSize: CGFloat) -> some View {
+        let kind = game.nextPieces.first
+        let offsets = kind?.offsets(rotation: 0) ?? []
 
-            ForEach(0..<game.nextPieces.count, id: \.self) { idx in
-                previewPiece(kind: game.nextPieces[idx], cellSize: cellSize, isFirst: idx == 0)
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color(red: 0.06, green: 0.06, blue: 0.12))
-        )
-    }
-
-    func previewPiece(kind: TetrominoKind, cellSize: CGFloat, isFirst: Bool) -> some View {
-        let offsets = kind.offsets(rotation: 0)
-
-        var minR = offsets[0].r; var maxR = offsets[0].r
-        var minC = offsets[0].c; var maxC = offsets[0].c
+        var minR = offsets.first?.r ?? 0; var maxR = minR
+        var minC = offsets.first?.c ?? 0; var maxC = minC
         for o in offsets {
             if o.r < minR { minR = o.r }
             if o.r > maxR { maxR = o.r }
             if o.c < minC { minC = o.c }
             if o.c > maxC { maxC = o.c }
         }
-        let previewRows = maxR - minR + 1
-        let previewCols = maxC - minC + 1
-        let sz = isFirst ? cellSize : cellSize * 0.8
-        let cornerR = sz * 0.18
+        let previewRows = max(maxR - minR + 1, 1)
+        let previewCols = max(maxC - minC + 1, 1)
+        // Fixed dimensions: tallest piece is 2 rows, widest is 4 cols (I-piece)
+        let maxRows = 2
+        let maxCols = 4
+        let cornerR = cellSize * 0.18
+        // Capture colors once to avoid per-cell optional chaining issues on Android
+        let blockColor = kind?.color ?? Color.clear
+        let blockShadow = kind?.shadowColor ?? Color.clear
+        let blockHighlight = kind?.highlightColor ?? Color.clear
 
-        return VStack(spacing: 0) {
-            ForEach(0..<previewRows, id: \.self) { r in
-                HStack(spacing: 0) {
-                    ForEach(0..<previewCols, id: \.self) { c in
-                        let hasBlock = offsets.contains(where: { $0.r == r + minR && $0.c == c + minC })
-                        ZStack {
-                            if hasBlock {
-                                RoundedRectangle(cornerRadius: cornerR)
-                                    .fill(kind.shadowColor)
-                                    .frame(width: sz - 1, height: sz - 1)
-                                RoundedRectangle(cornerRadius: cornerR)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [kind.highlightColor.opacity(0.5), kind.color],
-                                            startPoint: .top,
-                                            endPoint: .bottom
-                                        )
-                                    )
-                                    .frame(width: sz - 2, height: sz - 2)
+        return VStack(spacing: 1) {
+            Text("NEXT")
+                .font(.caption2)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.white.opacity(0.5))
+            ZStack {
+                // Fixed-size invisible frame so the area never resizes
+                Color.clear
+                    .frame(width: cellSize * CGFloat(maxCols), height: cellSize * CGFloat(maxRows))
+                VStack(spacing: 0) {
+                    ForEach(0..<previewRows, id: \.self) { r in
+                        HStack(spacing: 0) {
+                            ForEach(0..<previewCols, id: \.self) { c in
+                                let hasBlock = offsets.contains(where: { $0.r == r + minR && $0.c == c + minC })
+                                ZStack {
+                                    if hasBlock {
+                                        RoundedRectangle(cornerRadius: cornerR)
+                                            .fill(blockShadow)
+                                            .frame(width: cellSize - 1, height: cellSize - 1)
+                                        RoundedRectangle(cornerRadius: cornerR)
+                                            .fill(
+                                                LinearGradient(
+                                                    colors: [
+                                                        blockHighlight.opacity(0.5),
+                                                        blockColor
+                                                    ],
+                                                    startPoint: .top,
+                                                    endPoint: .bottom
+                                                )
+                                            )
+                                            .frame(width: cellSize - 2, height: cellSize - 2)
+                                    }
+                                }
+                                .frame(width: cellSize, height: cellSize)
                             }
                         }
-                        .frame(width: sz, height: sz)
                     }
                 }
             }
         }
-        .opacity(isFirst ? 1.0 : 0.6)
     }
 
     // MARK: - Gestures
