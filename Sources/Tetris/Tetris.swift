@@ -6,7 +6,6 @@ import Observation
 import SkipKit
 import FaireGamesModel
 
-
 public struct TetrisContainerView: View {
     public init() { }
 
@@ -813,7 +812,7 @@ struct TetrisGameView: View {
 
             if fullRows.count >= 4 {
                 playHaptic(.bigCelebrate)
-                clearEffectText = "TETRIS!"
+                clearEffectText = "BAZINGA!" // "TETRIS!"
             } else if fullRows.count == 3 {
                 playHaptic(.celebrate)
                 clearEffectText = "TRIPLE"

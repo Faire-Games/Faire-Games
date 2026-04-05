@@ -25,16 +25,34 @@ struct ContentView: View {
 
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), spacing: 16)], spacing: 16) {
                         NavigationLink(destination: BlockBlastContainerView()) {
-                            GameCard(title: "Block Blast") {
+                            VStack(spacing: 10) {
                                 BlockBlastIcon()
+                                    .frame(width: 120, height: 120)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Block Blast!")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
                             }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
                         }
                         .buttonStyle(.plain)
 
                         NavigationLink(destination: TetrisContainerView()) {
-                            GameCard(title: "Tetris") {
+                            VStack(spacing: 10) {
                                 TetrisIcon()
+                                    .frame(width: 120, height: 120)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Bazinga!") // ("Tetris")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
                             }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
                         }
                         .buttonStyle(.plain)
                     }
@@ -67,34 +85,6 @@ struct ContentView: View {
         }
         .environment(appPreferences)
         .preferredColorScheme(.dark)
-    }
-}
-
-/// A card view for each game in the picker grid.
-struct GameCard<Icon: View>: View {
-    let title: String
-    @ViewBuilder let icon: () -> Icon
-
-    var body: some View {
-        VStack(spacing: 10) {
-            icon()
-                .frame(width: 120, height: 120)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-
-            Text(title)
-                .font(.headline)
-                .foregroundStyle(.white)
-        }
-        .padding(12)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white.opacity(0.08))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.white.opacity(0.15), lineWidth: 1)
-        )
     }
 }
 

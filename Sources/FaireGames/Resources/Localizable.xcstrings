@@ -90,6 +90,12 @@
         }
       }
     },
+    "Bazinga!" : {
+
+    },
+    "Block Blast!" : {
+
+    },
     "Cancel" : {
       "comment" : "Button title indicating that the operation should be cancelled",
       "extractionState" : "stale",
@@ -119,6 +125,9 @@
           }
         }
       }
+    },
+    "Choose a Game" : {
+
     },
     "Dark" : {
       "comment" : "Menu item indicating that the appearance should be in dark mode",
@@ -179,6 +188,9 @@
         }
       }
     },
+    "Faire Games" : {
+
+    },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
       "extractionState" : "stale",
@@ -208,6 +220,12 @@
           }
         }
       }
+    },
+    "Gameplay" : {
+
+    },
+    "Haptic Feedback" : {
+
     },
     "Hello [%@](https://skip.dev)!" : {
       "comment" : "Welcome tab contents",
@@ -387,6 +405,9 @@
         }
       }
     },
+    "Preferences" : {
+
+    },
     "Save" : {
       "comment" : "Button title indicating that the current contents should be saved",
       "extractionState" : "stale",
@@ -419,7 +440,6 @@
     },
     "Settings" : {
       "comment" : "Tab bar item title for the Settings tab",
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -505,9 +525,6 @@
           }
         }
       }
-    },
-    "TODO: Game Selector" : {
-
     },
     "Version %@ (%@)" : {
       "comment" : "Settings label showing the current version of the app",
