@@ -516,11 +516,10 @@ struct TetrisGameView: View {
 
             Spacer()
 
-            Text("BLOCK FALL")
+            Text("SIRTET")
                 .font(.headline)
                 .fontWeight(.black)
                 .foregroundStyle(Color.white)
-
             Spacer()
 
             Button(action: {
@@ -815,7 +814,7 @@ struct TetrisGameView: View {
 
             if fullRows.count >= 4 {
                 playHaptic(.bigCelebrate)
-                clearEffectText = "BAZINGA!" // "TETRIS!"
+                clearEffectText = "SIRTET!" // "TETRIS!"
             } else if fullRows.count == 3 {
                 playHaptic(.celebrate)
                 clearEffectText = "TRIPLE"
@@ -968,6 +967,21 @@ struct TetrisGameView: View {
                         .frame(width: 160, height: 44)
                         .border(Color.white.opacity(0.3), width: 1)
                         .cornerRadius(12)
+                }
+
+                Button(action: {
+                    stopTimer()
+                    dismiss()
+                }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 160, height: 44)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
+                        )
                 }
             }
             .padding(28)

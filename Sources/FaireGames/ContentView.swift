@@ -8,8 +8,6 @@ import BlockBlast
 import Tetris
 
 struct ContentView: View {
-    @AppStorage("name") var welcomeName = "Skipper"
-    @AppStorage("appearance") var appearance = ""
     @State var appPreferences = AppPreferences()
     @State var showSettings = false
 
@@ -45,7 +43,7 @@ struct ContentView: View {
                                 TetrisIcon()
                                     .frame(width: 120, height: 120)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Bazinga!") // ("Tetris")
+                                Text("Sirtet") // ("Tetris")
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -80,7 +78,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showSettings) {
-                SettingsView(appearance: $appearance, welcomeName: $welcomeName, appPreferences: appPreferences)
+                SettingsView(appPreferences: appPreferences)
             }
         }
         .environment(appPreferences)
@@ -165,21 +163,11 @@ struct TetrisIcon: View {
 }
 
 struct SettingsView: View {
-    @Binding var appearance: String
-    @Binding var welcomeName: String
     @Bindable var appPreferences: AppPreferences
 
     var body: some View {
         NavigationStack {
             Form {
-                Section("Preferences") {
-                    TextField("Name", text: $welcomeName)
-                    Picker("Appearance", selection: $appearance) {
-                        Text("System").tag("")
-                        Text("Light").tag("light")
-                        Text("Dark").tag("dark")
-                    }
-                }
                 Section("Gameplay") {
                     Toggle("Haptic Feedback", isOn: $appPreferences.hapticsEnabled)
                 }
