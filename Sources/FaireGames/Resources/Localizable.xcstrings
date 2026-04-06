@@ -124,9 +124,6 @@
         }
       }
     },
-    "Choose a Game" : {
-
-    },
     "Dark" : {
       "comment" : "Menu item indicating that the appearance should be in dark mode",
       "extractionState" : "stale",
@@ -157,6 +154,9 @@
         }
       }
     },
+    "Data" : {
+
+    },
     "Date" : {
       "comment" : "Item editor form label for the Date field",
       "extractionState" : "stale",
@@ -186,9 +186,6 @@
           }
         }
       }
-    },
-    "Fair Games" : {
-
     },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
@@ -406,6 +403,27 @@
         }
       }
     },
+    "Reset" : {
+
+    },
+    "Reset All" : {
+
+    },
+    "Reset All High Scores" : {
+
+    },
+    "Reset All High Scores?" : {
+
+    },
+    "Reset Block Blast High Score?" : {
+
+    },
+    "Reset High Score" : {
+
+    },
+    "Reset Sirtet High Score?" : {
+
+    },
     "Save" : {
       "comment" : "Button title indicating that the current contents should be saved",
       "extractionState" : "stale",
@@ -497,6 +515,15 @@
           }
         }
       }
+    },
+    "This will permanently reset the high scores for all games to zero." : {
+
+    },
+    "This will permanently reset your Block Blast high score to zero." : {
+
+    },
+    "This will permanently reset your Sirtet high score to zero." : {
+
     },
     "Title" : {
       "comment" : "Label for the item editor form indicating the title of the item",

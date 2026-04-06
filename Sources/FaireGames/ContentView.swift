@@ -7,26 +7,22 @@ import FaireGamesModel
 import BlockBlast
 import Tetris
 
-let gamePreviewIconSpan = 250.0
+let gamePreviewIconSpan = 120.0
 
 struct ContentView: View {
     @State var appPreferences = AppPreferences()
     @State var showSettings = false
+    @State var confirmResetBlockBlast = false
+    @State var confirmResetTetris = false
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    Text("Choose a Game")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .padding(.top, 12)
-
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: gamePreviewIconSpan + 30.0), spacing: 16)], spacing: 16) {
                         NavigationLink(destination: BlockBlastContainerView()) {
                             VStack(spacing: 10) {
-                                BlockBlastIcon()
+                                BlockBlastPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                 Text("Block Blast!")
@@ -39,10 +35,22 @@ struct ContentView: View {
                             .cornerRadius(20)
                         }
                         .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetBlockBlast = true }) {
+                                Label("Reset High Score", systemImage: "arrow.counterclockwise")
+                            }
+                        }
+                        .confirmationDialog("Reset Block Blast High Score?", isPresented: $confirmResetBlockBlast, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetBlockBlastHighScore()
+                            }
+                        } message: {
+                            Text("This will permanently reset your Block Blast high score to zero.")
+                        }
 
                         NavigationLink(destination: TetrisContainerView()) {
                             VStack(spacing: 10) {
-                                TetrisIcon()
+                                TetrisPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
                                 Text("Sirtet") // ("Tetris")
@@ -55,6 +63,18 @@ struct ContentView: View {
                             .cornerRadius(20)
                         }
                         .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetTetris = true }) {
+                                Label("Reset High Score", systemImage: "arrow.counterclockwise")
+                            }
+                        }
+                        .confirmationDialog("Reset Sirtet High Score?", isPresented: $confirmResetTetris, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetTetrisHighScore()
+                            }
+                        } message: {
+                            Text("This will permanently reset your Sirtet high score to zero.")
+                        }
                     }
                     .padding(.horizontal, 16)
                 }
@@ -67,7 +87,7 @@ struct ContentView: View {
                 )
                 .ignoresSafeArea()
             )
-            .navigationTitle("Fair Games")
+            //.navigationTitle("Fair Games")
             #if !os(macOS)
             .toolbarColorScheme(.dark, for: .navigationBar)
             #endif
@@ -88,96 +108,32 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Game Icons
-
-/// Returns the color for a Block Blast icon cell, or nil if empty.
-private func blockBlastCellColor(row: Int, col: Int) -> Color? {
-    // Bottom two rows filled
-    if row == 3 { return Color.red }
-    if row == 4 { return Color.blue }
-    // Left column stack
-    if col == 0 && row >= 0 && row <= 2 { return Color.green }
-    // Small orange block
-    if row == 2 && (col == 1 || col == 2) { return Color.orange }
-    // Purple square
-    if (row == 1 || row == 2) && (col == 3 || col == 4) { return Color.purple }
-    return nil
-}
-
-/// A dynamic Block Blast icon drawn with SwiftUI.
-struct BlockBlastIcon: View {
-    var body: some View {
-        VStack(spacing: 1) {
-            ForEach(0..<5, id: \.self) { row in
-                HStack(spacing: 1) {
-                    ForEach(0..<5, id: \.self) { col in
-                        RoundedRectangle(cornerRadius: 3)
-                            .fill(blockBlastCellColor(row: row, col: col) ?? Color(red: 0.15, green: 0.15, blue: 0.25))
-                    }
-                }
-            }
-        }
-        .padding(4)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.12, green: 0.12, blue: 0.22))
-        )
-    }
-}
-
-/// Returns the color for a Tetris icon cell, or nil if empty.
-private func tetrisCellColor(row: Int, col: Int) -> Color? {
-    // Bottom row - full line
-    if row == 7 { return Color.cyan }
-    // L-piece
-    if row == 6 && col >= 0 && col <= 2 { return Color.orange }
-    if row == 5 && col == 0 { return Color.orange }
-    // S-piece
-    if row == 6 && (col == 3 || col == 4) { return Color.green }
-    if row == 5 && (col == 4 || col == 5) { return Color.green }
-    // T-piece
-    if row == 5 && col >= 1 && col <= 3 { return Color.purple }
-    if row == 4 && col == 2 { return Color.purple }
-    // Falling I-piece
-    if col == 3 && row >= 1 && row <= 4 { return Color.cyan }
-    return nil
-}
-
-/// A dynamic Tetris icon drawn with SwiftUI.
-struct TetrisIcon: View {
-    var body: some View {
-        VStack(spacing: 1) {
-            ForEach(0..<8, id: \.self) { row in
-                HStack(spacing: 1) {
-                    ForEach(0..<6, id: \.self) { col in
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(tetrisCellColor(row: row, col: col) ?? Color.clear)
-                    }
-                }
-            }
-        }
-        .padding(4)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
-        )
-    }
-}
-
 struct SettingsView: View {
     @Bindable var appPreferences: AppPreferences
+    @State var confirmResetAll = false
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section("Gameplay") {
-                    Toggle("Haptic Feedback", isOn: $appPreferences.hapticsEnabled)
+        AppFairSettings {
+            Section("Gameplay") {
+                Toggle("Haptic Feedback", isOn: $appPreferences.hapticsEnabled)
+            }
+            Section("Data") {
+                Button(role: .destructive, action: { confirmResetAll = true }) {
+                    Text("Reset All High Scores")
+                }
+                .confirmationDialog("Reset All High Scores?", isPresented: $confirmResetAll, titleVisibility: .visible) {
+                    Button("Reset All", role: .destructive) {
+                        resetBlockBlastHighScore()
+                        resetTetrisHighScore()
+                    }
+                } message: {
+                    Text("This will permanently reset the high scores for all games to zero.")
                 }
             }
-            .navigationTitle("Settings")
-            #if !os(macOS)
-            .navigationBarTitleDisplayMode(.inline)
-            #endif
         }
+        .navigationTitle("Settings")
+        #if !os(macOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
 }

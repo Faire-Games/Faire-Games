@@ -421,6 +421,16 @@ enum TetrominoKind: Int, CaseIterable {
     func loadHighScore() {
         highScore = UserDefaults.standard.integer(forKey: "tetris_highscore")
     }
+
+    /// Resets the persisted high score to zero.
+    static func resetHighScore() {
+        UserDefaults.standard.set(0, forKey: "tetris_highscore")
+    }
+}
+
+/// Resets the Tetris high score to zero.
+public func resetTetrisHighScore() {
+    TetrisModel.resetHighScore()
 }
 
 // MARK: - Game View
@@ -1004,5 +1014,80 @@ struct TetrisGameView: View {
                 .shadow(color: Color.blue.opacity(0.8), radius: 12)
                 .padding(.bottom, 100)
         }
+    }
+}
+
+// MARK: - Preview Icon
+
+/// Returns the TetrominoKind for a Tetris preview icon cell, or nil if empty.
+/// Uses an 8x8 grid with pieces positioned to look appealing as a square icon.
+private func tetrisPreviewKind(row: Int, col: Int) -> TetrominoKind? {
+    // Bottom row - full line (I-piece cyan)
+    if row == 7 && col >= 1 && col <= 6 { return .i }
+    // L-piece (orange)
+    if row == 6 && col >= 1 && col <= 3 { return .l }
+    if row == 5 && col == 1 { return .l }
+    // S-piece (green)
+    if row == 6 && (col == 4 || col == 5) { return .s }
+    if row == 5 && (col == 5 || col == 6) { return .s }
+    // T-piece (purple)
+    if row == 5 && col >= 2 && col <= 4 { return .t }
+    if row == 4 && col == 3 { return .t }
+    // Falling I-piece (cyan)
+    if col == 4 && row >= 1 && row <= 4 { return .i }
+    return nil
+}
+
+/// A preview icon for the Tetris game, using the same 3D cell rendering as the game.
+public struct TetrisPreviewIcon: View {
+    public init() { }
+
+    public var body: some View {
+        GeometryReader { geo in
+            let gridSize = 8
+            let padding: CGFloat = 4
+            let available = min(geo.size.width, geo.size.height) - padding * 2
+            let cellSize = available / CGFloat(gridSize)
+            let cornerR = cellSize * 0.18
+
+            VStack(spacing: 0) {
+                ForEach(0..<gridSize, id: \.self) { row in
+                    HStack(spacing: 0) {
+                        ForEach(0..<gridSize, id: \.self) { col in
+                            let kind = tetrisPreviewKind(row: row, col: col)
+                            ZStack {
+                                if let kind = kind {
+                                    // Shadow base layer — same as singleCell in game
+                                    RoundedRectangle(cornerRadius: cornerR)
+                                        .fill(kind.shadowColor)
+                                        .frame(width: cellSize - 1, height: cellSize - 1)
+                                    // Main face with gradient — same as singleCell in game
+                                    RoundedRectangle(cornerRadius: cornerR)
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [
+                                                    kind.highlightColor.opacity(0.5),
+                                                    kind.color
+                                                ],
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+                                        .frame(width: cellSize - 2, height: cellSize - 2)
+                                }
+                            }
+                            .frame(width: cellSize, height: cellSize)
+                        }
+                    }
+                }
+            }
+            .padding(padding)
+            .frame(width: geo.size.width, height: geo.size.height)
+        }
+        .aspectRatio(1, contentMode: .fit)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
+        )
     }
 }

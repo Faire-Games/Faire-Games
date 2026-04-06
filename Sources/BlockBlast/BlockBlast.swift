@@ -508,7 +508,7 @@ struct BlockBlastGameView: View {
 // MARK: - Color Palette
 
 /// Block colors used throughout the game
-private struct BlockColors {
+struct BlockColors {
     static func color(for index: Int) -> Color {
         switch index {
         case 0: return Color.red
@@ -996,5 +996,86 @@ final class GamePiece: Identifiable, Hashable {
 
     private func loadHighScore() {
         highScore = UserDefaults.standard.integer(forKey: "blockblast_highscore")
+    }
+
+    /// Resets the persisted high score to zero.
+    static func resetHighScore() {
+        UserDefaults.standard.set(0, forKey: "blockblast_highscore")
+    }
+}
+
+// MARK: - Public High Score Reset
+
+/// Resets the Block Blast high score to zero.
+public func resetBlockBlastHighScore() {
+    GameModel.resetHighScore()
+}
+
+// MARK: - Preview Icon
+
+/// Returns the color index for a Block Blast preview icon cell, or -1 if empty.
+private func blockBlastPreviewColorIndex(row: Int, col: Int) -> Int {
+    // Bottom two rows filled
+    if row == 3 { return 0 } // red
+    if row == 4 { return 1 } // blue
+    // Left column stack
+    if col == 0 && row >= 0 && row <= 2 { return 2 } // green
+    // Small orange block
+    if row == 2 && (col == 1 || col == 2) { return 3 } // orange
+    // Purple square
+    if (row == 1 || row == 2) && (col == 3 || col == 4) { return 4 } // purple
+    return -1
+}
+
+/// A preview icon for the Block Blast game, using the same 3D cell rendering as the game.
+public struct BlockBlastPreviewIcon: View {
+    public init() { }
+
+    public var body: some View {
+        GeometryReader { geo in
+            let gridSize = 5
+            let spacing: CGFloat = 1
+            let totalSpacing = spacing * CGFloat(gridSize - 1)
+            let padding: CGFloat = 4
+            let available = min(geo.size.width, geo.size.height) - padding * 2
+            let cellSize = (available - totalSpacing) / CGFloat(gridSize)
+
+            VStack(spacing: spacing) {
+                ForEach(0..<gridSize, id: \.self) { row in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<gridSize, id: \.self) { col in
+                            let colorIndex = blockBlastPreviewColorIndex(row: row, col: col)
+                            ZStack {
+                                if colorIndex >= 0 {
+                                    RoundedRectangle(cornerRadius: 3)
+                                        .fill(BlockColors.color(for: colorIndex))
+                                        .frame(width: cellSize, height: cellSize)
+                                    RoundedRectangle(cornerRadius: 3)
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [Color.white.opacity(0.3), Color.clear],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                        .frame(width: cellSize, height: cellSize)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 3)
+                                        .fill(Color.white.opacity(0.05))
+                                        .frame(width: cellSize, height: cellSize)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .padding(padding)
+            .frame(width: geo.size.width, height: geo.size.height)
+        }
+        .aspectRatio(1, contentMode: .fit)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(red: 0.12, green: 0.12, blue: 0.22))
+        )
     }
 }
