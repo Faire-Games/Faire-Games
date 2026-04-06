@@ -37,7 +37,7 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetBlockBlast = true }) {
-                                Label("Reset High Score", systemImage: "arrow.counterclockwise")
+                                Label("Reset High Score", image: "restart_alt")
                             }
                         }
                         .confirmationDialog("Reset Block Blast High Score?", isPresented: $confirmResetBlockBlast, titleVisibility: .visible) {
@@ -65,7 +65,7 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetTetris = true }) {
-                                Label("Reset High Score", systemImage: "arrow.counterclockwise")
+                                Label("Reset High Score", image: "restart_alt")
                             }
                         }
                         .confirmationDialog("Reset Sirtet High Score?", isPresented: $confirmResetTetris, titleVisibility: .visible) {
@@ -94,7 +94,7 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button(action: { showSettings = true }) {
-                        Image(systemName: "gearshape.fill")
+                        Image("settings", bundle: .module)
                             .foregroundStyle(.white)
                     }
                 }

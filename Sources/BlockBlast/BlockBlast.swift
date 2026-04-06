@@ -90,7 +90,7 @@ struct BlockBlastGameView: View {
     var scoreHeader: some View {
         HStack(spacing: 12) {
             Button(action: { dismiss() }) {
-                Image(systemName: "xmark")
+                Image("close", bundle: .module)
                     .font(.system(size: 13, weight: .bold))
                     .foregroundStyle(Color.white.opacity(0.7))
                     .frame(width: 30, height: 30)
@@ -170,6 +170,14 @@ struct BlockBlastGameView: View {
                             x: originX + CGFloat(col) * cs,
                             y: originY + CGFloat(row) * cs
                         )
+                    }
+                }
+
+                // Floating drag piece — rendered inside the board ZStack so it
+                // shares the exact same coordinate space as the grid cells.
+                if isDragging && dragPieceIndex >= 0 && dragPieceIndex < game.currentPieces.count {
+                    if let piece = game.currentPieces[dragPieceIndex] {
+                        floatingPiece(piece: piece, boardOriginX: originX, cs: cs)
                     }
                 }
             }
@@ -312,6 +320,60 @@ struct BlockBlastGameView: View {
                     }
                 }
         )
+    }
+
+    // MARK: - Floating Drag Piece
+
+    func floatingPiece(piece: GamePiece, boardOriginX: CGFloat, cs: CGFloat) -> some View {
+        let shape = piece.shape
+        let pieceWidth = CGFloat(shape.width) * cs
+        let pieceHeight = CGFloat(shape.height) * cs
+        let fingerOffset: CGFloat = cs * 2.5
+
+        // Use boardOrigin (global coords of the board) to convert the global
+        // dragLocation into board-relative coordinates. This is the same math
+        // used for the ghost highlight in handleDragChanged, ensuring they
+        // always align perfectly on all platforms.
+        //
+        // Board-relative top-left of the piece:
+        let boardRelX = dragLocation.x - boardOrigin.x - pieceWidth / 2.0
+        let boardRelY = dragLocation.y - boardOrigin.y - fingerOffset - pieceHeight / 2.0
+
+        // In the board's ZStack, grid cells are placed at (boardOriginX + col*cs, row*cs).
+        // boardOrigin tracks the global position of the board background, which starts
+        // at boardOriginX within the ZStack. So to place in ZStack coords:
+        let offsetX = boardOriginX + boardRelX
+        let offsetY = boardRelY
+
+        return ZStack(alignment: .topLeading) {
+            ForEach(0..<shape.cells.count, id: \.self) { ci in
+                let cell = shape.cells[ci]
+                let inset: CGFloat = 1.5
+                ZStack {
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(BlockColors.color(for: shape.colorIndex))
+                        .frame(width: cs - inset * 2, height: cs - inset * 2)
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.3), Color.clear],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: cs - inset * 2, height: cs - inset * 2)
+                }
+                .frame(width: cs, height: cs)
+                .offset(
+                    x: CGFloat(cell.col) * cs,
+                    y: CGFloat(cell.row) * cs
+                )
+            }
+        }
+        .frame(width: pieceWidth, height: pieceHeight, alignment: .topLeading)
+        .shadow(color: Color.black.opacity(0.5), radius: 8, y: 4)
+        .offset(x: offsetX, y: offsetY)
+        .allowsHitTesting(false)
     }
 
     // MARK: - Haptic Helper

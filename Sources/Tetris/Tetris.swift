@@ -519,7 +519,7 @@ struct TetrisGameView: View {
     var headerView: some View {
         HStack(spacing: 12) {
             Button(action: { dismiss() }) {
-                Image(systemName: "xmark.circle.fill")
+                Image("cancel", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.6))
             }
@@ -540,7 +540,7 @@ struct TetrisGameView: View {
                     startTimer()
                 }
             }) {
-                Image(systemName: game.isPaused ? "play.circle.fill" : "pause.circle.fill")
+                Image(game.isPaused ? "play_circle" : "pause_circle", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.6))
             }

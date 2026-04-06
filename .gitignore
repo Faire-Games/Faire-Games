@@ -1,4 +1,6 @@
 ## User settings
+xcuserdata/
+xcshareddata/
 
 # vi
 .*.swp
