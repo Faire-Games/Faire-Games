@@ -4,7 +4,7 @@ Faire Games is a free, open-source collection of classic puzzle and arcade games
 Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Simple to learn, endlessly challenging to master.
 
 <b>SIRTET</b>
-The timeless falling-block game you know and love. Guide tetrominoes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking. Aim for the elusive four-line Sirtet clear for maximum points.
+The timeless falling-block game you know and love. Guide tetro-cubes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking. Aim for the elusive four-line Sirtet clear for maximum points.
 
 <b>FEATURES</b>
 &#8226; Beautiful 3D block rendering with smooth animations
