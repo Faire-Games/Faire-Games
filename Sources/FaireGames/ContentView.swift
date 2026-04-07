@@ -6,6 +6,7 @@ import AppFairUI
 import FaireGamesModel
 import BlockBlast
 import Tetris
+import JewelCrush
 
 let gamePreviewIconSpan = 120.0
 
@@ -14,6 +15,7 @@ struct ContentView: View {
     @State var showSettings = false
     @State var confirmResetBlockBlast = false
     @State var confirmResetTetris = false
+    @State var confirmResetJewelCrush = false
 
     var body: some View {
         NavigationStack {
@@ -75,6 +77,36 @@ struct ContentView: View {
                         } message: {
                             Text("This will permanently reset your Sirtet high score to zero.")
                         }
+
+                        if appPreferences.showBetaGames {
+                            NavigationLink(destination: JewelCrushContainerView()) {
+                                VStack(spacing: 10) {
+                                    JewelCrushPreviewIcon()
+                                        .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    Text("Jewel Crush")
+                                        .font(.headline)
+                                        .foregroundStyle(Color.white)
+                                }
+                                .padding(12)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.white.opacity(0.08))
+                                .cornerRadius(20)
+                            }
+                            .buttonStyle(.plain)
+                            .contextMenu {
+                                Button(role: .destructive, action: { confirmResetJewelCrush = true }) {
+                                    Label("Reset Level", image: "restart_alt")
+                                }
+                            }
+                            .confirmationDialog("Reset Jewel Crush Level?", isPresented: $confirmResetJewelCrush, titleVisibility: .visible) {
+                                Button("Reset", role: .destructive) {
+                                    resetJewelCrushProgress()
+                                }
+                            } message: {
+                                Text("This will reset your Jewel Crush progress back to Level 1.")
+                            }
+                        }
                     }
                     .padding(.horizontal, 16)
                 }
@@ -116,18 +148,25 @@ struct SettingsView: View {
         AppFairSettings {
             Section("Gameplay") {
                 Toggle("Haptic Feedback", isOn: $appPreferences.hapticsEnabled)
+                Picker("Game Levels", selection: $appPreferences.levelPreference) {
+                    Text("All Levels").tag("both")
+                    Text("Untimed Only").tag("untimed")
+                    Text("Timed Only").tag("timed")
+                }
+                Toggle("Show Beta Games", isOn: $appPreferences.showBetaGames)
             }
             Section("Data") {
                 Button(role: .destructive, action: { confirmResetAll = true }) {
-                    Text("Reset All High Scores")
+                    Text("Reset All Progress")
                 }
-                .confirmationDialog("Reset All High Scores?", isPresented: $confirmResetAll, titleVisibility: .visible) {
+                .confirmationDialog("Reset All Progress?", isPresented: $confirmResetAll, titleVisibility: .visible) {
                     Button("Reset All", role: .destructive) {
                         resetBlockBlastHighScore()
                         resetTetrisHighScore()
+                        resetJewelCrushProgress()
                     }
                 } message: {
-                    Text("This will permanently reset the high scores for all games to zero.")
+                    Text("This will permanently reset all high scores and game progress to zero.")
                 }
             }
         }

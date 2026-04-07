@@ -61,6 +61,9 @@
         }
       }
     },
+    "All Levels" : {
+
+    },
     "Appearance" : {
       "comment" : "Settings select label for the interface style of the controls (light, dark, or default)",
       "extractionState" : "stale",
@@ -217,6 +220,9 @@
         }
       }
     },
+    "Game Levels" : {
+
+    },
     "Gameplay" : {
 
     },
@@ -282,6 +288,9 @@
           }
         }
       }
+    },
+    "Jewel Crush" : {
+
     },
     "Light" : {
       "comment" : "Menu item indicating that the appearance should be in light mode",
@@ -409,16 +418,22 @@
     "Reset All" : {
 
     },
-    "Reset All High Scores" : {
+    "Reset All Progress" : {
 
     },
-    "Reset All High Scores?" : {
+    "Reset All Progress?" : {
 
     },
     "Reset Block Blast High Score?" : {
 
     },
     "Reset High Score" : {
+
+    },
+    "Reset Jewel Crush Level?" : {
+
+    },
+    "Reset Level" : {
 
     },
     "Reset Sirtet High Score?" : {
@@ -483,6 +498,9 @@
         }
       }
     },
+    "Show Beta Games" : {
+
+    },
     "Sirtet" : {
 
     },
@@ -516,13 +534,19 @@
         }
       }
     },
-    "This will permanently reset the high scores for all games to zero." : {
+    "This will permanently reset all high scores and game progress to zero." : {
 
     },
     "This will permanently reset your Block Blast high score to zero." : {
 
     },
     "This will permanently reset your Sirtet high score to zero." : {
+
+    },
+    "This will reset your Jewel Crush progress back to Level 1." : {
+
+    },
+    "Timed Only" : {
 
     },
     "Title" : {
@@ -554,6 +578,9 @@
           }
         }
       }
+    },
+    "Untimed Only" : {
+
     },
     "Version %@ (%@)" : {
       "comment" : "Settings label showing the current version of the app",

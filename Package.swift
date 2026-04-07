@@ -11,6 +11,7 @@ let package = Package(
         .library(name: "FaireGamesModel", type: .dynamic, targets: ["FaireGamesModel"]),
         .library(name: "BlockBlast", type: .dynamic, targets: ["BlockBlast"]),
         .library(name: "Tetris", type: .dynamic, targets: ["Tetris"]),
+        .library(name: "JewelCrush", type: .dynamic, targets: ["JewelCrush"]),
     ],
     dependencies: [
         .package(url: "https://source.skip.tools/skip.git", from: "1.0.0"),
@@ -23,6 +24,7 @@ let package = Package(
             "FaireGamesModel",
             "BlockBlast",
             "Tetris",
+            "JewelCrush",
             .product(name: "AppFairUI", package: "appfair-app")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "FaireGamesTests", dependencies: [
@@ -45,6 +47,15 @@ let package = Package(
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "TetrisTests", dependencies: [
             "Tetris",
+            .product(name: "SkipTest", package: "skip")
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .target(name: "JewelCrush", dependencies: [
+            "FaireGamesModel",
+            .product(name: "SkipKit", package: "skip-kit"),
+            .product(name: "AppFairUI", package: "appfair-app"),
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .testTarget(name: "JewelCrushTests", dependencies: [
+            "JewelCrush",
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "FaireGamesModel", dependencies: [
