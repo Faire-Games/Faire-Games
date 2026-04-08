@@ -187,6 +187,9 @@
         }
       }
     },
+    "Done" : {
+
+    },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
       "extractionState" : "stale",
@@ -462,7 +465,6 @@
     },
     "Settings" : {
       "comment" : "Tab bar item title for the Settings tab",
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -489,6 +491,9 @@
           }
         }
       }
+    },
+    "Sirtet" : {
+
     },
     "SIRTET" : {
 
@@ -588,6 +593,9 @@
           }
         }
       }
+    },
+    "Vibrations" : {
+
     },
     "Welcome" : {
       "comment" : "Tab bar item title for the Welcome tab",

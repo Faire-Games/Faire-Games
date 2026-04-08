@@ -61,9 +61,6 @@
         }
       }
     },
-    "All Levels" : {
-
-    },
     "Appearance" : {
       "comment" : "Settings select label for the interface style of the controls (light, dark, or default)",
       "extractionState" : "stale",
@@ -220,13 +217,7 @@
         }
       }
     },
-    "Game Levels" : {
-
-    },
     "Gameplay" : {
-
-    },
-    "Haptic Feedback" : {
 
     },
     "Hello [%@](https://skip.dev)!" : {
@@ -498,7 +489,7 @@
         }
       }
     },
-    "Show Beta Games" : {
+    "Show Experimental Games" : {
 
     },
     "Sirtet" : {
@@ -546,9 +537,6 @@
     "This will reset your Jewel Crush progress back to Level 1." : {
 
     },
-    "Timed Only" : {
-
-    },
     "Title" : {
       "comment" : "Label for the item editor form indicating the title of the item",
       "extractionState" : "stale",
@@ -578,9 +566,6 @@
           }
         }
       }
-    },
-    "Untimed Only" : {
-
     },
     "Version %@ (%@)" : {
       "comment" : "Settings label showing the current version of the app",

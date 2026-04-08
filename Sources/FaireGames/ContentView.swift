@@ -11,7 +11,7 @@ import JewelCrush
 let gamePreviewIconSpan = 120.0
 
 struct ContentView: View {
-    @State var appPreferences = AppPreferences()
+    @State var gamePreferences = GamePreferences()
     @State var showSettings = false
     @State var confirmResetBlockBlast = false
     @State var confirmResetTetris = false
@@ -78,7 +78,7 @@ struct ContentView: View {
                             Text("This will permanently reset your Sirtet high score to zero.")
                         }
 
-                        if appPreferences.showBetaGames {
+                        if gamePreferences.showBetaGames {
                             NavigationLink(destination: JewelCrushContainerView()) {
                                 VStack(spacing: 10) {
                                     JewelCrushPreviewIcon()
@@ -132,28 +132,21 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showSettings) {
-                SettingsView(appPreferences: appPreferences)
+                SettingsView(gamePreferences: gamePreferences)
             }
         }
-        .environment(appPreferences)
         .preferredColorScheme(.dark)
     }
 }
 
 struct SettingsView: View {
-    @Bindable var appPreferences: AppPreferences
+    @Bindable var gamePreferences: GamePreferences
     @State var confirmResetAll = false
 
     var body: some View {
         AppFairSettings {
             Section("Gameplay") {
-                Toggle("Haptic Feedback", isOn: $appPreferences.hapticsEnabled)
-                Picker("Game Levels", selection: $appPreferences.levelPreference) {
-                    Text("All Levels").tag("both")
-                    Text("Untimed Only").tag("untimed")
-                    Text("Timed Only").tag("timed")
-                }
-                Toggle("Show Beta Games", isOn: $appPreferences.showBetaGames)
+                Toggle("Show Experimental Games", isOn: $gamePreferences.showBetaGames)
             }
             Section("Data") {
                 Button(role: .destructive, action: { confirmResetAll = true }) {

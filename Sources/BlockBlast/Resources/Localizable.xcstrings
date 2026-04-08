@@ -100,6 +100,9 @@
         }
       }
     },
+    "At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable." : {
+
+    },
     "BEST" : {
 
     },
@@ -199,6 +202,15 @@
         }
       }
     },
+    "Difficulty" : {
+
+    },
+    "Done" : {
+
+    },
+    "Easy" : {
+
+    },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
       "extractionState" : "stale",
@@ -230,6 +242,9 @@
       }
     },
     "Game Over" : {
+
+    },
+    "Hard" : {
 
     },
     "Hello [%@](https://skip.dev)!" : {
@@ -291,6 +306,9 @@
           }
         }
       }
+    },
+    "Level" : {
+
     },
     "Light" : {
       "comment" : "Menu item indicating that the appearance should be in light mode",
@@ -462,7 +480,6 @@
     },
     "Settings" : {
       "comment" : "Tab bar item title for the Settings tab",
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -585,6 +602,9 @@
           }
         }
       }
+    },
+    "Vibrations" : {
+
     },
     "Welcome" : {
       "comment" : "Tab bar item title for the Welcome tab",

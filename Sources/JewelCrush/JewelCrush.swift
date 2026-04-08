@@ -5,7 +5,6 @@ import SwiftUI
 import Observation
 import SkipKit
 import SkipModel
-import FaireGamesModel
 
 // MARK: - Jewel Kind
 
@@ -420,6 +419,8 @@ func celebrationMessage(largestMatch: Int, combo: Int) -> String {
 // MARK: - Container View
 
 public struct JewelCrushContainerView: View {
+    @State private var settings = JewelCrushSettings()
+
     public init() { }
 
     public var body: some View {
@@ -430,6 +431,7 @@ public struct JewelCrushContainerView: View {
             .toolbar(.hidden, for: .tabBar)
             .colorScheme(.dark)
             #endif
+            .environment(settings)
     }
 }
 
@@ -445,11 +447,12 @@ struct JewelCrushGameView: View {
     @State var dragTargetRow: Int = -1
     @State var dragTargetCol: Int = -1
     @State var dragValid: Bool = false
+    @State var showSettings: Bool = false
     @Environment(\.dismiss) var dismiss
-    @Environment(AppPreferences.self) var appModel: AppPreferences
+    @Environment(JewelCrushSettings.self) var settings: JewelCrushSettings
 
     func playHaptic(_ pattern: HapticPattern) {
-        if appModel.hapticsEnabled {
+        if settings.vibrations {
             HapticFeedback.play(pattern)
         }
     }
@@ -527,6 +530,9 @@ struct JewelCrushGameView: View {
         #endif
         .onAppear { startTimerIfNeeded() }
         .onDisappear { stopTimer() }
+        .sheet(isPresented: $showSettings) {
+            JewelCrushSettingsView(settings: settings)
+        }
     }
 
     // MARK: - Header
@@ -589,6 +595,15 @@ struct JewelCrushGameView: View {
                         .font(.caption2)
                         .foregroundStyle(Color.white.opacity(0.5))
                 }
+            }
+
+            Button(action: { showSettings = true }) {
+                Image("settings", bundle: .module)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(Color.white.opacity(0.7))
+                    .frame(width: 30, height: 30)
+                    .background(Color.white.opacity(0.12))
+                    .clipShape(Circle())
             }
         }
         .padding(.horizontal, 8)
@@ -1017,8 +1032,7 @@ struct JewelCrushGameView: View {
 
                 Button(action: {
                     stopTimer()
-                    let pref = UserDefaults.standard.string(forKey: "levelPreference") ?? "both"
-                    let next = nextPlayableLevel(from: game.currentLevel + 1, preference: pref)
+                    let next = nextPlayableLevel(from: game.currentLevel + 1, preference: settings.levelPreference)
                     game.startLevel(next)
                     startTimerIfNeeded()
                 }) {
@@ -1216,5 +1230,63 @@ public struct JewelCrushPreviewIcon: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(red: 0.1, green: 0.06, blue: 0.2))
         )
+    }
+}
+
+// MARK: - In-Game Settings Sheet
+
+struct JewelCrushSettingsView: View {
+    @Bindable var settings: JewelCrushSettings
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Jewel Crush") {
+                    Toggle("Vibrations", isOn: $settings.vibrations)
+                    Picker("Game Levels", selection: $settings.levelPreference) {
+                        Text("All Levels").tag("both")
+                        Text("Untimed Only").tag("untimed")
+                        Text("Timed Only").tag("timed")
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Preferences
+
+/// Settings specific to the Jewel Crush game.
+@Observable
+public class JewelCrushSettings {
+    /// Whether vibrations (haptic feedback) are enabled for Jewel Crush.
+    public var vibrations: Bool = defaults.value(forKey: "jewelCrushVibrations", default: true) {
+        didSet { defaults.set(vibrations, forKey: "jewelCrushVibrations") }
+    }
+
+    /// Level filter: "both", "untimed", or "timed".
+    public var levelPreference: String = defaults.value(forKey: "levelPreference", default: "both") {
+        didSet { defaults.set(levelPreference, forKey: "levelPreference") }
+    }
+
+    public init() {
+    }
+}
+
+nonisolated(unsafe) private let defaults = UserDefaults.standard
+
+private extension UserDefaults {
+    func value<T>(forKey key: String, default defaultValue: T) -> T {
+        UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
     }
 }

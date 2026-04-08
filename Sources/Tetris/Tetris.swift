@@ -4,9 +4,10 @@
 import SwiftUI
 import Observation
 import SkipKit
-import FaireGamesModel
 
 public struct TetrisContainerView: View {
+    @State private var settings = TetrisSettings()
+
     public init() { }
 
     public var body: some View {
@@ -17,6 +18,7 @@ public struct TetrisContainerView: View {
             .toolbar(.hidden, for: .tabBar)
             .colorScheme(.dark)
             #endif
+            .environment(settings)
     }
 }
 
@@ -442,12 +444,13 @@ struct TetrisGameView: View {
     @State var dragAccumulatedY: CGFloat = 0.0
     @State var showClearEffect: Bool = false
     @State var clearEffectText: String = ""
+    @State var showSettings: Bool = false
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
-    @Environment(AppPreferences.self) var appModel: AppPreferences
+    @Environment(TetrisSettings.self) var settings: TetrisSettings
 
     func playHaptic(_ pattern: HapticPattern) {
-        if appModel.hapticsEnabled {
+        if settings.vibrations {
             HapticFeedback.play(pattern)
         }
     }
@@ -511,6 +514,9 @@ struct TetrisGameView: View {
                 game.isPaused = true
                 stopTimer()
             }
+        }
+        .sheet(isPresented: $showSettings) {
+            TetrisSettingsView(settings: settings)
         }
     }
 
@@ -979,6 +985,16 @@ struct TetrisGameView: View {
                         .cornerRadius(12)
                 }
 
+                Button(action: { showSettings = true }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white.opacity(0.8))
+                        .frame(width: 160, height: 44)
+                        .border(Color.white.opacity(0.3), width: 1)
+                        .cornerRadius(12)
+                }
+
                 Button(action: {
                     stopTimer()
                     dismiss()
@@ -1089,5 +1105,51 @@ public struct TetrisPreviewIcon: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
         )
+    }
+}
+
+// MARK: - In-Game Settings Sheet
+
+struct TetrisSettingsView: View {
+    @Bindable var settings: TetrisSettings
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Sirtet") {
+                    Toggle("Vibrations", isOn: $settings.vibrations)
+                }
+            }
+            .navigationTitle("Settings")
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+}
+
+/// Settings specific to the Sirtet (Tetris) game.
+@Observable
+public class TetrisSettings {
+    /// Whether vibrations (haptic feedback) are enabled for Sirtet.
+    public var vibrations: Bool = defaults.value(forKey: "tetrisVibrations", default: true) {
+        didSet { defaults.set(vibrations, forKey: "tetrisVibrations") }
+    }
+
+    public init() {
+    }
+}
+
+nonisolated(unsafe) private let defaults = UserDefaults.standard
+
+private extension UserDefaults {
+    func value<T>(forKey key: String, default defaultValue: T) -> T {
+        UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
     }
 }

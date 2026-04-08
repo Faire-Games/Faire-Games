@@ -32,7 +32,6 @@ let package = Package(
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "BlockBlast", dependencies: [
-            "FaireGamesModel",
             .product(name: "SkipKit", package: "skip-kit"),
             .product(name: "AppFairUI", package: "appfair-app"),
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
@@ -41,7 +40,6 @@ let package = Package(
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "Tetris", dependencies: [
-            "FaireGamesModel",
             .product(name: "SkipKit", package: "skip-kit"),
             .product(name: "AppFairUI", package: "appfair-app")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
@@ -50,7 +48,6 @@ let package = Package(
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "JewelCrush", dependencies: [
-            "FaireGamesModel",
             .product(name: "SkipKit", package: "skip-kit"),
             .product(name: "AppFairUI", package: "appfair-app"),
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),

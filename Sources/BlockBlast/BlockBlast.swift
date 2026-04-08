@@ -5,10 +5,10 @@ import SwiftUI
 import Observation
 import SkipKit
 import SkipModel
-import FaireGamesModel
-
 
 public struct BlockBlastContainerView: View {
+    @State private var settings = BlockBlastSettings()
+
     public init() { }
 
     public var body: some View {
@@ -19,6 +19,7 @@ public struct BlockBlastContainerView: View {
             .toolbar(.hidden, for: .tabBar)
             .colorScheme(.dark)
             #endif
+            .environment(settings)
     }
 }
 
@@ -37,8 +38,9 @@ struct BlockBlastGameView: View {
     @State var showCombo: Bool = false
     @State var prevHighlightRow: Int = -1
     @State var prevHighlightCol: Int = -1
+    @State var showSettings: Bool = false
     @Environment(\.dismiss) var dismiss
-    @Environment(AppPreferences.self) var appModel: AppPreferences
+    @Environment(BlockBlastSettings.self) var settings: BlockBlastSettings
 
     var body: some View {
         ZStack {
@@ -83,6 +85,15 @@ struct BlockBlastGameView: View {
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
         #endif
+        .sheet(isPresented: $showSettings) {
+            BlockBlastSettingsView(settings: settings)
+        }
+        .onAppear {
+            game.solvabilityAttempts = settings.solvabilityAttempts
+        }
+        .onChange(of: settings.difficulty) { _, _ in
+            game.solvabilityAttempts = settings.solvabilityAttempts
+        }
     }
 
     // MARK: - Score Header
@@ -128,9 +139,18 @@ struct BlockBlastGameView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.yellow)
             }
+
+            Button(action: { showSettings = true }) {
+                Image("settings", bundle: .module)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundStyle(Color.white.opacity(0.7))
+                    .frame(width: 30, height: 30)
+                    .background(Color.white.opacity(0.12))
+                    .clipShape(Circle())
+            }
         }
         .padding(.leading, 12)
-        .padding(.trailing, 16)
+        .padding(.trailing, 12)
         .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 12)
@@ -379,7 +399,7 @@ struct BlockBlastGameView: View {
     // MARK: - Haptic Helper
 
     func playHaptic(_ pattern: HapticPattern) {
-        if appModel.hapticsEnabled {
+        if settings.vibrations {
             HapticFeedback.play(pattern)
         }
     }
@@ -872,6 +892,11 @@ final class GamePiece: Identifiable, Hashable {
     /// Set of cells to animate as clearing
     var clearingCells: Set<Int> = []
 
+    /// Number of attempts to make when generating a solvable piece set.
+    /// 0 means no validation (purely random), higher values try harder to
+    /// find a solvable set. Set by the view from the player's difficulty preference.
+    var solvabilityAttempts: Int = 20
+
     init() {
         loadHighScore()
         spawnNewPieces()
@@ -890,12 +915,107 @@ final class GamePiece: Identifiable, Hashable {
     }
 
     func spawnNewPieces() {
+        // Try up to `solvabilityAttempts` random sets to find a solvable one.
+        // When attempts is 0 (max difficulty), we skip directly to a pure random pick.
+        for _ in 0..<solvabilityAttempts {
+            let shapes = ShapeLibrary.randomSet()
+            if isSolvableSet(shapes: shapes) {
+                currentPieces = [
+                    GamePiece(shape: shapes[0]),
+                    GamePiece(shape: shapes[1]),
+                    GamePiece(shape: shapes[2])
+                ]
+                return
+            }
+        }
+        // Fallback (or pure-random when attempts == 0): use whatever we got
         let shapes = ShapeLibrary.randomSet()
         currentPieces = [
             GamePiece(shape: shapes[0]),
             GamePiece(shape: shapes[1]),
             GamePiece(shape: shapes[2])
         ]
+    }
+
+    /// Check if there exists at least one ordering of the 3 shapes where
+    /// all can be placed sequentially on the current board.
+    /// For each permutation, greedily places each shape at the first valid
+    /// position found, applying line clears between placements.
+    private func isSolvableSet(shapes: [BlockShape]) -> Bool {
+        let gs = GameModel.gridSize
+        // Try all 6 permutations of 3 shapes
+        let perms = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+        for perm in perms {
+            // Copy the grid for simulation
+            var simGrid: [[Int]] = []
+            for r in 0..<gs {
+                simGrid.append(grid[r])
+            }
+            var allPlaced = true
+            for idx in perm {
+                let shape = shapes[idx]
+                let placed = simulatePlace(shape: shape, grid: &simGrid)
+                if !placed {
+                    allPlaced = false
+                    break
+                }
+                simulateClearLines(grid: &simGrid)
+            }
+            if allPlaced {
+                return true
+            }
+        }
+        return false
+    }
+
+    /// Try to place a shape anywhere on the simulated grid. Returns true if placed.
+    private func simulatePlace(shape: BlockShape, grid: inout [[Int]]) -> Bool {
+        let gs = GameModel.gridSize
+        for r in 0..<gs {
+            for c in 0..<gs {
+                var fits = true
+                for cell in shape.cells {
+                    let cr = r + cell.row
+                    let cc = c + cell.col
+                    if cr < 0 || cr >= gs || cc < 0 || cc >= gs || grid[cr][cc] != -1 {
+                        fits = false
+                        break
+                    }
+                }
+                if fits {
+                    for cell in shape.cells {
+                        grid[r + cell.row][c + cell.col] = shape.colorIndex
+                    }
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    /// Clear any completed rows/columns in the simulated grid.
+    private func simulateClearLines(grid: inout [[Int]]) {
+        let gs = GameModel.gridSize
+        // Find full rows
+        for r in 0..<gs {
+            var full = true
+            for c in 0..<gs {
+                if grid[r][c] == -1 { full = false; break }
+            }
+            if full {
+                for c in 0..<gs { grid[r][c] = -1 }
+            }
+        }
+        // Find full columns
+        for c in 0..<gs {
+            var full = true
+            for r in 0..<gs {
+                if grid[r][c] == -1 { full = false; break }
+            }
+            if full {
+                for r in 0..<gs { grid[r][c] = -1 }
+            }
+        }
     }
 
     /// Check if a shape can be placed at the given grid position
@@ -1139,5 +1259,97 @@ public struct BlockBlastPreviewIcon: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(red: 0.12, green: 0.12, blue: 0.22))
         )
+    }
+}
+
+// MARK: - In-Game Settings Sheet
+
+struct BlockBlastSettingsView: View {
+    @Bindable var settings: BlockBlastSettings
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Block Blast") {
+                    Toggle("Vibrations", isOn: $settings.vibrations)
+                }
+                Section("Difficulty") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("Level")
+                            Spacer()
+                            Text("\(settings.difficulty)")
+                                .foregroundStyle(Color.secondary)
+                                .monospaced()
+                        }
+                        Slider(
+                            value: Binding(
+                                get: { Double(settings.difficulty) },
+                                set: { settings.difficulty = Int($0.rounded()) }
+                            ),
+                            in: 0.0...10.0,
+                            step: 1.0
+                        )
+                        HStack {
+                            Text("Easy")
+                                .font(.caption2)
+                                .foregroundStyle(Color.secondary)
+                            Spacer()
+                            Text("Hard")
+                                .font(.caption2)
+                                .foregroundStyle(Color.secondary)
+                        }
+                    }
+                }
+                Section {
+                    Text("At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable.")
+                        .font(.caption)
+                        .foregroundStyle(Color.secondary)
+                }
+            }
+            .navigationTitle("Settings")
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+    }
+}
+
+/// Settings specific to the Block Blast game.
+@Observable
+public class BlockBlastSettings {
+    /// Whether vibrations (haptic feedback) are enabled for Block Blast.
+    public var vibrations: Bool = defaults.value(forKey: "blockBlastVibrations", default: true) {
+        didSet { defaults.set(vibrations, forKey: "blockBlastVibrations") }
+    }
+
+    /// Difficulty level from 0 (easiest — always solvable) to 10 (hardest — pure
+    /// random). The number of solvability attempts when generating a piece set
+    /// is `20 - 2 * difficulty`, so 0 → 20 attempts, 5 → 10 attempts, 10 → 0.
+    public var difficulty: Int = defaults.value(forKey: "blockBlastDifficulty", default: 0) {
+        didSet { defaults.set(difficulty, forKey: "blockBlastDifficulty") }
+    }
+
+    /// The number of solvability attempts implied by the current difficulty.
+    public var solvabilityAttempts: Int {
+        return max(0, 20 - difficulty * 2)
+    }
+
+    public init() {
+    }
+}
+
+
+nonisolated(unsafe) private let defaults = UserDefaults.standard
+
+private extension UserDefaults {
+    func value<T>(forKey key: String, default defaultValue: T) -> T {
+        UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
     }
 }
