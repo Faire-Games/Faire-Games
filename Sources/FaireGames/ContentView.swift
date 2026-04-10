@@ -144,7 +144,7 @@ struct SettingsView: View {
     @State var confirmResetAll = false
 
     var body: some View {
-        AppFairSettings {
+        AppFairSettings(bundle: .module) {
             Section("Gameplay") {
                 Toggle("Show Experimental Games", isOn: $gamePreferences.showBetaGames)
             }
@@ -163,9 +163,5 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle("Settings")
-        #if !os(macOS)
-        .navigationBarTitleDisplayMode(.inline)
-        #endif
     }
 }

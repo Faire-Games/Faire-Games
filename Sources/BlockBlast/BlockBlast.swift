@@ -752,33 +752,46 @@ struct ShapeLibrary {
             CellOffset(row: 1, col: 1)
         ], colorIndex: 3),
 
-        // Big L (bottom-left)
-        BlockShape(id: "bigL_bl", cells: [
+        // 2x3 L (bottom-left corner) — 2 wide, 3 tall
+        BlockShape(id: "L23_bl", cells: [
             CellOffset(row: 0, col: 0),
             CellOffset(row: 1, col: 0),
-            CellOffset(row: 2, col: 0), CellOffset(row: 2, col: 1), CellOffset(row: 2, col: 2)
+            CellOffset(row: 2, col: 0), CellOffset(row: 2, col: 1)
         ], colorIndex: 4),
 
-        // Big L (bottom-right)
-        BlockShape(id: "bigL_br", cells: [
-            CellOffset(row: 0, col: 2),
-            CellOffset(row: 1, col: 2),
-            CellOffset(row: 2, col: 0), CellOffset(row: 2, col: 1), CellOffset(row: 2, col: 2)
+        // 2x3 L (bottom-right corner) — 2 wide, 3 tall
+        BlockShape(id: "L23_br", cells: [
+            CellOffset(row: 0, col: 1),
+            CellOffset(row: 1, col: 1),
+            CellOffset(row: 2, col: 0), CellOffset(row: 2, col: 1)
         ], colorIndex: 5),
 
-        // Big L (top-left)
-        BlockShape(id: "bigL_tl", cells: [
-            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1), CellOffset(row: 0, col: 2),
+        // 2x3 L (top-left corner) — 2 wide, 3 tall
+        BlockShape(id: "L23_tl", cells: [
+            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1),
             CellOffset(row: 1, col: 0),
             CellOffset(row: 2, col: 0)
         ], colorIndex: 6),
 
-        // Big L (top-right)
-        BlockShape(id: "bigL_tr", cells: [
-            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1), CellOffset(row: 0, col: 2),
-            CellOffset(row: 1, col: 2),
-            CellOffset(row: 2, col: 2)
+        // 2x3 L (top-right corner) — 2 wide, 3 tall
+        BlockShape(id: "L23_tr", cells: [
+            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1),
+            CellOffset(row: 1, col: 1),
+            CellOffset(row: 2, col: 1)
         ], colorIndex: 0),
+
+        // Filled 2x3 rectangle — 2 wide, 3 tall
+        BlockShape(id: "rect2x3", cells: [
+            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1),
+            CellOffset(row: 1, col: 0), CellOffset(row: 1, col: 1),
+            CellOffset(row: 2, col: 0), CellOffset(row: 2, col: 1)
+        ], colorIndex: 1),
+
+        // Filled 3x2 rectangle — 3 wide, 2 tall
+        BlockShape(id: "rect3x2", cells: [
+            CellOffset(row: 0, col: 0), CellOffset(row: 0, col: 1), CellOffset(row: 0, col: 2),
+            CellOffset(row: 1, col: 0), CellOffset(row: 1, col: 1), CellOffset(row: 1, col: 2)
+        ], colorIndex: 2),
 
         // T-shape (pointing up)
         BlockShape(id: "T_up", cells: [
