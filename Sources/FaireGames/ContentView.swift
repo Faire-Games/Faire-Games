@@ -7,6 +7,7 @@ import FaireGamesModel
 import BlockBlast
 import Tetris
 import JewelCrush
+import FlappyBird
 
 let gamePreviewIconSpan = 120.0
 
@@ -16,6 +17,7 @@ struct ContentView: View {
     @State var confirmResetBlockBlast = false
     @State var confirmResetTetris = false
     @State var confirmResetJewelCrush = false
+    @State var confirmResetFlappyBird = false
 
     var body: some View {
         NavigationStack {
@@ -76,6 +78,34 @@ struct ContentView: View {
                             }
                         } message: {
                             Text("This will permanently reset your Sirtet high score to zero.")
+                        }
+
+                        NavigationLink(destination: FlappyBirdContainerView()) {
+                            VStack(spacing: 10) {
+                                FlappyBirdPreviewIcon()
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Flappy Bird")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
+                        }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetFlappyBird = true }) {
+                                Label("Reset High Score", image: "restart_alt")
+                            }
+                        }
+                        .confirmationDialog("Reset Flappy Bird High Score?", isPresented: $confirmResetFlappyBird, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetFlappyBirdHighScore()
+                            }
+                        } message: {
+                            Text("This will permanently reset your Flappy Bird high score to zero.")
                         }
 
                         if gamePreferences.showBetaGames {
@@ -157,6 +187,7 @@ struct SettingsView: View {
                         resetBlockBlastHighScore()
                         resetTetrisHighScore()
                         resetJewelCrushProgress()
+                        resetFlappyBirdHighScore()
                     }
                 } message: {
                     Text("This will permanently reset all high scores and game progress to zero.")

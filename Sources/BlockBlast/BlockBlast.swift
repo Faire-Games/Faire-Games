@@ -508,6 +508,16 @@ struct BlockBlastGameView: View {
                         .foregroundStyle(Color.yellow)
                 }
 
+                VStack(spacing: 2) {
+                    Text("Difficulty")
+                        .font(.caption)
+                        .foregroundStyle(Color.white.opacity(0.6))
+                    Text("\(settings.difficulty)")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                }
+
                 if game.score >= game.highScore && game.score > 0 {
                     Text("New High Score!")
                         .font(.title3)
@@ -530,6 +540,16 @@ struct BlockBlastGameView: View {
                         )
                 }
                 .padding(.top, 8)
+
+                ShareLink(
+                    item: "I scored \(game.score) in Block Blast (difficulty \(settings.difficulty)) on Faire Games! Can you beat it?\nhttps://appfair.net",
+                    subject: Text("Block Blast Score"),
+                    message: Text("I scored \(game.score) in Block Blast!")
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.7))
+                }
 
                 Button(action: {
                     dismiss()

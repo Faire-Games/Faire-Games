@@ -217,6 +217,9 @@
         }
       }
     },
+    "Flappy Bird" : {
+
+    },
     "Gameplay" : {
 
     },
@@ -418,6 +421,9 @@
     "Reset Block Blast High Score?" : {
 
     },
+    "Reset Flappy Bird High Score?" : {
+
+    },
     "Reset High Score" : {
 
     },
@@ -530,6 +536,9 @@
 
     },
     "This will permanently reset your Block Blast high score to zero." : {
+
+    },
+    "This will permanently reset your Flappy Bird high score to zero." : {
 
     },
     "This will permanently reset your Sirtet high score to zero." : {

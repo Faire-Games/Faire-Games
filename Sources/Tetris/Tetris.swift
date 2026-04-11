@@ -935,6 +935,16 @@ struct TetrisGameView: View {
                         )
                 }
                 .padding(.top, 4)
+
+                ShareLink(
+                    item: "I scored \(game.score) (level \(game.level), \(game.totalLinesCleared) lines) in Sirtet on Faire Games! Can you beat it?\nhttps://appfair.net",
+                    subject: Text("Sirtet Score"),
+                    message: Text("I scored \(game.score) in Sirtet!")
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.7))
+                }
             }
             .padding(28)
             .background(
