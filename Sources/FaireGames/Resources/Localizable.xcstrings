@@ -94,6 +94,9 @@
     "Block Blast!" : {
 
     },
+    "Breakout" : {
+
+    },
     "Cancel" : {
       "comment" : "Button title indicating that the operation should be cancelled",
       "extractionState" : "stale",
@@ -421,6 +424,9 @@
     "Reset Block Blast High Score?" : {
 
     },
+    "Reset Breakout High Score?" : {
+
+    },
     "Reset Flappy Bird High Score?" : {
 
     },
@@ -536,6 +542,9 @@
 
     },
     "This will permanently reset your Block Blast high score to zero." : {
+
+    },
+    "This will permanently reset your Breakout high score to zero." : {
 
     },
     "This will permanently reset your Flappy Bird high score to zero." : {

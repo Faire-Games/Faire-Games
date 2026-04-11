@@ -1,0 +1,3 @@
+# Skip configuration for Breakout module
+skip:
+  mode: 'transpiled'
