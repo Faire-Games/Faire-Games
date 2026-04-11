@@ -241,6 +241,7 @@ struct FlappyBirdGameView: View {
     @State private var game = FlappyBirdModel()
     @State private var tickTimer: Timer? = nil
     @State private var lastTick: Double = 0.0
+    @State private var showPauseMenu = false
     @State private var showSettings = false
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
@@ -284,9 +285,13 @@ struct FlappyBirdGameView: View {
                 if game.isGameOver {
                     gameOverOverlay
                 }
+
+                if showPauseMenu && !game.isGameOver {
+                    pauseMenuOverlay
+                }
             }
             .onTapGesture {
-                if game.isGameOver { return }
+                if game.isGameOver || showPauseMenu { return }
                 game.flap()
                 playHaptic(.pick)
             }
@@ -303,9 +308,7 @@ struct FlappyBirdGameView: View {
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
-                stopTimer()
-            } else {
-                startTimer()
+                pauseGame()
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -537,8 +540,8 @@ struct FlappyBirdGameView: View {
             }
 
             Spacer()
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: { pauseGame() }) {
+                Image("pause_circle", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.8))
             }
@@ -655,6 +658,77 @@ struct FlappyBirdGameView: View {
                     .fill(Color(red: 0.1, green: 0.1, blue: 0.2))
             )
         }
+    }
+
+    // MARK: - Pause Menu
+
+    var pauseMenuOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: { resumeGame() }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.2, green: 0.6, blue: 0.3))
+                        )
+                }
+                .buttonStyle(.plain)
+
+                Button(action: { showSettings = true }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.3, green: 0.4, blue: 0.6))
+                        )
+                }
+                .buttonStyle(.plain)
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(28)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(red: 0.1, green: 0.1, blue: 0.2))
+            )
+        }
+    }
+
+    func pauseGame() {
+        guard !showPauseMenu else { return }
+        stopTimer()
+        showPauseMenu = true
+    }
+
+    func resumeGame() {
+        showPauseMenu = false
+        startTimer()
     }
 
     // MARK: - Timer
