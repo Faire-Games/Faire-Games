@@ -1052,6 +1052,7 @@ struct JewelCrushGameView: View {
                                 )
                         )
                 }
+                .buttonStyle(.plain)
 
                 ShareLink(
                     item: "I completed level \(game.currentLevel) with \(game.score) points in Jewel Crush on Faire Games!\nhttps://appfair.net",
@@ -1118,6 +1119,7 @@ struct JewelCrushGameView: View {
                                 .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
                         )
                 }
+                .buttonStyle(.plain)
 
                 ShareLink(
                     item: "I scored \(game.score) on level \(game.currentLevel) in Jewel Crush on Faire Games! Can you beat it?\nhttps://appfair.net",

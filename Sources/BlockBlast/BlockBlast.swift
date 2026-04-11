@@ -536,9 +536,10 @@ struct BlockBlastGameView: View {
                         .padding(.vertical, 14)
                         .background(
                             RoundedRectangle(cornerRadius: 12)
-                                .fill(Color.blue)
+                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
                         )
                 }
+                .buttonStyle(.plain)
                 .padding(.top, 8)
 
                 ShareLink(

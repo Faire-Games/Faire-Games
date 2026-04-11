@@ -109,6 +109,9 @@
     "Block Blast" : {
 
     },
+    "Block Blast Score" : {
+
+    },
     "Cancel" : {
       "comment" : "Button title indicating that the operation should be cancelled",
       "extractionState" : "stale",
@@ -306,6 +309,9 @@
           }
         }
       }
+    },
+    "I scored %lld in Block Blast!" : {
+
     },
     "Level" : {
 
@@ -506,6 +512,9 @@
           }
         }
       }
+    },
+    "Share" : {
+
     },
     "System" : {
       "comment" : "Menu item indicating that the appearance should be in the default system mode",

@@ -8,6 +8,7 @@ import BlockBlast
 import Tetris
 import JewelCrush
 import FlappyBird
+import Breakout
 
 let gamePreviewIconSpan = 120.0
 
@@ -18,6 +19,7 @@ struct ContentView: View {
     @State var confirmResetTetris = false
     @State var confirmResetJewelCrush = false
     @State var confirmResetFlappyBird = false
+    @State var confirmResetBreakout = false
 
     var body: some View {
         NavigationStack {
@@ -108,6 +110,34 @@ struct ContentView: View {
                             Text("This will permanently reset your Flappy Bird high score to zero.")
                         }
 
+                        NavigationLink(destination: BreakoutContainerView()) {
+                            VStack(spacing: 10) {
+                                BreakoutPreviewIcon()
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Breakout")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
+                        }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetBreakout = true }) {
+                                Label("Reset High Score", image: "restart_alt")
+                            }
+                        }
+                        .confirmationDialog("Reset Breakout High Score?", isPresented: $confirmResetBreakout, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetBreakoutHighScore()
+                            }
+                        } message: {
+                            Text("This will permanently reset your Breakout high score to zero.")
+                        }
+
                         if gamePreferences.showBetaGames {
                             NavigationLink(destination: JewelCrushContainerView()) {
                                 VStack(spacing: 10) {
@@ -188,6 +218,7 @@ struct SettingsView: View {
                         resetTetrisHighScore()
                         resetJewelCrushProgress()
                         resetFlappyBirdHighScore()
+                        resetBreakoutHighScore()
                     }
                 } message: {
                     Text("This will permanently reset all high scores and game progress to zero.")

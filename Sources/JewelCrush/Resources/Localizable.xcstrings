@@ -35,7 +35,13 @@
     "Game Levels" : {
 
     },
+    "I scored %lld in Jewel Crush!" : {
+
+    },
     "Jewel Crush" : {
+
+    },
+    "Jewel Crush Score" : {
 
     },
     "LEVEL %lld" : {
@@ -69,6 +75,9 @@
 
     },
     "Settings" : {
+
+    },
+    "Share" : {
 
     },
     "Target: %lld" : {

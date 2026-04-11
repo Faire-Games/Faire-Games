@@ -283,6 +283,9 @@
         }
       }
     },
+    "I scored %lld in Sirtet!" : {
+
+    },
     "Level" : {
 
     },
@@ -424,6 +427,9 @@
         }
       }
     },
+    "Quit" : {
+
+    },
     "Quit Game" : {
 
     },
@@ -492,10 +498,16 @@
         }
       }
     },
+    "Share" : {
+
+    },
     "Sirtet" : {
 
     },
     "SIRTET" : {
+
+    },
+    "Sirtet Score" : {
 
     },
     "System" : {

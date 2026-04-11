@@ -630,6 +630,7 @@ struct FlappyBirdGameView: View {
                                 .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
                         )
                 }
+                .buttonStyle(.plain)
                 .padding(.top, 4)
 
                 ShareLink(
@@ -640,6 +641,12 @@ struct FlappyBirdGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
+                }
+
+                Button(action: { dismiss() }) {
+                    Text("Quit")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.5))
                 }
             }
             .padding(28)
