@@ -1053,6 +1053,16 @@ struct JewelCrushGameView: View {
                         )
                 }
 
+                ShareLink(
+                    item: "I completed level \(game.currentLevel) with \(game.score) points in Jewel Crush on Faire Games!\nhttps://appfair.net",
+                    subject: Text("Jewel Crush Score"),
+                    message: Text("I scored \(game.score) in Jewel Crush!")
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.7))
+                }
+
                 Button(action: {
                     stopTimer()
                     dismiss()
@@ -1107,6 +1117,16 @@ struct JewelCrushGameView: View {
                             RoundedRectangle(cornerRadius: 12)
                                 .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
                         )
+                }
+
+                ShareLink(
+                    item: "I scored \(game.score) on level \(game.currentLevel) in Jewel Crush on Faire Games! Can you beat it?\nhttps://appfair.net",
+                    subject: Text("Jewel Crush Score"),
+                    message: Text("I scored \(game.score) in Jewel Crush!")
+                ) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .font(.subheadline)
+                        .foregroundStyle(Color.white.opacity(0.7))
                 }
 
                 Button(action: {
