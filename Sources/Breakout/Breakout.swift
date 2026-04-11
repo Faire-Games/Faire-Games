@@ -315,6 +315,7 @@ struct BreakoutGameView: View {
     @State private var game = BreakoutModel()
     @State private var tickTimer: Timer? = nil
     @State private var lastTick: Double = 0.0
+    @State private var showPauseMenu = false
     @State private var showSettings = false
     @State private var debugText: String = "waiting for touch"
     @State private var debugTouchCount: Int = 0
@@ -357,6 +358,10 @@ struct BreakoutGameView: View {
                         gameOverOverlay
                     }
 
+                    if showPauseMenu && !game.isGameOver && !game.isLevelComplete {
+                        pauseMenuOverlay
+                    }
+
                     // Debug overlay
                     if settings.debugInfo {
                         VStack {
@@ -377,7 +382,7 @@ struct BreakoutGameView: View {
                             debugTouchCount += 1
                             debugText = "drag #\(debugTouchCount) loc=(\(Int(value.location.x)),\(Int(value.location.y))) start=(\(Int(value.startLocation.x)),\(Int(value.startLocation.y))) paddleX=\(Int(game.paddleX)) launched=\(game.isLaunched) over=\(game.isGameOver)"
 
-                            if game.isGameOver || game.isLevelComplete { return }
+                            if game.isGameOver || game.isLevelComplete || showPauseMenu { return }
 
                             // Launch ball on first touch
                             if !game.isLaunched {
@@ -412,9 +417,7 @@ struct BreakoutGameView: View {
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
-                stopTimer()
-            } else {
-                startTimer()
+                pauseGame()
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -544,8 +547,8 @@ struct BreakoutGameView: View {
                 .foregroundStyle(Color.white.opacity(0.7))
                 .monospaced()
 
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: { pauseGame() }) {
+                Image("pause_circle", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.6))
             }
@@ -720,6 +723,77 @@ struct BreakoutGameView: View {
                     .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
             )
         }
+    }
+
+    // MARK: - Pause Menu
+
+    var pauseMenuOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: { resumeGame() }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.2, green: 0.6, blue: 0.3))
+                        )
+                }
+                .buttonStyle(.plain)
+
+                Button(action: { showSettings = true }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.3, green: 0.4, blue: 0.6))
+                        )
+                }
+                .buttonStyle(.plain)
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 180, height: 48)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
+                        )
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(28)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
+            )
+        }
+    }
+
+    func pauseGame() {
+        guard !showPauseMenu else { return }
+        stopTimer()
+        showPauseMenu = true
+    }
+
+    func resumeGame() {
+        showPauseMenu = false
+        startTimer()
     }
 
     // MARK: - Timer
