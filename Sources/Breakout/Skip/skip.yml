@@ -1,3 +1,4 @@
 # Skip configuration for Breakout module
 skip:
   mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.breakout'

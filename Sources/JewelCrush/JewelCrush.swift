@@ -1039,20 +1039,24 @@ struct JewelCrushGameView: View {
                     Text("Next Level")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 14)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [Color(red: 0.3, green: 0.7, blue: 0.3), Color(red: 0.15, green: 0.5, blue: 0.15)],
-                                        startPoint: .top,
-                                        endPoint: .bottom
-                                    )
-                                )
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+
+                Button(action: {
+                    stopTimer()
+                    dismiss()
+                }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I completed level \(game.currentLevel) with \(game.score) points in Jewel Crush on Faire Games!\nhttps://appfair.net",
@@ -1062,15 +1066,6 @@ struct JewelCrushGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                }
-
-                Button(action: {
-                    stopTimer()
-                    dismiss()
-                }) {
-                    Text("Quit")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.white.opacity(0.6))
                 }
             }
             .padding(32)
@@ -1112,14 +1107,24 @@ struct JewelCrushGameView: View {
                     Text("Retry")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 160, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
+
+                Button(action: {
+                    stopTimer()
+                    dismiss()
+                }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I scored \(game.score) on level \(game.currentLevel) in Jewel Crush on Faire Games! Can you beat it?\nhttps://appfair.net",
@@ -1129,21 +1134,6 @@ struct JewelCrushGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                }
-
-                Button(action: {
-                    stopTimer()
-                    dismiss()
-                }) {
-                    Text("Quit Game")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 160, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                        )
                 }
             }
             .padding(28)

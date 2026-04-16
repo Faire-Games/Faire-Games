@@ -927,15 +927,22 @@ struct TetrisGameView: View {
                     Text("Play Again")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
                 .padding(.top, 4)
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I scored \(game.score) (level \(game.level), \(game.totalLinesCleared) lines) in Sirtet on Faire Games! Can you beat it?\nhttps://appfair.net",
@@ -945,12 +952,6 @@ struct TetrisGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                }
-
-                Button(action: { dismiss() }) {
-                    Text("Quit")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.white.opacity(0.5))
                 }
             }
             .padding(28)
@@ -981,13 +982,11 @@ struct TetrisGameView: View {
                     Text("Resume")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 160, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
 
                 Button(action: {
                     game.newGame()
@@ -996,21 +995,21 @@ struct TetrisGameView: View {
                     Text("New Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white.opacity(0.8))
-                        .frame(width: 160, height: 44)
-                        .border(Color.white.opacity(0.3), width: 1)
-                        .cornerRadius(12)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(.gray)
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white.opacity(0.8))
-                        .frame(width: 160, height: 44)
-                        .border(Color.white.opacity(0.3), width: 1)
-                        .cornerRadius(12)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: {
                     stopTimer()
@@ -1019,13 +1018,11 @@ struct TetrisGameView: View {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 160, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
             }
             .padding(28)
             .background(

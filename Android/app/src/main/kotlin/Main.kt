@@ -1,4 +1,4 @@
-package faire.games
+package org.appfair.app.fairegames.ui
 
 import skip.lib.*
 import skip.model.*
