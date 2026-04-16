@@ -1,2 +1,3 @@
 skip:
   mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.jewelcrush'

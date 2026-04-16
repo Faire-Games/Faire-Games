@@ -10,3 +10,4 @@
 # this is a transpiled Skip Lite module
 skip:
   mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.ui'

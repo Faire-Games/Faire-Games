@@ -531,16 +531,24 @@ struct BlockBlastGameView: View {
                     Text("Play Again")
                         .font(.title3)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 14)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
                 .padding(.top, 8)
+
+                Button(action: {
+                    dismiss()
+                }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I scored \(game.score) in Block Blast (difficulty \(settings.difficulty)) on Faire Games! Can you beat it?\nhttps://appfair.net",
@@ -550,21 +558,6 @@ struct BlockBlastGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                }
-
-                Button(action: {
-                    dismiss()
-                }) {
-                    Text("Quit Game")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 12)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                        )
                 }
             }
             .padding(32)

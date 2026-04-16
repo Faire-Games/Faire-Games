@@ -626,15 +626,22 @@ struct FlappyBirdGameView: View {
                     Text("Play Again")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
                 .padding(.top, 4)
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I scored \(game.score) in Flappy Bird (difficulty \(game.difficulty)) on Faire Games! Can you beat it?\nhttps://appfair.net",
@@ -644,12 +651,6 @@ struct FlappyBirdGameView: View {
                     Label("Share", systemImage: "square.and.arrow.up")
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                }
-
-                Button(action: { dismiss() }) {
-                    Text("Quit")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.white.opacity(0.5))
                 }
             }
             .padding(28)
@@ -677,40 +678,31 @@ struct FlappyBirdGameView: View {
                     Text("Resume")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.6, blue: 0.3))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.3, green: 0.4, blue: 0.6))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
             }
             .padding(28)
             .background(

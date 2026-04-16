@@ -681,28 +681,22 @@ struct BreakoutGameView: View {
                     Text("Play Again")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.5, blue: 0.9))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
                 .padding(.top, 4)
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.2, blue: 0.2))
-                        )
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
 
                 ShareLink(
                     item: "I scored \(game.score) (level \(game.level)) in Breakout on Faire Games! Can you beat it?\nhttps://appfair.net",
