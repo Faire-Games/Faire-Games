@@ -1,0 +1,8 @@
+# Skip configuration for Sudoku module
+#
+# Kotlin dependencies and Gradle build options for this module can be configured here
+
+# this is a transpiled Skip Lite module
+skip:
+  mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.sudoku'

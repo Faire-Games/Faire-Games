@@ -9,6 +9,8 @@ import Tetris
 import JewelCrush
 import FlappyBird
 import Breakout
+import Sudoku
+import TwentyFortyEight
 
 let gamePreviewIconSpan = 120.0
 
@@ -20,6 +22,8 @@ struct ContentView: View {
     @State var confirmResetJewelCrush = false
     @State var confirmResetFlappyBird = false
     @State var confirmResetBreakout = false
+    @State var confirmResetSudoku = false
+    @State var confirmResetTwentyFortyEight = false
 
     var body: some View {
         NavigationStack {
@@ -138,6 +142,62 @@ struct ContentView: View {
                             Text("This will permanently reset your Breakout high score to zero.")
                         }
 
+                        NavigationLink(destination: SudokuContainerView()) {
+                            VStack(spacing: 10) {
+                                SudokuPreviewIcon()
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Sudoku")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
+                        }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetSudoku = true }) {
+                                Label("Reset Records", image: "restart_alt")
+                            }
+                        }
+                        .confirmationDialog("Reset Sudoku Records?", isPresented: $confirmResetSudoku, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetSudokuRecords()
+                            }
+                        } message: {
+                            Text("This will permanently reset your Sudoku best times and puzzle counts.")
+                        }
+
+                        NavigationLink(destination: TwentyFortyEightContainerView()) {
+                            VStack(spacing: 10) {
+                                TwentyFortyEightPreviewIcon()
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("2048")
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
+                        }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetTwentyFortyEight = true }) {
+                                Label("Reset High Score", image: "restart_alt")
+                            }
+                        }
+                        .confirmationDialog("Reset 2048 High Score?", isPresented: $confirmResetTwentyFortyEight, titleVisibility: .visible) {
+                            Button("Reset", role: .destructive) {
+                                resetTwentyFortyEightHighScore()
+                            }
+                        } message: {
+                            Text("This will permanently reset your 2048 high score to zero.")
+                        }
+
                         if gamePreferences.showBetaGames {
                             NavigationLink(destination: JewelCrushContainerView()) {
                                 VStack(spacing: 10) {
@@ -219,6 +279,8 @@ struct SettingsView: View {
                         resetJewelCrushProgress()
                         resetFlappyBirdHighScore()
                         resetBreakoutHighScore()
+                        resetSudokuRecords()
+                        resetTwentyFortyEightHighScore()
                     }
                 } message: {
                     Text("This will permanently reset all high scores and game progress to zero.")

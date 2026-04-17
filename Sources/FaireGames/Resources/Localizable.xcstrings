@@ -31,6 +31,9 @@
         }
       }
     },
+    "2048" : {
+
+    },
     "Add" : {
       "comment" : "Button in items list that will cause a new item to be added",
       "extractionState" : "stale",
@@ -412,6 +415,9 @@
     "Reset" : {
 
     },
+    "Reset 2048 High Score?" : {
+
+    },
     "Reset All" : {
 
     },
@@ -439,7 +445,13 @@
     "Reset Level" : {
 
     },
+    "Reset Records" : {
+
+    },
     "Reset Sirtet High Score?" : {
+
+    },
+    "Reset Sudoku Records?" : {
 
     },
     "Save" : {
@@ -508,6 +520,9 @@
     "Sirtet" : {
 
     },
+    "Sudoku" : {
+
+    },
     "System" : {
       "comment" : "Menu item indicating that the appearance should be in the default system mode",
       "extractionState" : "stale",
@@ -541,6 +556,9 @@
     "This will permanently reset all high scores and game progress to zero." : {
 
     },
+    "This will permanently reset your 2048 high score to zero." : {
+
+    },
     "This will permanently reset your Block Blast high score to zero." : {
 
     },
@@ -551,6 +569,9 @@
 
     },
     "This will permanently reset your Sirtet high score to zero." : {
+
+    },
+    "This will permanently reset your Sudoku best times and puzzle counts." : {
 
     },
     "This will reset your Jewel Crush progress back to Level 1." : {

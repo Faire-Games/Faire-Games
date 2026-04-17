@@ -1,0 +1,105 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld starting clues" : {
+
+    },
+    "⭐⭐⭐" : {
+
+    },
+    "Best: %@" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Choose Difficulty" : {
+
+    },
+    "Data" : {
+
+    },
+    "Default Difficulty" : {
+
+    },
+    "Done" : {
+
+    },
+    "GAME OVER" : {
+
+    },
+    "Highlight Mistakes" : {
+
+    },
+    "I solved Sudoku in %@!" : {
+
+    },
+    "New Best Time!" : {
+
+    },
+    "New Game" : {
+
+    },
+    "PAUSED" : {
+
+    },
+    "Play Again" : {
+
+    },
+    "Puzzle Solved!" : {
+
+    },
+    "Puzzles Solved" : {
+
+    },
+    "Quit Game" : {
+
+    },
+    "Records" : {
+
+    },
+    "Reset" : {
+
+    },
+    "Reset Sudoku Records" : {
+
+    },
+    "Reset Sudoku Records?" : {
+
+    },
+    "Resume" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Share" : {
+
+    },
+    "Sudoku" : {
+
+    },
+    "SUDOKU" : {
+
+    },
+    "Sudoku Time" : {
+
+    },
+    "This will permanently reset all Sudoku best times and puzzle counts." : {
+
+    },
+    "Too many mistakes" : {
+
+    },
+    "Vibrations" : {
+
+    }
+  },
+  "version" : "1.0"
+}

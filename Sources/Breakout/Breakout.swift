@@ -5,8 +5,6 @@ import SwiftUI
 import Observation
 import SkipKit
 
-// MARK: - Public API
-
 public struct BreakoutContainerView: View {
     @State private var settings = BreakoutSettings()
 
