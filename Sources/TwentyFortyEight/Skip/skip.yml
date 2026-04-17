@@ -1,0 +1,4 @@
+# Skip configuration for TwentyFortyEight module
+skip:
+  mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.twentyfortyeight'

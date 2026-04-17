@@ -5,8 +5,6 @@ import SwiftUI
 import Observation
 import SkipKit
 
-// MARK: - Public API
-
 public struct FlappyBirdContainerView: View {
     @State private var settings = FlappyBirdSettings()
 

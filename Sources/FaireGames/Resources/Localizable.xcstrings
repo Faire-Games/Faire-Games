@@ -31,6 +31,9 @@
         }
       }
     },
+    "2048" : {
+
+    },
     "Add" : {
       "comment" : "Button in items list that will cause a new item to be added",
       "extractionState" : "stale",
@@ -412,6 +415,9 @@
     "Reset" : {
 
     },
+    "Reset 2048 High Score?" : {
+
+    },
     "Reset All" : {
 
     },
@@ -548,6 +554,9 @@
       }
     },
     "This will permanently reset all high scores and game progress to zero." : {
+
+    },
+    "This will permanently reset your 2048 high score to zero." : {
 
     },
     "This will permanently reset your Block Blast high score to zero." : {
