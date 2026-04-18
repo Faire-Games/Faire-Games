@@ -226,9 +226,6 @@
     "Flappy Bird" : {
 
     },
-    "Gameplay" : {
-
-    },
     "Hello [%@](https://skip.dev)!" : {
       "comment" : "Welcome tab contents",
       "extractionState" : "stale",
@@ -288,9 +285,6 @@
           }
         }
       }
-    },
-    "Jewel Crush" : {
-
     },
     "Light" : {
       "comment" : "Menu item indicating that the appearance should be in light mode",
@@ -439,12 +433,6 @@
     "Reset High Score" : {
 
     },
-    "Reset Jewel Crush Level?" : {
-
-    },
-    "Reset Level" : {
-
-    },
     "Reset Records" : {
 
     },
@@ -514,9 +502,6 @@
         }
       }
     },
-    "Show Experimental Games" : {
-
-    },
     "Sirtet" : {
 
     },
@@ -572,9 +557,6 @@
 
     },
     "This will permanently reset your Sudoku best times and puzzle counts." : {
-
-    },
-    "This will reset your Jewel Crush progress back to Level 1." : {
 
     },
     "Title" : {

@@ -1,1 +1,1 @@
-games,tetris,block,blast,puzzle,arcade,classic,free,open source,blocks
+games,tetris,block,blast,puzzle,arcade,classic,free,open source,2048,sudoku,breakout,flappy

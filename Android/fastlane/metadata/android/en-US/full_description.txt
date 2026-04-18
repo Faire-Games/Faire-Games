@@ -1,20 +1,30 @@
-Faire Games is a free, open-source collection of classic puzzle and arcade games for iOS and Android.
+Fair Games is a free, open-source collection of classic puzzle and arcade games for iOS and Android.
 
 <b>BLOCK BLAST</b>
-Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Simple to learn, endlessly challenging to master.
+Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Clear the entire board for a huge bonus.
 
 <b>SIRTET</b>
-The timeless falling-block game you know and love. Guide tetro-cubes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking. Aim for the elusive four-line Sirtet clear for maximum points.
+The timeless falling-block game you know and love. Guide tetro-cubes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking.
+
+<b>FLAPPY BIRD</b>
+Tap to flap and navigate a bird through an endless series of pipe obstacles. Time your taps carefully to stay aloft and thread the gaps. Adjustable difficulty lets beginners and veterans alike find their challenge.
+
+<b>BREAKOUT</b>
+Bounce a ball off your paddle to smash through rows of colorful bricks. Aim your shots by hitting different parts of the paddle to control the angle. Clear all the bricks to advance through increasingly fast levels.
+
+<b>SUDOKU</b>
+Fill the 9x9 grid so that every row, column, and box contains the digits 1 through 9. Four difficulty levels from Easy to Expert, a built-in hint system, pencil marks, undo/redo, and a timer to track your best times.
+
+<b>2048</b>
+Swipe to slide numbered tiles across a 4x4 board. When two tiles with the same number collide, they merge into one. Combine your way up to the 2048 tile and beyond.
 
 <b>FEATURES</b>
-&#8226; Beautiful 3D block rendering with smooth animations
-&#8226; Haptic feedback that brings every move to life (can be toggled in settings)
-&#8226; High score tracking to beat your personal best
-&#8226; Drag-and-drop controls for Block Blast
-&#8226; Intuitive tap and swipe controls for Sirtet
+&#8226; Satisfying haptic feedback tuned to every action
+&#8226; High score tracking and game state persistence
+&#8226; Pause menu in every game with resume, new game, and settings
 &#8226; Dark theme designed for comfortable play
-&#8226; Auto-pause when you switch away from the app
+&#8226; Auto-save so you never lose progress
 &#8226; No ads, no in-app purchases, no tracking
 &#8226; 100% free and open source
 
-More games coming soon. Faire Games is distributed through App Fair and built with Skip, running natively on both iOS and Android from a single codebase.
+Fair Games is distributed through App Fair and built with Skip, running natively on both iOS and Android from a single codebase.

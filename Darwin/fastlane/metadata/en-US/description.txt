@@ -1,21 +1,30 @@
-Fair Games is an open-source collection of classic puzzle and arcade games.
+Fair Games is a free, open-source collection of classic puzzle and arcade games.
 
 BLOCK BLAST
-Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Simple to learn, endlessly challenging to master.
+Drop and arrange colorful block shapes onto an 8x8 grid. Fill complete rows or columns to clear them and rack up points. Build combos by clearing multiple lines in a row for massive score multipliers. Clear the entire board for a huge bonus.
 
 SIRTET
-The timeless falling-block game you know and love. Guide tetro-cubes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking. Aim for the elusive four-line Sirtet clear for maximum points.
+The timeless falling-block game you know and love. Guide tetro-cubes as they fall, rotate them into place, and clear lines to level up. The pace quickens as you progress through levels, testing your reflexes and spatial thinking.
+
+FLAPPY BIRD
+Tap to flap and navigate a bird through an endless series of pipe obstacles. Time your taps carefully to stay aloft and thread the gaps. Adjustable difficulty lets beginners and veterans alike find their challenge.
+
+BREAKOUT
+Bounce a ball off your paddle to smash through rows of colorful bricks. Aim your shots by hitting different parts of the paddle to control the angle. Clear all the bricks to advance through increasingly fast levels.
+
+SUDOKU
+Fill the 9x9 grid so that every row, column, and box contains the digits 1 through 9. Four difficulty levels from Easy to Expert, a built-in hint system, pencil marks, undo/redo, and a timer to track your best times.
+
+2048
+Swipe to slide numbered tiles across a 4x4 board. When two tiles with the same number collide, they merge into one. Combine your way up to the 2048 tile and beyond.
 
 FEATURES
-- Beautiful 3D block rendering with smooth animations
-- Haptic feedback that brings every move to life (can be toggled in settings)
-- High score tracking to beat your personal best
-- Drag-and-drop controls for Block Blast
-- Intuitive tap and swipe controls for Sirtet
+- Satisfying haptic feedback tuned to every action
+- High score tracking and game state persistence
+- Pause menu in every game with resume, new game, and settings
 - Dark theme designed for comfortable play
-- Auto-pause when you switch away from the app
+- Auto-save so you never lose progress
 - No ads, no in-app purchases, no tracking
 - 100% open source
 
-More games coming soon. Fair Games is distributed through App Fair and built with Skip.
-
+Fair Games is distributed through App Fair and built with Skip.
