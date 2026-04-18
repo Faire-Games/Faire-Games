@@ -76,6 +76,30 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
         #expect(model.mistakes == 0)
     }
 
+    @MainActor
+    @Test func saveAndRestoreState() throws {
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.hard)
+        model.values[0] = 5
+        model.values[10] = 3
+        model.mistakes = 1
+        model.hintsRemaining = 2
+        model.elapsedSeconds = 120
+
+        let state = model.makeSavedState()
+        let data = try JSONEncoder().encode(state)
+        let decoded = try JSONDecoder().decode(SudokuSavedState.self, from: data)
+
+        let restored = SudokuModel()
+        restored.restoreState(decoded)
+        #expect(restored.values[0] == 5)
+        #expect(restored.values[10] == 3)
+        #expect(restored.mistakes == 1)
+        #expect(restored.hintsRemaining == 2)
+        #expect(restored.elapsedSeconds == 120)
+        #expect(restored.difficulty == SudokuDifficulty.hard)
+    }
+
 }
 
 struct TestData : Codable, Hashable {

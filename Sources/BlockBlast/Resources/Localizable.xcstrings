@@ -112,6 +112,9 @@
     "Block Blast Score" : {
 
     },
+    "Board Clear! +%lld" : {
+
+    },
     "Cancel" : {
       "comment" : "Button title indicating that the operation should be cancelled",
       "extractionState" : "stale",

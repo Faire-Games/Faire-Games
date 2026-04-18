@@ -76,6 +76,16 @@ enum Direction {
     case up, down, left, right
 }
 
+// MARK: - Saved State
+
+struct TwentyFortyEightSavedState: Codable {
+    var grid: [Int]
+    var score: Int
+    var isGameOver: Bool
+    var hasWon: Bool
+    var continueAfterWin: Bool
+}
+
 // MARK: - Game Model
 
 @Observable
@@ -279,6 +289,45 @@ final class TwentyFortyEightModel {
             UserDefaults.standard.set(highScore, forKey: "twentyfortyeight_highscore")
         }
     }
+
+    // MARK: - State Persistence
+
+    func makeSavedState() -> TwentyFortyEightSavedState {
+        return TwentyFortyEightSavedState(
+            grid: grid,
+            score: score,
+            isGameOver: isGameOver,
+            hasWon: hasWon,
+            continueAfterWin: continueAfterWin
+        )
+    }
+
+    func restoreState(_ state: TwentyFortyEightSavedState) {
+        grid = state.grid
+        score = state.score
+        isGameOver = state.isGameOver
+        hasWon = state.hasWon
+        continueAfterWin = state.continueAfterWin
+        highScore = UserDefaults.standard.integer(forKey: "twentyfortyeight_highscore")
+        mergedIndices = []
+        spawnedIndex = -1
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "twentyfortyeight_saved_state")
+    }
+
+    static func loadSavedState() -> TwentyFortyEightSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "twentyfortyeight_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(TwentyFortyEightSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "twentyfortyeight_saved_state")
+    }
 }
 
 // MARK: - Game View
@@ -382,6 +431,7 @@ struct TwentyFortyEightGameView: View {
                             if game.isGameOver {
                                 playHaptic(.impact)
                             }
+                            game.saveState()
                         }
                 )
 
@@ -389,6 +439,7 @@ struct TwentyFortyEightGameView: View {
 
                 // New Game button
                 Button(action: {
+                    TwentyFortyEightModel.clearSavedState()
                     game.newGame()
                     resetScales()
                     playHaptic(.snap)
@@ -415,7 +466,11 @@ struct TwentyFortyEightGameView: View {
         .toolbar(.hidden, for: .navigationBar)
         #endif
         .onAppear {
-            game.newGame()
+            if let state = TwentyFortyEightModel.loadSavedState() {
+                game.restoreState(state)
+            } else {
+                game.newGame()
+            }
             resetScales()
         }
         .onDisappear {
@@ -729,6 +784,7 @@ struct TwentyFortyEightGameView: View {
                 .buttonStyle(.plain)
 
                 Button(action: {
+                    TwentyFortyEightModel.clearSavedState()
                     game.newGame()
                     resetScales()
                     playHaptic(.snap)
@@ -781,6 +837,7 @@ struct TwentyFortyEightGameView: View {
                 }
 
                 Button(action: {
+                    TwentyFortyEightModel.clearSavedState()
                     game.newGame()
                     resetScales()
                     playHaptic(.snap)

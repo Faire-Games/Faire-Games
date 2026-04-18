@@ -209,6 +209,25 @@ private func generatePuzzle(difficulty: SudokuDifficulty) -> (puzzle: [Int], sol
     return (puzzle, solution)
 }
 
+// MARK: - Saved State
+
+struct SudokuSavedState: Codable {
+    var values: [Int]
+    var isOriginal: [Bool]
+    var solution: [Int]
+    var notes: [Int]
+    var difficultyRaw: Int
+    var mistakes: Int
+    var hintsRemaining: Int
+    var elapsedSeconds: Int
+    var isComplete: Bool
+    var isGameOver: Bool
+    var undoIndices: [Int]
+    var undoValues: [Int]
+    var undoNotes: [Int]
+    var undoNotesModified: [Bool]
+}
+
 // MARK: - Game Model
 
 @Observable
@@ -479,6 +498,63 @@ final class SudokuModel {
         if isPaused || isComplete || isGameOver { return }
         elapsedSeconds += 1
     }
+
+    // MARK: Persistence
+
+    func makeSavedState() -> SudokuSavedState {
+        return SudokuSavedState(
+            values: values,
+            isOriginal: isOriginal,
+            solution: solution,
+            notes: notes,
+            difficultyRaw: difficulty.rawValue,
+            mistakes: mistakes,
+            hintsRemaining: hintsRemaining,
+            elapsedSeconds: elapsedSeconds,
+            isComplete: isComplete,
+            isGameOver: isGameOver,
+            undoIndices: undoIndices,
+            undoValues: undoValues,
+            undoNotes: undoNotes,
+            undoNotesModified: undoNotesModified
+        )
+    }
+
+    func restoreState(_ state: SudokuSavedState) {
+        values = state.values
+        isOriginal = state.isOriginal
+        solution = state.solution
+        notes = state.notes
+        difficulty = SudokuDifficulty(rawValue: state.difficultyRaw) ?? .medium
+        mistakes = state.mistakes
+        hintsRemaining = state.hintsRemaining
+        elapsedSeconds = state.elapsedSeconds
+        isComplete = state.isComplete
+        isGameOver = state.isGameOver
+        undoIndices = state.undoIndices
+        undoValues = state.undoValues
+        undoNotes = state.undoNotes
+        undoNotesModified = state.undoNotesModified
+        selectedIndex = nil
+        notesMode = false
+        isPaused = false
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "sudoku_saved_state")
+    }
+
+    static func loadSavedState() -> SudokuSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "sudoku_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(SudokuSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "sudoku_saved_state")
+    }
 }
 
 // MARK: - Game View
@@ -560,7 +636,11 @@ struct SudokuGameView: View {
         .onAppear {
             if !hasInitialized {
                 hasInitialized = true
-                game.newGame(difficulty: settings.lastDifficulty)
+                if let savedState = SudokuModel.loadSavedState() {
+                    game.restoreState(savedState)
+                } else {
+                    game.newGame(difficulty: settings.lastDifficulty)
+                }
             }
             startTimer()
         }
@@ -568,6 +648,7 @@ struct SudokuGameView: View {
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
                 pauseGame()
+                game.saveState()
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -576,7 +657,9 @@ struct SudokuGameView: View {
         .sheet(isPresented: $showDifficultyPicker) {
             DifficultyPickerView(currentDifficulty: game.difficulty) { newDifficulty in
                 settings.lastDifficulty = newDifficulty
+                SudokuModel.clearSavedState()
                 game.newGame(difficulty: newDifficulty)
+                game.saveState()
                 startTimer()
                 showPauseMenu = false
                 showDifficultyPicker = false
@@ -838,12 +921,14 @@ struct SudokuGameView: View {
                          disabled: game.undoIndices.isEmpty || game.isPaused,
                          action: {
                              game.undo()
+                             game.saveState()
                              playHaptic(.pick)
                          })
             actionButton(label: "Erase", iconName: "ink_eraser",
                          disabled: game.selectedIndex == nil || game.isPaused,
                          action: {
                              game.erase()
+                             game.saveState()
                              playHaptic(.pick)
                          })
             actionButton(label: game.notesMode ? "Notes ✓" : "Notes",
@@ -859,6 +944,7 @@ struct SudokuGameView: View {
                          disabled: game.hintsRemaining == 0 || game.isPaused,
                          action: {
                              game.useHint()
+                             game.saveState()
                              playHaptic(.snap)
                          })
         }
@@ -909,6 +995,7 @@ struct SudokuGameView: View {
         let exhausted = remaining <= 0
         return Button(action: {
             game.placeDigit(digit)
+            game.saveState()
             playHaptic(.pick)
         }) {
             VStack(spacing: 1) {
