@@ -779,6 +779,20 @@ struct FlappyBirdGameView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
 
+                Button(action: {
+                    FlappyBirdModel.clearSavedState()
+                    game.newGame()
+                    showPauseMenu = false
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
                 Button(action: { showSettings = true }) {
                     Text("Settings")
                         .font(.headline)

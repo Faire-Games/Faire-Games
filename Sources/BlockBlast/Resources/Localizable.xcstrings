@@ -382,6 +382,9 @@
         }
       }
     },
+    "New Game" : {
+
+    },
     "New High Score!" : {
 
     },
@@ -414,6 +417,9 @@
           }
         }
       }
+    },
+    "PAUSED" : {
+
     },
     "Play Again" : {
 
@@ -449,6 +455,9 @@
       }
     },
     "Quit Game" : {
+
+    },
+    "Resume" : {
 
     },
     "Save" : {

@@ -1082,7 +1082,7 @@ struct TetrisGameView: View {
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.gray)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")

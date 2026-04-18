@@ -102,6 +102,10 @@ final class BreakoutModel {
     var ballDX: Double = 0.0
     var ballDY: Double = 0.0
 
+    // Paddle hit feedback: -1 = no hit this frame, 0..1 = deflection amount
+    // (0 = mirror reflection, 1 = maximum angle change)
+    var lastPaddleDeflection: Double = -1.0
+
     // Bricks
     var bricks: [[BrickData]] = []
 
@@ -183,6 +187,8 @@ final class BreakoutModel {
     func update(dt: Double) {
         guard isLaunched && !isGameOver && !isLevelComplete else { return }
 
+        lastPaddleDeflection = -1.0
+
         ballX += ballDX * dt
         ballY += ballDY * dt
 
@@ -208,15 +214,27 @@ final class BreakoutModel {
 
         if ballDY > 0.0 && ballY + ballRadius >= paddleTop && ballY + ballRadius <= paddleTop + paddleHeight + 4.0 {
             if ballX >= paddleLeft - ballRadius && ballX <= paddleRight + ballRadius {
+                // Compute incoming angle (relative to vertical)
+                let incomingAngle = atan2(ballDX, ballDY)
+
                 ballY = paddleTop - ballRadius
                 // Reflect with angle based on where ball hit the paddle
                 let hitPos = (ballX - paddleX) / (paddleWidth / 2.0) // -1 to 1
                 let clampedHit = min(max(hitPos, -0.95), 0.95)
                 let maxAngle = 1.15 // ~66 degrees max
-                let angle = clampedHit * maxAngle
+                let outAngle = clampedHit * maxAngle
                 let speed = currentSpeed()
-                ballDX = speed * sin(angle)
-                ballDY = -speed * cos(angle)
+                ballDX = speed * sin(outAngle)
+                ballDY = -speed * cos(outAngle)
+
+                // Mirror reflection would negate DX and DY, so the mirror
+                // outgoing angle (relative to vertical, going up) is -incomingAngle.
+                let mirrorAngle = -incomingAngle
+                // Deflection = how far the actual outgoing angle is from the mirror angle,
+                // normalized to 0..1 where 0 = perfect mirror, 1 = max deviation
+                let angleDiff = abs(outAngle - mirrorAngle)
+                let maxPossibleDiff = 2.0 * maxAngle // theoretical max
+                lastPaddleDeflection = min(angleDiff / maxPossibleDiff, 1.0)
             }
         }
 
@@ -695,30 +713,10 @@ struct BreakoutGameView: View {
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.2, green: 0.6, blue: 0.3))
-                        )
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
-                .padding(.top, 8)
-
-                Button(action: {
-                    showPauseMenu = false
-                    showSettings = true
-                }) {
-                    Text("Settings")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.35, green: 0.45, blue: 0.65))
-                        )
-                }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
 
                 Button(action: {
                     showPauseMenu = false
@@ -731,26 +729,33 @@ struct BreakoutGameView: View {
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.3, green: 0.5, blue: 0.9))
-                        )
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showSettings = true
+                }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
-                        .frame(width: 180, height: 48)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(red: 0.8, green: 0.25, blue: 0.25))
-                        )
+                        .frame(width: 160)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
             }
             .padding(28)
             .background(
@@ -936,6 +941,30 @@ struct BreakoutGameView: View {
 
         if nowBrickCount < wasBrickCount {
             playHaptic(.snap)
+        }
+
+        // Paddle hit haptic — intensity varies with deflection
+        if game.lastPaddleDeflection >= 0.0 {
+            let deflection = game.lastPaddleDeflection
+            // 0 = mirror reflection (hardest hit), 1 = max deflection (lightest)
+            let intensity = 1.0 - deflection * 0.7 // range: 1.0 (mirror) to 0.3 (max deflection)
+            if deflection < 0.15 {
+                // Near-mirror: heavy thud + tap (satisfying direct return)
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.thud, intensity: intensity),
+                    HapticEvent(.tap, intensity: intensity * 0.7, delay: 0.04),
+                ]))
+            } else if deflection < 0.5 {
+                // Moderate deflection: medium tap
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.tap, intensity: intensity),
+                ]))
+            } else {
+                // Large deflection: light tick
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.tick, intensity: intensity),
+                ]))
+            }
         }
 
         if game.isGameOver {

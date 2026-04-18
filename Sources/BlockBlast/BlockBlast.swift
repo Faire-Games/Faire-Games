@@ -41,6 +41,7 @@ struct BlockBlastGameView: View {
     @State var prevHighlightRow: Int = -1
     @State var prevHighlightCol: Int = -1
     @State var showSettings: Bool = false
+    @State var showPauseMenu: Bool = false
     @State var displayedScore: Int = 0
     @State var displayedHighScore: Int = 0
     @State var scoreAnimTimer: Timer? = nil
@@ -78,6 +79,11 @@ struct BlockBlastGameView: View {
             // Game over overlay
             if game.isGameOver {
                 gameOverOverlay
+            }
+
+            // Pause menu overlay
+            if showPauseMenu && !game.isGameOver {
+                pauseMenuOverlay
             }
 
             // Combo popup
@@ -172,8 +178,8 @@ struct BlockBlastGameView: View {
                     .monospaced()
             }
 
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: { showPauseMenu = true }) {
+                Image("pause_circle", bundle: .module)
                     .font(.system(size: 13, weight: .bold))
                     .foregroundStyle(Color.white.opacity(0.7))
                     .frame(width: 30, height: 30)
@@ -362,12 +368,12 @@ struct BlockBlastGameView: View {
         .gesture(
             DragGesture(coordinateSpace: .global)
                 .onChanged { value in
-                    if game.currentPieces[index] != nil {
+                    if !showPauseMenu && game.currentPieces[index] != nil {
                         handleDragChanged(index: index, value: value)
                     }
                 }
                 .onEnded { value in
-                    if game.currentPieces[index] != nil {
+                    if !showPauseMenu && game.currentPieces[index] != nil {
                         handleDragEnded(index: index, value: value)
                     }
                 }
@@ -563,6 +569,79 @@ struct BlockBlastGameView: View {
         highlightValid = false
         prevHighlightRow = -1
         prevHighlightCol = -1
+    }
+
+    // MARK: - Pause Menu Overlay
+
+    var pauseMenuOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: {
+                    showPauseMenu = false
+                }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+
+                Button(action: {
+                    showPauseMenu = false
+                    GameModel.clearSavedState()
+                    game.newGame()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showSettings = true
+                }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+            }
+            .padding(28)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
+            )
+        }
     }
 
     // MARK: - Game Over Overlay
