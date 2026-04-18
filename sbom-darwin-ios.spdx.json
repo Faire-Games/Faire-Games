@@ -1,6 +1,6 @@
 {
   "creationInfo" : {
-    "created" : "2026-04-08T14:30:04Z",
+    "created" : "2026-04-18T22:04:10Z",
     "creators" : [
       "Tool: skip-sbom"
     ],
@@ -36,7 +36,7 @@
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-appfair-app",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.0.3"
+      "versionInfo" : "1.0.4"
     },
     {
       "copyrightText" : "NOASSERTION",
@@ -49,13 +49,13 @@
         }
       ],
       "filesAnalyzed" : false,
-      "licenseConcluded" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
-      "licenseDeclared" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
+      "licenseConcluded" : "MPL-2.0",
+      "licenseDeclared" : "MPL-2.0",
       "name" : "skip",
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-skip",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.8.3"
+      "versionInfo" : "1.8.8"
     },
     {
       "copyrightText" : "NOASSERTION",
@@ -93,7 +93,7 @@
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-skip-kit",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.0.0"
+      "versionInfo" : "1.0.3"
     },
     {
       "copyrightText" : "NOASSERTION",
@@ -125,13 +125,13 @@
         }
       ],
       "filesAnalyzed" : false,
-      "licenseConcluded" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
-      "licenseDeclared" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
+      "licenseConcluded" : "MPL-2.0",
+      "licenseDeclared" : "MPL-2.0",
       "name" : "skip-model",
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-skip-model",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.7.2"
+      "versionInfo" : "1.7.3"
     },
     {
       "copyrightText" : "NOASSERTION",
@@ -150,7 +150,7 @@
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-skip-ui",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.51.0"
+      "versionInfo" : "1.51.3"
     },
     {
       "copyrightText" : "NOASSERTION",
@@ -163,13 +163,13 @@
         }
       ],
       "filesAnalyzed" : false,
-      "licenseConcluded" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
-      "licenseDeclared" : "LGPL-3.0-only WITH LGPL-3.0-linking-exception",
+      "licenseConcluded" : "MPL-2.0",
+      "licenseDeclared" : "MPL-2.0",
       "name" : "skip-unit",
       "primaryPackagePurpose" : "LIBRARY",
       "SPDXID" : "SPDXRef-Package-skip-unit",
       "supplier" : "NOASSERTION",
-      "versionInfo" : "1.6.0"
+      "versionInfo" : "1.6.1"
     }
   ],
   "relationships" : [

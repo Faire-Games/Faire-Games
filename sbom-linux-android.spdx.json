@@ -2,7 +2,7 @@
   "SPDXID" : "SPDXRef-DOCUMENT",
   "spdxVersion" : "SPDX-2.3",
   "creationInfo" : {
-    "created" : "2026-04-08T14:31:30Z",
+    "created" : "2026-04-18T22:05:27Z",
     "creators" : [ "Tool: spdx-gradle-plugin" ]
   },
   "name" : "app",
@@ -26,7 +26,7 @@
     "name" : "app",
     "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#app[:app]",
     "supplier" : "NOASSERTION",
-    "versionInfo" : "1.0.1"
+    "versionInfo" : "1.2.3"
   }, {
     "SPDXID" : "SPDXRef-gnrtd1",
     "checksums" : [ {
@@ -484,16 +484,16 @@
     "SPDXID" : "SPDXRef-gnrtd22",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "07acf0914030402924fcf1f698983e2e3220485ec636da7773421c150f765a7b"
+      "checksumValue" : "543635ec33c67bae335c54228e9573db47912b4a04f559f67b18e532cc39ef33"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "50b53692a111a694fc557a52f22f853f69cdfd7f"
+      "checksumValue" : "a8de23c95f9009b782586a92a782cb286a0a9c98"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/animation/animation-android/1.10.5/animation.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/animation/animation-android/1.10.6/animation.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.animation/animation-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.animation/animation-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -502,7 +502,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.animation:animation-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd23",
     "checksums" : [ {
@@ -576,16 +576,16 @@
     "SPDXID" : "SPDXRef-gnrtd26",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "a2ad085d080b05dd80c85646a015edfc278c03b9d096cc8c80fa3cc8fd9f8902"
+      "checksumValue" : "72a59e1ed74b4d1693f0311350ea885985d00830fb340e2578c8df01a4e808de"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "131b34ea15eca1ff579575c783150dc9e7fb6985"
+      "checksumValue" : "730b59aa8aca6973a574d3a055abbb46bebe93c0"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/animation/animation-core-android/1.10.5/animation-core.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/animation/animation-core-android/1.10.6/animation-core.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.animation/animation-core-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.animation/animation-core-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -594,21 +594,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.animation:animation-core-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd27",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "fd57586cf86d8b89f070d05cf5f0a2afcd15dd57411e767decc9e6b929764d43"
+      "checksumValue" : "e3313cd94834e8088d5301f1dfd6ccb000174498d3c867434fb25e4425b37c04"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "fd5897c409c463d890dfdc361b8db2d164f53859"
+      "checksumValue" : "efe3ee40eacc8063035bb001da05a14dc750658e"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-android/1.10.5/runtime.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-android/1.10.6/runtime.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -617,21 +617,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.runtime:runtime-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd28",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f666a83ae6818fb949476c70a737eae27516d049"
+      "checksumValue" : "d91b9d7dff89caabb6acbbde47e07f4620f5349b"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "6cb10d3d205c68969f6ad4f589a52650707aca3d23ab880197f1e30d50ec9527"
+      "checksumValue" : "41a0758b5cb7d9418aa87d8ce60b0cf0e59689938fa4efd0a4ae0a919ec3392c"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-annotation-android/1.10.5/runtime-annotation.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-annotation-android/1.10.6/runtime-annotation.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-annotation-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-annotation-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -640,21 +640,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.runtime:runtime-annotation-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd29",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "7be3cf36cef2b57cbb5db122f70435ad00ae331dcde0c3a048580c800f44cf4a"
+      "checksumValue" : "80048c6d2eacfa6b5745eee68cc3c8001aeb783a78bb56e8cbe77e297f3427f3"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "f0a8179c75c38d98f0c801eefe46e2707e1fb660"
+      "checksumValue" : "1b194d0485fa8a4c1ea6dd87bb9055719bc614ab"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-retain-android/1.10.5/runtime-retain.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-retain-android/1.10.6/runtime-retain.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-retain-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-retain-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -663,21 +663,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.runtime:runtime-retain-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd30",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f900b4e3e7addbdf2d136408838b32308532b896"
+      "checksumValue" : "c41718e4994af926efbf8e502352b706aba8cf3e"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "0b51cc6a3fdfa26c4cc0669dfd959d02772612cca12fd61e9a0030e9c2ecd213"
+      "checksumValue" : "b848c4a8c6cedaf031003030e0eafd9d079b375e087b052affb73ef72d566502"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-saveable-android/1.10.5/runtime-saveable.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/runtime/runtime-saveable-android/1.10.6/runtime-saveable.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-saveable-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.runtime/runtime-saveable-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -686,7 +686,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.runtime:runtime-saveable-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd31",
     "checksums" : [ {
@@ -1404,16 +1404,16 @@
     "SPDXID" : "SPDXRef-gnrtd62",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "6bc88fc41214aa2eb4a7b980dea2e55e002abdc4cd448ade52b3fd150a9299ea"
+      "checksumValue" : "85c9c973c9f720340e138d376f6e8c0a27e54d023b9fbaaf281ed407c56d98b7"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "8770090c6fa9ce0e9b1f4e6b8757b804488bc7ba"
+      "checksumValue" : "245a431ca80b002fe6e9069a4266eb153491d5ad"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-android/1.10.5/ui.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-android/1.10.6/ui.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1422,7 +1422,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd63",
     "checksums" : [ {
@@ -1565,16 +1565,16 @@
     "SPDXID" : "SPDXRef-gnrtd69",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "fdf23c8cfd8157f5ecc8920234b164bc9a0a5d35bc7a88cf9e0fbe7f183a0fcd"
+      "checksumValue" : "ac56aa1659ffd92e5a2b2214d0c39a8c1261f0196c19cb9d7fb4695849af73fe"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "bb90a18b075283796dd11364483d465db69932fc"
+      "checksumValue" : "4a55a116d471a1a080cfb630ab4b4878ffca924a"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-geometry-android/1.10.5/ui-geometry.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-geometry-android/1.10.6/ui-geometry.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-geometry-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-geometry-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1583,21 +1583,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-geometry-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd70",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "8e0218d17acc7a4e0040486c840e6b92757d8fbb"
+      "checksumValue" : "d4132c71b6e91e5434598678c5cfdd99ef8d5033"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "f586c45c91fe10fffa2073b3913d8f2a676b0896a36b32b4896abbdcbbfdc4dc"
+      "checksumValue" : "30b6d04f212edf39ef4fa7b8e27e42f53133d2bbad7f05eae6f97b32773f25f3"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-util-android/1.10.5/ui-util.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-util-android/1.10.6/ui-util.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-util-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-util-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1606,21 +1606,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-util-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd71",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "e42cfe175036fbdbdfa851feb24cb1ffce39ea6e3bf2acebfa160453e71c3afb"
+      "checksumValue" : "926bb0e8b5aacb51deba00c874ec285644b616a96cdb0c7e53f29aed257f5a2b"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "827f97f73fdd4acd4e3c8ca99b71158b458f058b"
+      "checksumValue" : "1c1ed054cf27e1eec16aaf2f7a894d1ef62c0835"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-graphics-android/1.10.5/ui-graphics.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-graphics-android/1.10.6/ui-graphics.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-graphics-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-graphics-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1629,21 +1629,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-graphics-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd72",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "b4a2d86d8d9199faed4b116bde350c4c106ce59d11231b56e48b05219a25d115"
+      "checksumValue" : "5639769ead88bff570bee0f02d88f3889d0e0b0f5c049c0fa4da569ce6f2b5f4"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "1c923de6aaa4f4e574e2a8295e09c8d99b242482"
+      "checksumValue" : "78cb82803c1097b7293e9cd22693365a0892f446"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-unit-android/1.10.5/ui-unit.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-unit-android/1.10.6/ui-unit.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-unit-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-unit-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1652,21 +1652,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-unit-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd73",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b7bbc1d5dae5c599a485736505102ed361bf669d"
+      "checksumValue" : "7885f4f7a7046e0f89ba0597e69e0a0e9ad713c7"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "f833f923b7bfbf196284fe6e709969e940c58c29d81b7193063da2d34367063e"
+      "checksumValue" : "b66e9680d080e8afd46e876ca3cf73db48e773965e7d6406bfc521832a06dec9"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-text-android/1.10.5/ui-text.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-text-android/1.10.6/ui-text.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-text-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-text-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1675,7 +1675,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-text-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd74",
     "checksums" : [ {
@@ -1726,16 +1726,16 @@
     "SPDXID" : "SPDXRef-gnrtd76",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "643e487c0b1858982a949e6ee2e8d37223b24cef"
+      "checksumValue" : "be380d748780939e09c2954d9605c995e36f0f7b"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "8e42aa5621399e0bced9acbab6c17125ae4d979f1f39475453e1d6d72bd129ae"
+      "checksumValue" : "b2208ef1a4c1af3fdbfb8ee851298b3fbc7da7d851970a1f581e6cf620d4d621"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-android/1.10.5/ui-tooling.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-android/1.10.6/ui-tooling.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1744,21 +1744,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-tooling-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd77",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "636bb053b873ebb0c5be55c8ffb38c725e3aff4cfa58508a32505f3c24082c29"
+      "checksumValue" : "2b7911ed559f77ea2f1e98249aa2d3bad5a8f712924278c80725eefa9646f9c5"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "77bd136d2c58c0a861e149a9e3c6e04e931028d3"
+      "checksumValue" : "8d7720669cd3b2c11e4256c2239ceada6613790f"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/material/material-android/1.10.5/material.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/material/material-android/1.10.6/material.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.material/material-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.material/material-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1767,21 +1767,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.material:material-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd78",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "7fd9f592d9b2e37fd7bbd3b07b35fe3869ce0391603f651e6bfc1caf6d13a693"
+      "checksumValue" : "7135bd5f1cd36d2320028a8a5737f930e1df3bdf81d8c1e0babc9b160d826741"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "4e6a84bb99241c3f6146028c69916334535c8846"
+      "checksumValue" : "d76af1667b8ac74cdfcfba7324d1c8c02349161b"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation-android/1.10.5/foundation.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation-android/1.10.6/foundation.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.foundation/foundation-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.foundation/foundation-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1790,21 +1790,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.foundation:foundation-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd79",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "b11250c899e65f73bb1f68643ebc37d9c6d9ddd014b4b86ce1e17e502a2fca59"
+      "checksumValue" : "872c0a93f962517dcc974a63e05f3f43a696b155e08e94411fe4137511c467fd"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "c290f38b9b46fffd896c654a6bc97bc7d9c5213b"
+      "checksumValue" : "120630e1001a6d8b573ea15e23e8d1e37a3d2b4d"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation-layout-android/1.10.5/foundation-layout.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/foundation/foundation-layout-android/1.10.6/foundation-layout.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.foundation/foundation-layout-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.foundation/foundation-layout-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1813,21 +1813,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.foundation:foundation-layout-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd80",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "ceb7e8a584f80092f16fef2975e281949d8a58184236a87a8b214ec94c74e066"
+      "checksumValue" : "a2e73e024d84a428c4db483c77cdda42e48577719ab8ba930730f37894523c82"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "d98639587722d62f449bace75ba693d60e8fdcf2"
+      "checksumValue" : "8c11a2a0da9ccfd7c582429e8b9ee99baaa0d131"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/material/material-ripple-android/1.10.5/material-ripple.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/material/material-ripple-android/1.10.6/material-ripple.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.material/material-ripple-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.material/material-ripple-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1836,21 +1836,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.material:material-ripple-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd81",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "42b288b763de4c2a729fba8f0d02e12f0094acbba92bb5bc293cd74f6c18361b"
+      "checksumValue" : "f3d495c66d3a95b182ea98a3075c1f9fe50e1028b577b0afc2d9858f85a59753"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "aaccdbc85568ed75f7f8acc8562611654433d093"
+      "checksumValue" : "35007957d75a4048a9cad45697e81f37dce9bb8a"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-data-android/1.10.5/ui-tooling-data.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-data-android/1.10.6/ui-tooling-data.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-data-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-data-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1859,21 +1859,21 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-tooling-data-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd82",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "5253b63a2b44ee1c063ad9e2c99f05648f4cea0d"
+      "checksumValue" : "0db30cfe129b6043627b56530aa4ffb037d5a2d3"
     }, {
       "algorithm" : "SHA256",
-      "checksumValue" : "bd2d83f99d180f09422a57ce2f0efefaf9bdd098ec7c555495dfd57f03f9d4af"
+      "checksumValue" : "009d5d06dd18c713b5937a50291b648d6f027fcfb52abaac22661643a5204793"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-preview-android/1.10.5/ui-tooling-preview.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/compose/ui/ui-tooling-preview-android/1.10.6/ui-tooling-preview.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-preview-android@1.10.5?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.compose.ui/ui-tooling-preview-android@1.10.6?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -1882,7 +1882,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.compose.ui:ui-tooling-preview-android",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.10.5"
+    "versionInfo" : "1.10.6"
   }, {
     "SPDXID" : "SPDXRef-gnrtd83",
     "checksums" : [ {
@@ -3056,16 +3056,16 @@
     "SPDXID" : "SPDXRef-gnrtd136",
     "checksums" : [ {
       "algorithm" : "SHA256",
-      "checksumValue" : "b6aa2d575d27252233aee98fd93575e8327715f2ebd1dc14ad7ea4a7d2ec4592"
+      "checksumValue" : "fb40d1ee5fd910c9d112200868a9534156a7a999abc28fbb3c6815a2e3ac5150"
     }, {
       "algorithm" : "SHA1",
-      "checksumValue" : "b77d79550d151cc7b58b07856c88ea62dd9d52ca"
+      "checksumValue" : "cfaf02f4ba3b190f84497ca4e8b86dc5371a19f4"
     } ],
     "copyrightText" : "NOASSERTION",
-    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/browser/browser/1.9.0/browser-1.9.0.aar",
+    "downloadLocation" : "https://dl.google.com/dl/android/maven2/androidx/browser/browser/1.10.0/browser-1.10.0.aar",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/androidx.browser/browser@1.9.0?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
+      "referenceLocator" : "pkg:maven/androidx.browser/browser@1.10.0?repository_url=dl.google.com%2Fdl%2Fandroid%2Fmaven2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -3074,7 +3074,7 @@
     "licenseInfoFromFiles" : [ ],
     "name" : "androidx.browser:browser",
     "supplier" : "Organization: The Android Open Source Project",
-    "versionInfo" : "1.9.0"
+    "versionInfo" : "1.10.0"
   }, {
     "SPDXID" : "SPDXRef-gnrtd137",
     "copyrightText" : "NOASSERTION",
@@ -3110,8 +3110,47 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseDeclared" : "NOASSERTION",
     "licenseInfoFromFiles" : [ ],
-    "name" : "JewelCrush",
-    "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#JewelCrush[:JewelCrush]",
+    "name" : "FlappyBird",
+    "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#FlappyBird[:FlappyBird]",
+    "supplier" : "NOASSERTION",
+    "versionInfo" : "NOASSERTION"
+  }, {
+    "SPDXID" : "SPDXRef-gnrtd140",
+    "copyrightText" : "NOASSERTION",
+    "description" : "",
+    "downloadLocation" : "NOASSERTION",
+    "filesAnalyzed" : false,
+    "licenseConcluded" : "NOASSERTION",
+    "licenseDeclared" : "NOASSERTION",
+    "licenseInfoFromFiles" : [ ],
+    "name" : "Breakout",
+    "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#Breakout[:Breakout]",
+    "supplier" : "NOASSERTION",
+    "versionInfo" : "NOASSERTION"
+  }, {
+    "SPDXID" : "SPDXRef-gnrtd141",
+    "copyrightText" : "NOASSERTION",
+    "description" : "",
+    "downloadLocation" : "NOASSERTION",
+    "filesAnalyzed" : false,
+    "licenseConcluded" : "NOASSERTION",
+    "licenseDeclared" : "NOASSERTION",
+    "licenseInfoFromFiles" : [ ],
+    "name" : "Sudoku",
+    "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#Sudoku[:Sudoku]",
+    "supplier" : "NOASSERTION",
+    "versionInfo" : "NOASSERTION"
+  }, {
+    "SPDXID" : "SPDXRef-gnrtd142",
+    "copyrightText" : "NOASSERTION",
+    "description" : "",
+    "downloadLocation" : "NOASSERTION",
+    "filesAnalyzed" : false,
+    "licenseConcluded" : "NOASSERTION",
+    "licenseDeclared" : "NOASSERTION",
+    "licenseInfoFromFiles" : [ ],
+    "name" : "TwentyFortyEight",
+    "sourceInfo" : "git+<no-scm-uri>@<no-scm-revision>#TwentyFortyEight[:TwentyFortyEight]",
     "supplier" : "NOASSERTION",
     "versionInfo" : "NOASSERTION"
   } ],
@@ -3162,11 +3201,23 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd5",
     "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd142"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd5",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd141"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd5",
+    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd138"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd5",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd104"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd5",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd140"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd5",
     "relationshipType" : "DEPENDS_ON",
@@ -3218,14 +3269,6 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd21",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd98"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd21",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd97"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd21",
-    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd96"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd21",
@@ -3234,7 +3277,19 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd21",
     "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd98"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd21",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd97"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd21",
+    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd22"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd22",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd24"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd22",
     "relationshipType" : "DEPENDS_ON",
@@ -3244,21 +3299,17 @@
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd26"
   }, {
-    "spdxElementId" : "SPDXRef-gnrtd22",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd24"
-  }, {
     "spdxElementId" : "SPDXRef-gnrtd24",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd25"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd26",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd27"
+    "relatedSpdxElement" : "SPDXRef-gnrtd62"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd26",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd62"
+    "relatedSpdxElement" : "SPDXRef-gnrtd27"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd27",
     "relationshipType" : "DEPENDS_ON",
@@ -3282,11 +3333,7 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd32",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd33"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd32",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd35"
+    "relatedSpdxElement" : "SPDXRef-gnrtd61"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd32",
     "relationshipType" : "DEPENDS_ON",
@@ -3294,11 +3341,15 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd32",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd61"
+    "relatedSpdxElement" : "SPDXRef-gnrtd33"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd32",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd36"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd32",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd35"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd36",
     "relationshipType" : "DEPENDS_ON",
@@ -3322,11 +3373,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd41",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd43"
+    "relatedSpdxElement" : "SPDXRef-gnrtd42"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd41",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd42"
+    "relatedSpdxElement" : "SPDXRef-gnrtd43"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd43",
     "relationshipType" : "DEPENDS_ON",
@@ -3354,19 +3405,15 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd49",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd50"
+    "relatedSpdxElement" : "SPDXRef-gnrtd56"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd49",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd56"
+    "relatedSpdxElement" : "SPDXRef-gnrtd50"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd50",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd51"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd51",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd54"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd51",
     "relationshipType" : "DEPENDS_ON",
@@ -3375,6 +3422,10 @@
     "spdxElementId" : "SPDXRef-gnrtd51",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd55"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd51",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd54"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd52",
     "relationshipType" : "DEPENDS_ON",
@@ -3398,15 +3449,7 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd62",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd85"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd62",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd84"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd62",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd92"
+    "relatedSpdxElement" : "SPDXRef-gnrtd68"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd62",
     "relationshipType" : "DEPENDS_ON",
@@ -3414,11 +3457,19 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd62",
     "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd84"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd62",
+    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd69"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd62",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd68"
+    "relatedSpdxElement" : "SPDXRef-gnrtd92"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd62",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd85"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd63",
     "relationshipType" : "DEPENDS_ON",
@@ -3446,11 +3497,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd71",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd83"
+    "relatedSpdxElement" : "SPDXRef-gnrtd72"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd71",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd72"
+    "relatedSpdxElement" : "SPDXRef-gnrtd83"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd72",
     "relationshipType" : "DEPENDS_ON",
@@ -3470,11 +3521,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd76",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd77"
+    "relatedSpdxElement" : "SPDXRef-gnrtd81"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd76",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd81"
+    "relatedSpdxElement" : "SPDXRef-gnrtd77"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd77",
     "relationshipType" : "DEPENDS_ON",
@@ -3502,19 +3553,19 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd87",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd88"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd87",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd89"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd87",
-    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd91"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd87",
     "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd88"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd87",
+    "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd90"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd87",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd89"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd92",
     "relationshipType" : "DEPENDS_ON",
@@ -3526,11 +3577,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd98",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd100"
+    "relatedSpdxElement" : "SPDXRef-gnrtd102"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd98",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd99"
+    "relatedSpdxElement" : "SPDXRef-gnrtd100"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd98",
     "relationshipType" : "DEPENDS_ON",
@@ -3538,7 +3589,7 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd98",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd102"
+    "relatedSpdxElement" : "SPDXRef-gnrtd99"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd100",
     "relationshipType" : "DEPENDS_ON",
@@ -3546,19 +3597,19 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd104",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd105"
+    "relatedSpdxElement" : "SPDXRef-gnrtd137"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd104",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd137"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd105",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd106"
+    "relatedSpdxElement" : "SPDXRef-gnrtd105"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd105",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd136"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd105",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd106"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
@@ -3566,11 +3617,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd126"
+    "relatedSpdxElement" : "SPDXRef-gnrtd134"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd134"
+    "relatedSpdxElement" : "SPDXRef-gnrtd109"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
@@ -3578,11 +3629,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd119"
+    "relatedSpdxElement" : "SPDXRef-gnrtd126"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd106",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd109"
+    "relatedSpdxElement" : "SPDXRef-gnrtd119"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd107",
     "relationshipType" : "DEPENDS_ON",
@@ -3590,11 +3641,7 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd109",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd110"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd109",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd114"
+    "relatedSpdxElement" : "SPDXRef-gnrtd118"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd109",
     "relationshipType" : "DEPENDS_ON",
@@ -3602,19 +3649,23 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd109",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd118"
+    "relatedSpdxElement" : "SPDXRef-gnrtd110"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd109",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd116"
   }, {
-    "spdxElementId" : "SPDXRef-gnrtd110",
+    "spdxElementId" : "SPDXRef-gnrtd109",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd112"
+    "relatedSpdxElement" : "SPDXRef-gnrtd114"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd110",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd111"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd110",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd112"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd114",
     "relationshipType" : "DEPENDS_ON",
@@ -3630,19 +3681,19 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd120",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd122"
+    "relatedSpdxElement" : "SPDXRef-gnrtd121"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd120",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd121"
-  }, {
-    "spdxElementId" : "SPDXRef-gnrtd122",
-    "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd124"
+    "relatedSpdxElement" : "SPDXRef-gnrtd122"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd122",
     "relationshipType" : "DEPENDS_ON",
     "relatedSpdxElement" : "SPDXRef-gnrtd123"
+  }, {
+    "spdxElementId" : "SPDXRef-gnrtd122",
+    "relationshipType" : "DEPENDS_ON",
+    "relatedSpdxElement" : "SPDXRef-gnrtd124"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd124",
     "relationshipType" : "DEPENDS_ON",
@@ -3650,11 +3701,11 @@
   }, {
     "spdxElementId" : "SPDXRef-gnrtd126",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd127"
+    "relatedSpdxElement" : "SPDXRef-gnrtd130"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd126",
     "relationshipType" : "DEPENDS_ON",
-    "relatedSpdxElement" : "SPDXRef-gnrtd130"
+    "relatedSpdxElement" : "SPDXRef-gnrtd127"
   }, {
     "spdxElementId" : "SPDXRef-gnrtd127",
     "relationshipType" : "DEPENDS_ON",
