@@ -15,6 +15,26 @@ let logger: Logger = Logger(subsystem: "BlockBlast", category: "Tests")
         #expect(1 + 2 == 3, "basic test")
     }
 
+    @Test func saveAndRestoreState() throws {
+        let model = GameModel()
+        model.newGame()
+        model.score = 99
+        model.comboStreak = 3
+        model.grid[0][0] = 2
+        model.grid[3][5] = 4
+
+        let state = model.makeSavedState()
+        let data = try JSONEncoder().encode(state)
+        let decoded = try JSONDecoder().decode(BlockBlastSavedState.self, from: data)
+
+        let restored = GameModel()
+        restored.restoreState(decoded)
+        #expect(restored.score == 99)
+        #expect(restored.comboStreak == 3)
+        #expect(restored.grid[0][0] == 2)
+        #expect(restored.grid[3][5] == 4)
+    }
+
     @Test func decodeType() throws {
         // load the TestData.json file from the Resources folder and decode it into a struct
         let resourceURL: URL = try #require(Bundle.module.url(forResource: "TestData", withExtension: "json"))

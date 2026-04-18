@@ -21,6 +21,26 @@ let logger: Logger = Logger(subsystem: "FlappyBird", category: "Tests")
         #expect(testData.testModuleName == "FlappyBird")
     }
 
+    @Test func saveAndRestoreState() throws {
+        let model = FlappyBirdModel()
+        model.birdY = 200.0
+        model.score = 15
+        model.difficulty = 7
+        model.isGameOver = true
+        model.hasStarted = true
+
+        let state = model.makeSavedState()
+        let data = try JSONEncoder().encode(state)
+        let decoded = try JSONDecoder().decode(FlappyBirdSavedState.self, from: data)
+
+        let restored = FlappyBirdModel()
+        restored.restoreState(decoded)
+        #expect(restored.birdY == 200.0)
+        #expect(restored.score == 15)
+        #expect(restored.difficulty == 7)
+        #expect(restored.isGameOver == true)
+    }
+
 }
 
 struct TestData : Codable, Hashable {

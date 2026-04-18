@@ -21,6 +21,26 @@ let logger: Logger = Logger(subsystem: "JewelCrush", category: "Tests")
         #expect(testData.testModuleName == "JewelCrush")
     }
 
+    @Test func saveAndRestoreState() throws {
+        let model = JewelCrushModel()
+        model.score = 350
+        model.currentLevel = 5
+        model.targetScore = 2000
+        model.movesRemaining = 12
+        model.isGameOver = false
+
+        let state = model.makeSavedState()
+        let data = try JSONEncoder().encode(state)
+        let decoded = try JSONDecoder().decode(JewelCrushSavedState.self, from: data)
+
+        let restored = JewelCrushModel()
+        restored.restoreState(decoded)
+        #expect(restored.score == 350)
+        #expect(restored.currentLevel == 5)
+        #expect(restored.targetScore == 2000)
+        #expect(restored.movesRemaining == 12)
+    }
+
 }
 
 struct TestData : Codable, Hashable {

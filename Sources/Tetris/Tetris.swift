@@ -152,6 +152,21 @@ enum TetrominoKind: Int, CaseIterable {
     }
 }
 
+// MARK: - Saved State
+
+struct TetrisSavedState: Codable {
+    var grid: [[Int]]
+    var currentKindRaw: Int
+    var currentRotation: Int
+    var currentRow: Int
+    var currentCol: Int
+    var nextPieceRaws: [Int]
+    var score: Int
+    var level: Int
+    var totalLinesCleared: Int
+    var isGameOver: Bool
+}
+
 // MARK: - Game Model
 
 @Observable final class TetrisModel {
@@ -428,6 +443,63 @@ enum TetrominoKind: Int, CaseIterable {
     static func resetHighScore() {
         UserDefaults.standard.set(0, forKey: "tetris_highscore")
     }
+
+    // MARK: - Game State Persistence
+
+    func makeSavedState() -> TetrisSavedState {
+        var raws: [Int] = []
+        for p in nextPieces { raws.append(p.rawValue) }
+        return TetrisSavedState(
+            grid: grid,
+            currentKindRaw: currentKind.rawValue,
+            currentRotation: currentRotation,
+            currentRow: currentRow,
+            currentCol: currentCol,
+            nextPieceRaws: raws,
+            score: score,
+            level: level,
+            totalLinesCleared: totalLinesCleared,
+            isGameOver: isGameOver
+        )
+    }
+
+    func restoreState(_ state: TetrisSavedState) {
+        grid = state.grid
+        currentKind = TetrominoKind(rawValue: state.currentKindRaw) ?? .t
+        currentRotation = state.currentRotation
+        currentRow = state.currentRow
+        currentCol = state.currentCol
+        score = state.score
+        level = state.level
+        totalLinesCleared = state.totalLinesCleared
+        isGameOver = state.isGameOver
+        isPaused = true
+        loadHighScore()
+
+        var restoredNext: [TetrominoKind] = []
+        for raw in state.nextPieceRaws {
+            restoredNext.append(TetrominoKind(rawValue: raw) ?? .t)
+        }
+        nextPieces = restoredNext
+
+        updateGhost()
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "tetris_saved_state")
+    }
+
+    static func loadSavedState() -> TetrisSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "tetris_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(TetrisSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "tetris_saved_state")
+    }
 }
 
 /// Resets the Tetris high score to zero.
@@ -507,12 +579,21 @@ struct TetrisGameView: View {
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
         #endif
-        .onAppear { startTimer() }
+        .onAppear {
+            if let savedState = TetrisModel.loadSavedState() {
+                game.restoreState(savedState)
+            } else {
+                startTimer()
+            }
+        }
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase != .active && !game.isGameOver && !game.isPaused {
                 game.isPaused = true
                 stopTimer()
+            }
+            if newPhase != .active && !game.isGameOver {
+                game.saveState()
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -921,6 +1002,7 @@ struct TetrisGameView: View {
                 }
 
                 Button(action: {
+                    TetrisModel.clearSavedState()
                     game.newGame()
                     startTimer()
                 }) {
@@ -989,6 +1071,7 @@ struct TetrisGameView: View {
                 .tint(.green)
 
                 Button(action: {
+                    TetrisModel.clearSavedState()
                     game.newGame()
                     startTimer()
                 }) {
@@ -999,7 +1082,7 @@ struct TetrisGameView: View {
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(.gray)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")

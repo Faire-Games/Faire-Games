@@ -21,6 +21,29 @@ let logger: Logger = Logger(subsystem: "TwentyFortyEight", category: "Tests")
         #expect(testData.testModuleName == "TwentyFortyEight")
     }
 
+    @Test func saveAndRestoreState() throws {
+        let model = TwentyFortyEightModel()
+        model.grid = Array(repeating: 0, count: 16)
+        model.grid[0] = 2
+        model.grid[1] = 4
+        model.grid[5] = 128
+        model.score = 1234
+        model.isGameOver = false
+        model.hasWon = false
+        model.continueAfterWin = false
+
+        let state = model.makeSavedState()
+        let data = try JSONEncoder().encode(state)
+        let decoded = try JSONDecoder().decode(TwentyFortyEightSavedState.self, from: data)
+
+        let restored = TwentyFortyEightModel()
+        restored.restoreState(decoded)
+        #expect(restored.grid[0] == 2)
+        #expect(restored.grid[1] == 4)
+        #expect(restored.grid[5] == 128)
+        #expect(restored.score == 1234)
+    }
+
 }
 
 struct TestData : Codable, Hashable {

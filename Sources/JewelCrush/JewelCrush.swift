@@ -125,6 +125,20 @@ func celebrationMessage(largestMatch: Int, combo: Int) -> String {
     return match3Messages[Int.random(in: 0..<match3Messages.count)]
 }
 
+// MARK: - Saved State
+
+struct JewelCrushSavedState: Codable {
+    var grid: [[Int]]
+    var score: Int
+    var currentLevel: Int
+    var targetScore: Int
+    var isTimed: Bool
+    var movesRemaining: Int
+    var timeRemaining: Int
+    var isGameOver: Bool
+    var isLevelComplete: Bool
+}
+
 // MARK: - Game Model
 
 @Observable final class JewelCrushModel {
@@ -414,6 +428,55 @@ func celebrationMessage(largestMatch: Int, combo: Int) -> String {
     static func resetProgress() {
         UserDefaults.standard.set(1, forKey: "jewelcrush_level")
     }
+
+    // MARK: State Persistence
+
+    func makeSavedState() -> JewelCrushSavedState {
+        return JewelCrushSavedState(
+            grid: grid,
+            score: score,
+            currentLevel: currentLevel,
+            targetScore: targetScore,
+            isTimed: isTimed,
+            movesRemaining: movesRemaining,
+            timeRemaining: timeRemaining,
+            isGameOver: isGameOver,
+            isLevelComplete: isLevelComplete
+        )
+    }
+
+    func restoreState(_ state: JewelCrushSavedState) {
+        grid = state.grid
+        score = state.score
+        currentLevel = state.currentLevel
+        targetScore = state.targetScore
+        isTimed = state.isTimed
+        movesRemaining = state.movesRemaining
+        timeRemaining = state.timeRemaining
+        isGameOver = state.isGameOver
+        isLevelComplete = state.isLevelComplete
+        selectedRow = -1
+        selectedCol = -1
+        isAnimating = false
+        clearingCells.removeAll()
+        comboCount = 0
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "jewelcrush_saved_state")
+    }
+
+    static func loadSavedState() -> JewelCrushSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "jewelcrush_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(JewelCrushSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "jewelcrush_saved_state")
+    }
 }
 
 // MARK: - Container View
@@ -528,7 +591,12 @@ struct JewelCrushGameView: View {
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
         #endif
-        .onAppear { startTimerIfNeeded() }
+        .onAppear {
+            if let saved = JewelCrushModel.loadSavedState() {
+                game.restoreState(saved)
+            }
+            startTimerIfNeeded()
+        }
         .onDisappear { stopTimer() }
         .sheet(isPresented: $showSettings) {
             JewelCrushSettingsView(settings: settings)
@@ -941,6 +1009,7 @@ struct JewelCrushGameView: View {
             if !game.isLevelComplete {
                 game.checkGameOver()
             }
+            game.saveState()
             return
         }
 
@@ -1031,6 +1100,7 @@ struct JewelCrushGameView: View {
                 }
 
                 Button(action: {
+                    JewelCrushModel.clearSavedState()
                     stopTimer()
                     let next = nextPlayableLevel(from: game.currentLevel + 1, preference: settings.levelPreference)
                     game.startLevel(next)
@@ -1100,6 +1170,7 @@ struct JewelCrushGameView: View {
                 }
 
                 Button(action: {
+                    JewelCrushModel.clearSavedState()
                     stopTimer()
                     game.startLevel(game.currentLevel)
                     startTimerIfNeeded()

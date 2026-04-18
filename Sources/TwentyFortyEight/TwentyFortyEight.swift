@@ -76,6 +76,16 @@ enum Direction {
     case up, down, left, right
 }
 
+// MARK: - Saved State
+
+struct TwentyFortyEightSavedState: Codable {
+    var grid: [Int]
+    var score: Int
+    var isGameOver: Bool
+    var hasWon: Bool
+    var continueAfterWin: Bool
+}
+
 // MARK: - Game Model
 
 @Observable
@@ -279,6 +289,45 @@ final class TwentyFortyEightModel {
             UserDefaults.standard.set(highScore, forKey: "twentyfortyeight_highscore")
         }
     }
+
+    // MARK: - State Persistence
+
+    func makeSavedState() -> TwentyFortyEightSavedState {
+        return TwentyFortyEightSavedState(
+            grid: grid,
+            score: score,
+            isGameOver: isGameOver,
+            hasWon: hasWon,
+            continueAfterWin: continueAfterWin
+        )
+    }
+
+    func restoreState(_ state: TwentyFortyEightSavedState) {
+        grid = state.grid
+        score = state.score
+        isGameOver = state.isGameOver
+        hasWon = state.hasWon
+        continueAfterWin = state.continueAfterWin
+        highScore = UserDefaults.standard.integer(forKey: "twentyfortyeight_highscore")
+        mergedIndices = []
+        spawnedIndex = -1
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "twentyfortyeight_saved_state")
+    }
+
+    static func loadSavedState() -> TwentyFortyEightSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "twentyfortyeight_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(TwentyFortyEightSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "twentyfortyeight_saved_state")
+    }
 }
 
 // MARK: - Game View
@@ -286,8 +335,12 @@ final class TwentyFortyEightModel {
 struct TwentyFortyEightGameView: View {
     @State private var game = TwentyFortyEightModel()
     @State private var showSettings = false
+    @State private var showPauseMenu = false
     @State private var tileScales: [Double] = Array(repeating: 1.0, count: gridSize * gridSize)
     @State private var animTimer: Timer? = nil
+    @State private var displayedScore: Int = 0
+    @State private var displayedHighScore: Int = 0
+    @State private var scoreAnimTimer: Timer? = nil
     @Environment(\.dismiss) var dismiss
     @Environment(TwentyFortyEightSettings.self) var settings: TwentyFortyEightSettings
 
@@ -307,15 +360,15 @@ struct TwentyFortyEightGameView: View {
                 hudView
                     .frame(height: 44)
 
-                Spacer()
-
                 // Score row
                 HStack(spacing: 12) {
-                    scoreBox(label: "SCORE", value: game.score)
-                    scoreBox(label: "BEST", value: game.highScore)
+                    scoreBox(label: "SCORE", value: displayedScore)
+                    scoreBox(label: "BEST", value: displayedHighScore)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
+
+                Spacer()
 
                 // Board
                 ZStack {
@@ -359,55 +412,41 @@ struct TwentyFortyEightGameView: View {
                     if game.isGameOver {
                         gameOverOverlay(boardSize: boardSize)
                     }
+
+                    // Pause menu overlay
+                    if showPauseMenu && !game.isGameOver && !game.hasWon {
+                        pauseMenuOverlay(boardSize: boardSize)
+                    }
                 }
-                .gesture(
-                    DragGesture(minimumDistance: 20)
-                        .onEnded { value in
-                            if game.isGameOver || game.hasWon { return }
-                            let dx = value.translation.width
-                            let dy = value.translation.height
-                            let direction: Direction
-                            if abs(dx) > abs(dy) {
-                                direction = dx > 0.0 ? .right : .left
-                            } else {
-                                direction = dy > 0.0 ? .down : .up
-                            }
-                            let moved = game.move(direction)
-                            if moved {
-                                game.spawnTile()
-                                triggerAnimations()
-                                playMergeHaptics()
-                            }
-                            game.checkGameState()
-                            if game.isGameOver {
-                                playHaptic(.impact)
-                            }
-                        }
-                )
 
                 Spacer()
-
-                // New Game button
-                Button(action: {
-                    game.newGame()
-                    resetScales()
-                    playHaptic(.snap)
-                }) {
-                    Text("New Game")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
-                        .frame(width: 160, height: 44)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.55, green: 0.47, blue: 0.40))
-                        )
-                }
-                .buttonStyle(.plain)
-                .padding(.bottom, 20)
-
                 Spacer()
             }
+            .gesture(
+                DragGesture(minimumDistance: 20)
+                    .onEnded { value in
+                        if game.isGameOver || game.hasWon || showPauseMenu { return }
+                        let dx = value.translation.width
+                        let dy = value.translation.height
+                        let direction: Direction
+                        if abs(dx) > abs(dy) {
+                            direction = dx > 0.0 ? .right : .left
+                        } else {
+                            direction = dy > 0.0 ? .down : .up
+                        }
+                        let moved = game.move(direction)
+                        if moved {
+                            game.spawnTile()
+                            triggerAnimations()
+                            playMergeHaptics()
+                        }
+                        game.checkGameState()
+                        if game.isGameOver {
+                            playHaptic(.impact)
+                        }
+                        game.saveState()
+                    }
+            )
             .background(Color(red: 0.98, green: 0.97, blue: 0.94).ignoresSafeArea())
         }
         .navigationBarBackButtonHidden()
@@ -415,16 +454,153 @@ struct TwentyFortyEightGameView: View {
         .toolbar(.hidden, for: .navigationBar)
         #endif
         .onAppear {
-            game.newGame()
+            if let state = TwentyFortyEightModel.loadSavedState() {
+                game.restoreState(state)
+            } else {
+                game.newGame()
+            }
+            displayedScore = game.score
+            displayedHighScore = game.highScore
             resetScales()
         }
         .onDisappear {
             animTimer?.invalidate()
             animTimer = nil
+            stopScoreAnimation()
+        }
+        .onChange(of: game.score) { _, newScore in
+            if newScore == 0 {
+                displayedScore = 0
+            } else {
+                startScoreAnimation()
+            }
+        }
+        .onChange(of: game.highScore) { _, newHighScore in
+            if newHighScore == 0 {
+                displayedHighScore = 0
+            } else {
+                startScoreAnimation()
+            }
         }
         .sheet(isPresented: $showSettings) {
             TwentyFortyEightSettingsView(settings: settings)
         }
+    }
+
+    // MARK: - Pause Menu
+
+    func pauseMenuOverlay(boardSize: Double) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.85))
+                .frame(width: boardSize, height: boardSize)
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: {
+                    showPauseMenu = false
+                }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+
+                Button(action: {
+                    showPauseMenu = false
+                    TwentyFortyEightModel.clearSavedState()
+                    game.newGame()
+                    resetScales()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
+                    playHaptic(.snap)
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showSettings = true
+                }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+            }
+        }
+    }
+
+    // MARK: - Score Animation
+
+    func startScoreAnimation() {
+        if scoreAnimTimer != nil { return }
+        scoreAnimTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
+            tickScoreAnimation()
+        }
+    }
+
+    func tickScoreAnimation() {
+        var changed = false
+
+        if displayedScore != game.score {
+            let diff = game.score - displayedScore
+            if diff > 0 {
+                let step = max(1, diff / 8)
+                displayedScore = min(displayedScore + step, game.score)
+            } else {
+                displayedScore = game.score
+            }
+            changed = true
+        }
+
+        if displayedHighScore != game.highScore {
+            let diff = game.highScore - displayedHighScore
+            if diff > 0 {
+                let step = max(1, diff / 8)
+                displayedHighScore = min(displayedHighScore + step, game.highScore)
+            } else {
+                displayedHighScore = game.highScore
+            }
+            changed = true
+        }
+
+        if !changed {
+            scoreAnimTimer?.invalidate()
+            scoreAnimTimer = nil
+        }
+    }
+
+    func stopScoreAnimation() {
+        scoreAnimTimer?.invalidate()
+        scoreAnimTimer = nil
     }
 
     // MARK: - Animation
@@ -683,8 +859,8 @@ struct TwentyFortyEightGameView: View {
 
             Spacer()
 
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: { showPauseMenu = true }) {
+                Image("pause_circle", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
             }
@@ -708,10 +884,11 @@ struct TwentyFortyEightGameView: View {
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
 
-                Text("Score: \(game.score)")
+                Text("Score: \(displayedScore)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white)
+                    .monospaced()
 
                 Button(action: {
                     game.continueGame()
@@ -729,8 +906,12 @@ struct TwentyFortyEightGameView: View {
                 .buttonStyle(.plain)
 
                 Button(action: {
+                    TwentyFortyEightModel.clearSavedState()
                     game.newGame()
                     resetScales()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
                     playHaptic(.snap)
                 }) {
                     Text("New Game")
@@ -766,7 +947,7 @@ struct TwentyFortyEightGameView: View {
                     Text("Score")
                         .font(.headline)
                         .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.7))
-                    Text("\(game.score)")
+                    Text("\(displayedScore)")
                         .font(.system(size: 44))
                         .fontWeight(.bold)
                         .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
@@ -781,8 +962,12 @@ struct TwentyFortyEightGameView: View {
                 }
 
                 Button(action: {
+                    TwentyFortyEightModel.clearSavedState()
                     game.newGame()
                     resetScales()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
                     playHaptic(.snap)
                 }) {
                     Text("Try Again")

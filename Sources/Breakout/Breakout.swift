@@ -67,6 +67,23 @@ final class BrickData {
     }
 }
 
+// MARK: - Saved State
+
+struct BreakoutSavedState: Codable {
+    var paddleX: Double
+    var ballX: Double
+    var ballY: Double
+    var ballDX: Double
+    var ballDY: Double
+    var brickAlive: [Bool]
+    var score: Int
+    var lives: Int
+    var level: Int
+    var isGameOver: Bool
+    var isLevelComplete: Bool
+    var isLaunched: Bool
+}
+
 // MARK: - Game Model
 
 @Observable
@@ -84,6 +101,10 @@ final class BreakoutModel {
     var ballY: Double = 500.0
     var ballDX: Double = 0.0
     var ballDY: Double = 0.0
+
+    // Paddle hit feedback: -1 = no hit this frame, 0..1 = deflection amount
+    // (0 = mirror reflection, 1 = maximum angle change)
+    var lastPaddleDeflection: Double = -1.0
 
     // Bricks
     var bricks: [[BrickData]] = []
@@ -166,6 +187,8 @@ final class BreakoutModel {
     func update(dt: Double) {
         guard isLaunched && !isGameOver && !isLevelComplete else { return }
 
+        lastPaddleDeflection = -1.0
+
         ballX += ballDX * dt
         ballY += ballDY * dt
 
@@ -191,15 +214,27 @@ final class BreakoutModel {
 
         if ballDY > 0.0 && ballY + ballRadius >= paddleTop && ballY + ballRadius <= paddleTop + paddleHeight + 4.0 {
             if ballX >= paddleLeft - ballRadius && ballX <= paddleRight + ballRadius {
+                // Compute incoming angle (relative to vertical)
+                let incomingAngle = atan2(ballDX, ballDY)
+
                 ballY = paddleTop - ballRadius
                 // Reflect with angle based on where ball hit the paddle
                 let hitPos = (ballX - paddleX) / (paddleWidth / 2.0) // -1 to 1
                 let clampedHit = min(max(hitPos, -0.95), 0.95)
                 let maxAngle = 1.15 // ~66 degrees max
-                let angle = clampedHit * maxAngle
+                let outAngle = clampedHit * maxAngle
                 let speed = currentSpeed()
-                ballDX = speed * sin(angle)
-                ballDY = -speed * cos(angle)
+                ballDX = speed * sin(outAngle)
+                ballDY = -speed * cos(outAngle)
+
+                // Mirror reflection would negate DX and DY, so the mirror
+                // outgoing angle (relative to vertical, going up) is -incomingAngle.
+                let mirrorAngle = -incomingAngle
+                // Deflection = how far the actual outgoing angle is from the mirror angle,
+                // normalized to 0..1 where 0 = perfect mirror, 1 = max deviation
+                let angleDiff = abs(outAngle - mirrorAngle)
+                let maxPossibleDiff = 2.0 * maxAngle // theoretical max
+                lastPaddleDeflection = min(angleDiff / maxPossibleDiff, 1.0)
             }
         }
 
@@ -305,6 +340,75 @@ final class BreakoutModel {
             UserDefaults.standard.set(highScore, forKey: "breakout_highscore")
         }
     }
+
+    // MARK: - State Persistence
+
+    func makeSavedState() -> BreakoutSavedState {
+        var brickAlive: [Bool] = []
+        for r in 0..<bricks.count {
+            for c in 0..<bricks[r].count {
+                brickAlive.append(bricks[r][c].alive)
+            }
+        }
+        return BreakoutSavedState(
+            paddleX: paddleX,
+            ballX: ballX,
+            ballY: ballY,
+            ballDX: ballDX,
+            ballDY: ballDY,
+            brickAlive: brickAlive,
+            score: score,
+            lives: lives,
+            level: level,
+            isGameOver: isGameOver,
+            isLevelComplete: isLevelComplete,
+            isLaunched: isLaunched
+        )
+    }
+
+    func restoreState(_ state: BreakoutSavedState) {
+        paddleX = state.paddleX
+        ballX = state.ballX
+        ballY = state.ballY
+        ballDX = state.ballDX
+        ballDY = state.ballDY
+        score = state.score
+        lives = state.lives
+        level = state.level
+        isGameOver = state.isGameOver
+        isLevelComplete = state.isLevelComplete
+        isLaunched = state.isLaunched
+        highScore = UserDefaults.standard.integer(forKey: "breakout_highscore")
+        ballSpeed = initialBallSpeed + Double(level - 1) * 25.0
+
+        // Rebuild bricks and apply saved alive states
+        buildLevel()
+        var idx = 0
+        for r in 0..<bricks.count {
+            for c in 0..<bricks[r].count {
+                if idx < state.brickAlive.count {
+                    bricks[r][c].alive = state.brickAlive[idx]
+                }
+                idx += 1
+            }
+        }
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "breakout_saved_state")
+    }
+
+    static func loadSavedState() -> BreakoutSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "breakout_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(BreakoutSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "breakout_saved_state")
+    }
 }
 
 // MARK: - Game View
@@ -314,6 +418,7 @@ struct BreakoutGameView: View {
     @State private var tickTimer: Timer? = nil
     @State private var lastTick: Double = 0.0
     @State private var showSettings = false
+    @State private var showPauseMenu = false
     @State private var debugText: String = "waiting for touch"
     @State private var debugTouchCount: Int = 0
     @State private var dragAnchorX: Double? = nil // paddle X at drag start
@@ -355,6 +460,10 @@ struct BreakoutGameView: View {
                         gameOverOverlay
                     }
 
+                    if showPauseMenu && !game.isGameOver && !game.isLevelComplete {
+                        pauseMenuOverlay
+                    }
+
                     // Debug overlay
                     if settings.debugInfo {
                         VStack {
@@ -375,7 +484,7 @@ struct BreakoutGameView: View {
                             debugTouchCount += 1
                             debugText = "drag #\(debugTouchCount) loc=(\(Int(value.location.x)),\(Int(value.location.y))) start=(\(Int(value.startLocation.x)),\(Int(value.startLocation.y))) paddleX=\(Int(game.paddleX)) launched=\(game.isLaunched) over=\(game.isGameOver)"
 
-                            if game.isGameOver || game.isLevelComplete { return }
+                            if game.isGameOver || game.isLevelComplete || showPauseMenu { return }
 
                             // Launch ball on first touch
                             if !game.isLaunched {
@@ -404,14 +513,25 @@ struct BreakoutGameView: View {
         .toolbar(.hidden, for: .navigationBar)
         #endif
         .onAppear {
-            game.newGame()
+            if let state = BreakoutModel.loadSavedState() {
+                game.restoreState(state)
+                if !game.isGameOver && !game.isLevelComplete {
+                    showPauseMenu = true
+                }
+            } else {
+                game.newGame()
+            }
             startTimer()
         }
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
+                game.saveState()
                 stopTimer()
-            } else {
+                if game.isLaunched && !game.isGameOver && !game.isLevelComplete {
+                    showPauseMenu = true
+                }
+            } else if !showPauseMenu {
                 startTimer()
             }
         }
@@ -542,8 +662,11 @@ struct BreakoutGameView: View {
                 .foregroundStyle(Color.white.opacity(0.7))
                 .monospaced()
 
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: {
+                showPauseMenu = true
+                stopTimer()
+            }) {
+                Image("pause_circle", bundle: .module)
                     .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.6))
             }
@@ -566,6 +689,79 @@ struct BreakoutGameView: View {
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.white.opacity(0.6))
+        }
+    }
+
+    // MARK: - Pause Menu
+
+    var pauseMenuOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: {
+                    showPauseMenu = false
+                    startTimer()
+                }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+
+                Button(action: {
+                    showPauseMenu = false
+                    BreakoutModel.clearSavedState()
+                    game.newGame()
+                    startTimer()
+                    playHaptic(.snap)
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showSettings = true
+                }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+            }
+            .padding(28)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
+            )
         }
     }
 
@@ -594,6 +790,7 @@ struct BreakoutGameView: View {
                 }
 
                 Button(action: {
+                    BreakoutModel.clearSavedState()
                     game.startLevel(lvl: game.level + 1)
                     startTimer()
                     playHaptic(.snap)
@@ -672,6 +869,7 @@ struct BreakoutGameView: View {
                 }
 
                 Button(action: {
+                    BreakoutModel.clearSavedState()
                     game.newGame()
                     startTimer()
                     playHaptic(.snap)
@@ -735,12 +933,38 @@ struct BreakoutGameView: View {
         lastTick = now
         if dt > 0.1 { dt = 0.016 }
 
+        if showPauseMenu { return }
+
         let wasBrickCount = aliveBrickCount()
         game.update(dt: dt)
         let nowBrickCount = aliveBrickCount()
 
         if nowBrickCount < wasBrickCount {
             playHaptic(.snap)
+        }
+
+        // Paddle hit haptic — intensity varies with deflection
+        if game.lastPaddleDeflection >= 0.0 {
+            let deflection = game.lastPaddleDeflection
+            // 0 = mirror reflection (hardest hit), 1 = max deflection (lightest)
+            let intensity = 1.0 - deflection * 0.7 // range: 1.0 (mirror) to 0.3 (max deflection)
+            if deflection < 0.15 {
+                // Near-mirror: heavy thud + tap (satisfying direct return)
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.thud, intensity: intensity),
+                    HapticEvent(.tap, intensity: intensity * 0.7, delay: 0.04),
+                ]))
+            } else if deflection < 0.5 {
+                // Moderate deflection: medium tap
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.tap, intensity: intensity),
+                ]))
+            } else {
+                // Large deflection: light tick
+                HapticFeedback.play(HapticPattern([
+                    HapticEvent(.tick, intensity: intensity),
+                ]))
+            }
         }
 
         if game.isGameOver {

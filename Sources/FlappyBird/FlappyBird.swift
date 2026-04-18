@@ -76,6 +76,22 @@ final class PipeData: Identifiable {
     }
 }
 
+// MARK: - Saved State
+
+struct FlappyBirdSavedState: Codable {
+    var birdY: Double
+    var birdVelocity: Double
+    var birdRotation: Double
+    var pipeIds: [Int]
+    var pipeXs: [Double]
+    var pipeGapYs: [Double]
+    var pipeScored: [Bool]
+    var score: Int
+    var isGameOver: Bool
+    var hasStarted: Bool
+    var difficulty: Int
+}
+
 // MARK: - Game Model
 
 @Observable
@@ -94,7 +110,7 @@ final class FlappyBirdModel {
     var fieldWidth: Double = 400.0
     var difficulty: Int = 5
 
-    private var nextPipeID: Int = 0
+    var nextPipeID: Int = 0
 
     private var gravity: Double { effectiveGravity(difficulty) }
     private var flapVel: Double { effectiveFlapVelocity(difficulty) }
@@ -230,6 +246,76 @@ final class FlappyBirdModel {
             highScore = score
             UserDefaults.standard.set(highScore, forKey: "flappybird_highscore")
         }
+        saveState()
+    }
+
+    // MARK: - State Persistence
+
+    func makeSavedState() -> FlappyBirdSavedState {
+        var pipeIds: [Int] = []
+        var pipeXs: [Double] = []
+        var pipeGapYs: [Double] = []
+        var pipeScored: [Bool] = []
+        for pipe in pipes {
+            pipeIds.append(pipe.id)
+            pipeXs.append(pipe.x)
+            pipeGapYs.append(pipe.gapY)
+            pipeScored.append(pipe.scored)
+        }
+        return FlappyBirdSavedState(
+            birdY: birdY,
+            birdVelocity: birdVelocity,
+            birdRotation: birdRotation,
+            pipeIds: pipeIds,
+            pipeXs: pipeXs,
+            pipeGapYs: pipeGapYs,
+            pipeScored: pipeScored,
+            score: score,
+            isGameOver: isGameOver,
+            hasStarted: hasStarted,
+            difficulty: difficulty
+        )
+    }
+
+    func restoreState(_ state: FlappyBirdSavedState) {
+        birdY = state.birdY
+        birdVelocity = state.birdVelocity
+        birdRotation = state.birdRotation
+        score = state.score
+        isGameOver = state.isGameOver
+        hasStarted = state.hasStarted
+        difficulty = state.difficulty
+        highScore = UserDefaults.standard.integer(forKey: "flappybird_highscore")
+
+        var restoredPipes: [PipeData] = []
+        for i in 0..<state.pipeIds.count {
+            let pipe = PipeData(id: state.pipeIds[i], x: state.pipeXs[i], gapY: state.pipeGapYs[i])
+            pipe.scored = state.pipeScored[i]
+            restoredPipes.append(pipe)
+        }
+        pipes = restoredPipes
+
+        var maxId = 0
+        for pipe in pipes {
+            if pipe.id > maxId { maxId = pipe.id }
+        }
+        nextPipeID = maxId + 1
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "flappybird_saved_state")
+    }
+
+    static func loadSavedState() -> FlappyBirdSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "flappybird_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(FlappyBirdSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "flappybird_saved_state")
     }
 }
 
@@ -300,13 +386,23 @@ struct FlappyBirdGameView: View {
         #endif
         .onAppear {
             game.difficulty = settings.difficulty
-            game.newGame()
+            if let saved = FlappyBirdModel.loadSavedState() {
+                game.restoreState(saved)
+                if saved.isGameOver {
+                    // Show game over screen
+                } else if saved.hasStarted {
+                    showPauseMenu = true
+                }
+            } else {
+                game.newGame()
+            }
             startTimer()
         }
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
                 pauseGame()
+                game.saveState()
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -616,6 +712,7 @@ struct FlappyBirdGameView: View {
                 }
 
                 Button(action: {
+                    FlappyBirdModel.clearSavedState()
                     game.difficulty = settings.difficulty
                     game.newGame()
                     startTimer()
@@ -681,6 +778,20 @@ struct FlappyBirdGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
+
+                Button(action: {
+                    FlappyBirdModel.clearSavedState()
+                    game.newGame()
+                    showPauseMenu = false
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")

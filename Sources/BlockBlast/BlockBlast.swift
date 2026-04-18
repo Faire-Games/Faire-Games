@@ -6,6 +6,8 @@ import Observation
 import SkipKit
 import SkipModel
 
+private let boardClearBonus: Int = 200
+
 public struct BlockBlastContainerView: View {
     @State private var settings = BlockBlastSettings()
 
@@ -39,6 +41,10 @@ struct BlockBlastGameView: View {
     @State var prevHighlightRow: Int = -1
     @State var prevHighlightCol: Int = -1
     @State var showSettings: Bool = false
+    @State var showPauseMenu: Bool = false
+    @State var displayedScore: Int = 0
+    @State var displayedHighScore: Int = 0
+    @State var scoreAnimTimer: Timer? = nil
     @Environment(\.dismiss) var dismiss
     @Environment(BlockBlastSettings.self) var settings: BlockBlastSettings
 
@@ -75,6 +81,11 @@ struct BlockBlastGameView: View {
                 gameOverOverlay
             }
 
+            // Pause menu overlay
+            if showPauseMenu && !game.isGameOver {
+                pauseMenuOverlay
+            }
+
             // Combo popup
             if showCombo && game.lastLinesCleared > 0 {
                 comboPopup
@@ -89,7 +100,32 @@ struct BlockBlastGameView: View {
             BlockBlastSettingsView(settings: settings)
         }
         .onAppear {
+            if let savedState = GameModel.loadSavedState() {
+                game.restoreState(savedState)
+                displayedScore = game.score
+                displayedHighScore = game.highScore
+            } else {
+                displayedScore = game.score
+                displayedHighScore = game.highScore
+            }
             game.solvabilityAttempts = settings.solvabilityAttempts
+        }
+        .onDisappear {
+            stopScoreAnimation()
+        }
+        .onChange(of: game.score) { _, newScore in
+            if newScore == 0 {
+                displayedScore = 0
+            } else {
+                startScoreAnimation()
+            }
+        }
+        .onChange(of: game.highScore) { _, newHighScore in
+            if newHighScore == 0 {
+                displayedHighScore = 0
+            } else {
+                startScoreAnimation()
+            }
         }
         .onChange(of: settings.difficulty) { _, _ in
             game.solvabilityAttempts = settings.solvabilityAttempts
@@ -114,10 +150,11 @@ struct BlockBlastGameView: View {
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white.opacity(0.6))
-                Text("\(game.score)")
+                Text("\(displayedScore)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white)
+                    .monospaced()
             }
 
             Spacer()
@@ -134,14 +171,15 @@ struct BlockBlastGameView: View {
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white.opacity(0.6))
-                Text("\(game.highScore)")
+                Text("\(displayedHighScore)")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.yellow)
+                    .monospaced()
             }
 
-            Button(action: { showSettings = true }) {
-                Image("settings", bundle: .module)
+            Button(action: { showPauseMenu = true }) {
+                Image("pause_circle", bundle: .module)
                     .font(.system(size: 13, weight: .bold))
                     .foregroundStyle(Color.white.opacity(0.7))
                     .frame(width: 30, height: 30)
@@ -330,12 +368,12 @@ struct BlockBlastGameView: View {
         .gesture(
             DragGesture(coordinateSpace: .global)
                 .onChanged { value in
-                    if game.currentPieces[index] != nil {
+                    if !showPauseMenu && game.currentPieces[index] != nil {
                         handleDragChanged(index: index, value: value)
                     }
                 }
                 .onEnded { value in
-                    if game.currentPieces[index] != nil {
+                    if !showPauseMenu && game.currentPieces[index] != nil {
                         handleDragEnded(index: index, value: value)
                     }
                 }
@@ -404,6 +442,51 @@ struct BlockBlastGameView: View {
         }
     }
 
+    // MARK: - Score Animation
+
+    func startScoreAnimation() {
+        if scoreAnimTimer != nil { return }
+        scoreAnimTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
+            tickScoreAnimation()
+        }
+    }
+
+    func tickScoreAnimation() {
+        var changed = false
+
+        if displayedScore != game.score {
+            let diff = game.score - displayedScore
+            if diff > 0 {
+                let step = max(1, diff / 8)
+                displayedScore = min(displayedScore + step, game.score)
+            } else {
+                displayedScore = game.score
+            }
+            changed = true
+        }
+
+        if displayedHighScore != game.highScore {
+            let diff = game.highScore - displayedHighScore
+            if diff > 0 {
+                let step = max(1, diff / 8)
+                displayedHighScore = min(displayedHighScore + step, game.highScore)
+            } else {
+                displayedHighScore = game.highScore
+            }
+            changed = true
+        }
+
+        if !changed {
+            scoreAnimTimer?.invalidate()
+            scoreAnimTimer = nil
+        }
+    }
+
+    func stopScoreAnimation() {
+        scoreAnimTimer?.invalidate()
+        scoreAnimTimer = nil
+    }
+
     // MARK: - Drag Handling
 
     func handleDragChanged(index: Int, value: DragGesture.Value) {
@@ -462,7 +545,8 @@ struct BlockBlastGameView: View {
 
                 if game.lastLinesCleared > 0 {
                     showCombo = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    let popupDuration = game.boardCleared ? 2.0 : 1.0
+                    DispatchQueue.main.asyncAfter(deadline: .now() + popupDuration) {
                         showCombo = false
                     }
                 }
@@ -470,6 +554,8 @@ struct BlockBlastGameView: View {
                 if game.isGameOver {
                     playHaptic(.error)
                 }
+
+                game.saveState()
             }
         } else if isDragging {
             playHaptic(.warning)
@@ -483,6 +569,79 @@ struct BlockBlastGameView: View {
         highlightValid = false
         prevHighlightRow = -1
         prevHighlightCol = -1
+    }
+
+    // MARK: - Pause Menu Overlay
+
+    var pauseMenuOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.7)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("PAUSED")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color.white)
+
+                Button(action: {
+                    showPauseMenu = false
+                }) {
+                    Text("Resume")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.green)
+
+                Button(action: {
+                    showPauseMenu = false
+                    GameModel.clearSavedState()
+                    game.newGame()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
+                }) {
+                    Text("New Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showSettings = true
+                }) {
+                    Text("Settings")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: { dismiss() }) {
+                    Text("Quit Game")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+            }
+            .padding(28)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
+            )
+        }
     }
 
     // MARK: - Game Over Overlay
@@ -502,10 +661,11 @@ struct BlockBlastGameView: View {
                     Text("Score")
                         .font(.headline)
                         .foregroundStyle(Color.white.opacity(0.7))
-                    Text("\(game.score)")
+                    Text("\(displayedScore)")
                         .font(.system(size: 48))
                         .fontWeight(.bold)
                         .foregroundStyle(Color.yellow)
+                        .monospaced()
                 }
 
                 VStack(spacing: 2) {
@@ -526,7 +686,11 @@ struct BlockBlastGameView: View {
                 }
 
                 Button(action: {
+                    GameModel.clearSavedState()
                     game.newGame()
+                    stopScoreAnimation()
+                    displayedScore = 0
+                    displayedHighScore = game.highScore
                 }) {
                     Text("Play Again")
                         .font(.title3)
@@ -572,6 +736,12 @@ struct BlockBlastGameView: View {
 
     var comboPopup: some View {
         VStack(spacing: 4) {
+            if game.boardCleared {
+                Text("Board Clear! +\(boardClearBonus)")
+                    .font(.title)
+                    .fontWeight(.heavy)
+                    .foregroundStyle(Color.green)
+            }
             if game.lastLinesCleared > 1 {
                 Text("\(game.lastLinesCleared)x Lines!")
                     .font(.title)
@@ -870,6 +1040,18 @@ struct ShapeLibrary {
     }
 }
 
+// MARK: - Saved State
+
+struct BlockBlastSavedState: Codable {
+    var grid: [[Int]]
+    var pieceShapeIds: [String]
+    var score: Int
+    var highScore: Int
+    var isGameOver: Bool
+    var comboStreak: Int
+    var boardCleared: Bool
+}
+
 // MARK: - Game Model
 
 /// A piece the player can place, with a unique identity for tracking
@@ -916,6 +1098,9 @@ final class GamePiece: Identifiable, Hashable {
     /// Combo streak counter
     var comboStreak: Int = 0
 
+    /// Whether the board was completely cleared on the last move
+    var boardCleared: Bool = false
+
     /// Set of cells to animate as clearing
     var clearingCells: Set<Int> = []
 
@@ -937,6 +1122,7 @@ final class GamePiece: Identifiable, Hashable {
         isGameOver = false
         lastLinesCleared = 0
         comboStreak = 0
+        boardCleared = false
         clearingCells = []
         spawnNewPieces()
     }
@@ -1060,8 +1246,20 @@ final class GamePiece: Identifiable, Hashable {
         return true
     }
 
+    /// Check if every cell on the board is empty
+    func isBoardEmpty() -> Bool {
+        for r in 0..<GameModel.gridSize {
+            for c in 0..<GameModel.gridSize {
+                if grid[r][c] != -1 { return false }
+            }
+        }
+        return true
+    }
+
     /// Place a shape on the grid and handle scoring/clearing
     func placeShape(shape: BlockShape, atRow row: Int, col: Int, pieceIndex: Int) {
+        boardCleared = false
+
         // Place the cells
         for cell in shape.cells {
             let r = row + cell.row
@@ -1086,6 +1284,12 @@ final class GamePiece: Identifiable, Hashable {
             let comboBonus = comboStreak > 1 ? comboStreak * 5 : 0
             let multiLineBonus = linesCleared > 1 ? linesCleared * 5 : 0
             score += linePoints + comboBonus + multiLineBonus
+
+            // Board clear bonus
+            if isBoardEmpty() {
+                boardCleared = true
+                score += boardClearBonus
+            }
         } else {
             comboStreak = 0
         }
@@ -1210,6 +1414,74 @@ final class GamePiece: Identifiable, Hashable {
     /// Resets the persisted high score to zero.
     static func resetHighScore() {
         UserDefaults.standard.set(0, forKey: "blockblast_highscore")
+    }
+
+    // MARK: - Game State Persistence
+
+    func makeSavedState() -> BlockBlastSavedState {
+        var pieceShapeIds: [String] = []
+        for piece in currentPieces {
+            if let piece = piece {
+                pieceShapeIds.append(piece.shape.id)
+            } else {
+                pieceShapeIds.append("")
+            }
+        }
+        return BlockBlastSavedState(
+            grid: grid,
+            pieceShapeIds: pieceShapeIds,
+            score: score,
+            highScore: highScore,
+            isGameOver: isGameOver,
+            comboStreak: comboStreak,
+            boardCleared: boardCleared
+        )
+    }
+
+    func restoreState(_ state: BlockBlastSavedState) {
+        grid = state.grid
+        score = state.score
+        highScore = state.highScore
+        isGameOver = state.isGameOver
+        comboStreak = state.comboStreak
+        boardCleared = state.boardCleared
+
+        var restoredPieces: [GamePiece?] = []
+        for shapeId in state.pieceShapeIds {
+            if shapeId == "" {
+                restoredPieces.append(nil)
+            } else {
+                var foundShape: BlockShape? = nil
+                for shape in ShapeLibrary.allShapes {
+                    if shape.id == shapeId {
+                        foundShape = shape
+                        break
+                    }
+                }
+                if let shape = foundShape {
+                    restoredPieces.append(GamePiece(shape: shape))
+                } else {
+                    restoredPieces.append(nil)
+                }
+            }
+        }
+        currentPieces = restoredPieces
+    }
+
+    func saveState() {
+        guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
+        UserDefaults.standard.set(json, forKey: "blockblast_saved_state")
+    }
+
+    static func loadSavedState() -> BlockBlastSavedState? {
+        guard let json = UserDefaults.standard.string(forKey: "blockblast_saved_state") else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(BlockBlastSavedState.self, from: data)
+    }
+
+    static func clearSavedState() {
+        UserDefaults.standard.removeObject(forKey: "blockblast_saved_state")
     }
 }
 
