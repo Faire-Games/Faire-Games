@@ -94,6 +94,12 @@ struct FlappyBirdSavedState: Codable {
 
 // MARK: - Game Model
 
+/// Radius for the rounded pipe corners (visual and collision)
+private let pipeCornerRadius: Double = 8.0
+
+/// How many pixels to forgive at pipe opening corners for collision
+private let pipeCornerInset: Double = 6.0
+
 @Observable
 final class FlappyBirdModel {
     var birdY: Double = 0.0
@@ -106,6 +112,8 @@ final class FlappyBirdModel {
     var highScore: Int = UserDefaults.standard.integer(forKey: "flappybird_highscore")
     var isGameOver: Bool = false
     var hasStarted: Bool = false
+    /// What the bird crashed into: "pipe", "ground", "ceiling", or "" if alive
+    var crashType: String = ""
     var fieldHeight: Double = 600.0
     var fieldWidth: Double = 400.0
     var difficulty: Int = 5
@@ -133,6 +141,7 @@ final class FlappyBirdModel {
         score = 0
         isGameOver = false
         hasStarted = false
+        crashType = ""
         nextPipeID = 0
     }
 
@@ -205,16 +214,52 @@ final class FlappyBirdModel {
 
         // Collision detection
         let playableHeight = fieldHeight - groundHeight
-        if birdY - birdSize / 2.0 < 0.0 || birdY + birdSize / 2.0 > playableHeight {
+
+        // Ceiling
+        if birdY - birdSize / 2.0 < 0.0 {
+            crashType = "ceiling"
             gameOver()
             return
         }
 
+        // Ground
+        if birdY + birdSize / 2.0 > playableHeight {
+            crashType = "ground"
+            gameOver()
+            return
+        }
+
+        // Pipes — with forgiving rounded corners
+        let birdLeft = birdX - birdSize / 2.0
+        let birdRight = birdX + birdSize / 2.0
+        let birdTop = birdY - birdSize / 2.0
+        let birdBottom = birdY + birdSize / 2.0
+
         for pipe in pipes {
-            if birdX + birdSize / 2.0 > pipe.x && birdX - birdSize / 2.0 < pipe.x + pipeWidth {
+            if birdRight > pipe.x && birdLeft < pipe.x + pipeWidth {
                 let topPipeBottom = pipe.gapY - gap / 2.0
                 let bottomPipeTop = pipe.gapY + gap / 2.0
-                if birdY - birdSize / 2.0 < topPipeBottom || birdY + birdSize / 2.0 > bottomPipeTop {
+
+                // Check if bird is in the gap — no collision
+                if birdTop >= topPipeBottom && birdBottom <= bottomPipeTop {
+                    continue
+                }
+
+                // Near the pipe opening corners, give extra forgiveness
+                // by shrinking the collision zone horizontally
+                let nearTopOpening = abs(birdBottom - topPipeBottom) < pipeCornerInset
+                let nearBottomOpening = abs(birdTop - bottomPipeTop) < pipeCornerInset
+                if nearTopOpening || nearBottomOpening {
+                    let insetLeft = pipe.x + pipeCornerInset
+                    let insetRight = pipe.x + pipeWidth - pipeCornerInset
+                    if birdRight <= insetLeft || birdLeft >= insetRight {
+                        continue // bird clips only the rounded corner — forgive it
+                    }
+                }
+
+                // Solid collision
+                if birdTop < topPipeBottom || birdBottom > bottomPipeTop {
+                    crashType = "pipe"
                     gameOver()
                     return
                 }
@@ -337,6 +382,38 @@ struct FlappyBirdGameView: View {
         }
     }
 
+    func playFlapHaptic() {
+        guard settings.vibrations else { return }
+        // Strong, satisfying wing-flap thud
+        HapticFeedback.play(HapticPattern([
+            HapticEvent(.thud, intensity: 0.7),
+            HapticEvent(.tap, intensity: 0.5, delay: 0.03),
+        ]))
+    }
+
+    func playCrashHaptic(type: String) {
+        guard settings.vibrations else { return }
+        if type == "pipe" {
+            // Dramatic pipe crash: sharp impact + rattling aftershock
+            HapticFeedback.play(HapticPattern([
+                HapticEvent(.thud, intensity: 1.0),
+                HapticEvent(.thud, intensity: 1.0, delay: 0.04),
+                HapticEvent(.tap, intensity: 0.9, delay: 0.05),
+                HapticEvent(.thud, intensity: 0.7, delay: 0.06),
+                HapticEvent(.tick, intensity: 0.5, delay: 0.06),
+                HapticEvent(.tick, intensity: 0.3, delay: 0.05),
+            ]))
+        } else {
+            // Ground/ceiling crash: single heavy slam + bounce
+            HapticFeedback.play(HapticPattern([
+                HapticEvent(.thud, intensity: 1.0),
+                HapticEvent(.rise, intensity: 0.6, delay: 0.08),
+                HapticEvent(.thud, intensity: 0.5, delay: 0.1),
+                HapticEvent(.tick, intensity: 0.3, delay: 0.08),
+            ]))
+        }
+    }
+
     var body: some View {
         GeometryReader { geo in
             let _ = initField(geo: geo)
@@ -377,7 +454,7 @@ struct FlappyBirdGameView: View {
             .onTapGesture {
                 if game.isGameOver || showPauseMenu { return }
                 game.flap()
-                playHaptic(.pick)
+                playFlapHaptic()
             }
         }
         .navigationBarBackButtonHidden()
@@ -568,16 +645,16 @@ struct FlappyBirdGameView: View {
 
     func pipeRect(width: Double, height: Double) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 2)
+            RoundedRectangle(cornerRadius: pipeCornerRadius)
                 .fill(Color(red: 0.32, green: 0.68, blue: 0.22))
                 .frame(width: width, height: height)
             // Highlight stripe
-            RoundedRectangle(cornerRadius: 1)
+            RoundedRectangle(cornerRadius: pipeCornerRadius - 2.0)
                 .fill(Color(red: 0.42, green: 0.78, blue: 0.30))
                 .frame(width: width * 0.3, height: height)
                 .offset(x: -width * 0.15)
             // Shadow stripe
-            RoundedRectangle(cornerRadius: 1)
+            RoundedRectangle(cornerRadius: pipeCornerRadius - 2.0)
                 .fill(Color(red: 0.22, green: 0.55, blue: 0.15))
                 .frame(width: width * 0.15, height: height)
                 .offset(x: width * 0.35)
@@ -586,10 +663,10 @@ struct FlappyBirdGameView: View {
 
     func pipeCap(width: Double) -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 3)
+            RoundedRectangle(cornerRadius: pipeCornerRadius)
                 .fill(Color(red: 0.32, green: 0.68, blue: 0.22))
                 .frame(width: width, height: 24)
-            RoundedRectangle(cornerRadius: 2)
+            RoundedRectangle(cornerRadius: pipeCornerRadius - 2.0)
                 .fill(Color(red: 0.42, green: 0.78, blue: 0.30))
                 .frame(width: width * 0.3, height: 24)
                 .offset(x: -width * 0.15)
@@ -855,10 +932,11 @@ struct FlappyBirdGameView: View {
         // Clamp to avoid huge jumps after backgrounding
         if dt > 0.1 { dt = 0.016 }
 
+        let wasAlive = !game.isGameOver
         game.update(dt: dt)
 
-        if game.isGameOver {
-            playHaptic(.impact)
+        if game.isGameOver && wasAlive {
+            playCrashHaptic(type: game.crashType)
             stopTimer()
         }
     }
