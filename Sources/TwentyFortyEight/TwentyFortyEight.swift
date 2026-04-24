@@ -70,6 +70,65 @@ private func tileFontSize(for value: Int, cellSize: Double) -> Double {
     return cellSize * 0.22
 }
 
+// MARK: - Difficulty
+
+enum TwentyFortyEightDifficulty: Int, CaseIterable {
+    case easy = 0
+    case normal = 1
+    case hard = 2
+
+    var label: String {
+        switch self {
+        case .easy: return "Easy"
+        case .normal: return "Normal"
+        case .hard: return "Hard"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .easy: return "Only 2s spawn. 3 undos per game."
+        case .normal: return "Classic rules. 90% twos, 10% fours."
+        case .hard: return "20% fours. Two tiles spawn per move."
+        }
+    }
+
+    var accentColor: Color {
+        switch self {
+        case .easy: return Color(red: 0.35, green: 0.75, blue: 0.45)
+        case .normal: return Color(red: 0.30, green: 0.60, blue: 0.95)
+        case .hard: return Color(red: 0.90, green: 0.35, blue: 0.30)
+        }
+    }
+
+    /// Probability of spawning a 4 instead of a 2
+    var fourSpawnChance: Double {
+        switch self {
+        case .easy: return 0.0
+        case .normal: return 0.1
+        case .hard: return 0.2
+        }
+    }
+
+    /// How many tiles to spawn per move
+    var tilesPerSpawn: Int {
+        switch self {
+        case .easy: return 1
+        case .normal: return 1
+        case .hard: return 2
+        }
+    }
+
+    /// Whether undo is available
+    var undoAllowed: Bool {
+        switch self {
+        case .easy: return true
+        case .normal: return false
+        case .hard: return false
+        }
+    }
+}
+
 // MARK: - Direction
 
 enum Direction {
@@ -84,6 +143,11 @@ struct TwentyFortyEightSavedState: Codable {
     var isGameOver: Bool
     var hasWon: Bool
     var continueAfterWin: Bool
+    var difficultyRaw: Int
+    var undoGrid: [Int]
+    var undoScore: Int
+    var hasUndo: Bool
+    var undosRemaining: Int
 }
 
 // MARK: - Game Model
@@ -98,6 +162,13 @@ final class TwentyFortyEightModel {
     var isGameOver: Bool = false
     var hasWon: Bool = false
     var continueAfterWin: Bool = false
+    var difficulty: TwentyFortyEightDifficulty = .normal
+
+    // Undo support
+    var undoGrid: [Int] = Array(repeating: 0, count: gridSize * gridSize)
+    var undoScore: Int = 0
+    var hasUndo: Bool = false
+    var undosRemaining: Int = 3
 
     // Animation tracking
     var mergedIndices: [Int] = []
@@ -112,7 +183,10 @@ final class TwentyFortyEightModel {
         grid[row * gridSize + col] = value
     }
 
-    func newGame() {
+    func newGame(diff: TwentyFortyEightDifficulty? = nil) {
+        if let diff = diff {
+            difficulty = diff
+        }
         grid = Array(repeating: 0, count: gridSize * gridSize)
         score = 0
         isGameOver = false
@@ -120,8 +194,33 @@ final class TwentyFortyEightModel {
         continueAfterWin = false
         mergedIndices = []
         spawnedIndex = -1
+        hasUndo = false
+        undosRemaining = 3
+        undoGrid = Array(repeating: 0, count: gridSize * gridSize)
+        undoScore = 0
         spawnTile()
         spawnTile()
+    }
+
+    /// Save current state for undo before a move
+    func saveUndoState() {
+        if difficulty.undoAllowed && undosRemaining > 0 {
+            undoGrid = grid
+            undoScore = score
+            hasUndo = true
+        }
+    }
+
+    /// Restore the last saved undo state
+    func undo() {
+        guard hasUndo && difficulty.undoAllowed && undosRemaining > 0 else { return }
+        grid = undoGrid
+        score = undoScore
+        isGameOver = false
+        hasUndo = false
+        undosRemaining -= 1
+        mergedIndices = []
+        spawnedIndex = -1
     }
 
     func spawnTile() {
@@ -133,8 +232,15 @@ final class TwentyFortyEightModel {
         }
         guard !empties.isEmpty else { return }
         let idx = empties[Int.random(in: 0..<empties.count)]
-        grid[idx] = Double.random(in: 0.0...1.0) < 0.9 ? 2 : 4
+        grid[idx] = Double.random(in: 0.0...1.0) < difficulty.fourSpawnChance ? 4 : 2
         spawnedIndex = idx
+    }
+
+    /// Spawn the appropriate number of tiles for the current difficulty
+    func spawnTilesForMove() {
+        for _ in 0..<difficulty.tilesPerSpawn {
+            spawnTile()
+        }
     }
 
     func move(_ direction: Direction) -> Bool {
@@ -298,7 +404,12 @@ final class TwentyFortyEightModel {
             score: score,
             isGameOver: isGameOver,
             hasWon: hasWon,
-            continueAfterWin: continueAfterWin
+            continueAfterWin: continueAfterWin,
+            difficultyRaw: difficulty.rawValue,
+            undoGrid: undoGrid,
+            undoScore: undoScore,
+            hasUndo: hasUndo,
+            undosRemaining: undosRemaining
         )
     }
 
@@ -308,6 +419,11 @@ final class TwentyFortyEightModel {
         isGameOver = state.isGameOver
         hasWon = state.hasWon
         continueAfterWin = state.continueAfterWin
+        difficulty = TwentyFortyEightDifficulty(rawValue: state.difficultyRaw) ?? .normal
+        undoGrid = state.undoGrid
+        undoScore = state.undoScore
+        hasUndo = state.hasUndo
+        undosRemaining = state.undosRemaining
         highScore = UserDefaults.standard.integer(forKey: "twentyfortyeight_highscore")
         mergedIndices = []
         spawnedIndex = -1
@@ -336,6 +452,8 @@ struct TwentyFortyEightGameView: View {
     @State private var game = TwentyFortyEightModel()
     @State private var showSettings = false
     @State private var showPauseMenu = false
+    @State private var showDifficultyPicker = false
+    @State private var hasInitialized = false
     @State private var tileScales: [Double] = Array(repeating: 1.0, count: gridSize * gridSize)
     @State private var animTimer: Timer? = nil
     @State private var displayedScore: Int = 0
@@ -434,9 +552,10 @@ struct TwentyFortyEightGameView: View {
                         } else {
                             direction = dy > 0.0 ? .down : .up
                         }
+                        game.saveUndoState()
                         let moved = game.move(direction)
                         if moved {
-                            game.spawnTile()
+                            game.spawnTilesForMove()
                             triggerAnimations()
                             playMergeHaptics()
                         }
@@ -454,10 +573,13 @@ struct TwentyFortyEightGameView: View {
         .toolbar(.hidden, for: .navigationBar)
         #endif
         .onAppear {
-            if let state = TwentyFortyEightModel.loadSavedState() {
-                game.restoreState(state)
-            } else {
-                game.newGame()
+            if !hasInitialized {
+                hasInitialized = true
+                if let state = TwentyFortyEightModel.loadSavedState() {
+                    game.restoreState(state)
+                } else {
+                    showDifficultyPicker = true
+                }
             }
             displayedScore = game.score
             displayedHighScore = game.highScore
@@ -484,6 +606,19 @@ struct TwentyFortyEightGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             TwentyFortyEightSettingsView(settings: settings)
+        }
+        .sheet(isPresented: $showDifficultyPicker) {
+            TwentyFortyEightDifficultyPickerView { newDifficulty in
+                TwentyFortyEightModel.clearSavedState()
+                game.newGame(diff: newDifficulty)
+                resetScales()
+                stopScoreAnimation()
+                displayedScore = 0
+                displayedHighScore = game.highScore
+                showDifficultyPicker = false
+                showPauseMenu = false
+                playHaptic(.snap)
+            }
         }
     }
 
@@ -515,12 +650,7 @@ struct TwentyFortyEightGameView: View {
 
                 Button(action: {
                     showPauseMenu = false
-                    TwentyFortyEightModel.clearSavedState()
-                    game.newGame()
-                    resetScales()
-                    stopScoreAnimation()
-                    displayedScore = 0
-                    displayedHighScore = game.highScore
+                    showDifficultyPicker = true
                     playHaptic(.snap)
                 }) {
                     Text("New Game")
@@ -843,7 +973,7 @@ struct TwentyFortyEightGameView: View {
     // MARK: - HUD
 
     var hudView: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             Button(action: { dismiss() }) {
                 Image("cancel", bundle: .module)
                     .font(.title2)
@@ -852,12 +982,39 @@ struct TwentyFortyEightGameView: View {
 
             Spacer()
 
-            Text("2048")
-                .font(.title)
-                .fontWeight(.black)
-                .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+            HStack(spacing: 0) {
+                Text("2048")
+                    .font(.title)
+                    .fontWeight(.black)
+                    .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                if game.difficulty != .normal {
+                    Text(" (\(game.difficulty.label))")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(game.difficulty.accentColor)
+                }
+            }
 
             Spacer()
+
+            if game.difficulty.undoAllowed {
+                Button(action: {
+                    game.undo()
+                    resetScales()
+                    playHaptic(.snap)
+                    game.saveState()
+                }) {
+                    HStack(spacing: 2) {
+                        Image("undo", bundle: .module)
+                            .font(.title2)
+                        Text("\(game.undosRemaining)")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                    }
+                    .foregroundStyle(game.hasUndo && game.undosRemaining > 0 ? Color(red: 0.47, green: 0.43, blue: 0.40) : Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.3))
+                }
+                .disabled(!game.hasUndo || game.undosRemaining <= 0)
+            }
 
             Button(action: { showPauseMenu = true }) {
                 Image("pause_circle", bundle: .module)
@@ -906,13 +1063,7 @@ struct TwentyFortyEightGameView: View {
                 .buttonStyle(.plain)
 
                 Button(action: {
-                    TwentyFortyEightModel.clearSavedState()
-                    game.newGame()
-                    resetScales()
-                    stopScoreAnimation()
-                    displayedScore = 0
-                    displayedHighScore = game.highScore
-                    playHaptic(.snap)
+                    showDifficultyPicker = true
                 }) {
                     Text("New Game")
                         .font(.headline)
@@ -962,13 +1113,7 @@ struct TwentyFortyEightGameView: View {
                 }
 
                 Button(action: {
-                    TwentyFortyEightModel.clearSavedState()
-                    game.newGame()
-                    resetScales()
-                    stopScoreAnimation()
-                    displayedScore = 0
-                    displayedHighScore = game.highScore
-                    playHaptic(.snap)
+                    showDifficultyPicker = true
                 }) {
                     Text("Try Again")
                         .font(.headline)
@@ -1038,6 +1183,71 @@ public struct TwentyFortyEightPreviewIcon: View {
         return RoundedRectangle(cornerRadius: 2)
             .fill(tileColor(for: val))
             .frame(width: 18, height: 18)
+    }
+}
+
+// MARK: - Difficulty Picker
+
+struct TwentyFortyEightDifficultyPickerView: View {
+    let onSelect: (TwentyFortyEightDifficulty) -> Void
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 14) {
+                    Text("Choose Difficulty")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                        .padding(.top, 10)
+
+                    ForEach([TwentyFortyEightDifficulty.easy, TwentyFortyEightDifficulty.normal, TwentyFortyEightDifficulty.hard], id: \.rawValue) { d in
+                        Button(action: {
+                            onSelect(d)
+                            dismiss()
+                        }) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(d.label)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(Color(red: 0.35, green: 0.32, blue: 0.28))
+                                    Text(d.description)
+                                        .font(.caption)
+                                        .foregroundStyle(Color(red: 0.55, green: 0.50, blue: 0.45))
+                                }
+                                Spacer()
+                            }
+                            .padding(16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .fill(d.accentColor.opacity(0.12))
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .strokeBorder(d.accentColor.opacity(0.4), lineWidth: 1.5)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 24)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(red: 0.98, green: 0.97, blue: 0.94).ignoresSafeArea())
+            .navigationTitle("New Game")
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+        .preferredColorScheme(.light)
     }
 }
 
