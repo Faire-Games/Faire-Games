@@ -1220,14 +1220,11 @@ struct TwentyFortyEightDifficultyPickerView: View {
                                 Spacer()
                             }
                             .padding(16)
-                            .background(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .fill(d.accentColor.opacity(0.12))
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .strokeBorder(d.accentColor.opacity(0.4), lineWidth: 1.5)
-                            )
+                            .background(d.accentColor.opacity(0.12))
+                            .cornerRadius(14.0)
+                            .padding(1.0)
+                            .background(d.accentColor.opacity(0.4))
+                            .cornerRadius(15.0)
                         }
                         .buttonStyle(.plain)
                     }

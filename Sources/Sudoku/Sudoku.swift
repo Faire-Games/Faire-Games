@@ -581,11 +581,11 @@ struct SudokuGameView: View {
             VStack(spacing: 0) {
                 hudView
                     .frame(height: 44)
-                    .padding(.horizontal, 12)
+                    .padding(.horizontal, 12.0)
 
                 statusBar
-                    .padding(.horizontal, 16)
-                    .padding(.top, 6)
+                    .padding(.horizontal, 16.0)
+                    .padding(.top, 6.0)
 
                 Spacer(minLength: 8)
 
@@ -602,13 +602,10 @@ struct SudokuGameView: View {
 
                 Spacer(minLength: 8)
 
-                actionRow
-                    .padding(.horizontal, 20)
-
-                numberPad
-                    .padding(.horizontal, 16)
-                    .padding(.top, 10)
-                    .padding(.bottom, 12)
+                controlPad
+                    .padding(.horizontal, 12.0)
+                    .padding(.top, 8.0)
+                    .padding(.bottom, 12.0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
@@ -725,7 +722,7 @@ struct SudokuGameView: View {
                 .monospaced()
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 6)
+        .padding(.vertical, 6.0)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.05))
@@ -913,57 +910,69 @@ struct SudokuGameView: View {
             }
     }
 
-    // MARK: Action Row
+    // MARK: Control Pad (number grid + action buttons)
 
-    var actionRow: some View {
-        HStack(spacing: 14) {
-            actionButton(label: "Undo", iconName: "undo",
-                         disabled: game.undoIndices.isEmpty || game.isPaused,
-                         action: {
-                             game.undo()
-                             game.saveState()
-                             playHaptic(.pick)
-                         })
-            actionButton(label: "Erase", iconName: "ink_eraser",
-                         disabled: game.selectedIndex == nil || game.isPaused,
-                         action: {
-                             game.erase()
-                             game.saveState()
-                             playHaptic(.pick)
-                         })
-            actionButton(label: game.notesMode ? "Notes ✓" : "Notes",
-                         iconName: "edit",
-                         highlighted: game.notesMode,
-                         disabled: game.isPaused,
-                         action: {
-                             game.notesMode.toggle()
-                             playHaptic(.pick)
-                         })
-            actionButton(label: "Hint (\(game.hintsRemaining))",
-                         iconName: "lightbulb",
-                         disabled: game.hintsRemaining == 0 || game.isPaused,
-                         action: {
-                             game.useHint()
-                             game.saveState()
-                             playHaptic(.snap)
-                         })
+    var controlPad: some View {
+        HStack(spacing: 8) {
+            // Left column: Notes (top), Hint (bottom)
+            VStack(spacing: 8) {
+                actionButton(label: game.notesMode ? "Notes ✓" : "Notes",
+                             iconName: "edit",
+                             highlighted: game.notesMode,
+                             disabled: game.isPaused,
+                             action: {
+                                 game.notesMode.toggle()
+                                 playHaptic(.pick)
+                             })
+                actionButton(label: "Hint (\(game.hintsRemaining))",
+                             iconName: "lightbulb",
+                             disabled: game.hintsRemaining == 0 || game.isPaused,
+                             action: {
+                                 game.useHint()
+                                 game.saveState()
+                                 playHaptic(.snap)
+                             })
+            }
+            .frame(width: 64)
+
+            // Center: 3x3 number grid
+            numberPad
+
+            // Right column: Undo (top), Erase (bottom)
+            VStack(spacing: 8) {
+                actionButton(label: "Undo", iconName: "undo",
+                             disabled: game.undoIndices.isEmpty || game.isPaused,
+                             action: {
+                                 game.undo()
+                                 game.saveState()
+                                 playHaptic(.pick)
+                             })
+                actionButton(label: "Erase", iconName: "ink_eraser",
+                             disabled: game.selectedIndex == nil || game.isPaused,
+                             action: {
+                                 game.erase()
+                                 game.saveState()
+                                 playHaptic(.pick)
+                             })
+            }
+            .frame(width: 64)
         }
     }
 
     func actionButton(label: String, iconName: String, highlighted: Bool = false, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 Image(iconName, bundle: .module)
                     .renderingMode(.template)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 18, height: 18)
                 Text(label)
-                    .font(.caption2)
-                    .fontWeight(.semibold)
+                    .font(.system(size: 10, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundStyle(highlighted ? Color.white : Color.white.opacity(disabled ? 0.35 : 0.80))
             .background(
                 RoundedRectangle(cornerRadius: 10)
@@ -971,10 +980,6 @@ struct SudokuGameView: View {
                           ? Color(red: 0.30, green: 0.55, blue: 0.95).opacity(0.6)
                           : Color.white.opacity(0.06))
             )
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white.opacity(highlighted ? 0.3 : 0.08), lineWidth: 1)
-            }
         }
         .buttonStyle(.plain)
         .disabled(disabled)
@@ -983,9 +988,13 @@ struct SudokuGameView: View {
     // MARK: Number Pad
 
     var numberPad: some View {
-        HStack(spacing: 6) {
-            ForEach(1..<10) { digit in
-                numberButton(digit: digit)
+        VStack(spacing: 6) {
+            ForEach(0..<3) { row in
+                HStack(spacing: 6) {
+                    ForEach(1..<4) { col in
+                        numberButton(digit: row * 3 + col)
+                    }
+                }
             }
         }
     }
@@ -1000,7 +1009,7 @@ struct SudokuGameView: View {
         }) {
             VStack(spacing: 1) {
                 Text("\(digit)")
-                    .font(.system(size: 24, weight: .heavy, design: .rounded))
+                    .font(.system(size: 28, weight: .heavy, design: .rounded))
                     .monospaced()
                     .foregroundStyle(exhausted
                                      ? Color.white.opacity(0.25)
@@ -1012,18 +1021,13 @@ struct SudokuGameView: View {
                     .monospaced()
                     .foregroundStyle(Color.white.opacity(0.45))
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(game.notesMode
                           ? Color(red: 0.15, green: 0.25, blue: 0.55).opacity(0.45)
-                          : Color.white.opacity(0.08))
+                          : Color.white.opacity(0.12))
             )
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white.opacity(0.10), lineWidth: 1)
-            }
         }
         .buttonStyle(.plain)
         .disabled(exhausted || game.isPaused || game.isComplete || game.isGameOver)
@@ -1040,7 +1044,7 @@ struct SudokuGameView: View {
                 Text("PAUSED")
                     .font(.largeTitle)
                     .fontWeight(.black)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(.white)
 
                 Button(action: { resumeGame() }) {
                     Text("Resume")
@@ -1119,7 +1123,7 @@ struct SudokuGameView: View {
                         Text("New Best Time!")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundStyle(Color.yellow)
+                            .foregroundStyle(.yellow)
                     } else if best > 0 {
                         Text("Best: \(formatTime(best))")
                             .font(.subheadline)
@@ -1136,7 +1140,7 @@ struct SudokuGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.blue)
-                .padding(.top, 4)
+                .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
@@ -1183,7 +1187,7 @@ struct SudokuGameView: View {
                 Text("GAME OVER")
                     .font(.largeTitle)
                     .fontWeight(.black)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(.white)
                 Text("Too many mistakes")
                     .font(.callout)
                     .foregroundStyle(Color.white.opacity(0.65))
@@ -1204,7 +1208,7 @@ struct SudokuGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.blue)
-                .padding(.top, 4)
+                .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
@@ -1281,7 +1285,7 @@ struct DifficultyPickerView: View {
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.white)
-                        .padding(.top, 10)
+                        .padding(.top, 10.0)
 
                     ForEach(SudokuDifficulty.allCases) { d in
                         Button(action: {
@@ -1321,8 +1325,8 @@ struct DifficultyPickerView: View {
                         .buttonStyle(.plain)
                     }
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 24)
+                .padding(.horizontal, 20.0)
+                .padding(.bottom, 24.0)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.05, green: 0.06, blue: 0.14).ignoresSafeArea())
@@ -1501,7 +1505,7 @@ struct SudokuSettingsView: View {
             Text(difficulty.label)
             Spacer()
             Text(best > 0 ? formatTime(best) : "—")
-                .foregroundStyle(Color.secondary)
+                .foregroundStyle(.secondary)
                 .monospaced()
         }
     }
