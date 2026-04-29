@@ -680,12 +680,12 @@ struct BreakoutGameView: View {
 
     var launchPrompt: some View {
         VStack(spacing: 8) {
-            Text("TAP TO LAUNCH")
+            Text("TAP TO LAUNCH", bundle: .module)
                 .font(.headline)
                 .fontWeight(.black)
                 .foregroundStyle(Color.white)
                 .shadow(color: .black.opacity(0.4), radius: 2, x: 1, y: 1)
-            Text("DRAG TO MOVE PADDLE")
+            Text("DRAG TO MOVE PADDLE", bundle: .module)
                 .font(.caption)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.white.opacity(0.6))
@@ -700,7 +700,7 @@ struct BreakoutGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("PAUSED")
+                Text("PAUSED", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
@@ -709,7 +709,7 @@ struct BreakoutGameView: View {
                     showPauseMenu = false
                     startTimer()
                 }) {
-                    Text("Resume")
+                    Text("Resume", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -725,7 +725,7 @@ struct BreakoutGameView: View {
                     startTimer()
                     playHaptic(.snap)
                 }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -738,7 +738,7 @@ struct BreakoutGameView: View {
                     showPauseMenu = false
                     showSettings = true
                 }) {
-                    Text("Settings")
+                    Text("Settings", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -748,7 +748,7 @@ struct BreakoutGameView: View {
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -779,7 +779,7 @@ struct BreakoutGameView: View {
                     .foregroundStyle(Color.yellow)
 
                 VStack(spacing: 4) {
-                    Text("Score")
+                    Text("Score", bundle: .module)
                         .font(.headline)
                         .foregroundStyle(Color.white.opacity(0.7))
                     Text("\(game.score)")
@@ -795,7 +795,7 @@ struct BreakoutGameView: View {
                     startTimer()
                     playHaptic(.snap)
                 }) {
-                    Text("Next Level")
+                    Text("Next Level", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.white)
@@ -824,13 +824,13 @@ struct BreakoutGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("GAME OVER")
+                Text("GAME OVER", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
 
                 VStack(spacing: 4) {
-                    Text("Score")
+                    Text("Score", bundle: .module)
                         .font(.headline)
                         .foregroundStyle(Color.white.opacity(0.7))
                     Text("\(game.score)")
@@ -842,7 +842,7 @@ struct BreakoutGameView: View {
 
                 HStack(spacing: 24) {
                     VStack(spacing: 2) {
-                        Text("Level")
+                        Text("Level", bundle: .module)
                             .font(.caption)
                             .foregroundStyle(Color.white.opacity(0.6))
                         Text("\(game.level)")
@@ -851,7 +851,7 @@ struct BreakoutGameView: View {
                             .foregroundStyle(Color.white)
                     }
                     VStack(spacing: 2) {
-                        Text("Best")
+                        Text("Best", bundle: .module)
                             .font(.caption)
                             .foregroundStyle(Color.white.opacity(0.6))
                         Text("\(game.highScore)")
@@ -862,7 +862,7 @@ struct BreakoutGameView: View {
                 }
 
                 if game.score >= game.highScore && game.score > 0 {
-                    Text("New High Score!")
+                    Text("New High Score!", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.yellow)
@@ -874,7 +874,7 @@ struct BreakoutGameView: View {
                     startTimer()
                     playHaptic(.snap)
                 }) {
-                    Text("Play Again")
+                    Text("Play Again", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -885,7 +885,7 @@ struct BreakoutGameView: View {
                 .padding(.top, 4)
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -896,10 +896,10 @@ struct BreakoutGameView: View {
 
                 ShareLink(
                     item: "I scored \(game.score) (level \(game.level)) in Breakout on Faire Games! Can you beat it?\nhttps://appfair.net",
-                    subject: Text("Breakout Score"),
+                    subject: Text("Breakout Score", bundle: .module),
                     message: Text("I scored \(game.score) in Breakout!")
                 ) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label { Text("Share", bundle: .module) } icon: { Image(systemName: "square.and.arrow.up") }
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
                 }
@@ -1043,27 +1043,27 @@ struct BreakoutSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Breakout") {
-                    Toggle("Vibrations", isOn: $settings.vibrations)
+                Section(header: Text("Breakout", bundle: .module)) {
+                    Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
-                Section("Debug") {
-                    Toggle("Debug Information", isOn: $settings.debugInfo)
+                Section(header: Text("Debug", bundle: .module)) {
+                    Toggle(isOn: $settings.debugInfo) { Text("Debug Information", bundle: .module) }
                 }
-                Section("Data") {
+                Section(header: Text("Data", bundle: .module)) {
                     Button(role: .destructive, action: {
                         resetBreakoutHighScore()
                     }) {
-                        Text("Reset High Score")
+                        Text("Reset High Score", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Done", bundle: .module) }
                 }
             }
         }

@@ -719,7 +719,7 @@ struct SudokuGameView: View {
 
             Spacer()
 
-            Text("SUDOKU")
+            Text("SUDOKU", bundle: .module)
                 .font(.headline)
                 .fontWeight(.heavy)
                 .tracking(3)
@@ -955,7 +955,7 @@ struct SudokuGameView: View {
                     Image("pause_circle", bundle: .module)
                         .font(.system(size: 54))
                         .foregroundStyle(Color.white.opacity(0.75))
-                    Text("PAUSED")
+                    Text("PAUSED", bundle: .module)
                         .font(.title2)
                         .fontWeight(.heavy)
                         .tracking(4)
@@ -1095,13 +1095,13 @@ struct SudokuGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("PAUSED")
+                Text("PAUSED", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(.white)
 
                 Button(action: { resumeGame() }) {
-                    Text("Resume")
+                    Text("Resume", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1111,7 +1111,7 @@ struct SudokuGameView: View {
                 .tint(.green)
 
                 Button(action: { showDifficultyPicker = true }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1121,7 +1121,7 @@ struct SudokuGameView: View {
                 .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
 
                 Button(action: { showSettings = true }) {
-                    Text("Settings")
+                    Text("Settings", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1134,7 +1134,7 @@ struct SudokuGameView: View {
                     game.giveUp()
                     showPauseMenu = false
                 }) {
-                    Text("Give Up")
+                    Text("Give Up", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1144,7 +1144,7 @@ struct SudokuGameView: View {
                 .tint(Color(red: 0.7, green: 0.4, blue: 0.1))
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1168,9 +1168,9 @@ struct SudokuGameView: View {
             Color.black.opacity(0.75).ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("\u{2B50}\u{2B50}\u{2B50}")
+                Text("\u{2B50}\u{2B50}\u{2B50}", bundle: .module)
                     .font(.system(size: 36))
-                Text("Puzzle Solved!")
+                Text("Puzzle Solved!", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(
@@ -1187,7 +1187,7 @@ struct SudokuGameView: View {
 
                     let best = game.bestTime(for: game.difficulty)
                     if best == game.elapsedSeconds && best > 0 {
-                        Text("New Best Time!")
+                        Text("New Best Time!", bundle: .module)
                             .font(.title3)
                             .fontWeight(.bold)
                             .foregroundStyle(.yellow)
@@ -1199,7 +1199,7 @@ struct SudokuGameView: View {
                 }
 
                 Button(action: { showDifficultyPicker = true }) {
-                    Text("Play Again")
+                    Text("Play Again", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1210,7 +1210,7 @@ struct SudokuGameView: View {
                 .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1221,7 +1221,7 @@ struct SudokuGameView: View {
 
                 ShareLink(
                     item: "I solved a \(game.difficulty.label) Sudoku in \(formatTime(game.elapsedSeconds)) on Faire Games! Can you beat it?\nhttps://appfair.net",
-                    subject: Text("Sudoku Time"),
+                    subject: Text("Sudoku Time", bundle: .module),
                     message: Text("I solved Sudoku in \(formatTime(game.elapsedSeconds))!")
                 ) {
                     HStack(spacing: 6) {
@@ -1230,7 +1230,7 @@ struct SudokuGameView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 16, height: 16)
-                        Text("Share")
+                        Text("Share", bundle: .module)
                             .font(.subheadline)
                     }
                     .foregroundStyle(Color.white.opacity(0.7))
@@ -1251,11 +1251,11 @@ struct SudokuGameView: View {
             Color.black.opacity(0.75).ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("GAME OVER")
+                Text("GAME OVER", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(.white)
-                Text("Too many mistakes")
+                Text("Too many mistakes", bundle: .module)
                     .font(.callout)
                     .foregroundStyle(Color.white.opacity(0.65))
 
@@ -1267,7 +1267,7 @@ struct SudokuGameView: View {
                 }
 
                 Button(action: { showDifficultyPicker = true }) {
-                    Text("Play Again")
+                    Text("Play Again", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1278,7 +1278,7 @@ struct SudokuGameView: View {
                 .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1348,7 +1348,7 @@ struct DifficultyPickerView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
-                    Text("Choose Difficulty")
+                    Text("Choose Difficulty", bundle: .module)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.white)
@@ -1397,13 +1397,13 @@ struct DifficultyPickerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.05, green: 0.06, blue: 0.14).ignoresSafeArea())
-            .navigationTitle("New Game")
+            .navigationTitle(Text("New Game", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Cancel", bundle: .module) }
                         .foregroundStyle(Color.white)
                 }
             }
@@ -1517,50 +1517,52 @@ struct SudokuSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Sudoku") {
-                    Toggle("Vibrations", isOn: $settings.vibrations)
-                    Toggle("Highlight Mistakes", isOn: $settings.highlightMistakes)
-                    Picker("Default Difficulty", selection: $settings.lastDifficulty) {
+                Section(header: Text("Sudoku", bundle: .module)) {
+                    Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
+                    Toggle(isOn: $settings.highlightMistakes) { Text("Highlight Mistakes", bundle: .module) }
+                    Picker(selection: $settings.lastDifficulty) {
                         ForEach(SudokuDifficulty.allCases) { d in
                             Text(d.label).tag(d)
                         }
+                    } label: {
+                        Text("Default Difficulty", bundle: .module)
                     }
                 }
-                Section("Records") {
-                    recordRow(for: .easy)
-                    recordRow(for: .medium)
-                    recordRow(for: .hard)
-                    recordRow(for: .expert)
+                Section(header: Text("Records", bundle: .module)) {
+                    recordRow(for: SudokuDifficulty.easy)
+                    recordRow(for: SudokuDifficulty.medium)
+                    recordRow(for: SudokuDifficulty.hard)
+                    recordRow(for: SudokuDifficulty.expert)
                     HStack {
-                        Text("Puzzles Solved")
+                        Text("Puzzles Solved", bundle: .module)
                         Spacer()
                         Text("\(UserDefaults.standard.integer(forKey: "sudoku_puzzles_solved"))")
                             .foregroundStyle(Color.secondary)
                             .monospaced()
                     }
                 }
-                Section("Data") {
+                Section(header: Text("Data", bundle: .module)) {
                     Button(role: .destructive, action: { confirmReset = true }) {
-                        Text("Reset Sudoku Records")
+                        Text("Reset Sudoku Records", bundle: .module)
                     }
-                    .confirmationDialog("Reset Sudoku Records?",
+                    .confirmationDialog(Text("Reset Sudoku Records?", bundle: .module),
                                         isPresented: $confirmReset,
                                         titleVisibility: .visible) {
-                        Button("Reset", role: .destructive) {
+                        Button(role: ButtonRole.destructive, action: {
                             resetSudokuRecords()
-                        }
+                        }) { Text("Reset", bundle: .module) }
                     } message: {
-                        Text("This will permanently reset all Sudoku best times and puzzle counts.")
+                        Text("This will permanently reset all Sudoku best times and puzzle counts.", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Done", bundle: .module) }
                 }
             }
         }

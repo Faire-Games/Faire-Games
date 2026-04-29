@@ -146,7 +146,7 @@ struct BlockBlastGameView: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-                Text("SCORE")
+                Text("SCORE", bundle: .module)
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white.opacity(0.6))
@@ -159,7 +159,7 @@ struct BlockBlastGameView: View {
 
             Spacer()
 
-            Text("Block Blast")
+            Text("Block Blast", bundle: .module)
                 .font(.title3)
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.white)
@@ -167,7 +167,7 @@ struct BlockBlastGameView: View {
             Spacer()
 
             VStack(alignment: .trailing, spacing: 2) {
-                Text("BEST")
+                Text("BEST", bundle: .module)
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white.opacity(0.6))
@@ -579,7 +579,7 @@ struct BlockBlastGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("PAUSED")
+                Text("PAUSED", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
@@ -587,7 +587,7 @@ struct BlockBlastGameView: View {
                 Button(action: {
                     showPauseMenu = false
                 }) {
-                    Text("Resume")
+                    Text("Resume", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -604,7 +604,7 @@ struct BlockBlastGameView: View {
                     displayedScore = 0
                     displayedHighScore = game.highScore
                 }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -617,7 +617,7 @@ struct BlockBlastGameView: View {
                     showPauseMenu = false
                     showSettings = true
                 }) {
-                    Text("Settings")
+                    Text("Settings", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -627,7 +627,7 @@ struct BlockBlastGameView: View {
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -652,13 +652,13 @@ struct BlockBlastGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                Text("Game Over")
+                Text("Game Over", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.heavy)
                     .foregroundStyle(Color.white)
 
                 VStack(spacing: 8) {
-                    Text("Score")
+                    Text("Score", bundle: .module)
                         .font(.headline)
                         .foregroundStyle(Color.white.opacity(0.7))
                     Text("\(displayedScore)")
@@ -669,7 +669,7 @@ struct BlockBlastGameView: View {
                 }
 
                 VStack(spacing: 2) {
-                    Text("Difficulty")
+                    Text("Difficulty", bundle: .module)
                         .font(.caption)
                         .foregroundStyle(Color.white.opacity(0.6))
                     Text("\(settings.difficulty)")
@@ -679,7 +679,7 @@ struct BlockBlastGameView: View {
                 }
 
                 if game.score >= game.highScore && game.score > 0 {
-                    Text("New High Score!")
+                    Text("New High Score!", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.yellow)
@@ -692,7 +692,7 @@ struct BlockBlastGameView: View {
                     displayedScore = 0
                     displayedHighScore = game.highScore
                 }) {
-                    Text("Play Again")
+                    Text("Play Again", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -705,7 +705,7 @@ struct BlockBlastGameView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -716,10 +716,10 @@ struct BlockBlastGameView: View {
 
                 ShareLink(
                     item: "I scored \(game.score) in Block Blast (difficulty \(settings.difficulty)) on Faire Games! Can you beat it?\nhttps://appfair.net",
-                    subject: Text("Block Blast Score"),
+                    subject: Text("Block Blast Score", bundle: .module),
                     message: Text("I scored \(game.score) in Block Blast!")
                 ) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label { Text("Share", bundle: .module) } icon: { Image(systemName: "square.and.arrow.up") }
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
                 }
@@ -754,7 +754,7 @@ struct BlockBlastGameView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.orange)
             } else if game.lastLinesCleared == 1 {
-                Text("Line Clear!")
+                Text("Line Clear!", bundle: .module)
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundStyle(Color.cyan)
@@ -1570,13 +1570,13 @@ struct BlockBlastSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Block Blast") {
-                    Toggle("Vibrations", isOn: $settings.vibrations)
+                Section(header: Text("Block Blast", bundle: .module)) {
+                    Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
-                Section("Difficulty") {
+                Section(header: Text("Difficulty", bundle: .module)) {
                     VStack(alignment: .leading, spacing: 8) {
                         HStack {
-                            Text("Level")
+                            Text("Level", bundle: .module)
                             Spacer()
                             Text("\(settings.difficulty)")
                                 .foregroundStyle(Color.secondary)
@@ -1591,29 +1591,29 @@ struct BlockBlastSettingsView: View {
                             step: 1.0
                         )
                         HStack {
-                            Text("Easy")
+                            Text("Easy", bundle: .module)
                                 .font(.caption2)
                                 .foregroundStyle(Color.secondary)
                             Spacer()
-                            Text("Hard")
+                            Text("Hard", bundle: .module)
                                 .font(.caption2)
                                 .foregroundStyle(Color.secondary)
                         }
                     }
                 }
                 Section {
-                    Text("At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable.")
+                    Text("At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable.", bundle: .module)
                         .font(.caption)
                         .foregroundStyle(Color.secondary)
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Done", bundle: .module) }
                 }
             }
         }

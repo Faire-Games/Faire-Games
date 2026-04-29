@@ -631,7 +631,7 @@ struct TwentyFortyEightGameView: View {
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
-                Text("PAUSED")
+                Text("PAUSED", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
@@ -639,7 +639,7 @@ struct TwentyFortyEightGameView: View {
                 Button(action: {
                     showPauseMenu = false
                 }) {
-                    Text("Resume")
+                    Text("Resume", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -653,7 +653,7 @@ struct TwentyFortyEightGameView: View {
                     showDifficultyPicker = true
                     playHaptic(.snap)
                 }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -666,7 +666,7 @@ struct TwentyFortyEightGameView: View {
                     showPauseMenu = false
                     showSettings = true
                 }) {
-                    Text("Settings")
+                    Text("Settings", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -676,7 +676,7 @@ struct TwentyFortyEightGameView: View {
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -983,7 +983,7 @@ struct TwentyFortyEightGameView: View {
             Spacer()
 
             HStack(spacing: 0) {
-                Text("2048")
+                Text("2048", bundle: .module)
                     .font(.title)
                     .fontWeight(.black)
                     .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
@@ -1036,7 +1036,7 @@ struct TwentyFortyEightGameView: View {
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
-                Text("You Win!")
+                Text("You Win!", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
@@ -1050,7 +1050,7 @@ struct TwentyFortyEightGameView: View {
                 Button(action: {
                     game.continueGame()
                 }) {
-                    Text("Keep Going")
+                    Text("Keep Going", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.white)
@@ -1065,7 +1065,7 @@ struct TwentyFortyEightGameView: View {
                 Button(action: {
                     showDifficultyPicker = true
                 }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.white)
@@ -1089,13 +1089,13 @@ struct TwentyFortyEightGameView: View {
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
-                Text("Game Over!")
+                Text("Game Over!", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
 
                 VStack(spacing: 4) {
-                    Text("Score")
+                    Text("Score", bundle: .module)
                         .font(.headline)
                         .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.7))
                     Text("\(displayedScore)")
@@ -1106,7 +1106,7 @@ struct TwentyFortyEightGameView: View {
                 }
 
                 if game.score >= game.highScore && game.score > 0 {
-                    Text("New High Score!")
+                    Text("New High Score!", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(Color(red: 0.95, green: 0.69, blue: 0.47))
@@ -1115,7 +1115,7 @@ struct TwentyFortyEightGameView: View {
                 Button(action: {
                     showDifficultyPicker = true
                 }) {
-                    Text("Try Again")
+                    Text("Try Again", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1129,10 +1129,10 @@ struct TwentyFortyEightGameView: View {
 
                 ShareLink(
                     item: "I scored \(game.score) in 2048 on Faire Games! Can you beat it?\nhttps://appfair.net",
-                    subject: Text("2048 Score"),
+                    subject: Text("2048 Score", bundle: .module),
                     message: Text("I scored \(game.score) in 2048!")
                 ) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label { Text("Share", bundle: .module) } icon: { Image(systemName: "square.and.arrow.up") }
                         .font(.subheadline)
                         .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.7))
                 }
@@ -1196,7 +1196,7 @@ struct TwentyFortyEightDifficultyPickerView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
-                    Text("Choose Difficulty")
+                    Text("Choose Difficulty", bundle: .module)
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
@@ -1234,13 +1234,13 @@ struct TwentyFortyEightDifficultyPickerView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.98, green: 0.97, blue: 0.94).ignoresSafeArea())
-            .navigationTitle("New Game")
+            .navigationTitle(Text("New Game", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Cancel", bundle: .module) }
                 }
             }
         }
@@ -1257,24 +1257,24 @@ struct TwentyFortyEightSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("2048") {
-                    Toggle("Vibrations", isOn: $settings.vibrations)
+                Section(header: Text("2048", bundle: .module)) {
+                    Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
-                Section("Data") {
+                Section(header: Text("Data", bundle: .module)) {
                     Button(role: .destructive, action: {
                         resetTwentyFortyEightHighScore()
                     }) {
-                        Text("Reset High Score")
+                        Text("Reset High Score", bundle: .module)
                     }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Done", bundle: .module) }
                 }
             }
         }

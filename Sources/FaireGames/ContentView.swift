@@ -33,7 +33,7 @@ struct ContentView: View {
                                 BlockBlastPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Block Blast!")
+                                Text("Block Blast!", bundle: .module)
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -45,15 +45,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetBlockBlast = true }) {
-                                Label("Reset High Score", image: "restart_alt")
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset Block Blast High Score?", isPresented: $confirmResetBlockBlast, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset Block Blast High Score?", bundle: .module), isPresented: $confirmResetBlockBlast, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetBlockBlastHighScore()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your Block Blast high score to zero.")
+                            Text("This will permanently reset your Block Blast high score to zero.", bundle: .module)
                         }
 
                         NavigationLink(destination: TetrisContainerView()) {
@@ -61,7 +61,7 @@ struct ContentView: View {
                                 TetrisPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Sirtet") // ("Tetris")
+                                Text("Sirtet", bundle: .module) // ("Tetris")
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -73,15 +73,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetTetris = true }) {
-                                Label("Reset High Score", image: "restart_alt")
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset Sirtet High Score?", isPresented: $confirmResetTetris, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset Sirtet High Score?", bundle: .module), isPresented: $confirmResetTetris, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetTetrisHighScore()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your Sirtet high score to zero.")
+                            Text("This will permanently reset your Sirtet high score to zero.", bundle: .module)
                         }
 
                         NavigationLink(destination: FlappyBirdContainerView()) {
@@ -89,7 +89,7 @@ struct ContentView: View {
                                 FlappyBirdPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Flappy Bird")
+                                Text("Flappy Bird", bundle: .module)
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -101,15 +101,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetFlappyBird = true }) {
-                                Label("Reset High Score", image: "restart_alt")
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset Flappy Bird High Score?", isPresented: $confirmResetFlappyBird, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset Flappy Bird High Score?", bundle: .module), isPresented: $confirmResetFlappyBird, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetFlappyBirdHighScore()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your Flappy Bird high score to zero.")
+                            Text("This will permanently reset your Flappy Bird high score to zero.", bundle: .module)
                         }
 
                         NavigationLink(destination: BreakoutContainerView()) {
@@ -117,7 +117,7 @@ struct ContentView: View {
                                 BreakoutPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Breakout")
+                                Text("Breakout", bundle: .module)
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -129,15 +129,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetBreakout = true }) {
-                                Label("Reset High Score", image: "restart_alt")
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset Breakout High Score?", isPresented: $confirmResetBreakout, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset Breakout High Score?", bundle: .module), isPresented: $confirmResetBreakout, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetBreakoutHighScore()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your Breakout high score to zero.")
+                            Text("This will permanently reset your Breakout high score to zero.", bundle: .module)
                         }
 
                         NavigationLink(destination: SudokuContainerView()) {
@@ -145,7 +145,7 @@ struct ContentView: View {
                                 SudokuPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("Sudoku")
+                                Text("Sudoku", bundle: .module)
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -157,15 +157,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetSudoku = true }) {
-                                Label("Reset Records", image: "restart_alt")
+                                Label { Text("Reset Records", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset Sudoku Records?", isPresented: $confirmResetSudoku, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset Sudoku Records?", bundle: .module), isPresented: $confirmResetSudoku, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetSudokuRecords()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your Sudoku best times and puzzle counts.")
+                            Text("This will permanently reset your Sudoku best times and puzzle counts.", bundle: .module)
                         }
 
                         NavigationLink(destination: TwentyFortyEightContainerView()) {
@@ -173,7 +173,7 @@ struct ContentView: View {
                                 TwentyFortyEightPreviewIcon()
                                     .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
-                                Text("2048")
+                                Text("2048", bundle: .module)
                                     .font(.headline)
                                     .foregroundStyle(Color.white)
                             }
@@ -185,15 +185,15 @@ struct ContentView: View {
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive, action: { confirmResetTwentyFortyEight = true }) {
-                                Label("Reset High Score", image: "restart_alt")
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
                             }
                         }
-                        .confirmationDialog("Reset 2048 High Score?", isPresented: $confirmResetTwentyFortyEight, titleVisibility: .visible) {
-                            Button("Reset", role: .destructive) {
+                        .confirmationDialog(Text("Reset 2048 High Score?", bundle: .module), isPresented: $confirmResetTwentyFortyEight, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
                                 resetTwentyFortyEightHighScore()
-                            }
+                            }) { Text("Reset", bundle: .module) }
                         } message: {
-                            Text("This will permanently reset your 2048 high score to zero.")
+                            Text("This will permanently reset your 2048 high score to zero.", bundle: .module)
                         }
 
                     }
@@ -208,7 +208,7 @@ struct ContentView: View {
                 )
                 .ignoresSafeArea()
             )
-            //.navigationTitle("Fair Games")
+            //.navigationTitle(Text("Fair Games", bundle: .module))
             #if !os(macOS)
             .toolbarColorScheme(.dark, for: .navigationBar)
             #endif
@@ -234,21 +234,21 @@ struct SettingsView: View {
 
     var body: some View {
         AppFairSettings(bundle: .module) {
-Section("Data") {
+Section(header: Text("Data", bundle: .module)) {
                 Button(role: .destructive, action: { confirmResetAll = true }) {
-                    Text("Reset All Progress")
+                    Text("Reset All Progress", bundle: .module)
                 }
-                .confirmationDialog("Reset All Progress?", isPresented: $confirmResetAll, titleVisibility: .visible) {
-                    Button("Reset All", role: .destructive) {
+                .confirmationDialog(Text("Reset All Progress?", bundle: .module), isPresented: $confirmResetAll, titleVisibility: .visible) {
+                    Button(role: ButtonRole.destructive, action: {
                         resetBlockBlastHighScore()
                         resetTetrisHighScore()
                         resetFlappyBirdHighScore()
                         resetBreakoutHighScore()
                         resetSudokuRecords()
                         resetTwentyFortyEightHighScore()
-                    }
+                    }) { Text("Reset All", bundle: .module) }
                 } message: {
-                    Text("This will permanently reset all high scores and game progress to zero.")
+                    Text("This will permanently reset all high scores and game progress to zero.", bundle: .module)
                 }
             }
         }

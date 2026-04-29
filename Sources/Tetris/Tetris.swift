@@ -613,7 +613,7 @@ struct TetrisGameView: View {
 
             Spacer()
 
-            Text("SIRTET")
+            Text("SIRTET", bundle: .module)
                 .font(.headline)
                 .fontWeight(.black)
                 .foregroundStyle(Color.white)
@@ -784,7 +784,7 @@ struct TetrisGameView: View {
         let blockHighlight = kind?.highlightColor ?? Color.clear
 
         return VStack(spacing: 1) {
-            Text("NEXT")
+            Text("NEXT", bundle: .module)
                 .font(.caption2)
                 .fontWeight(.bold)
                 .foregroundStyle(Color.white.opacity(0.5))
@@ -957,13 +957,13 @@ struct TetrisGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                Text("GAME OVER")
+                Text("GAME OVER", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
 
                 VStack(spacing: 4) {
-                    Text("Score")
+                    Text("Score", bundle: .module)
                         .font(.headline)
                         .foregroundStyle(Color.white.opacity(0.7))
                     Text("\(game.score)")
@@ -975,7 +975,7 @@ struct TetrisGameView: View {
 
                 HStack(spacing: 24) {
                     VStack(spacing: 2) {
-                        Text("Level")
+                        Text("Level", bundle: .module)
                             .font(.caption)
                             .foregroundStyle(Color.white.opacity(0.6))
                         Text("\(game.level)")
@@ -984,7 +984,7 @@ struct TetrisGameView: View {
                             .foregroundStyle(Color.white)
                     }
                     VStack(spacing: 2) {
-                        Text("Lines")
+                        Text("Lines", bundle: .module)
                             .font(.caption)
                             .foregroundStyle(Color.white.opacity(0.6))
                         Text("\(game.totalLinesCleared)")
@@ -995,7 +995,7 @@ struct TetrisGameView: View {
                 }
 
                 if game.score >= game.highScore && game.score > 0 {
-                    Text("New High Score!")
+                    Text("New High Score!", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.yellow)
@@ -1006,7 +1006,7 @@ struct TetrisGameView: View {
                     game.newGame()
                     startTimer()
                 }) {
-                    Text("Play Again")
+                    Text("Play Again", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1017,7 +1017,7 @@ struct TetrisGameView: View {
                 .padding(.top, 4)
 
                 Button(action: { dismiss() }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1028,10 +1028,10 @@ struct TetrisGameView: View {
 
                 ShareLink(
                     item: "I scored \(game.score) (level \(game.level), \(game.totalLinesCleared) lines) in Sirtet on Faire Games! Can you beat it?\nhttps://appfair.net",
-                    subject: Text("Sirtet Score"),
+                    subject: Text("Sirtet Score", bundle: .module),
                     message: Text("I scored \(game.score) in Sirtet!")
                 ) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label { Text("Share", bundle: .module) } icon: { Image(systemName: "square.and.arrow.up") }
                         .font(.subheadline)
                         .foregroundStyle(Color.white.opacity(0.7))
                 }
@@ -1052,7 +1052,7 @@ struct TetrisGameView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
-                Text("PAUSED")
+                Text("PAUSED", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
                     .foregroundStyle(Color.white)
@@ -1061,7 +1061,7 @@ struct TetrisGameView: View {
                     game.isPaused = false
                     startTimer()
                 }) {
-                    Text("Resume")
+                    Text("Resume", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1075,7 +1075,7 @@ struct TetrisGameView: View {
                     game.newGame()
                     startTimer()
                 }) {
-                    Text("New Game")
+                    Text("New Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1085,7 +1085,7 @@ struct TetrisGameView: View {
                 .tint(Color(red: 0.30, green: 0.55, blue: 0.95))
 
                 Button(action: { showSettings = true }) {
-                    Text("Settings")
+                    Text("Settings", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1098,7 +1098,7 @@ struct TetrisGameView: View {
                     stopTimer()
                     dismiss()
                 }) {
-                    Text("Quit Game")
+                    Text("Quit Game", bundle: .module)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
@@ -1214,17 +1214,17 @@ struct TetrisSettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("Sirtet") {
-                    Toggle("Vibrations", isOn: $settings.vibrations)
+                Section(header: Text("Sirtet", bundle: .module)) {
+                    Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(action: { dismiss() }) { Text("Done", bundle: .module) }
                 }
             }
         }

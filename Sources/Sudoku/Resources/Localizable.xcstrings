@@ -623,6 +623,9 @@
         }
       }
     },
+    "Give Up" : {
+
+    },
     "Highlight Mistakes" : {
       "comment" : "Settings toggle that controls whether incorrect placements are highlighted on the board.",
       "localizations" : {
