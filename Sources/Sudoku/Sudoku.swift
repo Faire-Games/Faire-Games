@@ -542,13 +542,13 @@ final class SudokuModel {
 
     func saveState() {
         guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
-        guard let json = String(data: data, encoding: String.Encoding.utf8) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
         UserDefaults.standard.set(json, forKey: "sudoku_saved_state")
     }
 
     static func loadSavedState() -> SudokuSavedState? {
         guard let json = UserDefaults.standard.string(forKey: "sudoku_saved_state") else { return nil }
-        guard let data = json.data(using: String.Encoding.utf8) else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(SudokuSavedState.self, from: data)
     }
 
@@ -566,8 +566,8 @@ struct SudokuGameView: View {
     @State private var showSettings = false
     @State private var showDifficultyPicker = false
     @State private var hasInitialized = false
-    @Environment(\.dismiss) var dismiss: DismissAction
-    @Environment(\.scenePhase) var scenePhase: ScenePhase
+    @Environment(\.dismiss) var dismiss
+    @Environment(\.scenePhase) var scenePhase
     @Environment(SudokuSettings.self) var settings: SudokuSettings
 
     func playHaptic(_ pattern: HapticPattern) {
@@ -581,11 +581,11 @@ struct SudokuGameView: View {
             VStack(spacing: 0) {
                 hudView
                     .frame(height: 44)
-                    .padding(Edge.Set.horizontal, 12.0)
+                    .padding(.horizontal, 12.0)
 
                 statusBar
-                    .padding(Edge.Set.horizontal, 16.0)
-                    .padding(Edge.Set.top, 6.0)
+                    .padding(.horizontal, 16.0)
+                    .padding(.top, 6.0)
 
                 Spacer(minLength: 8)
 
@@ -603,16 +603,16 @@ struct SudokuGameView: View {
                 Spacer(minLength: 8)
 
                 controlPad
-                    .padding(Edge.Set.horizontal, 12.0)
-                    .padding(Edge.Set.top, 8.0)
-                    .padding(Edge.Set.bottom, 12.0)
+                    .padding(.horizontal, 12.0)
+                    .padding(.top, 8.0)
+                    .padding(.bottom, 12.0)
             }
-            .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 LinearGradient(
                     colors: [Color(red: 0.06, green: 0.07, blue: 0.14),
                              Color(red: 0.04, green: 0.04, blue: 0.10)],
-                    startPoint: UnitPoint.top, endPoint: UnitPoint.bottom
+                    startPoint: .top, endPoint: .bottom
                 )
                 .ignoresSafeArea()
             )
@@ -643,7 +643,7 @@ struct SudokuGameView: View {
         }
         .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
-            if newPhase != ScenePhase.active {
+            if newPhase != .active {
                 pauseGame()
                 game.saveState()
             }
@@ -670,24 +670,24 @@ struct SudokuGameView: View {
     var hudView: some View {
         HStack(spacing: 12) {
             Button(action: { dismiss() }) {
-                Image("cancel", bundle: Bundle.module)
-                    .font(Font.title2)
+                Image("cancel", bundle: .module)
+                    .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.7))
             }
 
             Spacer()
 
             Text("SUDOKU")
-                .font(Font.headline)
-                .fontWeight(Font.Weight.heavy)
+                .font(.headline)
+                .fontWeight(.heavy)
                 .tracking(3)
                 .foregroundStyle(Color.white.opacity(0.85))
 
             Spacer()
 
             Button(action: { pauseGame() }) {
-                Image("pause_circle", bundle: Bundle.module)
-                    .font(Font.title2)
+                Image("pause_circle", bundle: .module)
+                    .font(.title2)
                     .foregroundStyle(Color.white.opacity(0.7))
             }
         }
@@ -713,16 +713,16 @@ struct SudokuGameView: View {
     func statusPill(title: String, value: String, tint: Color) -> some View {
         VStack(spacing: 2) {
             Text(title)
-                .font(Font.caption2)
+                .font(.caption2)
                 .foregroundStyle(Color.white.opacity(0.55))
             Text(value)
-                .font(Font.callout)
-                .fontWeight(Font.Weight.bold)
+                .font(.callout)
+                .fontWeight(.bold)
                 .foregroundStyle(tint)
                 .monospaced()
         }
-        .frame(maxWidth: CGFloat.infinity)
-        .padding(Edge.Set.vertical, 6.0)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 6.0)
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.05))
@@ -778,7 +778,7 @@ struct SudokuGameView: View {
     }
 
     func gridLinesOverlay(cellSize: Double, thin: Double, thick: Double) -> some View {
-        ZStack(alignment: Alignment.topLeading) {
+        ZStack(alignment: .topLeading) {
             // Thin horizontal lines
             ForEach(1..<9) { i in
                 let isThick = (i % 3 == 0)
@@ -817,7 +817,7 @@ struct SudokuGameView: View {
 
             if value != 0 {
                 Text("\(value)")
-                    .font(Font.system(size: size * 0.55, weight: isOriginal ? Font.Weight.black : Font.Weight.semibold, design: Font.Design.rounded))
+                    .font(.system(size: size * 0.55, weight: isOriginal ? .black : .semibold, design: .rounded))
                     .foregroundStyle(cellTextColor(isOriginal: isOriginal,
                                                    isConflict: isConflict,
                                                    isCorrect: value == game.solution[index]))
@@ -838,7 +838,7 @@ struct SudokuGameView: View {
                     let col = (d - 1) % 3
                     if game.hasNote(index, d) {
                         Text("\(d)")
-                            .font(Font.system(size: noteFont, weight: Font.Weight.medium, design: Font.Design.rounded))
+                            .font(.system(size: noteFont, weight: .medium, design: .rounded))
                             .foregroundStyle(Color.white.opacity(0.55))
                             .monospaced()
                             .position(
@@ -898,12 +898,12 @@ struct SudokuGameView: View {
             .frame(width: size, height: size)
             .overlay {
                 VStack(spacing: 12) {
-                    Image("pause_circle", bundle: Bundle.module)
-                        .font(Font.system(size: 54))
+                    Image("pause_circle", bundle: .module)
+                        .font(.system(size: 54))
                         .foregroundStyle(Color.white.opacity(0.75))
                     Text("PAUSED")
-                        .font(Font.title2)
-                        .fontWeight(Font.Weight.heavy)
+                        .font(.title2)
+                        .fontWeight(.heavy)
                         .tracking(4)
                         .foregroundStyle(Color.white.opacity(0.75))
                 }
@@ -962,17 +962,17 @@ struct SudokuGameView: View {
     func actionButton(label: String, iconName: String, highlighted: Bool = false, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 3) {
-                Image(iconName, bundle: Bundle.module)
-                    .renderingMode(Image.TemplateRenderingMode.template)
+                Image(iconName, bundle: .module)
+                    .renderingMode(.template)
                     .resizable()
-                    .aspectRatio(contentMode: ContentMode.fit)
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18)
                 Text(label)
-                    .font(Font.system(size: 10, weight: Font.Weight.semibold))
+                    .font(.system(size: 10, weight: .semibold))
                     .lineLimit(1)
                     .minimumScaleFactor(0.7)
             }
-            .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundStyle(highlighted ? Color.white : Color.white.opacity(disabled ? 0.35 : 0.80))
             .background(
                 RoundedRectangle(cornerRadius: 10)
@@ -1009,7 +1009,7 @@ struct SudokuGameView: View {
         }) {
             VStack(spacing: 1) {
                 Text("\(digit)")
-                    .font(Font.system(size: 28, weight: Font.Weight.heavy, design: Font.Design.rounded))
+                    .font(.system(size: 28, weight: .heavy, design: .rounded))
                     .monospaced()
                     .foregroundStyle(exhausted
                                      ? Color.white.opacity(0.25)
@@ -1017,11 +1017,11 @@ struct SudokuGameView: View {
                                         ? Color(red: 0.75, green: 0.85, blue: 1.0)
                                         : Color.white))
                 Text("\(remaining)")
-                    .font(Font.system(size: 9, weight: Font.Weight.medium))
+                    .font(.system(size: 9, weight: .medium))
                     .monospaced()
                     .foregroundStyle(Color.white.opacity(0.45))
             }
-            .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 10)
                     .fill(game.notesMode
@@ -1042,24 +1042,24 @@ struct SudokuGameView: View {
 
             VStack(spacing: 16) {
                 Text("PAUSED")
-                    .font(Font.largeTitle)
-                    .fontWeight(Font.Weight.black)
+                    .font(.largeTitle)
+                    .fontWeight(.black)
                     .foregroundStyle(Color.white)
 
                 Button(action: { resumeGame() }) {
                     Text("Resume")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.green)
+                .tint(.green)
 
                 Button(action: { showDifficultyPicker = true }) {
                     Text("New Game")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
@@ -1068,8 +1068,8 @@ struct SudokuGameView: View {
 
                 Button(action: { showSettings = true }) {
                     Text("Settings")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
@@ -1078,13 +1078,13 @@ struct SudokuGameView: View {
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.red)
+                .tint(.red)
             }
             .padding(28)
             .background(
@@ -1102,13 +1102,13 @@ struct SudokuGameView: View {
 
             VStack(spacing: 16) {
                 Text("\u{2B50}\u{2B50}\u{2B50}")
-                    .font(Font.system(size: 36))
+                    .font(.system(size: 36))
                 Text("Puzzle Solved!")
-                    .font(Font.largeTitle)
-                    .fontWeight(Font.Weight.black)
+                    .font(.largeTitle)
+                    .fontWeight(.black)
                     .foregroundStyle(
                         LinearGradient(colors: [Color.yellow, Color.orange],
-                                       startPoint: UnitPoint.top, endPoint: UnitPoint.bottom))
+                                       startPoint: .top, endPoint: .bottom))
 
                 VStack(spacing: 6) {
                     HStack(spacing: 24) {
@@ -1121,36 +1121,36 @@ struct SudokuGameView: View {
                     let best = game.bestTime(for: game.difficulty)
                     if best == game.elapsedSeconds && best > 0 {
                         Text("New Best Time!")
-                            .font(Font.title3)
-                            .fontWeight(Font.Weight.bold)
+                            .font(.title3)
+                            .fontWeight(.bold)
                             .foregroundStyle(Color.yellow)
                     } else if best > 0 {
                         Text("Best: \(formatTime(best))")
-                            .font(Font.subheadline)
+                            .font(.subheadline)
                             .foregroundStyle(Color.white.opacity(0.65))
                     }
                 }
 
                 Button(action: { showDifficultyPicker = true }) {
                     Text("Play Again")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.blue)
-                .padding(Edge.Set.top, 4.0)
+                .tint(.blue)
+                .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.red)
+                .tint(.red)
 
                 ShareLink(
                     item: "I solved a \(game.difficulty.label) Sudoku in \(formatTime(game.elapsedSeconds)) on Faire Games! Can you beat it?\nhttps://appfair.net",
@@ -1158,13 +1158,13 @@ struct SudokuGameView: View {
                     message: Text("I solved Sudoku in \(formatTime(game.elapsedSeconds))!")
                 ) {
                     HStack(spacing: 6) {
-                        Image("ios_share", bundle: Bundle.module)
-                            .renderingMode(Image.TemplateRenderingMode.template)
+                        Image("ios_share", bundle: .module)
+                            .renderingMode(.template)
                             .resizable()
-                            .aspectRatio(contentMode: ContentMode.fit)
+                            .aspectRatio(contentMode: .fit)
                             .frame(width: 16, height: 16)
                         Text("Share")
-                            .font(Font.subheadline)
+                            .font(.subheadline)
                     }
                     .foregroundStyle(Color.white.opacity(0.7))
                 }
@@ -1185,11 +1185,11 @@ struct SudokuGameView: View {
 
             VStack(spacing: 16) {
                 Text("GAME OVER")
-                    .font(Font.largeTitle)
-                    .fontWeight(Font.Weight.black)
+                    .font(.largeTitle)
+                    .fontWeight(.black)
                     .foregroundStyle(Color.white)
                 Text("Too many mistakes")
-                    .font(Font.callout)
+                    .font(.callout)
                     .foregroundStyle(Color.white.opacity(0.65))
 
                 HStack(spacing: 24) {
@@ -1201,24 +1201,24 @@ struct SudokuGameView: View {
 
                 Button(action: { showDifficultyPicker = true }) {
                     Text("Play Again")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.blue)
-                .padding(Edge.Set.top, 4.0)
+                .tint(.blue)
+                .padding(.top, 4.0)
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")
-                        .font(Font.headline)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.headline)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
-                .tint(Color.red)
+                .tint(.red)
             }
             .padding(28)
             .background(
@@ -1231,11 +1231,11 @@ struct SudokuGameView: View {
     func statLine(title: String, value: String, color: Color) -> some View {
         VStack(spacing: 2) {
             Text(title)
-                .font(Font.caption)
+                .font(.caption)
                 .foregroundStyle(Color.white.opacity(0.6))
             Text(value)
-                .font(Font.title3)
-                .fontWeight(Font.Weight.bold)
+                .font(.title3)
+                .fontWeight(.bold)
                 .foregroundStyle(color)
                 .monospaced()
         }
@@ -1275,17 +1275,17 @@ struct SudokuGameView: View {
 struct DifficultyPickerView: View {
     let currentDifficulty: SudokuDifficulty
     let onSelect: (SudokuDifficulty) -> Void
-    @Environment(\.dismiss) var dismiss: DismissAction
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 14) {
                     Text("Choose Difficulty")
-                        .font(Font.title2)
-                        .fontWeight(Font.Weight.bold)
+                        .font(.title2)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.white)
-                        .padding(Edge.Set.top, 10.0)
+                        .padding(.top, 10.0)
 
                     ForEach(SudokuDifficulty.allCases) { d in
                         Button(action: {
@@ -1295,19 +1295,19 @@ struct DifficultyPickerView: View {
                             HStack {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(d.label)
-                                        .font(Font.title3)
-                                        .fontWeight(Font.Weight.bold)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
                                         .foregroundStyle(Color.white)
                                     Text("\(d.cluesCount) starting clues")
-                                        .font(Font.caption)
+                                        .font(.caption)
                                         .foregroundStyle(Color.white.opacity(0.6))
                                 }
                                 Spacer()
                                 if d == currentDifficulty {
-                                    Image("check_circle", bundle: Bundle.module)
-                                        .renderingMode(Image.TemplateRenderingMode.template)
+                                    Image("check_circle", bundle: .module)
+                                        .renderingMode(.template)
                                         .resizable()
-                                        .aspectRatio(contentMode: ContentMode.fit)
+                                        .aspectRatio(contentMode: .fit)
                                         .frame(width: 22, height: 22)
                                         .foregroundStyle(d.accentColor)
                                 }
@@ -1325,10 +1325,10 @@ struct DifficultyPickerView: View {
                         .buttonStyle(.plain)
                     }
                 }
-                .padding(Edge.Set.horizontal, 20.0)
-                .padding(Edge.Set.bottom, 24.0)
+                .padding(.horizontal, 20.0)
+                .padding(.bottom, 24.0)
             }
-            .frame(maxWidth: CGFloat.infinity, maxHeight: CGFloat.infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.05, green: 0.06, blue: 0.14).ignoresSafeArea())
             .navigationTitle("New Game")
             #if !os(macOS)
@@ -1366,7 +1366,7 @@ public struct SudokuPreviewIcon: View {
             LinearGradient(
                 colors: [Color(red: 0.10, green: 0.15, blue: 0.30),
                          Color(red: 0.05, green: 0.08, blue: 0.18)],
-                startPoint: UnitPoint.topLeading, endPoint: UnitPoint.bottomTrailing
+                startPoint: .topLeading, endPoint: .bottomTrailing
             )
 
             // 3x3 grid of 3x3 sub-grids
@@ -1406,7 +1406,7 @@ public struct SudokuPreviewIcon: View {
                     ForEach(0..<3) { c in
                         let v = digits[r * 3 + c]
                         Text(v)
-                            .font(Font.system(size: 10, weight: Font.Weight.heavy, design: Font.Design.rounded))
+                            .font(.system(size: 10, weight: .heavy, design: .Design.rounded))
                             .foregroundStyle(v == "."
                                              ? Color.clear
                                              : colorFor(digit: v, box: boxIndex))
@@ -1444,7 +1444,7 @@ public struct SudokuPreviewIcon: View {
 
 struct SudokuSettingsView: View {
     @Bindable var settings: SudokuSettings
-    @Environment(\.dismiss) var dismiss: DismissAction
+    @Environment(\.dismiss) var dismiss
     @State private var confirmReset = false
 
     var body: some View {
@@ -1473,13 +1473,13 @@ struct SudokuSettingsView: View {
                     }
                 }
                 Section("Data") {
-                    Button(role: ButtonRole.destructive, action: { confirmReset = true }) {
+                    Button(role: .destructive, action: { confirmReset = true }) {
                         Text("Reset Sudoku Records")
                     }
                     .confirmationDialog("Reset Sudoku Records?",
                                         isPresented: $confirmReset,
-                                        titleVisibility: Visibility.visible) {
-                        Button("Reset", role: ButtonRole.destructive) {
+                                        titleVisibility: .visible) {
+                        Button("Reset", role: .destructive) {
                             resetSudokuRecords()
                         }
                     } message: {
@@ -1530,7 +1530,7 @@ public class SudokuSettings {
     }
 }
 
-nonisolated(unsafe) private let defaults: UserDefaults = UserDefaults.standard
+nonisolated(unsafe) private let defaults = UserDefaults.standard
 
 private extension UserDefaults {
     func value<T>(forKey key: String, default defaultValue: T) -> T {

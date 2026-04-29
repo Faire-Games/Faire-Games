@@ -431,13 +431,13 @@ final class TwentyFortyEightModel {
 
     func saveState() {
         guard let data = try? JSONEncoder().encode(makeSavedState()) else { return }
-        guard let json = String(data: data, encoding: String.Encoding.utf8) else { return }
+        guard let json = String(data: data, encoding: .utf8) else { return }
         UserDefaults.standard.set(json, forKey: "twentyfortyeight_saved_state")
     }
 
     static func loadSavedState() -> TwentyFortyEightSavedState? {
         guard let json = UserDefaults.standard.string(forKey: "twentyfortyeight_saved_state") else { return nil }
-        guard let data = json.data(using: String.Encoding.utf8) else { return nil }
+        guard let data = json.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(TwentyFortyEightSavedState.self, from: data)
     }
 
