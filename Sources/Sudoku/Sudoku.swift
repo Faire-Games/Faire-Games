@@ -76,6 +76,32 @@ public enum SudokuDifficulty: Int, CaseIterable, Identifiable {
         case .expert: return "sudoku_best_expert"
         }
     }
+
+    /// Whether this difficulty tracks and penalizes mistakes.
+    var tracksMistakes: Bool {
+        switch self {
+        case .easy, .medium: return true
+        case .hard, .expert: return false
+        }
+    }
+
+    /// Whether hints are available at this difficulty.
+    var hintsEnabled: Bool {
+        switch self {
+        case .easy, .medium, .hard: return true
+        case .expert: return false
+        }
+    }
+
+    /// Description shown in the difficulty picker.
+    var detail: String {
+        switch self {
+        case .easy: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} mistakes tracked"
+        case .medium: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} mistakes tracked"
+        case .hard: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} no mistake warnings"
+        case .expert: return "\(cluesCount) clues \u{2022} no hints \u{2022} no mistake warnings"
+        }
+    }
 }
 
 // MARK: - Board Index Helpers
@@ -298,7 +324,7 @@ final class SudokuModel {
         selectedIndex = nil
         notesMode = false
         mistakes = 0
-        hintsRemaining = 3
+        hintsRemaining = difficulty.hintsEnabled ? 3 : 0
         elapsedSeconds = 0
         isPaused = false
         isComplete = false
@@ -428,9 +454,11 @@ final class SudokuModel {
         values[i] = digit
         clearNotes(i)
         if digit != solution[i] {
-            mistakes += 1
-            if mistakes >= maxMistakes {
-                isGameOver = true
+            if difficulty.tracksMistakes {
+                mistakes += 1
+                if mistakes >= maxMistakes {
+                    isGameOver = true
+                }
             }
         } else {
             // Correct placement: clear this digit from peer notes
@@ -698,13 +726,15 @@ struct SudokuGameView: View {
             statusPill(title: "Difficulty", value: game.difficulty.label,
                        tint: game.difficulty.accentColor)
             Spacer(minLength: 8)
-            statusPill(title: "Mistakes", value: "\(game.mistakes)/\(game.maxMistakes)",
-                       tint: game.mistakes >= game.maxMistakes
-                            ? Color(red: 0.95, green: 0.30, blue: 0.30)
-                            : (game.mistakes > 0
-                               ? Color(red: 0.95, green: 0.70, blue: 0.30)
-                               : Color(red: 0.55, green: 0.85, blue: 0.55)))
-            Spacer(minLength: 8)
+            if game.difficulty.tracksMistakes {
+                statusPill(title: "Mistakes", value: "\(game.mistakes)/\(game.maxMistakes)",
+                           tint: game.mistakes >= game.maxMistakes
+                                ? Color(red: 0.95, green: 0.30, blue: 0.30)
+                                : (game.mistakes > 0
+                                   ? Color(red: 0.95, green: 0.70, blue: 0.30)
+                                   : Color(red: 0.55, green: 0.85, blue: 0.55)))
+                Spacer(minLength: 8)
+            }
             statusPill(title: "Time", value: formatTime(game.elapsedSeconds),
                        tint: Color(red: 0.60, green: 0.75, blue: 0.95))
         }
@@ -806,7 +836,7 @@ struct SudokuGameView: View {
         let value = game.values[index]
         let isSelected = game.selectedIndex == index
         let isOriginal = game.isOriginal[index]
-        let isConflict = game.hasConflict(at: index)
+        let isConflict = game.difficulty.tracksMistakes && game.hasConflict(at: index)
         let highlightLevel = computeHighlight(for: index)
         return ZStack {
             // Background
@@ -1298,7 +1328,7 @@ struct DifficultyPickerView: View {
                                         .font(.title3)
                                         .fontWeight(.bold)
                                         .foregroundStyle(Color.white)
-                                    Text("\(d.cluesCount) starting clues")
+                                    Text(d.detail)
                                         .font(.caption)
                                         .foregroundStyle(Color.white.opacity(0.6))
                                 }
