@@ -1044,13 +1044,13 @@ struct SudokuGameView: View {
                 Text("PAUSED")
                     .font(.largeTitle)
                     .fontWeight(.black)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(.white)
 
                 Button(action: { resumeGame() }) {
                     Text("Resume")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1060,7 +1060,7 @@ struct SudokuGameView: View {
                     Text("New Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1070,7 +1070,7 @@ struct SudokuGameView: View {
                     Text("Settings")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1080,7 +1080,7 @@ struct SudokuGameView: View {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1123,7 +1123,7 @@ struct SudokuGameView: View {
                         Text("New Best Time!")
                             .font(.title3)
                             .fontWeight(.bold)
-                            .foregroundStyle(Color.yellow)
+                            .foregroundStyle(.yellow)
                     } else if best > 0 {
                         Text("Best: \(formatTime(best))")
                             .font(.subheadline)
@@ -1135,7 +1135,7 @@ struct SudokuGameView: View {
                     Text("Play Again")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1146,7 +1146,7 @@ struct SudokuGameView: View {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1187,7 +1187,7 @@ struct SudokuGameView: View {
                 Text("GAME OVER")
                     .font(.largeTitle)
                     .fontWeight(.black)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(.white)
                 Text("Too many mistakes")
                     .font(.callout)
                     .foregroundStyle(Color.white.opacity(0.65))
@@ -1203,7 +1203,7 @@ struct SudokuGameView: View {
                     Text("Play Again")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1214,7 +1214,7 @@ struct SudokuGameView: View {
                     Text("Quit Game")
                         .font(.headline)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(.white)
                         .frame(width: 160)
                 }
                 .buttonStyle(.borderedProminent)
@@ -1406,7 +1406,7 @@ public struct SudokuPreviewIcon: View {
                     ForEach(0..<3) { c in
                         let v = digits[r * 3 + c]
                         Text(v)
-                            .font(.system(size: 10, weight: .heavy, design: .Design.rounded))
+                            .font(.system(size: 10, weight: .heavy, design: .rounded))
                             .foregroundStyle(v == "."
                                              ? Color.clear
                                              : colorFor(digit: v, box: boxIndex))
@@ -1492,7 +1492,7 @@ struct SudokuSettingsView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
-                ToolbarItem(placement: ToolbarItemPlacement.confirmationAction) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
             }
@@ -1505,7 +1505,7 @@ struct SudokuSettingsView: View {
             Text(difficulty.label)
             Spacer()
             Text(best > 0 ? formatTime(best) : "—")
-                .foregroundStyle(Color.secondary)
+                .foregroundStyle(.secondary)
                 .monospaced()
         }
     }
