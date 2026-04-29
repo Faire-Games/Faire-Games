@@ -1,0 +1,30 @@
+Fair Games adalah koleksi gratis dan open-source dari game puzzle dan arkade klasik.
+
+BLOCK BLAST
+Letakkan dan susun bentuk balok berwarna pada kisi 8x8. Isi baris atau kolom yang lengkap untuk membersihkannya dan mengumpulkan poin. Buat kombo dengan membersihkan beberapa baris berturut-turut untuk pengganda skor besar. Bersihkan seluruh papan untuk bonus besar.
+
+SIRTET
+Game blok jatuh tanpa lekang waktu yang Anda kenal dan cintai. Pandu tetro-cubes saat jatuh, putar pada tempatnya, dan bersihkan baris untuk naik level. Tempo semakin cepat seiring kemajuan Anda melalui level, menguji refleks dan pemikiran spasial Anda.
+
+FLAPPY BIRD
+Ketuk untuk mengepak dan navigasikan burung melalui rintangan pipa tanpa akhir. Atur waktu ketukan Anda dengan hati-hati untuk tetap di udara dan melewati celah. Kesulitan yang dapat disesuaikan memungkinkan pemula dan veteran sama-sama menemukan tantangan mereka.
+
+BREAKOUT
+Pantulkan bola dari pedayung Anda untuk menghancurkan barisan bata berwarna. Bidik tembakan Anda dengan memukul bagian-bagian berbeda dari pedayung untuk mengontrol sudut. Bersihkan semua bata untuk maju ke level yang semakin cepat.
+
+SUDOKU
+Isi kisi 9x9 sehingga setiap baris, kolom, dan kotak berisi angka 1 hingga 9. Empat tingkat kesulitan dari Mudah hingga Ahli, sistem petunjuk bawaan, tanda pensil, undo/redo, dan timer untuk melacak waktu terbaik Anda.
+
+2048
+Geser untuk menggeser ubin bernomor di papan 4x4. Ketika dua ubin dengan nomor yang sama bertabrakan, mereka bergabung menjadi satu. Gabungkan jalan Anda hingga ubin 2048 dan seterusnya.
+
+FITUR
+- Umpan balik haptik memuaskan yang disesuaikan dengan setiap tindakan
+- Pelacakan skor tinggi dan persistensi status game
+- Menu jeda di setiap game dengan lanjutkan, game baru, dan pengaturan
+- Tema gelap yang dirancang untuk permainan yang nyaman
+- Simpan otomatis sehingga Anda tidak pernah kehilangan kemajuan
+- Tanpa iklan, tanpa pembelian dalam aplikasi, tanpa pelacakan
+- 100% open source
+
+Fair Games didistribusikan melalui App Fair dan dibangun dengan Skip.

@@ -1,0 +1,30 @@
+Fair Games ist eine kostenlose, quelloffene Sammlung klassischer Puzzle- und Arcade-Spiele für iOS und Android.
+
+<b>BLOCK BLAST</b>
+Platziere und ordne bunte Blockformen auf einem 8x8-Raster an. Fülle vollständige Reihen oder Spalten, um sie zu räumen und Punkte zu sammeln. Baue Combos auf, indem du mehrere Linien hintereinander räumst, für massive Punkte-Multiplikatoren. Räume das gesamte Brett für einen riesigen Bonus.
+
+<b>SIRTET</b>
+Das zeitlose Fallblock-Spiel, das du kennst und liebst. Lenke die Tetro-Würfel beim Fallen, drehe sie an die richtige Stelle und räume Linien, um aufzusteigen. Das Tempo wird mit jedem Level schneller und fordert deine Reflexe und dein räumliches Denken.
+
+<b>FLAPPY BIRD</b>
+Tippe zum Flattern und navigiere einen Vogel durch eine endlose Reihe von Rohr-Hindernissen. Timing deine Tipps sorgfältig, um in der Luft zu bleiben und die Lücken zu treffen. Anpassbare Schwierigkeit lässt Anfänger und Veteranen gleichermaßen ihre Herausforderung finden.
+
+<b>BREAKOUT</b>
+Lass den Ball von deinem Schläger abprallen, um Reihen bunter Steine zu zerschlagen. Ziele deine Schüsse, indem du verschiedene Teile des Schlägers triffst, um den Winkel zu steuern. Räume alle Steine, um durch immer schnellere Levels voranzukommen.
+
+<b>SUDOKU</b>
+Fülle das 9x9-Raster so aus, dass jede Zeile, Spalte und Box die Ziffern 1 bis 9 enthält. Vier Schwierigkeitsstufen von Einfach bis Experte, ein eingebautes Hinweissystem, Bleistiftmarkierungen, Rückgängig/Wiederholen und ein Timer zum Verfolgen deiner Bestzeiten.
+
+<b>2048</b>
+Wische, um nummerierte Kacheln über ein 4x4-Brett zu schieben. Wenn zwei Kacheln mit der gleichen Zahl zusammenstoßen, verschmelzen sie zu einer. Kombiniere dich hoch bis zur 2048-Kachel und darüber hinaus.
+
+<b>FUNKTIONEN</b>
+&#8226; Befriedigendes haptisches Feedback, abgestimmt auf jede Aktion
+&#8226; Highscore-Verfolgung und Speicherung des Spielstands
+&#8226; Pause-Menü in jedem Spiel mit Fortsetzen, Neues Spiel und Einstellungen
+&#8226; Dunkles Design für komfortables Spielen
+&#8226; Auto-Speichern, damit du nie Fortschritte verlierst
+&#8226; Keine Werbung, keine In-App-Käufe, kein Tracking
+&#8226; 100% kostenlos und quelloffen
+
+Fair Games wird über App Fair vertrieben und mit Skip entwickelt und läuft nativ auf iOS und Android aus einer einzigen Codebasis.

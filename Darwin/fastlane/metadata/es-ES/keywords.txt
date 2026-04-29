@@ -1,0 +1,1 @@
+juegos,tetris,bloque,blast,puzle,arcade,clásico,gratis,código abierto,2048,sudoku,breakout

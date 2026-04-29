@@ -1,0 +1,30 @@
+Fair Games est une collection gratuite et open-source de jeux classiques de puzzle et d'arcade pour iOS et Android.
+
+<b>BLOCK BLAST</b>
+Placez et organisez des formes de blocs colorés sur une grille 8x8. Remplissez des lignes ou des colonnes complètes pour les effacer et accumuler des points. Construisez des combos en effaçant plusieurs lignes d'affilée pour obtenir d'énormes multiplicateurs de score. Videz tout le plateau pour un énorme bonus.
+
+<b>SIRTET</b>
+Le jeu intemporel de blocs qui tombent que vous connaissez et aimez. Guidez les tétro-cubes pendant leur chute, faites-les pivoter en place et effacez des lignes pour monter de niveau. Le rythme s'accélère à mesure que vous progressez, mettant à l'épreuve vos réflexes et votre pensée spatiale.
+
+<b>FLAPPY BIRD</b>
+Tapotez pour battre des ailes et naviguez avec un oiseau à travers une série infinie d'obstacles de tuyaux. Chronométrez vos tapotements avec soin pour rester en l'air et traverser les espaces. Une difficulté ajustable permet aux débutants comme aux vétérans de trouver leur défi.
+
+<b>BREAKOUT</b>
+Faites rebondir une balle sur votre raquette pour briser des rangées de briques colorées. Visez vos tirs en frappant différentes parties de la raquette pour contrôler l'angle. Effacez toutes les briques pour avancer dans des niveaux de plus en plus rapides.
+
+<b>SUDOKU</b>
+Remplissez la grille 9x9 pour que chaque ligne, colonne et boîte contienne les chiffres de 1 à 9. Quatre niveaux de difficulté de Facile à Expert, un système d'indices intégré, des marques au crayon, annuler/rétablir et un chronomètre pour suivre vos meilleurs temps.
+
+<b>2048</b>
+Glissez pour déplacer des tuiles numérotées sur un plateau 4x4. Lorsque deux tuiles avec le même nombre entrent en collision, elles fusionnent en une seule. Combinez votre chemin jusqu'à la tuile 2048 et au-delà.
+
+<b>FONCTIONNALITÉS</b>
+&#8226; Retour haptique satisfaisant adapté à chaque action
+&#8226; Suivi des meilleurs scores et persistance de l'état du jeu
+&#8226; Menu pause dans chaque jeu avec reprendre, nouvelle partie et paramètres
+&#8226; Thème sombre conçu pour un jeu confortable
+&#8226; Sauvegarde automatique pour ne jamais perdre votre progression
+&#8226; Pas de publicités, pas d'achats intégrés, pas de pistage
+&#8226; 100% gratuit et open source
+
+Fair Games est distribué via App Fair et construit avec Skip, fonctionnant nativement sur iOS et Android à partir d'une base de code unique.

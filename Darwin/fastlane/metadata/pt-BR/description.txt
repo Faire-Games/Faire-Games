@@ -1,0 +1,30 @@
+Fair Games é uma coleção gratuita e de código aberto de jogos clássicos de quebra-cabeça e arcade.
+
+BLOCK BLAST
+Coloque e organize formas de blocos coloridos em uma grade 8x8. Preencha linhas ou colunas completas para limpá-las e acumular pontos. Construa combos limpando várias linhas seguidas para multiplicadores massivos de pontuação. Limpe o tabuleiro inteiro para um enorme bônus.
+
+SIRTET
+O atemporal jogo de blocos caindo que você conhece e ama. Guie os tetro-cubos enquanto caem, gire-os no lugar e limpe linhas para subir de nível. O ritmo acelera conforme você progride pelos níveis, testando seus reflexos e pensamento espacial.
+
+FLAPPY BIRD
+Toque para bater asas e navegue um pássaro através de uma série infinita de obstáculos de canos. Cronometre seus toques cuidadosamente para permanecer no ar e atravessar as lacunas. Dificuldade ajustável permite que iniciantes e veteranos encontrem seu desafio.
+
+BREAKOUT
+Rebata uma bola na sua raquete para esmagar fileiras de tijolos coloridos. Mire seus tiros acertando diferentes partes da raquete para controlar o ângulo. Limpe todos os tijolos para avançar por níveis cada vez mais rápidos.
+
+SUDOKU
+Preencha a grade 9x9 para que cada linha, coluna e caixa contenha os dígitos de 1 a 9. Quatro níveis de dificuldade de Fácil a Expert, um sistema de dicas integrado, marcas de lápis, desfazer/refazer e um cronômetro para registrar seus melhores tempos.
+
+2048
+Deslize para mover peças numeradas em um tabuleiro 4x4. Quando duas peças com o mesmo número colidem, elas se fundem em uma. Combine seu caminho até a peça 2048 e além.
+
+RECURSOS
+- Feedback háptico satisfatório ajustado para cada ação
+- Rastreamento de pontuações altas e persistência do estado do jogo
+- Menu de pausa em cada jogo com retomar, novo jogo e configurações
+- Tema escuro projetado para jogo confortável
+- Salvamento automático para que você nunca perca o progresso
+- Sem anúncios, sem compras no aplicativo, sem rastreamento
+- 100% código aberto
+
+Fair Games é distribuído através do App Fair e construído com Skip.

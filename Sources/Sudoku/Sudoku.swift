@@ -278,6 +278,7 @@ final class SudokuModel {
     var isPaused: Bool = false
     var isComplete: Bool = false
     var isGameOver: Bool = false
+    var hasGivenUp: Bool = false
 
     // Records
     var bestEasy: Int = UserDefaults.standard.integer(forKey: "sudoku_best_easy")
@@ -329,6 +330,7 @@ final class SudokuModel {
         isPaused = false
         isComplete = false
         isGameOver = false
+        hasGivenUp = false
         undoIndices.removeAll()
         undoValues.removeAll()
         undoNotes.removeAll()
@@ -520,6 +522,18 @@ final class SudokuModel {
         puzzlesSolved += 1
         UserDefaults.standard.set(puzzlesSolved, forKey: "sudoku_puzzles_solved")
         let _ = updateBestTime(elapsedSeconds, for: difficulty)
+    }
+
+    func giveUp() {
+        // Fill all empty cells with the solution
+        for i in 0..<81 {
+            if values[i] == 0 {
+                values[i] = solution[i]
+            }
+        }
+        hasGivenUp = true
+        isGameOver = true
+        isPaused = false
     }
 
     func tick() {
@@ -838,6 +852,8 @@ struct SudokuGameView: View {
         let isOriginal = game.isOriginal[index]
         let isConflict = game.difficulty.tracksMistakes && game.hasConflict(at: index)
         let highlightLevel = computeHighlight(for: index)
+        // A cell filled by "Give Up" is one that wasn't original and now matches solution after giving up
+        let isGivenUpCell = game.hasGivenUp && !isOriginal && value == game.solution[index]
         return ZStack {
             // Background
             Rectangle()
@@ -850,7 +866,8 @@ struct SudokuGameView: View {
                     .font(.system(size: size * 0.55, weight: isOriginal ? .black : .semibold, design: .rounded))
                     .foregroundStyle(cellTextColor(isOriginal: isOriginal,
                                                    isConflict: isConflict,
-                                                   isCorrect: value == game.solution[index]))
+                                                   isCorrect: value == game.solution[index],
+                                                   isGivenUpSolution: isGivenUpCell))
                     .monospaced()
             } else {
                 notesGridView(index: index, cellSize: size)
@@ -908,12 +925,19 @@ struct SudokuGameView: View {
         }
     }
 
-    func cellTextColor(isOriginal: Bool, isConflict: Bool, isCorrect: Bool) -> Color {
+    func cellTextColor(isOriginal: Bool, isConflict: Bool, isCorrect: Bool, isGivenUpSolution: Bool) -> Color {
+        if isGivenUpSolution {
+            return Color(red: 0.55, green: 0.65, blue: 0.80).opacity(0.55)
+        }
         if isConflict {
             return Color(red: 1.0, green: 0.55, blue: 0.55)
         }
         if isOriginal {
             return Color.white
+        }
+        if !game.difficulty.tracksMistakes {
+            // Hard/Expert: don't color-code correctness
+            return Color(red: 0.65, green: 0.85, blue: 1.0)
         }
         return isCorrect
             ? Color(red: 0.65, green: 0.85, blue: 1.0)
@@ -949,14 +973,14 @@ struct SudokuGameView: View {
                 actionButton(label: game.notesMode ? "Notes ✓" : "Notes",
                              iconName: "edit",
                              highlighted: game.notesMode,
-                             disabled: game.isPaused,
+                             disabled: game.isPaused || game.isGameOver || game.isComplete,
                              action: {
                                  game.notesMode.toggle()
                                  playHaptic(.pick)
                              })
                 actionButton(label: "Hint (\(game.hintsRemaining))",
                              iconName: "lightbulb",
-                             disabled: game.hintsRemaining == 0 || game.isPaused,
+                             disabled: game.hintsRemaining == 0 || game.isPaused || game.isGameOver || game.isComplete,
                              action: {
                                  game.useHint()
                                  game.saveState()
@@ -971,14 +995,14 @@ struct SudokuGameView: View {
             // Right column: Undo (top), Erase (bottom)
             VStack(spacing: 8) {
                 actionButton(label: "Undo", iconName: "undo",
-                             disabled: game.undoIndices.isEmpty || game.isPaused,
+                             disabled: game.undoIndices.isEmpty || game.isPaused || game.isGameOver || game.isComplete,
                              action: {
                                  game.undo()
                                  game.saveState()
                                  playHaptic(.pick)
                              })
                 actionButton(label: "Erase", iconName: "ink_eraser",
-                             disabled: game.selectedIndex == nil || game.isPaused,
+                             disabled: game.selectedIndex == nil || game.isPaused || game.isGameOver || game.isComplete,
                              action: {
                                  game.erase()
                                  game.saveState()
@@ -1105,6 +1129,19 @@ struct SudokuGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: {
+                    game.giveUp()
+                    showPauseMenu = false
+                }) {
+                    Text("Give Up")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.7, green: 0.4, blue: 0.1))
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game")

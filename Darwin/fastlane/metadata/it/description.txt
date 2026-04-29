@@ -1,0 +1,30 @@
+Fair Games è una raccolta gratuita e open-source di giochi classici di puzzle e arcade.
+
+BLOCK BLAST
+Posiziona e organizza forme di blocchi colorati su una griglia 8x8. Riempi righe o colonne complete per cancellarle e accumulare punti. Costruisci combo cancellando più linee di fila per enormi moltiplicatori di punteggio. Pulisci l'intera tavola per un bonus enorme.
+
+SIRTET
+Il senza tempo gioco di blocchi che cadono che conosci e ami. Guida i tetro-cubi mentre cadono, ruotali al loro posto e cancella le linee per salire di livello. Il ritmo accelera man mano che progredisci, mettendo alla prova i tuoi riflessi e il pensiero spaziale.
+
+FLAPPY BIRD
+Tocca per battere le ali e naviga un uccello attraverso una serie infinita di ostacoli a tubo. Cronometra i tuoi tocchi con cura per restare in aria e infilare i varchi. La difficoltà regolabile permette a principianti e veterani di trovare la propria sfida.
+
+BREAKOUT
+Fai rimbalzare una palla dalla tua racchetta per distruggere file di mattoni colorati. Mira i tuoi colpi colpendo diverse parti della racchetta per controllare l'angolo. Cancella tutti i mattoni per avanzare attraverso livelli sempre più veloci.
+
+SUDOKU
+Riempi la griglia 9x9 in modo che ogni riga, colonna e casella contenga le cifre da 1 a 9. Quattro livelli di difficoltà da Facile a Esperto, un sistema di suggerimenti integrato, segni a matita, annulla/ripristina e un timer per tracciare i tuoi migliori tempi.
+
+2048
+Scorri per far scivolare le tessere numerate su una tavola 4x4. Quando due tessere con lo stesso numero si scontrano, si fondono in una. Combina la tua strada fino alla tessera 2048 e oltre.
+
+CARATTERISTICHE
+- Feedback aptico soddisfacente sintonizzato su ogni azione
+- Tracciamento dei punteggi alti e persistenza dello stato del gioco
+- Menu di pausa in ogni gioco con riprendi, nuova partita e impostazioni
+- Tema scuro progettato per un gioco confortevole
+- Salvataggio automatico così non perdi mai i progressi
+- Niente pubblicità, niente acquisti in-app, niente tracciamento
+- 100% open source
+
+Fair Games è distribuito tramite App Fair e costruito con Skip.
