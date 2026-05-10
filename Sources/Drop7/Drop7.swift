@@ -120,11 +120,31 @@ enum Drop7Difficulty: Int, CaseIterable {
         }
     }
 
+    /// Drops needed to advance to the *first* push-up. Subsequent levels need
+    /// progressively fewer drops (see `Drop7Model.currentLevelTarget`).
     var dropsPerLevel: Int {
         switch self {
         case .easy: return 40
         case .normal: return 30
         case .hard: return 25
+        }
+    }
+
+    /// The minimum number of drops per level once the cadence has decayed.
+    var minDropsPerLevel: Int {
+        switch self {
+        case .easy: return 8
+        case .normal: return 5
+        case .hard: return 3
+        }
+    }
+
+    /// Points awarded each time the player completes a level (a push-up fires).
+    var levelBonus: Int {
+        switch self {
+        case .easy: return 5_000
+        case .normal: return 7_000
+        case .hard: return 14_000
         }
     }
 }
@@ -152,12 +172,16 @@ struct Drop7ExplosionStep {
     var fallSources: [Int]
     var scoreGained: Int
     var stepNumber: Int
+    var screenCleared: Bool
 }
+
+let drop7ScreenClearBonus: Int = 70_000
 
 struct Drop7AdvanceResult {
     var didPushUp: Bool
     var gameOver: Bool
     var fallSources: [Int]
+    var levelBonusGained: Int
 }
 
 // MARK: - Game Model
@@ -291,40 +315,48 @@ final class Drop7Model {
         // Settle with tracking
         let fallSources = settleWithTracking()
 
+        // Screen-clear bonus: if the board is now empty, award the standard 70,000.
+        var totalGained = gained
+        var cleared = false
+        if isBoardEmpty() {
+            score += drop7ScreenClearBonus
+            totalGained += drop7ScreenClearBonus
+            cleared = true
+        }
+
         return Drop7ExplosionStep(
             exploded: exploding,
             explodedValues: explodedValues,
             revealed: revealed,
             fallSources: fallSources,
-            scoreGained: gained,
-            stepNumber: stepNumber
+            scoreGained: totalGained,
+            stepNumber: stepNumber,
+            screenCleared: cleared
         )
     }
 
-    private func findExploding() -> [Int] {
-        var rowCount: [Int] = Array(repeating: 0, count: gridRows)
-        var colCount: [Int] = Array(repeating: 0, count: gridCols)
-        var r = 0
-        while r < gridRows {
-            var c = 0
-            while c < gridCols {
-                if stateGrid[cellIndex(r, c)] != stateEmpty {
-                    rowCount[r] += 1
-                    colCount[c] += 1
-                }
-                c += 1
-            }
-            r += 1
+    func isBoardEmpty() -> Bool {
+        var i = 0
+        while i < stateGrid.count {
+            if stateGrid[i] != stateEmpty { return false }
+            i += 1
         }
+        return true
+    }
+
+    private func findExploding() -> [Int] {
+        // Drop 7 rule: a disc explodes when its value matches the length of the
+        // contiguous run of non-empty cells (including wrapped/cracked) that
+        // contains it, in either its row or its column.
         var result: [Int] = []
-        r = 0
+        var r = 0
         while r < gridRows {
             var c = 0
             while c < gridCols {
                 let idx = cellIndex(r, c)
                 if stateGrid[idx] == stateNormal {
                     let v = valueGrid[idx]
-                    if v == rowCount[r] || v == colCount[c] {
+                    if v == rowRunLength(row: r, col: c) || v == colRunLength(row: r, col: c) {
                         result.append(idx)
                     }
                 }
@@ -333,6 +365,36 @@ final class Drop7Model {
             r += 1
         }
         return result
+    }
+
+    private func rowRunLength(row r: Int, col c: Int) -> Int {
+        var length = 1
+        var cc = c - 1
+        while cc >= 0 && stateGrid[cellIndex(r, cc)] != stateEmpty {
+            length += 1
+            cc -= 1
+        }
+        cc = c + 1
+        while cc < gridCols && stateGrid[cellIndex(r, cc)] != stateEmpty {
+            length += 1
+            cc += 1
+        }
+        return length
+    }
+
+    private func colRunLength(row r: Int, col c: Int) -> Int {
+        var length = 1
+        var rr = r - 1
+        while rr >= 0 && stateGrid[cellIndex(rr, c)] != stateEmpty {
+            length += 1
+            rr -= 1
+        }
+        rr = r + 1
+        while rr < gridRows && stateGrid[cellIndex(rr, c)] != stateEmpty {
+            length += 1
+            rr += 1
+        }
+        return length
     }
 
     /// Apply gravity and return per-new-cell mapping of the original (pre-settle) cell index.
@@ -377,16 +439,30 @@ final class Drop7Model {
         return fallSources
     }
 
+    /// Drops required to trigger the next push-up at the current level.
+    /// In Normal Drop 7 the cadence accelerates: 30 drops, then 29, 28, 27...
+    /// down to a per-difficulty floor.
+    func currentLevelTarget() -> Int {
+        let base = difficulty.dropsPerLevel
+        let floor = difficulty.minDropsPerLevel
+        let target = base - (level - 1)
+        return max(floor, target)
+    }
+
     /// Increment the level counter. If a new level should start, push up.
     /// If nothing changes, returns a no-op result.
     func advanceLevel() -> Drop7AdvanceResult {
         dropsThisLevel += 1
-        if dropsThisLevel >= difficulty.dropsPerLevel {
+        if dropsThisLevel >= currentLevelTarget() {
             dropsThisLevel = 0
             level += 1
-            return performPushUp()
+            let bonus = difficulty.levelBonus
+            score += bonus
+            var result = performPushUp()
+            result.levelBonusGained = bonus
+            return result
         }
-        return Drop7AdvanceResult(didPushUp: false, gameOver: false, fallSources: [])
+        return Drop7AdvanceResult(didPushUp: false, gameOver: false, fallSources: [], levelBonusGained: 0)
     }
 
     private func performPushUp() -> Drop7AdvanceResult {
@@ -396,7 +472,7 @@ final class Drop7Model {
             if stateGrid[cellIndex(0, c)] != stateEmpty {
                 isGameOver = true
                 saveHighScore()
-                return Drop7AdvanceResult(didPushUp: false, gameOver: true, fallSources: [])
+                return Drop7AdvanceResult(didPushUp: false, gameOver: true, fallSources: [], levelBonusGained: 0)
             }
             c += 1
         }
@@ -425,7 +501,7 @@ final class Drop7Model {
             fallSources[idx] = fallFromBelowSentinel
             c2 += 1
         }
-        return Drop7AdvanceResult(didPushUp: true, gameOver: false, fallSources: fallSources)
+        return Drop7AdvanceResult(didPushUp: true, gameOver: false, fallSources: fallSources, levelBonusGained: 0)
     }
 
     func advanceToNextPiece() {
@@ -550,6 +626,9 @@ struct Drop7GameView: View {
     @State private var measuredCellSize: Double = 40.0
     @State private var lastChainShown: Int = 0
     @State private var chainPulse: Double = 0.0
+    @State private var turnMaxChain: Int = 0
+    @State private var screenClearOpacity: Double = 0.0
+    @State private var screenClearScale: Double = 0.5
 
     // Per-cell animation arrays — sized to gridCols * gridRows (49)
     @State private var cellOffsetY: [Double] = Array(repeating: 0.0, count: gridCols * gridRows)
@@ -601,7 +680,7 @@ struct Drop7GameView: View {
 
                 HStack(spacing: 10) {
                     scoreBox(label: "SCORE", value: displayedScore)
-                    levelBox(level: game.level, drops: game.dropsThisLevel, target: game.difficulty.dropsPerLevel)
+                    levelBox(level: game.level, drops: game.dropsThisLevel, target: game.currentLevelTarget())
                     scoreBox(label: "BEST", value: displayedHighScore)
                 }
                 .padding(.horizontal, 12)
@@ -645,6 +724,14 @@ struct Drop7GameView: View {
                     // Effects layer (ghost discs + burst rings, not hit-testable)
                     effectsLayer(cellSize: cellSize, boardWidth: boardWidth, boardHeight: boardHeight)
                         .allowsHitTesting(false)
+
+                    // Screen-clear banner
+                    if screenClearOpacity > 0.0 {
+                        screenClearBanner()
+                            .scaleEffect(screenClearScale)
+                            .opacity(screenClearOpacity)
+                            .allowsHitTesting(false)
+                    }
 
                     if game.isGameOver {
                         gameOverOverlay(width: boardWidth, height: boardHeight)
@@ -838,6 +925,7 @@ struct Drop7GameView: View {
         isAnimating = true
         hasAdvancedThisDrop = false
         currentChainStep = 1
+        turnMaxChain = 0
         startDropAnimation(idx: idx)
     }
 
@@ -1003,6 +1091,10 @@ struct Drop7GameView: View {
                     }
                 }
 
+                if step.screenCleared {
+                    triggerScreenClearCelebration()
+                }
+
                 scheduleAnim(after: 0.32) {
                     currentChainStep += 1
                     stepExplosionChain()
@@ -1013,12 +1105,19 @@ struct Drop7GameView: View {
 
     func afterChainComplete() {
         let chainCount = currentChainStep - 1
-        if chainCount >= 2 {
-            lastChainShown = chainCount
-            game.lastChainCount = chainCount
-            chainPulse = 1.0
-            withAnimation(.easeOut(duration: 0.6)) {
-                chainPulse = 0.0
+        // Track the largest chain across both the drop's chain and any push-up
+        // chain that follows in the same turn. Only re-pulse the indicator when
+        // the running max actually grows — a smaller push-up chain shouldn't
+        // overwrite a larger drop chain.
+        if chainCount > turnMaxChain {
+            turnMaxChain = chainCount
+            if turnMaxChain >= 2 {
+                lastChainShown = turnMaxChain
+                game.lastChainCount = turnMaxChain
+                chainPulse = 1.0
+                withAnimation(.easeOut(duration: 0.6)) {
+                    chainPulse = 0.0
+                }
             }
         }
 
@@ -1144,6 +1243,10 @@ struct Drop7GameView: View {
             i += 1
         }
         shakeOffsetX = 0.0
+        screenClearOpacity = 0.0
+        screenClearScale = 0.5
+        chainPulse = 0.0
+        turnMaxChain = 0
     }
 
     func scheduleAnim(after delay: Double, block: @escaping () -> Void) {
@@ -1252,6 +1355,35 @@ struct Drop7GameView: View {
             events.append(HapticEvent(.tap, intensity: baseIntensity, delay: 0.04))
         }
         HapticFeedback.play(HapticPattern(events))
+    }
+
+    func triggerScreenClearCelebration() {
+        // Big haptic flourish for clearing the board
+        playHaptic(HapticPattern([
+            HapticEvent(.rise, intensity: 1.0),
+            HapticEvent(.thud, intensity: 1.0, delay: 0.10),
+            HapticEvent(.thud, intensity: 1.0, delay: 0.05),
+            HapticEvent(.tap, intensity: 1.0, delay: 0.05),
+            HapticEvent(.tick, intensity: 1.0, delay: 0.04),
+            HapticEvent(.tap, intensity: 1.0, delay: 0.04),
+            HapticEvent(.thud, intensity: 1.0, delay: 0.06),
+            HapticEvent(.fall, intensity: 0.9, delay: 0.10),
+        ]))
+        triggerShake(intensity: 1.0)
+
+        // Banner pop-in
+        screenClearScale = 0.5
+        screenClearOpacity = 0.0
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.55)) {
+            screenClearScale = 1.0
+            screenClearOpacity = 1.0
+        }
+        scheduleAnim(after: 1.4) {
+            withAnimation(.easeIn(duration: 0.4)) {
+                screenClearOpacity = 0.0
+                screenClearScale = 0.9
+            }
+        }
     }
 
     func playMegaChainHaptic() {
@@ -1430,6 +1562,30 @@ struct Drop7GameView: View {
                 .tint(.red)
             }
         }
+    }
+
+    // MARK: - Screen-clear banner
+
+    func screenClearBanner() -> some View {
+        VStack(spacing: 4) {
+            Text("SCREEN CLEAR!", bundle: .module)
+                .font(.system(size: 32, weight: .black, design: .rounded))
+                .foregroundStyle(Color(red: 1.0, green: 0.85, blue: 0.30))
+            Text("+\(drop7ScreenClearBonus)")
+                .font(.system(size: 22, weight: .bold, design: .rounded))
+                .foregroundStyle(Color.white)
+                .monospaced()
+        }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 16)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.black.opacity(0.78))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color(red: 1.0, green: 0.85, blue: 0.30), lineWidth: 2)
+                )
+        )
     }
 
     // MARK: - Game over overlay
