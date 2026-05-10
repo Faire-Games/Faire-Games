@@ -10,6 +10,7 @@ import FlappyBird
 import Breakout
 import Sudoku
 import TwentyFortyEight
+import Drop7
 
 let gamePreviewIconSpan = 120.0
 
@@ -22,6 +23,7 @@ struct ContentView: View {
     @State var confirmResetBreakout = false
     @State var confirmResetSudoku = false
     @State var confirmResetTwentyFortyEight = false
+    @State var confirmResetDrop7 = false
 
     var body: some View {
         NavigationStack {
@@ -196,6 +198,34 @@ struct ContentView: View {
                             Text("This will permanently reset your 2048 high score to zero.", bundle: .module)
                         }
 
+                        NavigationLink(destination: Drop7ContainerView()) {
+                            VStack(spacing: 10) {
+                                Drop7PreviewIcon()
+                                    .frame(width: gamePreviewIconSpan, height: gamePreviewIconSpan)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                Text("Drop 7", bundle: .module)
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                            }
+                            .padding(12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.white.opacity(0.08))
+                            .cornerRadius(20)
+                        }
+                        .buttonStyle(.plain)
+                        .contextMenu {
+                            Button(role: .destructive, action: { confirmResetDrop7 = true }) {
+                                Label { Text("Reset High Score", bundle: .module) } icon: { Image("restart_alt", bundle: .module) }
+                            }
+                        }
+                        .confirmationDialog(Text("Reset Drop 7 High Score?", bundle: .module), isPresented: $confirmResetDrop7, titleVisibility: .visible) {
+                            Button(role: ButtonRole.destructive, action: {
+                                resetDrop7HighScore()
+                            }) { Text("Reset", bundle: .module) }
+                        } message: {
+                            Text("This will permanently reset your Drop 7 high score to zero.", bundle: .module)
+                        }
+
                     }
                     .padding(.horizontal, 16)
                 }
@@ -246,6 +276,7 @@ Section(header: Text("Data", bundle: .module)) {
                         resetBreakoutHighScore()
                         resetSudokuRecords()
                         resetTwentyFortyEightHighScore()
+                        resetDrop7HighScore()
                     }) { Text("Reset All", bundle: .module) }
                 } message: {
                     Text("This will permanently reset all high scores and game progress to zero.", bundle: .module)

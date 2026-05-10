@@ -15,6 +15,7 @@ let package = Package(
         .library(name: "Breakout", type: .dynamic, targets: ["Breakout"]),
         .library(name: "Sudoku", type: .dynamic, targets: ["Sudoku"]),
         .library(name: "TwentyFortyEight", type: .dynamic, targets: ["TwentyFortyEight"]),
+        .library(name: "Drop7", type: .dynamic, targets: ["Drop7"]),
     ],
     dependencies: [
         .package(url: "https://source.skip.tools/skip.git", from: "1.0.0"),
@@ -31,6 +32,7 @@ let package = Package(
             "Breakout",
             "Sudoku",
             "TwentyFortyEight",
+            "Drop7",
             .product(name: "AppFairUI", package: "appfair-app")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "FaireGamesTests", dependencies: [
@@ -83,6 +85,14 @@ let package = Package(
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "TwentyFortyEightTests", dependencies: [
             "TwentyFortyEight",
+            .product(name: "SkipTest", package: "skip")
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .target(name: "Drop7", dependencies: [
+            .product(name: "SkipKit", package: "skip-kit"),
+            .product(name: "AppFairUI", package: "appfair-app"),
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .testTarget(name: "Drop7Tests", dependencies: [
+            "Drop7",
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "FaireGamesModel", dependencies: [
