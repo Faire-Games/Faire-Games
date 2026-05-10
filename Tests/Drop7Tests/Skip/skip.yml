@@ -1,0 +1,4 @@
+# Skip configuration for Drop7Tests module
+skip:
+  mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.drop7.tests'

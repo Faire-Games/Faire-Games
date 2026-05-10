@@ -777,6 +777,9 @@
         }
       }
     },
+    "Drop 7" : {
+
+    },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
       "extractionState" : "stale",
@@ -1939,6 +1942,9 @@
         }
       }
     },
+    "Reset Drop 7 High Score?" : {
+
+    },
     "Reset Flappy Bird High Score?" : {
       "comment" : "Confirmation dialog title shown when the user wants to reset the Flappy Bird high score.",
       "localizations" : {
@@ -3019,6 +3025,9 @@
           }
         }
       }
+    },
+    "This will permanently reset your Drop 7 high score to zero." : {
+
     },
     "This will permanently reset your Flappy Bird high score to zero." : {
       "comment" : "Body text for the Reset Flappy Bird High Score confirmation dialog.",
