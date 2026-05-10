@@ -239,9 +239,9 @@ struct ContentView: View {
                 .ignoresSafeArea()
             )
             //.navigationTitle(Text("Fair Games", bundle: .module))
-            #if !os(macOS)
+#if !os(macOS)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            #endif
+#endif
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button(action: { showSettings = true }) {
@@ -264,7 +264,7 @@ struct SettingsView: View {
 
     var body: some View {
         AppFairSettings(bundle: .module) {
-Section(header: Text("Data", bundle: .module)) {
+            Section(header: Text("Data", bundle: .module)) {
                 Button(role: .destructive, action: { confirmResetAll = true }) {
                     Text("Reset All Progress", bundle: .module)
                 }

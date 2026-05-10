@@ -4,14 +4,22 @@
 import SwiftUI
 import Observation
 import SkipKit
+import FaireGamesModel
 
 public struct TetrisContainerView: View {
     @State private var settings = TetrisSettings()
+    @State private var showInstructions: Bool = false
+    private let instructionsConfig = GameInstructionsConfig(
+        key: "Tetris.instructions",
+        bundle: .module,
+        firstLaunchKey: "instructionsShown_Tetris",
+        title: "Sirtet"
+    )
 
     public init() { }
 
     public var body: some View {
-        TetrisGameView()
+        TetrisGameView(showInstructions: $showInstructions)
             .navigationTitle("")
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
@@ -19,6 +27,15 @@ public struct TetrisContainerView: View {
             .colorScheme(.dark)
             #endif
             .environment(settings)
+            .sheet(isPresented: $showInstructions) {
+                GameInstructionsView(config: instructionsConfig)
+            }
+            .onAppear {
+                if !instructionsConfig.hasShownToUser() {
+                    instructionsConfig.markShownToUser()
+                    showInstructions = true
+                }
+            }
     }
 }
 
@@ -510,6 +527,7 @@ public func resetTetrisHighScore() {
 // MARK: - Game View
 
 struct TetrisGameView: View {
+    @Binding var showInstructions: Bool
     @State var game = TetrisModel()
     @State var tickTimer: Timer? = nil
     @State var dragAccumulatedX: CGFloat = 0.0
@@ -1093,6 +1111,18 @@ struct TetrisGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: {
+                    showInstructions = true
+                }) {
+                    Text("Instructions", bundle: .module)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.4, green: 0.4, blue: 0.7))
 
                 Button(action: {
                     stopTimer()

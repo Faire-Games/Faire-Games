@@ -4,14 +4,22 @@
 import SwiftUI
 import Observation
 import SkipKit
+import FaireGamesModel
 
 public struct SudokuContainerView: View {
     @State private var settings = SudokuSettings()
+    @State private var showInstructions: Bool = false
+    private let instructionsConfig = GameInstructionsConfig(
+        key: "Sudoku.instructions",
+        bundle: .module,
+        firstLaunchKey: "instructionsShown_Sudoku",
+        title: "Sudoku"
+    )
 
     public init() { }
 
     public var body: some View {
-        SudokuGameView()
+        SudokuGameView(showInstructions: $showInstructions)
             .navigationTitle("")
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
@@ -19,6 +27,15 @@ public struct SudokuContainerView: View {
             .colorScheme(.dark)
             #endif
             .environment(settings)
+            .sheet(isPresented: $showInstructions) {
+                GameInstructionsView(config: instructionsConfig)
+            }
+            .onAppear {
+                if !instructionsConfig.hasShownToUser() {
+                    instructionsConfig.markShownToUser()
+                    showInstructions = true
+                }
+            }
     }
 }
 
@@ -602,6 +619,7 @@ final class SudokuModel {
 // MARK: - Game View
 
 struct SudokuGameView: View {
+    @Binding var showInstructions: Bool
     @State private var game = SudokuModel()
     @State private var timerTask: Task<Void, Never>? = nil
     @State private var showPauseMenu = false
@@ -1129,6 +1147,19 @@ struct SudokuGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showInstructions = true
+                }) {
+                    Text("Instructions", bundle: .module)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.4, green: 0.4, blue: 0.7))
 
                 Button(action: {
                     game.giveUp()

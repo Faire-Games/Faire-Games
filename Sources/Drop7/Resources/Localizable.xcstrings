@@ -1,0 +1,1964 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+      "comment" : "Empty navigation title"
+    },
+    " (%@)" : {
+      "comment" : "Suffix appended to the game title showing the difficulty (e.g., \" (Hard)\")"
+    },
+    "?" : {
+      "comment" : "Placeholder shown on a wrapped (hidden-value) disc"
+    },
+    "%lld" : {
+      "comment" : "Numeric format placeholder"
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      },
+      "comment" : "Progress indicator showing drops out of target for the current level"
+    },
+    "+%lld" : {
+      "comment" : "Floating bonus points popup"
+    },
+    "Cancel" : {
+      "comment" : "Toolbar button on the difficulty sheet to dismiss without choosing",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إلغاء"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Abbrechen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cancelar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annuler"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "रद्द करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Batal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annulla"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "キャンセル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "취소"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cancelar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отмена"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Chain x%lld!" : {
+      "comment" : "Floating popup celebrating an N-step chain reaction",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "سلسلة ×%lld!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kette x%lld!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Cadena x%lld!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Chaîne x%lld !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "चेन x%lld!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rantai x%lld!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Catena x%lld!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "チェイン x%lld！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "체인 x%lld!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Combo x%lld!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Цепь x%lld!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "连锁 x%lld！"
+          }
+        }
+      }
+    },
+    "Choose Difficulty" : {
+      "comment" : "Title of the new-game difficulty selection sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "اختر الصعوبة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schwierigkeit wählen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Elegir dificultad"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Choisir la difficulté"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कठिनाई चुनें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pilih Tingkat Kesulitan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Scegli difficoltà"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "難易度を選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "난이도 선택"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Escolher dificuldade"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Выберите сложность"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "选择难度"
+          }
+        }
+      }
+    },
+    "Data" : {
+      "comment" : "Settings section header for data-related controls",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "البيانات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Daten"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Datos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Données"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "डेटा"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Data"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "データ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "데이터"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dados"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Данные"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "数据"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "comment" : "Toolbar button to dismiss the Settings sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تم"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fertig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Listo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Terminé"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "हो गया"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Selesai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fatto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "완료"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Concluir"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Готово"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "Drop 7" : {
+      "comment" : "Game title — Drop 7 (proper noun, do not translate)",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        }
+      }
+    },
+    "Drop 7 Score" : {
+      "comment" : "Subject line when sharing a Drop 7 score",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "نتيجة Drop 7"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7-Punkte"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Puntuación de Drop 7"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Score Drop 7"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 स्कोर"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skor Drop 7"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Punteggio Drop 7"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7スコア"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 점수"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pontuação Drop 7"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Счёт в Drop 7"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 得分"
+          }
+        }
+      }
+    },
+    "Drop7.instructions" : {
+      "comment" : "Markdown body for the Drop 7 how-to-play sheet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "# Drop 7\n\nDrop numbered discs into a 7×7 grid and clear them with chain reactions.\n\n## How to play\n\n- **Tap a column** to drop the current disc — it falls to the lowest empty cell.\n- A disc with value **N** clears when **N contiguous discs** sit in its row or column (counting itself, including wrapped or cracked discs).\n- Cleared discs trigger gravity. Falling discs may form new matches — that's a **chain**.\n\n## Wrapped discs\n\n- **Gray (wrapped)** discs hide a number.\n- A wrapped disc next to an explosion **cracks**.\n- A cracked disc next to another explosion **reveals** its number, which can then chain.\n\n## Levels and scoring\n\n- Every level a new wrapped row pushes up from the bottom. Levels arrive faster as you progress.\n- Reaching a new level awards a **level bonus**.\n- **Clearing the entire board** awards a **70,000-point bonus**.\n- Long chains score *exponentially* more than simultaneous matches — set up cascades for big scores.\n\n## Game over\n\nThe game ends when a disc would be pushed off the top of the grid, or when no column has space for the next disc."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nأسقط الأقراص المرقمة في شبكة 7×7 وأزلها بتفاعلات متسلسلة.\n\n## كيفية اللعب\n\n- **اضغط على عمود** لإسقاط القرص الحالي — سيسقط إلى أدنى خلية فارغة.\n- يُزال القرص ذو القيمة **N** عندما يوجد **N أقراص متجاورة** في صفه أو عموده (شامل نفسه، بما في ذلك الأقراص المغلفة أو المتشققة).\n- تؤدي الأقراص المُزالة إلى تفعيل الجاذبية. قد تشكل الأقراص الساقطة تطابقات جديدة — هذه هي **السلسلة**.\n\n## الأقراص المغلفة\n\n- الأقراص **الرمادية (المغلفة)** تخفي رقمًا.\n- يتشقق القرص المغلف بجوار انفجار.\n- القرص المتشقق بجوار انفجار آخر يكشف عن رقمه، الذي يمكن أن يبدأ سلسلة.\n\n## المستويات والنقاط\n\n- في كل مستوى يندفع صف مغلف جديد من الأسفل. تأتي المستويات بشكل أسرع كلما تقدمت.\n- بلوغ مستوى جديد يمنح **مكافأة المستوى**.\n- **تنظيف اللوحة بأكملها** يمنح **مكافأة 70,000 نقطة**.\n- السلاسل الطويلة تحقق نقاطًا *أضعافًا مضاعفة* أكثر من التطابقات المتزامنة — جهز التساقطات للحصول على نتائج كبيرة.\n\n## نهاية اللعبة\n\nتنتهي اللعبة عندما يُدفع قرص خارج أعلى الشبكة، أو عندما لا يوجد عمود به مساحة للقرص التالي."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nLasse nummerierte Scheiben in ein 7×7-Gitter fallen und räume sie mit Kettenreaktionen ab.\n\n## So wird gespielt\n\n- **Tippe auf eine Spalte**, um die aktuelle Scheibe fallen zu lassen — sie fällt in die unterste freie Zelle.\n- Eine Scheibe mit dem Wert **N** wird entfernt, wenn **N zusammenhängende Scheiben** in ihrer Reihe oder Spalte stehen (sie selbst eingeschlossen, auch verpackte oder gerissene Scheiben).\n- Entfernte Scheiben lösen Schwerkraft aus. Fallende Scheiben können neue Treffer bilden — das ist eine **Kette**.\n\n## Verpackte Scheiben\n\n- **Graue (verpackte)** Scheiben verstecken eine Zahl.\n- Eine verpackte Scheibe neben einer Explosion **reißt**.\n- Eine gerissene Scheibe neben einer weiteren Explosion **enthüllt** ihre Zahl, die dann ketten kann.\n\n## Level und Punkte\n\n- In jedem Level schiebt sich von unten eine neue verpackte Reihe nach oben. Level kommen mit dem Fortschritt schneller.\n- Ein neues Level zu erreichen bringt einen **Levelbonus**.\n- Das **komplette Leeren des Boards** bringt einen **70.000-Punkte-Bonus**.\n- Lange Ketten bringen *exponentiell* mehr Punkte als gleichzeitige Treffer — bereite Kaskaden für hohe Punktzahlen vor.\n\n## Spielende\n\nDas Spiel endet, wenn eine Scheibe oben aus dem Gitter geschoben würde oder wenn keine Spalte mehr Platz für die nächste Scheibe hat."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nDeja caer discos numerados en una cuadrícula 7×7 y elimínalos con reacciones en cadena.\n\n## Cómo jugar\n\n- **Toca una columna** para soltar el disco actual — caerá hasta la celda vacía más baja.\n- Un disco con valor **N** se elimina cuando hay **N discos contiguos** en su fila o columna (contándose a sí mismo, incluidos los discos envueltos o agrietados).\n- Los discos eliminados activan la gravedad. Los discos que caen pueden formar nuevas combinaciones — eso es una **cadena**.\n\n## Discos envueltos\n\n- Los discos **grises (envueltos)** ocultan un número.\n- Un disco envuelto junto a una explosión se **agrieta**.\n- Un disco agrietado junto a otra explosión **revela** su número, que entonces puede encadenarse.\n\n## Niveles y puntuación\n\n- En cada nivel sube una nueva fila envuelta desde abajo. Los niveles llegan más rápido a medida que avanzas.\n- Llegar a un nuevo nivel otorga un **bono de nivel**.\n- **Limpiar todo el tablero** otorga un **bono de 70 000 puntos**.\n- Las cadenas largas puntúan *exponencialmente* más que las combinaciones simultáneas — prepara cascadas para grandes puntuaciones.\n\n## Fin del juego\n\nEl juego termina cuando un disco sería empujado fuera de la parte superior de la cuadrícula, o cuando ninguna columna tiene espacio para el siguiente disco."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nFais tomber des disques numérotés dans une grille 7×7 et élimine-les par réactions en chaîne.\n\n## Comment jouer\n\n- **Tape sur une colonne** pour lâcher le disque en cours — il tombe dans la case vide la plus basse.\n- Un disque de valeur **N** disparaît lorsque **N disques contigus** se trouvent dans sa ligne ou sa colonne (lui inclus, y compris les disques emballés ou fissurés).\n- Les disques disparus déclenchent la gravité. Les disques qui tombent peuvent former de nouveaux alignements — c'est une **chaîne**.\n\n## Disques emballés\n\n- Les disques **gris (emballés)** cachent un nombre.\n- Un disque emballé à côté d'une explosion se **fissure**.\n- Un disque fissuré à côté d'une autre explosion **révèle** son nombre, qui peut alors enchaîner.\n\n## Niveaux et score\n\n- À chaque niveau, une nouvelle ligne emballée monte par le bas. Les niveaux arrivent plus vite à mesure que tu progresses.\n- Atteindre un nouveau niveau accorde un **bonus de niveau**.\n- **Vider tout le plateau** accorde un **bonus de 70 000 points**.\n- Les longues chaînes rapportent *exponentiellement* plus que les correspondances simultanées — prépare des cascades pour de gros scores.\n\n## Fin de partie\n\nLa partie se termine lorsqu'un disque serait poussé hors du haut de la grille, ou quand aucune colonne n'a de place pour le prochain disque."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\n7×7 ग्रिड में नंबर वाली डिस्क गिराएं और चेन रिएक्शन से उन्हें साफ करें।\n\n## कैसे खेलें\n\n- वर्तमान डिस्क गिराने के लिए **किसी कॉलम पर टैप** करें — वह सबसे नीचे की खाली जगह में गिरेगी।\n- मान **N** वाली डिस्क तब साफ होती है जब उसकी पंक्ति या कॉलम में **N सटी हुई डिस्क** हों (खुद को मिलाकर, लपेटी या टूटी डिस्क शामिल)।\n- साफ हुई डिस्क गुरुत्व सक्रिय करती हैं। गिरती डिस्क नए मैच बना सकती हैं — यह **चेन** है।\n\n## लपेटी डिस्क\n\n- **ग्रे (लपेटी)** डिस्क एक संख्या छुपाती है।\n- विस्फोट के पास लपेटी डिस्क **टूट जाती है**।\n- टूटी डिस्क के पास दूसरा विस्फोट उसका **नंबर प्रकट** करता है, जो फिर चेन में जा सकता है।\n\n## स्तर और स्कोर\n\n- हर स्तर पर एक नई लपेटी पंक्ति नीचे से ऊपर उठती है। आगे बढ़ने पर स्तर तेजी से आते हैं।\n- नए स्तर पर पहुंचने पर **स्तर बोनस** मिलता है।\n- **पूरा बोर्ड साफ करने** पर **70,000-अंक का बोनस** मिलता है।\n- लंबी चेन एक साथ हुए मैच की तुलना में *घातीय रूप से* अधिक स्कोर देती हैं — बड़े स्कोर के लिए कैस्केड तैयार करें।\n\n## खेल समाप्ति\n\nखेल तब समाप्त होता है जब डिस्क ग्रिड के ऊपर से बाहर निकलने वाली हो, या जब अगली डिस्क के लिए किसी कॉलम में जगह न हो।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nJatuhkan cakram bernomor ke dalam petak 7×7 dan bersihkan dengan reaksi berantai.\n\n## Cara bermain\n\n- **Ketuk kolom** untuk menjatuhkan cakram saat ini — cakram jatuh ke sel kosong terbawah.\n- Cakram bernilai **N** akan hilang ketika ada **N cakram berdampingan** di baris atau kolomnya (termasuk dirinya sendiri, dan cakram yang terbungkus atau retak).\n- Cakram yang hilang memicu gravitasi. Cakram yang jatuh bisa membentuk kecocokan baru — itulah **rantai**.\n\n## Cakram terbungkus\n\n- Cakram **abu-abu (terbungkus)** menyembunyikan sebuah angka.\n- Cakram terbungkus di samping ledakan akan **retak**.\n- Cakram retak di samping ledakan lain akan **menampilkan** angkanya, yang lalu bisa berantai.\n\n## Level dan skor\n\n- Setiap level, baris terbungkus baru muncul dari bawah. Level datang lebih cepat seiring kamu maju.\n- Mencapai level baru memberikan **bonus level**.\n- **Membersihkan seluruh papan** memberikan **bonus 70.000 poin**.\n- Rantai panjang menghasilkan skor *eksponensial* lebih besar daripada kecocokan bersamaan — siapkan kaskade untuk skor besar.\n\n## Game over\n\nPermainan berakhir ketika cakram akan terdorong keluar dari atas petak, atau ketika tidak ada kolom yang punya ruang untuk cakram berikutnya."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nFai cadere dischi numerati in una griglia 7×7 ed eliminali con reazioni a catena.\n\n## Come si gioca\n\n- **Tocca una colonna** per far cadere il disco attuale — scende fino alla cella vuota più in basso.\n- Un disco di valore **N** viene rimosso quando **N dischi contigui** si trovano nella sua riga o colonna (compreso se stesso, inclusi i dischi avvolti o incrinati).\n- I dischi rimossi attivano la gravità. I dischi in caduta possono formare nuove combinazioni — questa è una **catena**.\n\n## Dischi avvolti\n\n- I dischi **grigi (avvolti)** nascondono un numero.\n- Un disco avvolto vicino a un'esplosione si **incrina**.\n- Un disco incrinato vicino a un'altra esplosione **rivela** il suo numero, che può poi entrare in catena.\n\n## Livelli e punteggio\n\n- A ogni livello una nuova riga avvolta sale dal basso. I livelli arrivano più velocemente man mano che avanzi.\n- Raggiungere un nuovo livello assegna un **bonus livello**.\n- **Svuotare tutta la griglia** assegna un **bonus di 70.000 punti**.\n- Le catene lunghe danno punteggi *esponenzialmente* maggiori delle corrispondenze simultanee — prepara cascate per grossi punteggi.\n\n## Fine partita\n\nLa partita finisce quando un disco verrebbe spinto fuori dalla cima della griglia, o quando nessuna colonna ha spazio per il prossimo disco."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\n7×7 のグリッドに数字付きディスクを落とし、連鎖反応で消そう。\n\n## 遊び方\n\n- **列をタップ**すると現在のディスクが落下し、最も下の空きマスに収まります。\n- 値が **N** のディスクは、自分を含む同じ行または列に **N 個のディスクが連続**したとき消えます（包まれた・ひびの入ったディスクも含む）。\n- ディスクが消えると重力が働きます。落下したディスクが新たに揃うと **チェイン** が発生します。\n\n## 包まれたディスク\n\n- **灰色（包まれた）ディスク**は数字を隠しています。\n- 爆発に隣接した包まれたディスクは **ひびが入ります**。\n- ひびの入ったディスクは別の爆発に隣接すると数字が **現れて**、そこから連鎖できます。\n\n## レベルとスコア\n\n- 各レベルで包まれた行が下から押し上がります。進むほどレベルアップが早くなります。\n- 新レベル到達で **レベルボーナス** がもらえます。\n- **盤面全消し** で **70,000 点ボーナス** が入ります。\n- 長いチェインは同時消しよりも *指数関数的* に高得点 — カスケードを仕込んで大きく稼ごう。\n\n## ゲームオーバー\n\nディスクがグリッドの上に押し出されそうになった時、または次のディスクを置く列が無くなった時にゲーム終了です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\n7×7 그리드에 번호 디스크를 떨어뜨리고 연쇄 반응으로 지워 보세요.\n\n## 플레이 방법\n\n- **열을 탭**하면 현재 디스크가 가장 아래의 빈 칸으로 떨어집니다.\n- 값이 **N** 인 디스크는 자신을 포함해 같은 행 또는 열에 **N 개의 디스크가 연속**으로 있을 때 제거됩니다(포장된/금간 디스크 포함).\n- 제거된 디스크는 중력을 발동시키고, 떨어지는 디스크들이 새로운 매치를 만들면 **체인** 이 됩니다.\n\n## 포장된 디스크\n\n- **회색(포장된)** 디스크는 숫자를 감추고 있습니다.\n- 폭발 옆에 있는 포장된 디스크는 **금이 갑니다**.\n- 금이 간 디스크가 또 다른 폭발 옆에 있으면 숫자가 **드러나며**, 이어서 연쇄될 수 있습니다.\n\n## 레벨과 점수\n\n- 매 레벨마다 새로운 포장 줄이 아래에서 밀려 올라옵니다. 진행할수록 레벨 변화가 빨라집니다.\n- 새 레벨 도달 시 **레벨 보너스** 가 지급됩니다.\n- **전체 판 클리어** 시 **70,000점 보너스** 가 지급됩니다.\n- 긴 체인은 동시 매치보다 *지수적으로* 더 높은 점수를 줍니다 — 큰 점수를 위해 캐스케이드를 준비하세요.\n\n## 게임 오버\n\n디스크가 그리드 위쪽으로 밀려 나가려 하거나, 다음 디스크를 놓을 열이 남지 않으면 게임이 끝납니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nSolte discos numerados em um grid 7×7 e limpe-os com reações em cadeia.\n\n## Como jogar\n\n- **Toque em uma coluna** para soltar o disco atual — ele cai na célula vazia mais baixa.\n- Um disco com valor **N** é removido quando há **N discos contíguos** em sua linha ou coluna (contando ele mesmo, incluindo discos embrulhados ou rachados).\n- Discos removidos acionam a gravidade. Discos que caem podem formar novas combinações — isso é uma **cadeia**.\n\n## Discos embrulhados\n\n- Discos **cinzas (embrulhados)** escondem um número.\n- Um disco embrulhado ao lado de uma explosão **racha**.\n- Um disco rachado ao lado de outra explosão **revela** seu número, que pode então encadear.\n\n## Níveis e pontuação\n\n- A cada nível, uma nova linha embrulhada sobe pelo fundo. Os níveis chegam mais rápido conforme você avança.\n- Atingir um novo nível concede um **bônus de nível**.\n- **Limpar todo o tabuleiro** concede um **bônus de 70.000 pontos**.\n- Cadeias longas pontuam *exponencialmente* mais do que combinações simultâneas — prepare cascatas para grandes pontuações.\n\n## Fim de jogo\n\nO jogo termina quando um disco seria empurrado para fora do topo do grid, ou quando nenhuma coluna tem espaço para o próximo disco."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\nБросайте нумерованные диски в сетку 7×7 и убирайте их цепными реакциями.\n\n## Как играть\n\n- **Нажмите на столбец**, чтобы сбросить текущий диск — он упадёт в самую нижнюю пустую клетку.\n- Диск со значением **N** убирается, когда в его строке или столбце оказывается **N смежных дисков** (включая его самого, в том числе обёрнутые или треснувшие).\n- Убранные диски запускают гравитацию. Падающие диски могут образовывать новые совпадения — это **цепь**.\n\n## Обёрнутые диски\n\n- **Серые (обёрнутые)** диски скрывают число.\n- Обёрнутый диск рядом со взрывом **трескается**.\n- Треснувший диск рядом с ещё одним взрывом **раскрывает** своё число, и оно может попасть в цепь.\n\n## Уровни и очки\n\n- На каждом уровне снизу выталкивается новый обёрнутый ряд. С прогрессом уровни сменяются быстрее.\n- Достижение нового уровня даёт **бонус за уровень**.\n- **Полная очистка поля** даёт **бонус 70 000 очков**.\n- Длинные цепи приносят *экспоненциально* больше очков, чем одновременные совпадения — стройте каскады для больших результатов.\n\n## Конец игры\n\nИгра заканчивается, когда диск оказывается вытолкнутым за верх сетки или когда ни в одном столбце нет места для следующего диска."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Drop 7\n\n将数字圆盘投入 7×7 网格，通过连锁反应清除它们。\n\n## 玩法\n\n- **点击某一列**可投放当前圆盘——它会落到最下方的空格。\n- 数值为 **N** 的圆盘当其所在行或列（含自身、包括包装或裂开的圆盘）出现 **N 个相邻圆盘** 时会被清除。\n- 圆盘被清除会触发重力。下落的圆盘可能形成新的匹配——这就是 **连锁**。\n\n## 包装圆盘\n\n- **灰色（包装）** 圆盘隐藏着一个数字。\n- 紧邻爆炸的包装圆盘会 **裂开**。\n- 已裂开的圆盘再紧邻一次爆炸时，会 **显示** 其数字，进而可参与连锁。\n\n## 关卡与得分\n\n- 每升一级会从底部推上一行新的包装圆盘。越往后关卡来得越快。\n- 进入新关卡时奖励 **关卡奖励**。\n- **整盘清空** 奖励 **70,000 分**。\n- 长连锁得分以 *指数级* 高于同时匹配——多布置连锁以获取高分。\n\n## 游戏结束\n\n当圆盘将被推出网格顶端，或没有任何列能容纳下一个圆盘时，游戏结束。"
+          }
+        }
+      }
+    },
+    "Game Over!" : {
+      "comment" : "Banner shown when the game ends",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "انتهت اللعبة!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spiel vorbei!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Fin del juego!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Partie terminée !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "खेल समाप्त!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Permainan Berakhir!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Game Over!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲームオーバー！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "게임 오버!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fim de jogo!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Игра окончена!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "游戏结束！"
+          }
+        }
+      }
+    },
+    "I scored %lld in Drop 7!" : {
+      "comment" : "Body of the share-sheet message; %lld is the score",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "سجلت %lld نقطة في Drop 7!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ich habe %lld Punkte bei Drop 7 erreicht!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡He conseguido %lld puntos en Drop 7!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "J'ai marqué %lld points à Drop 7 !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "मैंने Drop 7 में %lld स्कोर किया!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Saya mencetak %lld di Drop 7!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ho fatto %lld punti a Drop 7!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7で%lld点獲得！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7에서 %lld점을 기록했어요!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marquei %lld pontos no Drop 7!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Я набрал %lld очков в Drop 7!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "我在 Drop 7 中得了 %lld 分！"
+          }
+        }
+      }
+    },
+    "Instructions" : {
+      "comment" : "Pause-menu button that opens the how-to-play sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "التعليمات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anleitung"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instrucciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instructions"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "निर्देश"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Istruzioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "遊び方"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "방법"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instruções"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Инструкции"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "玩法说明"
+          }
+        }
+      }
+    },
+    "LEVEL" : {
+      "comment" : "HUD label above the level number",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "المستوى"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LEVEL"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NIVEL"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NIVEAU"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्तर"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LEVEL"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LIVELLO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "レベル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "레벨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NÍVEL"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "УРОВЕНЬ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "关卡"
+          }
+        }
+      }
+    },
+    "New Game" : {
+      "comment" : "Pause-menu button to start a fresh game",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "لعبة جديدة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Neues Spiel"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Partida nueva"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nouvelle partie"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "नया खेल"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Permainan Baru"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nuova partita"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新しいゲーム"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "새 게임"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Novo jogo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Новая игра"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新游戏"
+          }
+        }
+      }
+    },
+    "New High Score!" : {
+      "comment" : "Celebration banner when a new high score is set",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "رقم قياسي جديد!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Neuer Highscore!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Nueva mejor puntuación!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nouveau record !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "नया उच्च स्कोर!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skor Tertinggi Baru!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nuovo record!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ハイスコア更新！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "최고 점수 갱신!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Novo recorde!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Новый рекорд!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新纪录！"
+          }
+        }
+      }
+    },
+    "NEXT" : {
+      "comment" : "Label above the next disc preview",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "التالي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NÄCHSTE"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SIGUIENTE"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SUIVANT"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "अगला"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "BERIKUTNYA"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PROSSIMO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ネクスト"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PRÓXIMO"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ДАЛЕЕ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "下一个"
+          }
+        }
+      }
+    },
+    "PAUSED" : {
+      "comment" : "Banner shown when the game is paused",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "متوقف مؤقتًا"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PAUSIERT"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PAUSADO"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "EN PAUSE"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "रुका"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "DIJEDA"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "IN PAUSA"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "一時停止"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "일시정지"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PAUSADO"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ПАУЗА"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "已暂停"
+          }
+        }
+      }
+    },
+    "Quit Game" : {
+      "comment" : "Pause-menu button to leave the game",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "الخروج من اللعبة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spiel beenden"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Salir del juego"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Quitter"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "खेल छोड़ें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Keluar Permainan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Esci dal gioco"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ゲーム終了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "게임 종료"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sair do jogo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Выйти из игры"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "退出游戏"
+          }
+        }
+      }
+    },
+    "Reset High Score" : {
+      "comment" : "Settings button that resets the saved high score",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة تعيين الرقم القياسي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Highscore zurücksetzen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Restablecer puntuación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialiser le record"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "उच्च स्कोर रीसेट करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reset Skor Tertinggi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reimposta record"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ハイスコアをリセット"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "최고 점수 초기화"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Redefinir recorde"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Сбросить рекорд"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重置最高分"
+          }
+        }
+      }
+    },
+    "Resume" : {
+      "comment" : "Pause-menu button to continue playing",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "استئناف"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fortsetzen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Continuar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reprendre"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "जारी रखें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Lanjutkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Riprendi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "再開"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "계속하기"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Continuar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Продолжить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "继续"
+          }
+        }
+      }
+    },
+    "Score" : {
+      "comment" : "Label for the current score on the Game Over screen",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "النتيجة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Punkte"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Puntuación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Score"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्कोर"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skor"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Punteggio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スコア"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "점수"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pontuação"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Счёт"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "得分"
+          }
+        }
+      }
+    },
+    "SCREEN CLEAR!" : {
+      "comment" : "Banner celebrating clearing the entire grid",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تم تنظيف الشاشة!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "FELD GELEERT!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡PANTALLA LIMPIA!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ÉCRAN VIDE !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्क्रीन साफ!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LAYAR BERSIH!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SCHERMO PULITO!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "画面クリア！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "화면 클리어!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TELA LIMPA!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ПОЛЕ ОЧИЩЕНО!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "全屏清空！"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "comment" : "Pause-menu button that opens the Settings screen; also navigation title",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "الإعدادات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Einstellungen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajustes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réglages"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "सेटिंग्स"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pengaturan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Impostazioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "設定"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "설정"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajustes"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Настройки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "设置"
+          }
+        }
+      }
+    },
+    "Share" : {
+      "comment" : "Button label to share the score via the system share sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "مشاركة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Teilen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Compartir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Partager"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "साझा करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bagikan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Condividi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "共有"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "공유"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Compartilhar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Поделиться"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "分享"
+          }
+        }
+      }
+    },
+    "Try Again" : {
+      "comment" : "Button on the Game Over screen to start over",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "حاول مرة أخرى"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Erneut versuchen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Intentar de nuevo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réessayer"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "फिर से प्रयास करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Coba Lagi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Riprova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "もう一度"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다시 시도"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tentar novamente"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Повторить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "再试一次"
+          }
+        }
+      }
+    },
+    "Vibrations" : {
+      "comment" : "Settings toggle to enable/disable haptic feedback",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "الاهتزازات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vibrationen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vibraciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vibrations"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कंपन"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Getaran"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vibrazioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "振動"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "진동"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vibrações"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Вибрация"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "振动"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

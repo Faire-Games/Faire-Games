@@ -2,10 +2,10 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "comment" : "Empty navigation title"
     },
     "%lld" : {
-
+      "comment" : "Numeric format placeholder"
     },
     "%lld Items" : {
       "comment" : "Header title for a list that contains the number of items",
@@ -936,6 +936,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "我在 Sirtet 中得了 %lld 分！"
+          }
+        }
+      }
+    },
+    "Instructions" : {
+      "comment" : "Pause-menu button that opens the how-to-play sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "التعليمات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anleitung"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instrucciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instructions"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "निर्देश"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Istruzioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "遊び方"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "방법"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instruções"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Инструкции"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "玩法说明"
           }
         }
       }
@@ -2559,6 +2636,90 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "系统"
+          }
+        }
+      }
+    },
+    "Tetris.instructions" : {
+      "comment" : "Markdown body for the Tetris (Sirtet) how-to-play sheet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "# Sirtet\n\nA Tetris-style game with a twist: pieces rise from the bottom instead of falling from the top.\n\n## How to play\n\n- **Swipe left or right** to move the active piece.\n- **Tap** to rotate the piece.\n- **Swipe up** to hard-snap the piece to the top of the stack.\n- A new piece appears at the bottom on every tick.\n\n## Clearing lines\n\n- Fill a complete horizontal row to clear it.\n- Clearing **multiple lines at once** scores extra. A four-line clear is the biggest reward.\n\n## Levels and speed\n\nThe game speeds up as your score grows. Higher levels scroll pieces faster.\n\n## Game over\n\nThe game ends when a new piece can no longer enter the play field."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nرتّب القطع المتساقطة لتشكيل صفوف كاملة.\n\n## كيفية اللعب\n\n- **اسحب أفقيًا** لتحريك القطعة الحالية يمينًا أو يسارًا.\n- **اسحب لأسفل** للإسقاط الناعم وزيادة السرعة.\n- **اضغط** لتدوير القطعة.\n- **اسحب لأعلى** للإسقاط الصلب الفوري.\n\n## التسجيل\n\n- مسح صف واحد يعطي نقاطًا أساسية.\n- مسح صفين أو ثلاثة أو أربعة (Tetris) دفعة واحدة يضاعف المكافأة.\n- كل عشرة صفوف تُمسح ترفع المستوى وتزيد سرعة السقوط.\n\n## نهاية اللعبة\n\nتنتهي اللعبة عندما تصل القطع إلى أعلى المنطقة."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nOrdne fallende Steine an, um ganze Reihen zu bilden.\n\n## So wird gespielt\n\n- **Wische horizontal**, um den aktuellen Stein nach links oder rechts zu bewegen.\n- **Wische nach unten** für Soft-Drop (schnellere Geschwindigkeit).\n- **Tippen** dreht den Stein.\n- **Wische nach oben** für sofortigen Hard-Drop.\n\n## Punkte\n\n- Eine Reihe zu räumen gibt Basispunkte.\n- Zwei, drei oder vier Reihen (Tetris) gleichzeitig vervielfachen den Bonus.\n- Alle zehn geräumten Reihen erhöhen den Level und das Falltempo.\n\n## Spielende\n\nDas Spiel endet, wenn die Steine den oberen Rand des Spielfelds erreichen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nOrdena las piezas que caen para formar filas completas.\n\n## Cómo jugar\n\n- **Desliza horizontalmente** para mover la pieza a izquierda o derecha.\n- **Desliza hacia abajo** para soft drop (caída más rápida).\n- **Toca** para girar la pieza.\n- **Desliza hacia arriba** para hacer hard drop instantáneo.\n\n## Puntuación\n\n- Limpiar una fila otorga puntos base.\n- Limpiar 2, 3 o 4 filas (Tetris) a la vez multiplica la bonificación.\n- Cada diez filas limpiadas suben el nivel y aumentan la velocidad de caída.\n\n## Fin del juego\n\nLa partida termina cuando las piezas alcanzan la parte superior del área de juego."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nArrange les pièces qui tombent pour former des rangées complètes.\n\n## Comment jouer\n\n- **Glisse horizontalement** pour déplacer la pièce à gauche ou à droite.\n- **Glisse vers le bas** pour un soft drop (chute plus rapide).\n- **Tape** pour faire tourner la pièce.\n- **Glisse vers le haut** pour un hard drop instantané.\n\n## Score\n\n- Vider une rangée donne des points de base.\n- Vider 2, 3 ou 4 rangées (Tetris) en une fois multiplie le bonus.\n- Toutes les dix rangées vidées augmentent le niveau et la vitesse de chute.\n\n## Fin de partie\n\nLa partie se termine quand les pièces atteignent le haut de la zone de jeu."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nगिरती हुई टुकड़ों को संरेखित करें ताकि पूरी पंक्तियाँ बनें।\n\n## कैसे खेलें\n\n- वर्तमान टुकड़े को बाएँ या दाएँ ले जाने के लिए **क्षैतिज स्वाइप** करें।\n- सॉफ्ट ड्रॉप (तेज़ गिरने) के लिए **नीचे स्वाइप** करें।\n- टुकड़े को घुमाने के लिए **टैप** करें।\n- तत्काल हार्ड ड्रॉप के लिए **ऊपर स्वाइप** करें।\n\n## अंक\n\n- एक पंक्ति साफ़ करने पर बेस अंक मिलते हैं।\n- एक साथ 2, 3 या 4 पंक्तियाँ (Tetris) साफ़ करने पर बोनस गुणा हो जाता है।\n- हर दस पंक्तियाँ साफ़ करने पर स्तर बढ़ता है और गिरने की गति तेज़ होती है।\n\n## खेल समाप्ति\n\nजब टुकड़े खेल क्षेत्र के शीर्ष पर पहुँच जाते हैं तो खेल समाप्त होता है।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nAtur balok yang berjatuhan untuk membentuk baris penuh.\n\n## Cara bermain\n\n- **Geser horizontal** untuk memindahkan balok saat ini ke kiri atau kanan.\n- **Geser ke bawah** untuk soft drop (kecepatan lebih tinggi).\n- **Ketuk** untuk memutar balok.\n- **Geser ke atas** untuk hard drop instan.\n\n## Skor\n\n- Membersihkan satu baris memberi poin dasar.\n- Membersihkan 2, 3, atau 4 baris (Tetris) sekaligus melipatgandakan bonus.\n- Setiap sepuluh baris yang dibersihkan menaikkan level dan kecepatan jatuh.\n\n## Game over\n\nPermainan berakhir saat balok mencapai bagian atas area bermain."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nDisponi i pezzi che cadono per formare righe complete.\n\n## Come si gioca\n\n- **Trascina in orizzontale** per spostare il pezzo attuale a sinistra o destra.\n- **Trascina verso il basso** per soft drop (caduta più rapida).\n- **Tocca** per ruotare il pezzo.\n- **Trascina verso l'alto** per un hard drop istantaneo.\n\n## Punteggio\n\n- Cancellare una riga assegna punti base.\n- Cancellare 2, 3 o 4 righe (Tetris) insieme moltiplica il bonus.\n- Ogni dieci righe cancellate alzano il livello e la velocità di caduta.\n\n## Fine partita\n\nLa partita finisce quando i pezzi raggiungono la parte alta dell'area di gioco."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\n落ちてくるブロックを並べて、横一列を作ろう。\n\n## 遊び方\n\n- **横にスワイプ** で現在のブロックを左右に動かします。\n- **下にスワイプ** でソフトドロップ（高速落下）。\n- **タップ** でブロックを回転。\n- **上にスワイプ** で瞬時にハードドロップ。\n\n## スコア\n\n- 1 列消去で基本点。\n- 2 列、3 列、4 列（Tetris）同時消去でボーナスが倍増。\n- 10 列消去ごとにレベルアップし、落下速度が上がります。\n\n## ゲームオーバー\n\nブロックがプレイ領域の上端に達するとゲーム終了です。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\n떨어지는 블록을 배치해 한 줄을 가득 채우세요.\n\n## 플레이 방법\n\n- **가로로 스와이프**하여 현재 블록을 좌우로 이동합니다.\n- **아래로 스와이프**하여 소프트 드롭(빠른 낙하).\n- **탭**하여 블록을 회전.\n- **위로 스와이프**하여 즉시 하드 드롭.\n\n## 점수\n\n- 한 줄을 지우면 기본 점수.\n- 2, 3, 4줄(Tetris)을 동시에 지우면 보너스가 배가됩니다.\n- 열 줄을 지울 때마다 레벨이 오르고 낙하 속도가 빨라집니다.\n\n## 게임 오버\n\n블록이 플레이 영역 상단까지 쌓이면 게임이 끝납니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nOrganize as peças que caem para formar linhas completas.\n\n## Como jogar\n\n- **Deslize horizontalmente** para mover a peça atual para a esquerda ou direita.\n- **Deslize para baixo** para soft drop (queda mais rápida).\n- **Toque** para girar a peça.\n- **Deslize para cima** para hard drop instantâneo.\n\n## Pontuação\n\n- Limpar uma linha concede pontos base.\n- Limpar 2, 3 ou 4 linhas (Tetris) de uma vez multiplica o bônus.\n- A cada dez linhas limpas, o nível sobe e a velocidade de queda aumenta.\n\n## Fim de jogo\n\nO jogo termina quando as peças alcançam o topo da área de jogo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\nРасставляйте падающие фигуры, чтобы заполнить строки.\n\n## Как играть\n\n- **Свайп по горизонтали** двигает текущую фигуру влево или вправо.\n- **Свайп вниз** ускоряет падение (soft drop).\n- **Тап** поворачивает фигуру.\n- **Свайп вверх** мгновенно сбрасывает фигуру (hard drop).\n\n## Очки\n\n- Очистка одной строки даёт базовые очки.\n- Очистка 2, 3 или 4 строк (Tetris) одновременно умножает бонус.\n- Каждые десять очищенных строк повышают уровень и скорость падения.\n\n## Конец игры\n\nИгра заканчивается, когда фигуры достигают верха игрового поля."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Tetris\n\n摆放下落的方块组成完整的横排。\n\n## 玩法\n\n- **水平滑动** 左右移动当前方块。\n- **向下滑动** 进行软降（加速下落）。\n- **点击** 旋转方块。\n- **向上滑动** 立即硬降到底。\n\n## 得分\n\n- 消除一行获得基础分。\n- 同时消除 2、3 或 4 行（Tetris）会成倍奖励。\n- 每消除十行升一级，落速更快。\n\n## 游戏结束\n\n方块堆到游戏区域顶端时，游戏结束。"
           }
         }
       }
