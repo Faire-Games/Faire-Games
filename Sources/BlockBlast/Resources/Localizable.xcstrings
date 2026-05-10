@@ -2,10 +2,10 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "comment" : "Empty navigation title"
     },
     "%lld" : {
-
+      "comment" : "Numeric format placeholder"
     },
     "%lld Items" : {
       "comment" : "Header title for a list that contains the number of items",
@@ -622,6 +622,90 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Block Blast 分数"
+          }
+        }
+      }
+    },
+    "BlockBlast.instructions" : {
+      "comment" : "Markdown body for the Block Blast! how-to-play sheet",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "# Block Blast!\n\nFit pieces onto an 8×8 grid and clear lines for points.\n\n## How to play\n\n- Three pieces are offered at the bottom of the screen at a time.\n- **Drag** a piece onto the grid. The board highlights where it will land.\n- Drop the piece onto a valid spot to place it.\n- When you complete a **full row**, **full column**, or **3×3 box**, those cells **clear**.\n- New pieces appear when all three have been placed.\n\n## Scoring\n\n- Each placed cell scores points.\n- Clearing rows, columns, or 3×3 boxes scores **bonus** points — clearing **multiple at once** scores even more.\n- **Clearing the entire board** awards a big bonus.\n\n## Game over\n\nThe game ends when none of the three offered pieces fits anywhere on the board."
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nاسحب القطع إلى لوحة 8×8 لمسح الصفوف والأعمدة والمربعات الكبيرة.\n\n## كيفية اللعب\n\n- في كل دور تظهر **3 قطع جديدة** في صف الانتظار. اسحب أي قطعة إلى مكان مناسب على اللوحة.\n- عندما تمتلئ **صف، عمود، أو مربع 3×3** بالكامل، يتم مسحه.\n- مسح عدة خطوط أو سلسلة من المسحات يمنح **بونص النقاط**.\n- اللعبة تنتهي عندما لا تستطيع أيٌّ من القطع المتبقية أن تتسع في اللوحة.\n\n## نصائح\n\n- خطط مسبقًا — تذكر شكل القطع الثلاث المرئية قبل وضع الأولى.\n- أفرغ المساحات الكبيرة لاستيعاب القطع الكبيرة في المستقبل.\n- استهدف مسح صف وعمود معًا للحصول على بونص متعدد."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nZiehe Steine auf ein 8×8-Brett, um Reihen, Spalten und große Quadrate zu räumen.\n\n## So wird gespielt\n\n- Jede Runde erscheinen **3 neue Steine** in der Warteschlange. Ziehe einen beliebigen Stein an eine passende Stelle auf dem Brett.\n- Wenn eine **Reihe, Spalte oder ein 3×3-Quadrat** vollständig gefüllt ist, wird es geräumt.\n- Mehrere gleichzeitig geräumte Linien oder Räumungen in Folge bringen **Bonuspunkte**.\n- Das Spiel endet, wenn keiner der verbleibenden Steine mehr aufs Brett passt.\n\n## Tipps\n\n- Plane voraus — merke dir alle drei sichtbaren Steine, bevor du den ersten setzt.\n- Halte große Bereiche frei, um künftige große Steine unterzubringen.\n- Versuche Reihe und Spalte gleichzeitig zu räumen, um den Mehrfachbonus zu kassieren."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nArrastra piezas a un tablero 8×8 para limpiar filas, columnas y cuadrados grandes.\n\n## Cómo jugar\n\n- En cada turno aparecen **3 piezas nuevas** en la cola. Arrastra cualquier pieza a un lugar adecuado del tablero.\n- Cuando una **fila, columna o cuadrado 3×3** se llena por completo, se limpia.\n- Limpiar varias líneas a la vez o encadenar limpiezas otorga **puntos extra**.\n- La partida termina cuando ninguna de las piezas restantes cabe en el tablero.\n\n## Consejos\n\n- Planifica con antelación — memoriza las 3 piezas visibles antes de colocar la primera.\n- Mantén áreas grandes libres para acomodar piezas grandes en el futuro.\n- Intenta limpiar fila y columna a la vez para obtener bonificación múltiple."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nFais glisser des pièces sur un plateau 8×8 pour supprimer des rangées, colonnes et grands carrés.\n\n## Comment jouer\n\n- À chaque tour, **3 nouvelles pièces** apparaissent dans la file. Fais glisser n'importe laquelle à un endroit qui convient sur le plateau.\n- Quand une **rangée, colonne ou un carré 3×3** est entièrement rempli, il est supprimé.\n- Supprimer plusieurs lignes en une fois ou enchaîner des suppressions accorde des **points bonus**.\n- La partie se termine quand aucune des pièces restantes ne peut tenir sur le plateau.\n\n## Astuces\n\n- Planifie à l'avance — mémorise les 3 pièces visibles avant de placer la première.\n- Laisse de grandes zones libres pour accueillir les grosses pièces à venir.\n- Essaie de supprimer rangée et colonne en même temps pour obtenir un bonus multiple."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nपंक्तियाँ, स्तंभ और बड़े वर्ग साफ़ करने के लिए 8×8 बोर्ड पर टुकड़े खींचें।\n\n## कैसे खेलें\n\n- हर बारी में कतार में **3 नए टुकड़े** दिखाई देते हैं। किसी भी टुकड़े को बोर्ड पर उपयुक्त जगह खींचें।\n- जब कोई **पंक्ति, स्तंभ या 3×3 वर्ग** पूरी तरह भर जाता है, तो वह साफ़ हो जाता है।\n- एक साथ कई पंक्तियाँ साफ़ करने या लगातार साफ़ करने पर **अतिरिक्त अंक** मिलते हैं।\n- जब बचे हुए टुकड़ों में से कोई भी बोर्ड पर फिट नहीं होता तो खेल समाप्त होता है।\n\n## सुझाव\n\n- पहले से योजना बनाएं — पहला टुकड़ा रखने से पहले तीनों दिखाई देने वाले टुकड़े याद करें।\n- भविष्य के बड़े टुकड़ों को समायोजित करने के लिए बड़े क्षेत्र खाली रखें।\n- एक साथ पंक्ति और स्तंभ साफ़ करने का प्रयास करें ताकि मल्टी बोनस मिले।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nSeret balok ke papan 8×8 untuk membersihkan baris, kolom, dan kotak besar.\n\n## Cara bermain\n\n- Setiap giliran, **3 balok baru** muncul di antrean. Seret balok mana saja ke tempat yang sesuai di papan.\n- Saat **baris, kolom, atau kotak 3×3** terisi penuh, area itu dibersihkan.\n- Membersihkan beberapa garis sekaligus atau berturut-turut memberi **poin bonus**.\n- Permainan berakhir saat tidak ada balok tersisa yang muat di papan.\n\n## Tips\n\n- Rencanakan ke depan — ingat tiga balok yang terlihat sebelum menempatkan yang pertama.\n- Sisakan area besar tetap kosong untuk balok besar di masa depan.\n- Bersihkan baris dan kolom sekaligus untuk mendapatkan bonus ganda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nTrascina i pezzi su una griglia 8×8 per eliminare righe, colonne e grandi quadrati.\n\n## Come si gioca\n\n- A ogni turno compaiono **3 nuovi pezzi** in coda. Trascina un pezzo qualsiasi in un punto adatto della griglia.\n- Quando una **riga, colonna o un quadrato 3×3** si riempie completamente, viene eliminato.\n- Eliminare più linee insieme o concatenare eliminazioni concede **punti bonus**.\n- La partita finisce quando nessuno dei pezzi rimasti riesce a stare sulla griglia.\n\n## Consigli\n\n- Pianifica in anticipo — memorizza i 3 pezzi visibili prima di posizionare il primo.\n- Lascia ampi spazi liberi per accogliere pezzi grandi in futuro.\n- Punta a eliminare riga e colonna insieme per ottenere il bonus multiplo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\n8×8 のボードにピースをドラッグして、行・列・大きな正方形を消そう。\n\n## 遊び方\n\n- 毎ターン、待機列に **新しい 3 つのピース** が並びます。任意のピースをボードの好きな位置にドラッグします。\n- **行・列・3×3 のブロック** が完全に埋まると消去されます。\n- 複数のラインを同時に消したり、連続して消すと **ボーナス点** が入ります。\n- 残りのピースのどれもボードに置けなくなるとゲームオーバーです。\n\n## ヒント\n\n- 先を読もう — 最初の 1 つを置く前に、見えている 3 つすべてを把握しておきましょう。\n- 大きな空き地を残し、後から来る大きなピースを置けるようにしましょう。\n- 行と列を同時に消して、マルチボーナスを狙いましょう。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\n8×8 판에 블록을 드래그하여 행, 열, 큰 정사각형을 지워 보세요.\n\n## 플레이 방법\n\n- 매 턴마다 **새로운 3개의 블록**이 대기열에 등장합니다. 아무 블록이나 판 위 적절한 자리로 드래그하세요.\n- **행, 열 또는 3×3 정사각형**이 완전히 채워지면 그 부분이 지워집니다.\n- 여러 라인을 동시에 지우거나 연속으로 지우면 **보너스 점수**가 주어집니다.\n- 남은 블록 중 어느 것도 판에 놓을 수 없게 되면 게임이 끝납니다.\n\n## 팁\n\n- 미리 계획하세요 — 첫 블록을 놓기 전에 보이는 3개 블록을 모두 살펴보세요.\n- 큰 공간을 비워 두어 큰 블록을 받을 수 있게 하세요.\n- 행과 열을 동시에 지워 멀티 보너스를 노려 보세요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nArraste peças para um tabuleiro 8×8 e limpe linhas, colunas e grandes quadrados.\n\n## Como jogar\n\n- A cada rodada, **3 peças novas** aparecem na fila. Arraste qualquer uma para um lugar adequado no tabuleiro.\n- Quando uma **linha, coluna ou quadrado 3×3** fica completamente cheio, ele é limpo.\n- Limpar várias linhas de uma vez ou em sequência concede **pontos de bônus**.\n- O jogo termina quando nenhuma das peças restantes cabe no tabuleiro.\n\n## Dicas\n\n- Planeje com antecedência — memorize as 3 peças visíveis antes de colocar a primeira.\n- Mantenha áreas grandes livres para acomodar peças grandes no futuro.\n- Tente limpar linha e coluna ao mesmo tempo para ganhar bônus múltiplo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\nПеретаскивайте фигуры на поле 8×8, чтобы очищать строки, столбцы и большие квадраты.\n\n## Как играть\n\n- Каждый ход в очереди появляются **3 новые фигуры**. Перетащите любую из них в подходящее место на поле.\n- Когда **строка, столбец или квадрат 3×3** полностью заполнен, он очищается.\n- Очистка нескольких линий разом или подряд приносит **бонусные очки**.\n- Игра заканчивается, когда ни одна из оставшихся фигур не помещается на поле.\n\n## Советы\n\n- Планируйте заранее — запомните все 3 видимые фигуры, прежде чем поставить первую.\n- Оставляйте большие свободные участки, чтобы потом разместить крупные фигуры.\n- Старайтесь очищать строку и столбец одновременно ради мультибонуса."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "# Block Blast\n\n将方块拖到 8×8 棋盘上，消除整行、整列和大方块。\n\n## 玩法\n\n- 每回合在等待区出现 **3 个新方块**。将任意方块拖到棋盘合适位置。\n- 当任何 **行、列或 3×3 方块** 被完全填满时，会被消除。\n- 一次消除多条线或连续消除可获得 **奖励分**。\n- 当剩余方块都无法放入棋盘时游戏结束。\n\n## 小贴士\n\n- 提前规划——放下第一个方块前先看清三个待放方块。\n- 留出较大的空白区域以便后续大方块能放下。\n- 尝试同时消除行和列以获得多重奖励。"
           }
         }
       }
@@ -1706,6 +1790,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "我在 Block Blast 中得了 %lld 分！"
+          }
+        }
+      }
+    },
+    "Instructions" : {
+      "comment" : "Pause-menu button that opens the how-to-play sheet",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "التعليمات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anleitung"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instrucciones"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instructions"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "निर्देश"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Istruzioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "遊び方"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "방법"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Instruções"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Инструкции"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "玩法说明"
           }
         }
       }

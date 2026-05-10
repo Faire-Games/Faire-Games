@@ -4,14 +4,22 @@
 import SwiftUI
 import Observation
 import SkipKit
+import FaireGamesModel
 
 public struct FlappyBirdContainerView: View {
     @State private var settings = FlappyBirdSettings()
+    @State private var showInstructions: Bool = false
+    private let instructionsConfig = GameInstructionsConfig(
+        key: "FlappyBird.instructions",
+        bundle: .module,
+        firstLaunchKey: "instructionsShown_FlappyBird",
+        title: "Flappy Bird"
+    )
 
     public init() { }
 
     public var body: some View {
-        FlappyBirdGameView()
+        FlappyBirdGameView(showInstructions: $showInstructions)
             .navigationTitle("")
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
@@ -19,6 +27,15 @@ public struct FlappyBirdContainerView: View {
             .colorScheme(.dark)
             #endif
             .environment(settings)
+            .sheet(isPresented: $showInstructions) {
+                GameInstructionsView(config: instructionsConfig)
+            }
+            .onAppear {
+                if !instructionsConfig.hasShownToUser() {
+                    instructionsConfig.markShownToUser()
+                    showInstructions = true
+                }
+            }
     }
 }
 
@@ -367,6 +384,7 @@ final class FlappyBirdModel {
 // MARK: - Game View
 
 struct FlappyBirdGameView: View {
+    @Binding var showInstructions: Bool
     @State private var game = FlappyBirdModel()
     @State private var tickTimer: Timer? = nil
     @State private var lastTick: Double = 0.0
@@ -879,6 +897,19 @@ struct FlappyBirdGameView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(Color(red: 0.3, green: 0.4, blue: 0.6))
+
+                Button(action: {
+                    showPauseMenu = false
+                    showInstructions = true
+                }) {
+                    Text("Instructions", bundle: .module)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white)
+                        .frame(width: 160)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.4, green: 0.4, blue: 0.7))
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game", bundle: .module)

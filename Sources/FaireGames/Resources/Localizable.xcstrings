@@ -778,7 +778,81 @@
       }
     },
     "Drop 7" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7"
+          }
+        }
+      },
+      "comment" : "Game title — Drop 7 (proper noun, do not translate)"
     },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
@@ -1943,7 +2017,81 @@
       }
     },
     "Reset Drop 7 High Score?" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة تعيين الرقم القياسي لـ Drop 7؟"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7-Highscore zurücksetzen?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¿Restablecer la mejor puntuación de Drop 7?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialiser le record de Drop 7 ?"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 का उच्च स्कोर रीसेट करें?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reset Skor Tertinggi Drop 7?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reimpostare il record di Drop 7?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7のハイスコアをリセットしますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 최고 점수를 초기화할까요?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Redefinir recorde do Drop 7?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Сбросить рекорд Drop 7?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重置 Drop 7 最高分？"
+          }
+        }
+      },
+      "comment" : "Confirmation dialog title shown before clearing the Drop 7 saved high score"
     },
     "Reset Flappy Bird High Score?" : {
       "comment" : "Confirmation dialog title shown when the user wants to reset the Flappy Bird high score.",
@@ -3027,7 +3175,81 @@
       }
     },
     "This will permanently reset your Drop 7 high score to zero." : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "سيؤدي هذا إلى إعادة تعيين الرقم القياسي لـ Drop 7 إلى الصفر بشكل نهائي."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Damit wird dein Drop 7-Highscore unwiderruflich auf null gesetzt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Esto restablecerá permanentemente tu mejor puntuación de Drop 7 a cero."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ton record de Drop 7 sera définitivement remis à zéro."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "इससे आपका Drop 7 उच्च स्कोर स्थायी रूप से शून्य हो जाएगा।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ini akan secara permanen mereset skor tertinggi Drop 7-mu menjadi nol."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Il tuo record di Drop 7 verrà azzerato in modo permanente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7のハイスコアを永久に 0 にリセットします。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drop 7 최고 점수가 영구적으로 0으로 초기화됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Isso redefinirá permanentemente seu recorde do Drop 7 para zero."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ваш рекорд в Drop 7 будет безвозвратно сброшен до нуля."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "这将永久把您的 Drop 7 最高分重置为零。"
+          }
+        }
+      },
+      "comment" : "Confirmation dialog body warning before clearing the Drop 7 saved high score"
     },
     "This will permanently reset your Flappy Bird high score to zero." : {
       "comment" : "Body text for the Reset Flappy Bird High Score confirmation dialog.",

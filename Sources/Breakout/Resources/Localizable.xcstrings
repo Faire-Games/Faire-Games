@@ -7,316 +7,323 @@
     "%lld" : {
       "comment" : "Numeric format placeholder"
     },
-    "⭐⭐⭐" : {
-      "comment" : "Three-star decoration shown above the 'Puzzle Solved!' message.",
+    "Best" : {
+      "comment" : "Label for the player's best (high) score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "الأفضل"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Bestleistung"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Mejor"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Record"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "सर्वश्रेष्ठ"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Terbaik"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Migliore"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "ベスト"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "최고 기록"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Melhor"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "Рекорд"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "⭐⭐⭐"
+            "value" : "最佳"
           }
         }
       }
     },
-    "Best: %@" : {
-      "comment" : "Label showing the player's previous best Sudoku time. %@ is a formatted MM:SS time.",
+    "Breakout" : {
+      "comment" : "Game title — Breakout (proper noun, do not translate)",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "الأفضل: %@"
+            "value" : "Breakout"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Beste: %@"
+            "value" : "Breakout"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Mejor: %@"
+            "value" : "Breakout"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Meilleur : %@"
+            "value" : "Breakout"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "सर्वश्रेष्ठ: %@"
+            "value" : "Breakout"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Terbaik: %@"
+            "value" : "Breakout"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Migliore: %@"
+            "value" : "Breakout"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "最高: %@"
+            "value" : "Breakout"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "최고: %@"
+            "value" : "Breakout"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Melhor: %@"
+            "value" : "Breakout"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Лучшее: %@"
+            "value" : "Breakout"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "最佳：%@"
+            "value" : "Breakout"
           }
         }
       }
     },
-    "Cancel" : {
-      "comment" : "Toolbar button to dismiss the difficulty picker without choosing.",
+    "Breakout Score" : {
+      "comment" : "Subject line when sharing a Breakout score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "إلغاء"
+            "value" : "نتيجة Breakout"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Abbrechen"
+            "value" : "Breakout-Punkte"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Cancelar"
+            "value" : "Puntuación de Breakout"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Annuler"
+            "value" : "Score Breakout"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "रद्द करें"
+            "value" : "Breakout स्कोर"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Batal"
+            "value" : "Skor Breakout"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Annulla"
+            "value" : "Punteggio Breakout"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "キャンセル"
+            "value" : "Breakoutスコア"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "취소"
+            "value" : "Breakout 점수"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Cancelar"
+            "value" : "Pontuação Breakout"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Отмена"
+            "value" : "Счёт в Breakout"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "取消"
+            "value" : "Breakout 得分"
           }
         }
       }
     },
-    "Choose Difficulty" : {
-      "comment" : "Heading shown in the Sudoku difficulty picker.",
+    "Breakout.instructions" : {
+      "comment" : "Markdown body for the Breakout how-to-play sheet",
+      "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "# Breakout\n\nBounce a ball off your paddle to break every brick.\n\n## How to play\n\n- **Drag** anywhere on the play area to move the paddle left or right.\n- Keep the ball in play — if it falls below the paddle, you lose a life.\n- Hit every brick to clear the level and advance.\n\n## Power-ups\n\nSome bricks drop power-ups when broken. Catch them with the paddle for short-lived bonuses such as a wider paddle, a slower ball, or extra balls.\n\n## Lives and game over\n\nYou start with a few lives. Lose all of them and the game ends. Clearing every brick advances you to the next, faster level."
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "اختر الصعوبة"
+            "value" : "# Breakout\n\nاضرب الكرة بالمضرب لتحطيم كل الطوب.\n\n## كيفية اللعب\n\n- **اسحب** في أي مكان من منطقة اللعب لتحريك المضرب يمينًا أو يسارًا.\n- حافظ على الكرة في اللعب — إذا سقطت تحت المضرب، تخسر حياة.\n- اضرب كل الطوب لإكمال المستوى والتقدم.\n\n## التعزيزات\n\nيُسقط بعض الطوب تعزيزات عند تحطيمه. التقطها بالمضرب للحصول على مكافآت قصيرة المدى مثل مضرب أعرض، أو كرة أبطأ، أو كرات إضافية.\n\n## الأرواح ونهاية اللعبة\n\nتبدأ بعدد قليل من الأرواح. إذا فقدتها كلها تنتهي اللعبة. تحطيم كل الطوب ينقلك إلى المستوى التالي الأسرع."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Schwierigkeit wählen"
+            "value" : "# Breakout\n\nLasse den Ball am Schläger abprallen, um jeden Stein zu zerstören.\n\n## So wird gespielt\n\n- **Ziehe** überall im Spielbereich, um den Schläger nach links oder rechts zu bewegen.\n- Halte den Ball im Spiel — fällt er unter den Schläger, verlierst du ein Leben.\n- Zerstöre jeden Stein, um das Level zu schaffen und weiterzukommen.\n\n## Power-ups\n\nManche Steine lassen beim Zerbrechen Power-ups fallen. Fange sie mit dem Schläger für kurze Boni wie einen breiteren Schläger, einen langsameren Ball oder zusätzliche Bälle.\n\n## Leben und Spielende\n\nDu startest mit einigen Leben. Verlierst du alle, ist das Spiel vorbei. Wenn du alle Steine zerstörst, kommst du in das nächste, schnellere Level."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Elige la dificultad"
+            "value" : "# Breakout\n\nHaz rebotar la pelota con la pala para romper todos los ladrillos.\n\n## Cómo jugar\n\n- **Arrastra** por cualquier parte del área de juego para mover la pala a izquierda o derecha.\n- Mantén la pelota en juego — si cae por debajo de la pala, pierdes una vida.\n- Rompe todos los ladrillos para superar el nivel y avanzar.\n\n## Mejoras\n\nAlgunos ladrillos sueltan mejoras al romperse. Recógelas con la pala para obtener bonificaciones temporales como una pala más ancha, una pelota más lenta o pelotas extra.\n\n## Vidas y fin del juego\n\nEmpiezas con varias vidas. Si las pierdes todas, el juego termina. Romper todos los ladrillos te lleva al siguiente nivel, más rápido."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Choisir la difficulté"
+            "value" : "# Breakout\n\nFais rebondir la balle sur ta raquette pour casser toutes les briques.\n\n## Comment jouer\n\n- **Glisse** n'importe où sur la zone de jeu pour déplacer la raquette vers la gauche ou la droite.\n- Garde la balle en jeu — si elle passe sous la raquette, tu perds une vie.\n- Casse toutes les briques pour terminer le niveau et passer au suivant.\n\n## Bonus\n\nCertaines briques laissent tomber des bonus quand elles se cassent. Attrape-les avec la raquette pour obtenir des bonus temporaires : raquette plus large, balle plus lente, balles supplémentaires.\n\n## Vies et fin de partie\n\nTu commences avec quelques vies. Si tu les perds toutes, la partie est terminée. Casser toutes les briques te fait passer au niveau suivant, plus rapide."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "कठिनाई चुनें"
+            "value" : "# Breakout\n\nहर ईंट तोड़ने के लिए गेंद को अपने पैडल से उछालें।\n\n## कैसे खेलें\n\n- पैडल को बाएं या दाएं ले जाने के लिए खेल क्षेत्र में कहीं भी **खींचें**।\n- गेंद को खेल में बनाए रखें — यदि वह पैडल के नीचे गिरती है, तो आप एक जीवन खो देते हैं।\n- स्तर पूरा करने और आगे बढ़ने के लिए हर ईंट तोड़ें।\n\n## पावर-अप\n\nकुछ ईंटें टूटने पर पावर-अप गिराती हैं। पैडल से उन्हें पकड़ें ताकि चौड़ा पैडल, धीमी गेंद या अतिरिक्त गेंदों जैसे अल्पकालिक बोनस मिलें।\n\n## जीवन और खेल समाप्ति\n\nआप कुछ जीवन के साथ शुरू करते हैं। सभी खोने पर खेल समाप्त हो जाता है। हर ईंट तोड़ने से आप अगले, तेज़ स्तर पर पहुंच जाते हैं।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Pilih Kesulitan"
+            "value" : "# Breakout\n\nPantulkan bola dari padelmu untuk menghancurkan setiap bata.\n\n## Cara bermain\n\n- **Seret** di mana saja pada area permainan untuk menggerakkan padel ke kiri atau kanan.\n- Jaga agar bola tetap di permainan — jika jatuh di bawah padel, kamu kehilangan satu nyawa.\n- Hancurkan setiap bata untuk menyelesaikan level dan maju.\n\n## Power-up\n\nBeberapa bata menjatuhkan power-up saat dihancurkan. Tangkap dengan padel untuk bonus singkat seperti padel lebih lebar, bola lebih lambat, atau bola tambahan.\n\n## Nyawa dan game over\n\nKamu mulai dengan beberapa nyawa. Kehilangan semuanya berarti permainan berakhir. Menghancurkan setiap bata membawamu ke level berikutnya yang lebih cepat."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Scegli la difficoltà"
+            "value" : "# Breakout\n\nFai rimbalzare la pallina sulla racchetta per rompere ogni mattone.\n\n## Come si gioca\n\n- **Trascina** in qualsiasi punto dell'area di gioco per muovere la racchetta a sinistra o a destra.\n- Tieni la pallina in gioco — se cade sotto la racchetta, perdi una vita.\n- Rompi ogni mattone per superare il livello e avanzare.\n\n## Power-up\n\nAlcuni mattoni rilasciano power-up quando si rompono. Prendili con la racchetta per ottenere bonus temporanei come una racchetta più larga, una pallina più lenta o palline extra.\n\n## Vite e fine partita\n\nInizi con alcune vite. Se le perdi tutte, la partita finisce. Rompendo ogni mattone passi al livello successivo, più veloce."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "難易度を選択"
+            "value" : "# Breakout\n\nパドルでボールを打ち返し、すべてのブロックを壊そう。\n\n## 遊び方\n\n- プレイエリアのどこでも**ドラッグ**してパドルを左右に動かします。\n- ボールを落とさないように — パドルの下に落ちるとライフを1つ失います。\n- すべてのブロックを壊すとレベルクリアです。\n\n## パワーアップ\n\n一部のブロックは壊すとパワーアップを落とします。パドルでキャッチすると、パドルが広がる・ボールが遅くなる・ボールが増えるなどの効果が短時間得られます。\n\n## ライフとゲームオーバー\n\nライフは数個から始まります。すべて失うとゲームオーバー。すべてのブロックを壊すと、次のより速いレベルへ進みます。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "난이도 선택"
+            "value" : "# Breakout\n\n패들로 공을 튕겨 모든 벽돌을 부숴 보세요.\n\n## 플레이 방법\n\n- 플레이 영역 어디서나 **드래그**하여 패들을 좌우로 움직입니다.\n- 공을 떨어뜨리지 마세요 — 패들 아래로 떨어지면 생명이 하나 줄어듭니다.\n- 모든 벽돌을 부수면 레벨이 끝나고 다음 단계로 넘어갑니다.\n\n## 파워업\n\n일부 벽돌은 부서질 때 파워업을 떨어뜨립니다. 패들로 받으면 더 넓은 패들, 느린 공, 공 추가 등 짧은 보너스를 얻을 수 있어요.\n\n## 생명과 게임 오버\n\n생명 몇 개로 시작합니다. 모두 잃으면 게임이 끝나요. 모든 벽돌을 부수면 더 빠른 다음 레벨로 진행됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Escolha a dificuldade"
+            "value" : "# Breakout\n\nRebata a bola com a raquete para quebrar todos os tijolos.\n\n## Como jogar\n\n- **Arraste** em qualquer lugar da área de jogo para mover a raquete para a esquerda ou direita.\n- Mantenha a bola em jogo — se ela cair abaixo da raquete, você perde uma vida.\n- Quebre todos os tijolos para concluir o nível e avançar.\n\n## Power-ups\n\nAlguns tijolos soltam power-ups ao serem quebrados. Pegue-os com a raquete para bônus rápidos como raquete mais larga, bola mais lenta ou bolas extras.\n\n## Vidas e fim de jogo\n\nVocê começa com algumas vidas. Perder todas encerra o jogo. Quebrar todos os tijolos avança você para o próximo nível, mais rápido."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Выбор сложности"
+            "value" : "# Breakout\n\nОтбивайте мяч ракеткой, чтобы разбить все кирпичи.\n\n## Как играть\n\n- **Проведите пальцем** по игровой области, чтобы двигать ракетку влево или вправо.\n- Не дайте мячу упасть — если он пролетит под ракеткой, вы потеряете жизнь.\n- Разбейте все кирпичи, чтобы пройти уровень и двигаться дальше.\n\n## Бонусы\n\nНекоторые кирпичи при разрушении выпускают бонусы. Поймайте их ракеткой, чтобы получить кратковременные эффекты: широкая ракетка, медленный мяч, дополнительные мячи.\n\n## Жизни и конец игры\n\nВы начинаете с несколькими жизнями. Когда они закончатся, игра завершится. Разбив все кирпичи, вы перейдёте на следующий, более быстрый уровень."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "选择难度"
+            "value" : "# Breakout\n\n用球拍把球弹起，打掉每一块砖。\n\n## 玩法\n\n- 在游戏区域任意位置**拖动**，左右移动球拍。\n- 让球保持在场上——若球落到球拍下方，将损失一条生命。\n- 打掉所有砖块以通关并进入下一关。\n\n## 道具\n\n部分砖块被击碎时会掉落道具。用球拍接住可获得短暂奖励，例如加宽球拍、减慢球速或多球。\n\n## 生命与游戏结束\n\n你拥有数条生命，全部失去后游戏结束。打掉所有砖块即可进入下一更快的关卡。"
           }
         }
       }
     },
     "Data" : {
-      "comment" : "Settings section header for data-management actions like resetting records.",
+      "comment" : "Settings section header for data-related controls",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -392,85 +399,162 @@
         }
       }
     },
-    "Default Difficulty" : {
-      "comment" : "Settings picker label for the default Sudoku difficulty level used when starting a new game.",
+    "Debug" : {
+      "comment" : "Settings section header for debug controls",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "الصعوبة الافتراضية"
+            "value" : "تصحيح الأخطاء"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Standardschwierigkeit"
+            "value" : "Debug"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Dificultad predeterminada"
+            "value" : "Depuración"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Difficulté par défaut"
+            "value" : "Débogage"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "डिफ़ॉल्ट कठिनाई"
+            "value" : "डिबग"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Kesulitan Default"
+            "value" : "Debug"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Difficoltà predefinita"
+            "value" : "Debug"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "既定の難易度"
+            "value" : "デバッグ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "기본 난이도"
+            "value" : "디버그"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Dificuldade padrão"
+            "value" : "Depuração"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Сложность по умолчанию"
+            "value" : "Отладка"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "默认难度"
+            "value" : "调试"
+          }
+        }
+      }
+    },
+    "Debug Information" : {
+      "comment" : "Label for the debug information panel",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "معلومات التصحيح"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Debug-Informationen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Información de depuración"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Infos de débogage"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "डिबग जानकारी"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Info Debug"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Info debug"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "デバッグ情報"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "디버그 정보"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Informações de depuração"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отладочная информация"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "调试信息"
           }
         }
       }
     },
     "Done" : {
-      "comment" : "Toolbar confirmation button to dismiss the Sudoku settings sheet.",
+      "comment" : "Toolbar button to dismiss a sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -487,13 +571,13 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Hecho"
+            "value" : "Listo"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "OK"
+            "value" : "Terminé"
           }
         },
         "hi" : {
@@ -511,7 +595,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Fine"
+            "value" : "Fatto"
           }
         },
         "ja" : {
@@ -529,7 +613,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "OK"
+            "value" : "Concluir"
           }
         },
         "ru" : {
@@ -546,8 +630,85 @@
         }
       }
     },
+    "DRAG TO MOVE PADDLE" : {
+      "comment" : "Hint shown before launch — drag to move the paddle",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "اسحب لتحريك المضرب"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ZIEHEN ZUM BEWEGEN"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ARRASTRA PARA MOVER"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "GLISSEZ POUR DÉPLACER"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "पैडल हिलाने के लिए खींचें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SERET UNTUK MENGGERAKKAN"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "TRASCINA PER MUOVERE"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ドラッグでパドル移動"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "드래그하여 패들 이동"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ARRASTE PARA MOVER"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ПРОВЕДИТЕ, ЧТОБЫ ДВИГАТЬ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "拖动移动球拍"
+          }
+        }
+      }
+    },
     "GAME OVER" : {
-      "comment" : "Title shown on the game-over overlay when the player has lost the Sudoku puzzle.",
+      "comment" : "Banner shown when the player loses all lives",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -576,7 +737,7 @@
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "गेम ओवर"
+            "value" : "खेल समाप्त"
           }
         },
         "id" : {
@@ -623,233 +784,79 @@
         }
       }
     },
-    "Give Up" : {
-      "comment" : "Pause-menu button that reveals the solution and ends the puzzle",
+    "I scored %lld in Breakout!" : {
+      "comment" : "Body of the share-sheet message; %lld is the score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "استسلم"
+            "value" : "سجلت %lld نقطة في Breakout!"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Aufgeben"
+            "value" : "Ich habe %lld Punkte in Breakout erreicht!"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Rendirse"
+            "value" : "¡He conseguido %lld puntos en Breakout!"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Abandonner"
+            "value" : "J'ai marqué %lld points à Breakout !"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "हार मानें"
+            "value" : "मैंने Breakout में %lld स्कोर किया!"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Menyerah"
+            "value" : "Saya mencetak %lld di Breakout!"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Arrenditi"
+            "value" : "Ho fatto %lld punti a Breakout!"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "降参"
+            "value" : "Breakoutで%lld点獲得！"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "포기"
+            "value" : "Breakout에서 %lld점을 기록했어요!"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Desistir"
+            "value" : "Marquei %lld pontos no Breakout!"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Сдаться"
+            "value" : "Я набрал %lld очков в Breakout!"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "放弃"
-          }
-        }
-      }
-    },
-    "Highlight Mistakes" : {
-      "comment" : "Settings toggle that controls whether incorrect placements are highlighted on the board.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تمييز الأخطاء"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fehler hervorheben"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Resaltar errores"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Mettre en évidence les erreurs"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "गलतियाँ हाइलाइट करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sorot Kesalahan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Evidenzia errori"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ミスを強調表示"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "실수 강조 표시"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Destacar erros"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Подсвечивать ошибки"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "高亮错误"
-          }
-        }
-      }
-    },
-    "I solved Sudoku in %@!" : {
-      "comment" : "Share-sheet message body for a completed Sudoku puzzle. %@ is the formatted MM:SS solve time.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "حللت سودوكو في %@!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ich habe Sudoku in %@ gelöst!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Resolví un Sudoku en %@!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "J'ai résolu un Sudoku en %@ !"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "मैंने सुडोकू %@ में हल किया!"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Saya menyelesaikan Sudoku dalam %@!"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ho risolto un Sudoku in %@!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独を %@ で解きました！"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "스도쿠를 %@만에 풀었어요!"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Resolvi um Sudoku em %@!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Я решил судоку за %@!"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "我用 %@ 解开了数独！"
+            "value" : "我在 Breakout 中得了 %lld 分！"
           }
         }
       }
@@ -931,85 +938,239 @@
         }
       }
     },
-    "New Best Time!" : {
-      "comment" : "Celebration text shown when the player sets a new best Sudoku time.",
+    "Level" : {
+      "comment" : "Label for the current level number",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "أفضل وقت جديد!"
+            "value" : "المستوى"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Neue Bestzeit!"
+            "value" : "Level"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "¡Nuevo mejor tiempo!"
+            "value" : "Nivel"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Nouveau record !"
+            "value" : "Niveau"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "नया सर्वश्रेष्ठ समय!"
+            "value" : "स्तर"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Waktu Terbaik Baru!"
+            "value" : "Level"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Nuovo record!"
+            "value" : "Livello"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "新記録達成!"
+            "value" : "レベル"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "최고 기록 갱신!"
+            "value" : "레벨"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Novo recorde!"
+            "value" : "Nível"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Новый рекорд!"
+            "value" : "Уровень"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "新最佳时间！"
+            "value" : "关卡"
+          }
+        }
+      }
+    },
+    "LEVEL %lld CLEAR!" : {
+      "comment" : "Banner shown after clearing a level",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "اكتمل المستوى %lld!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LEVEL %lld GESCHAFFT!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡NIVEL %lld COMPLETADO!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NIVEAU %lld TERMINÉ !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्तर %lld पूरा!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LEVEL %lld SELESAI!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LIVELLO %lld COMPLETATO!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "レベル%lldクリア！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "레벨 %lld 클리어!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NÍVEL %lld CONCLUÍDO!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "УРОВЕНЬ %lld ПРОЙДЕН!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "第 %lld 关通过！"
+          }
+        }
+      }
+    },
+    "LV %lld" : {
+      "comment" : "Compact level indicator in the HUD; LV is short for Level",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "م %lld"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NV %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NIV %lld"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "LV %lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "NV %lld"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "УР %lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "关 %lld"
           }
         }
       }
     },
     "New Game" : {
-      "comment" : "Button in the pause menu / navigation title for starting a new Sudoku puzzle.",
+      "comment" : "Pause-menu button to start a fresh game",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1026,7 +1187,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Nueva partida"
+            "value" : "Partida nueva"
           }
         },
         "fr" : {
@@ -1038,13 +1199,13 @@
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "नया गेम"
+            "value" : "नया खेल"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Game Baru"
+            "value" : "Permainan Baru"
           }
         },
         "it" : {
@@ -1085,8 +1246,162 @@
         }
       }
     },
+    "New High Score!" : {
+      "comment" : "Celebration banner when a new high score is set",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "رقم قياسي جديد!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Neuer Highscore!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Nueva mejor puntuación!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nouveau record !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "नया उच्च स्कोर!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skor Tertinggi Baru!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nuovo record!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ハイスコア更新！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "최고 점수 갱신!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Novo recorde!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Новый рекорд!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新纪录！"
+          }
+        }
+      }
+    },
+    "Next Level" : {
+      "comment" : "Button to advance to the next level after clearing one",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "المستوى التالي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nächstes Level"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Siguiente nivel"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Niveau suivant"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "अगला स्तर"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Level Berikutnya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Livello successivo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "次のレベル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다음 레벨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Próximo nível"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Следующий уровень"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "下一关"
+          }
+        }
+      }
+    },
     "PAUSED" : {
-      "comment" : "Overlay text shown over the Sudoku board and pause menu when the game is paused.",
+      "comment" : "Banner shown when the game is paused",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1097,13 +1412,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "PAUSE"
+            "value" : "PAUSIERT"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "EN PAUSA"
+            "value" : "PAUSADO"
           }
         },
         "fr" : {
@@ -1115,13 +1430,13 @@
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "रुका हुआ"
+            "value" : "रुका"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "JEDA"
+            "value" : "DIJEDA"
           }
         },
         "it" : {
@@ -1163,7 +1478,7 @@
       }
     },
     "Play Again" : {
-      "comment" : "Button on the puzzle-complete and game-over overlays to start a new Sudoku game.",
+      "comment" : "Button on the Game Over screen to start over",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1180,7 +1495,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Jugar otra vez"
+            "value" : "Jugar de nuevo"
           }
         },
         "fr" : {
@@ -1204,31 +1519,31 @@
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gioca ancora"
+            "value" : "Rigioca"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "もう一度遊ぶ"
+            "value" : "もう一度プレイ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "다시 하기"
+            "value" : "다시 플레이"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Jogar de novo"
+            "value" : "Jogar novamente"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Играть снова"
+            "value" : "Сыграть ещё"
           }
         },
         "zh-Hans" : {
@@ -1239,167 +1554,13 @@
         }
       }
     },
-    "Puzzle Solved!" : {
-      "comment" : "Headline shown when the player completes a Sudoku puzzle.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تم حل اللغز!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Rätsel gelöst!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Puzle resuelto!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puzzle résolu !"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "पहेली हल हो गई!"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Teka-Teki Selesai!"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puzzle risolto!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "パズル完成！"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "퍼즐 완성!"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Quebra-cabeça resolvido!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Головоломка решена!"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "谜题解开！"
-          }
-        }
-      }
-    },
-    "Puzzles Solved" : {
-      "comment" : "Settings stat row label showing the total number of Sudoku puzzles the player has completed.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الألغاز المحلولة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gelöste Rätsel"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puzles resueltos"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puzzles résolus"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "हल की गई पहेलियाँ"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Teka-Teki Selesai"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puzzle risolti"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "解いたパズル数"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "푼 퍼즐 수"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Quebra-cabeças resolvidos"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Решено головоломок"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "已解谜题"
-          }
-        }
-      }
-    },
     "Quit Game" : {
-      "comment" : "Button on the pause / complete / game-over overlays that dismisses the Sudoku game and returns to the home screen.",
+      "comment" : "Pause-menu button to leave the game",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "إنهاء اللعبة"
+            "value" : "الخروج من اللعبة"
           }
         },
         "de" : {
@@ -1417,19 +1578,19 @@
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Quitter la partie"
+            "value" : "Quitter"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "गेम छोड़ें"
+            "value" : "खेल छोड़ें"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Keluar"
+            "value" : "Keluar Permainan"
           }
         },
         "it" : {
@@ -1441,7 +1602,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "ゲームを終了"
+            "value" : "ゲーム終了"
           }
         },
         "ko" : {
@@ -1470,316 +1631,85 @@
         }
       }
     },
-    "Records" : {
-      "comment" : "Settings section header listing best Sudoku times by difficulty.",
+    "Reset High Score" : {
+      "comment" : "Settings button that resets the saved high score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "السجلات"
+            "value" : "إعادة تعيين الرقم القياسي"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Rekorde"
+            "value" : "Highscore zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Récords"
+            "value" : "Restablecer puntuación"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Records"
+            "value" : "Réinitialiser le record"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "रिकॉर्ड्स"
+            "value" : "उच्च स्कोर रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Rekor"
+            "value" : "Reset Skor Tertinggi"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Record"
+            "value" : "Reimposta record"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "記録"
+            "value" : "ハイスコアをリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "기록"
+            "value" : "최고 점수 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Recordes"
+            "value" : "Redefinir recorde"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Рекорды"
+            "value" : "Сбросить рекорд"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "记录"
-          }
-        }
-      }
-    },
-    "Reset" : {
-      "comment" : "Destructive confirmation button shown in the reset-records dialog.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة تعيين"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zurücksetzen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Restablecer"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रीसेट"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Atur Ulang"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reimposta"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "リセット"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "초기화"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Redefinir"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сбросить"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重置"
-          }
-        }
-      }
-    },
-    "Reset Sudoku Records" : {
-      "comment" : "Settings button label that opens the reset-records confirmation dialog.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة تعيين سجلات سودوكو"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sudoku-Rekorde zurücksetzen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Restablecer récords de Sudoku"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser les records Sudoku"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "सुडोकू रिकॉर्ड्स रीसेट करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Atur Ulang Rekor Sudoku"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reimposta record Sudoku"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独の記録をリセット"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "스도쿠 기록 초기화"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Redefinir recordes de Sudoku"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сбросить рекорды судоку"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重置数独记录"
-          }
-        }
-      }
-    },
-    "Reset Sudoku Records?" : {
-      "comment" : "Confirmation dialog title when the player taps Reset Sudoku Records.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة تعيين سجلات سودوكو؟"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sudoku-Rekorde zurücksetzen?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¿Restablecer récords de Sudoku?"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser les records Sudoku ?"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "सुडोकू रिकॉर्ड्स रीसेट करें?"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Atur Ulang Rekor Sudoku?"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reimpostare i record Sudoku?"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独の記録をリセットしますか？"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "스도쿠 기록을 초기화할까요?"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Redefinir recordes de Sudoku?"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сбросить рекорды судоку?"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重置数独记录？"
+            "value" : "重置最高分"
           }
         }
       }
     },
     "Resume" : {
-      "comment" : "Pause-menu button to resume a paused Sudoku game.",
+      "comment" : "Pause-menu button to continue playing",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1796,7 +1726,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Reanudar"
+            "value" : "Continuar"
           }
         },
         "fr" : {
@@ -1855,8 +1785,162 @@
         }
       }
     },
+    "Score" : {
+      "comment" : "Label for the current score",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "النتيجة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Punkte"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Puntuación"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Score"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्कोर"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skor"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Punteggio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スコア"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "점수"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pontuação"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Счёт"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "得分"
+          }
+        }
+      }
+    },
+    "SCORE: %lld" : {
+      "comment" : "HUD label showing current score",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "النتيجة: %lld"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PUNKTE: %lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PUNTUACIÓN: %lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SCORE : %lld"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "स्कोर: %lld"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "SKOR: %lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PUNTI: %lld"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "スコア: %lld"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "점수: %lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "PONTOS: %lld"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "СЧЁТ: %lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "得分: %lld"
+          }
+        }
+      }
+    },
     "Settings" : {
-      "comment" : "Sudoku settings sheet navigation title and pause-menu button.",
+      "comment" : "Pause-menu button that opens the Settings screen; also the navigation title",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1933,7 +2017,7 @@
       }
     },
     "Share" : {
-      "comment" : "ShareLink button label on the puzzle-complete overlay.",
+      "comment" : "Button label to share the score via the system share sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2009,477 +2093,85 @@
         }
       }
     },
-    "Sudoku" : {
-      "comment" : "Settings section header for Sudoku-specific options. Sudoku is a proper noun.",
+    "TAP TO LAUNCH" : {
+      "comment" : "Hint shown before launch — tap to release the ball",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "سودوكو"
+            "value" : "اضغط للإطلاق"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "TIPPEN ZUM STARTEN"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "TOCA PARA LANZAR"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "TAPEZ POUR LANCER"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "सुडोकू"
+            "value" : "लॉन्च के लिए टैप करें"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "KETUK UNTUK MELUNCURKAN"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "TOCCA PER LANCIARE"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "数独"
+            "value" : "タップでスタート"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "스도쿠"
+            "value" : "탭하여 발사"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Sudoku"
+            "value" : "TOQUE PARA LANÇAR"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Судоку"
+            "value" : "НАЖМИТЕ, ЧТОБЫ ЗАПУСТИТЬ"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "数独"
-          }
-        }
-      }
-    },
-    "SUDOKU" : {
-      "comment" : "Title shown at the top of the Sudoku game HUD.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سودوكو"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "सुडोकू"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "스도쿠"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "SUDOKU"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "СУДОКУ"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独"
-          }
-        }
-      }
-    },
-    "Sudoku Time" : {
-      "comment" : "Subject of the share sheet when sharing a completed Sudoku puzzle.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "وقت سودوكو"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sudoku-Zeit"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tiempo de Sudoku"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Temps Sudoku"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "सुडोकू समय"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Waktu Sudoku"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tempo Sudoku"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独タイム"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "스도쿠 시간"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tempo de Sudoku"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Время судоку"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独时间"
-          }
-        }
-      }
-    },
-    "Sudoku.instructions" : {
-      "comment" : "Markdown body for the Sudoku how-to-play sheet",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "# Sudoku\n\nFill the 9×9 grid so every row, every column, and every 3×3 box contains the digits 1 through 9 exactly once.\n\n## How to play\n\n- **Tap a cell** to select it.\n- **Tap a digit** in the bottom keypad to fill the selected cell.\n- Tap the **eraser** to clear a cell.\n- Use **notes mode** (the pencil icon) to mark candidate digits in a cell — handy for working out which numbers are still possible.\n\n## Hints and mistakes\n\n- The starting clues cannot be changed.\n- The timer runs while you play. Your **best time** for each difficulty is saved.\n- Some difficulties allow **hints** — use them sparingly.\n\n## Winning\n\nThe puzzle is complete when every cell holds a valid digit and every row, column, and 3×3 box satisfies the no-repeat rule."
-          }
-        },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nاملأ شبكة 9×9 بحيث يحتوي كل صف وعمود وصندوق 3×3 على الأرقام من 1 إلى 9 مرة واحدة فقط.\n\n## كيفية اللعب\n\n- **اضغط على خلية** لتحديدها، ثم **اختر رقمًا** من لوحة الأرقام.\n- اضغط على رقم محدد لاستخدامه كملاحظة (إدخال صغير) إذا تم تفعيل وضع الملاحظات.\n- استخدم **التراجع** للتراجع عن الحركات و **مسح** لإزالة قيمة من خلية.\n\n## مساعدات\n\n- **التلميحات** تكشف خلية واحدة صحيحة (وقد تخصم نقاطًا أو تحدد بناءً على الصعوبة).\n- إكمال الشبكة بأكملها بشكل صحيح يؤدي إلى نهاية اللعبة.\n\n## نصائح\n\n- ابدأ بالخلايا التي تحتوي على أقل عدد من الاحتمالات.\n- استخدم الملاحظات لتسجيل الأرقام المرشحة عندما لا تتأكد بعد."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nFülle ein 9×9-Gitter, sodass jede Zeile, Spalte und jedes 3×3-Kästchen die Ziffern 1 bis 9 jeweils genau einmal enthält.\n\n## So wird gespielt\n\n- **Tippe auf eine Zelle**, um sie auszuwählen, dann **wähle eine Ziffer** über das Ziffernfeld.\n- Im Notizmodus tippst du eine Ziffer als kleine Notiz in eine Zelle.\n- **Rückgängig** macht Züge zurück, **Löschen** entfernt einen Wert aus einer Zelle.\n\n## Hilfen\n\n- **Hinweise** decken eine richtige Zelle auf (kann je nach Schwierigkeitsgrad Punkte oder Limits kosten).\n- Wird das gesamte Gitter korrekt ausgefüllt, ist das Spiel beendet.\n\n## Tipps\n\n- Fang mit Zellen an, in denen die wenigsten Ziffern möglich sind.\n- Nutze Notizen, um mögliche Kandidaten festzuhalten, solange du dir noch nicht sicher bist."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nRellena una cuadrícula de 9×9 de modo que cada fila, columna y caja 3×3 contenga los dígitos del 1 al 9 exactamente una vez.\n\n## Cómo jugar\n\n- **Toca una celda** para seleccionarla y luego **elige un dígito** del teclado numérico.\n- En modo notas, las pulsaciones colocan anotaciones pequeñas en la celda.\n- **Deshacer** revierte movimientos; **borrar** elimina el valor de una celda.\n\n## Ayudas\n\n- **Pistas** revelan una celda correcta (pueden costar puntos o estar limitadas según la dificultad).\n- Cuando completes correctamente todo el tablero, la partida termina.\n\n## Consejos\n\n- Empieza por las celdas con menos candidatos posibles.\n- Usa notas para anotar candidatos cuando aún no estés seguro."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nRemplis une grille 9×9 de sorte que chaque ligne, chaque colonne et chaque carré 3×3 contiennent les chiffres de 1 à 9 une seule fois.\n\n## Comment jouer\n\n- **Tape sur une case** pour la sélectionner, puis **choisis un chiffre** sur le pavé numérique.\n- En mode notes, taper un chiffre place une petite annotation dans la case.\n- **Annuler** revient en arrière, **effacer** retire la valeur d'une case.\n\n## Aides\n\n- Les **indices** révèlent une case correcte (peuvent coûter des points ou être limités selon la difficulté).\n- Quand toute la grille est correctement remplie, la partie est terminée.\n\n## Astuces\n\n- Commence par les cases qui ont le moins de candidats possibles.\n- Utilise les notes pour marquer les candidats quand tu n'es pas encore sûr."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\n9×9 ग्रिड को इस तरह भरें कि हर पंक्ति, स्तंभ और 3×3 बॉक्स में अंक 1 से 9 ठीक एक बार आएं।\n\n## कैसे खेलें\n\n- कोई **खाना टैप** कर चुनें, फिर अंक पैड से **एक अंक चुनें**।\n- नोट्स मोड में अंक टैप करने से खाने में छोटा नोट जाता है।\n- **पूर्ववत** चालें वापस लेता है, **मिटाएं** खाने का मान हटाता है।\n\n## सहायताएं\n\n- **संकेत** एक सही खाना दिखाते हैं (कठिनाई के अनुसार अंक खर्च हो सकते हैं या सीमा हो सकती है)।\n- पूरी ग्रिड सही ढंग से भर जाने पर खेल समाप्त होता है।\n\n## सुझाव\n\n- सबसे कम संभावनाओं वाले खानों से शुरू करें।\n- जब अनिश्चित हों तब संभावित अंकों के लिए नोट्स का उपयोग करें।"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nIsi papan 9×9 sehingga setiap baris, kolom, dan kotak 3×3 berisi angka 1 sampai 9 tepat sekali.\n\n## Cara bermain\n\n- **Ketuk sel** untuk memilihnya, lalu **pilih angka** dari pad angka.\n- Dalam mode catatan, ketukan angka memberi catatan kecil pada sel.\n- **Batalkan** membalik langkah, **hapus** menghilangkan nilai dari sel.\n\n## Bantuan\n\n- **Petunjuk** mengungkap satu sel yang benar (bisa mengurangi poin atau dibatasi sesuai kesulitan).\n- Saat seluruh papan terisi dengan benar, permainan selesai.\n\n## Tips\n\n- Mulai dari sel dengan kemungkinan paling sedikit.\n- Gunakan catatan untuk menandai kandidat saat kamu belum yakin."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nRiempi una griglia 9×9 in modo che ogni riga, colonna e quadrato 3×3 contenga le cifre da 1 a 9 esattamente una volta.\n\n## Come si gioca\n\n- **Tocca una cella** per selezionarla, poi **scegli una cifra** dal tastierino numerico.\n- In modalità note, toccare una cifra scrive una piccola annotazione nella cella.\n- **Annulla** torna indietro, **cancella** rimuove il valore da una cella.\n\n## Aiuti\n\n- I **suggerimenti** rivelano una cella corretta (possono costare punti o essere limitati a seconda della difficoltà).\n- Quando tutta la griglia è completata correttamente, la partita finisce.\n\n## Consigli\n\n- Inizia dalle celle con meno candidati possibili.\n- Usa le note per segnare i candidati quando non sei ancora sicuro."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\n9×9 のマスに、各行・各列・各 3×3 のブロックが 1〜9 の数字を 1 回ずつ含むように埋めましょう。\n\n## 遊び方\n\n- **マスをタップ**して選択し、数字パッドから **数字を選択** します。\n- メモモードでは、タップした数字がマスに小さなメモとして入ります。\n- **元に戻す** で操作を取り消し、**消去** でマスの値を消します。\n\n## ヘルプ\n\n- **ヒント** は正しいマスを 1 つ明らかにします（難易度によりポイント減算・回数制限がある場合があります）。\n- 全マスを正しく埋めるとゲーム終了です。\n\n## ヒント\n\n- 候補が一番少ないマスから埋めましょう。\n- 確信が持てない時はメモで候補を残しておきましょう。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\n각 행, 열, 3×3 블록에 1~9가 정확히 한 번씩 들어가도록 9×9 격자를 채우세요.\n\n## 플레이 방법\n\n- 셀을 **탭하여 선택**한 뒤 숫자 패드에서 **숫자를 선택**하세요.\n- 메모 모드에서는 탭한 숫자가 셀에 작은 메모로 들어갑니다.\n- **되돌리기**로 동작을 되돌리고, **지우기**로 셀의 값을 지웁니다.\n\n## 도움\n\n- **힌트** 는 정답 셀 하나를 보여줍니다(난이도에 따라 점수 차감 또는 제한이 있을 수 있습니다).\n- 격자를 모두 올바르게 채우면 게임이 끝납니다.\n\n## 팁\n\n- 후보가 가장 적은 셀부터 채우세요.\n- 확신이 없을 때는 메모로 후보를 표시해 두세요."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nPreencha uma grade 9×9 de modo que cada linha, coluna e bloco 3×3 contenha os algarismos de 1 a 9 exatamente uma vez.\n\n## Como jogar\n\n- **Toque em uma célula** para selecioná-la, depois **escolha um algarismo** no teclado numérico.\n- No modo de anotações, tocar um algarismo coloca uma pequena anotação na célula.\n- **Desfazer** reverte jogadas, **apagar** remove o valor de uma célula.\n\n## Ajudas\n\n- **Dicas** revelam uma célula correta (podem custar pontos ou ser limitadas pela dificuldade).\n- Quando toda a grade é preenchida corretamente, o jogo termina.\n\n## Dicas\n\n- Comece pelas células com menos candidatos possíveis.\n- Use anotações para marcar candidatos enquanto não tiver certeza."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\nЗаполните сетку 9×9 так, чтобы в каждом ряду, столбце и квадрате 3×3 цифры от 1 до 9 встречались ровно по одному разу.\n\n## Как играть\n\n- **Коснитесь клетки**, чтобы выделить её, затем **выберите цифру** на цифровой панели.\n- В режиме заметок касание цифры ставит в клетку маленькую пометку.\n- **Отмена** возвращает ход назад, **стереть** убирает значение из клетки.\n\n## Помощь\n\n- **Подсказки** открывают одну верную клетку (могут стоить очков или быть ограничены в зависимости от сложности).\n- Когда вся сетка заполнена правильно, игра завершается.\n\n## Советы\n\n- Начинайте с клеток, для которых меньше всего вариантов.\n- Используйте заметки, чтобы отмечать кандидатов, пока не уверены."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Sudoku\n\n填满 9×9 的格子，使每一行、每一列、每个 3×3 宫格都正好出现数字 1 到 9 各一次。\n\n## 玩法\n\n- **点击某个格子**选中，再从数字键盘 **选择一个数字**。\n- 在笔记模式下，点击数字会在格子里留下小小的候选笔记。\n- **撤销** 可撤回操作，**清除** 可移除格子里的值。\n\n## 辅助\n\n- **提示** 会揭示一个正确格子（可能扣分或按难度受限）。\n- 整盘正确填满即游戏结束。\n\n## 小贴士\n\n- 从可填候选最少的格子下手。\n- 不确定时用笔记记录候选数字。"
-          }
-        }
-      }
-    },
-    "This will permanently reset all Sudoku best times and puzzle counts." : {
-      "comment" : "Confirmation dialog body warning the player that resetting records is permanent.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سيؤدي هذا إلى إعادة تعيين جميع أفضل أوقات سودوكو وعدد الألغاز نهائيًا."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Dies setzt alle Sudoku-Bestzeiten und Rätselzähler dauerhaft zurück."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Esto restablecerá permanentemente todos los mejores tiempos y los conteos de puzles de Sudoku."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cela réinitialisera définitivement tous les meilleurs temps et le nombre de puzzles Sudoku résolus."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "यह सभी सुडोकू सर्वश्रेष्ठ समय और पहेली गणना को स्थायी रूप से रीसेट कर देगा।"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ini akan menghapus semua waktu terbaik dan jumlah teka-teki Sudoku secara permanen."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tutti i migliori tempi e i conteggi dei puzzle Sudoku verranno reimpostati definitivamente."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独のベストタイムとパズル数がすべてリセットされます。元に戻せません。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "모든 스도쿠 최고 기록과 퍼즐 수가 영구적으로 초기화됩니다."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Isto redefinirá permanentemente todos os melhores tempos e contagens de quebra-cabeças do Sudoku."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Все лучшие результаты и счётчики головоломок судоку будут безвозвратно сброшены."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "这将永久重置所有数独最佳时间和谜题数量。"
-          }
-        }
-      }
-    },
-    "Too many mistakes" : {
-      "comment" : "Subtitle on the game-over overlay explaining the player exceeded the mistake limit.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "أخطاء كثيرة جدًا"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Zu viele Fehler"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Demasiados errores"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Trop d'erreurs"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "बहुत अधिक गलतियाँ"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Terlalu banyak kesalahan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Troppi errori"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ミスが多すぎます"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "실수가 너무 많습니다"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Erros demais"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Слишком много ошибок"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "错误太多"
+            "value" : "点击发射"
           }
         }
       }
     },
     "Vibrations" : {
-      "comment" : "Settings toggle that controls whether haptic feedback is played during the Sudoku game.",
+      "comment" : "Settings toggle to enable/disable haptic feedback",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2490,7 +2182,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Vibration"
+            "value" : "Vibrationen"
           }
         },
         "es" : {
@@ -2526,7 +2218,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "バイブレーション"
+            "value" : "振動"
           }
         },
         "ko" : {
@@ -2538,7 +2230,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Vibração"
+            "value" : "Vibrações"
           }
         },
         "ru" : {
