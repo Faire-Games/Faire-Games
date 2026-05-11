@@ -24,6 +24,13 @@ public class GamePreferences {
         didSet { defaults.set(showBetaGames, forKey: "showBetaGames") }
     }
 
+    /// User-customised order of game tiles on the home screen, stored as the
+    /// raw-value identifier of each game. An empty array means "use the
+    /// app's default order".
+    public var gameOrder: [String] = defaults.value(forKey: "gameOrder", default: [String]()) {
+        didSet { defaults.set(gameOrder, forKey: "gameOrder") }
+    }
+
     public init() {
     }
 }
