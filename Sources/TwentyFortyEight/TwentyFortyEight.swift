@@ -24,7 +24,7 @@ public struct TwentyFortyEightContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
-            .colorScheme(.dark)
+            .colorScheme(settings.theme.isDark ? .dark : .light)
             #endif
             .environment(settings)
             .sheet(isPresented: $showInstructions) {
@@ -152,6 +152,41 @@ enum Direction {
     case up, down, left, right
 }
 
+// MARK: - Move Preview
+
+/// One tile's movement under a hypothetical move. Used to drive the live
+/// drag-preview animation in the view layer.
+///
+/// - `startCell`: the grid index where the tile currently lives.
+/// - `endCell`: the grid index where it will visually end up.
+/// - `isAbsorbedSource`: true if this tile is the *second* tile in a merge
+///   pair — i.e., it disappears into the destination tile and the destination
+///   ends up holding the doubled value. The corresponding *destination* tile
+///   shares the same `endCell` but has `isAbsorbedSource == false`.
+/// - `value`: the tile's pre-move value, used by the view for highlighting.
+struct TwentyFortyEightTileMovement {
+    let startCell: Int
+    let endCell: Int
+    let isAbsorbedSource: Bool
+    let value: Int
+}
+
+struct TwentyFortyEightMovePreview {
+    let direction: Direction
+    let movements: [TwentyFortyEightTileMovement]
+
+    /// True if any tile actually changes position under this move. If false
+    /// the gesture should be ignored (the user is dragging into a wall).
+    var anyMovement: Bool {
+        var i = 0
+        while i < movements.count {
+            if movements[i].startCell != movements[i].endCell { return true }
+            i += 1
+        }
+        return false
+    }
+}
+
 // MARK: - Saved State
 
 struct TwentyFortyEightSavedState: Codable {
@@ -168,6 +203,15 @@ struct TwentyFortyEightSavedState: Codable {
 }
 
 // MARK: - Game Model
+
+/// Internal record used by `Drop7Model.simulateLine` to describe a tile's
+/// movement within a single line (row or column) under a hypothetical move.
+private struct LineMovement {
+    let startInLine: Int
+    let endInLine: Int
+    let isAbsorbedSource: Bool
+    let value: Int
+}
 
 @Observable
 final class TwentyFortyEightModel {
@@ -258,6 +302,124 @@ final class TwentyFortyEightModel {
         for _ in 0..<difficulty.tilesPerSpawn {
             spawnTile()
         }
+    }
+
+    // MARK: - Move preview (non-mutating)
+
+    /// Compute what would happen if the given move were committed, without
+    /// touching the grid. The view layer uses this to drive a live drag
+    /// preview: every tile that would shift gets `startCell != endCell`, and
+    /// the absorbed-source tile of a merge pair is flagged so the view can
+    /// highlight it. Safe to call repeatedly.
+    func previewMove(_ direction: Direction) -> TwentyFortyEightMovePreview {
+        var movements: [TwentyFortyEightTileMovement] = []
+        switch direction {
+        case .left:
+            var r = 0
+            while r < gridSize {
+                let row = extractRow(r)
+                let lineMovs = simulateLine(row)
+                for m in lineMovs {
+                    movements.append(TwentyFortyEightTileMovement(
+                        startCell: r * gridSize + m.startInLine,
+                        endCell: r * gridSize + m.endInLine,
+                        isAbsorbedSource: m.isAbsorbedSource,
+                        value: m.value
+                    ))
+                }
+                r += 1
+            }
+        case .right:
+            var r = 0
+            while r < gridSize {
+                let row = extractRow(r)
+                let reversedLine = Array(row.reversed())
+                let lineMovs = simulateLine(reversedLine)
+                for m in lineMovs {
+                    let startCol = (gridSize - 1) - m.startInLine
+                    let endCol = (gridSize - 1) - m.endInLine
+                    movements.append(TwentyFortyEightTileMovement(
+                        startCell: r * gridSize + startCol,
+                        endCell: r * gridSize + endCol,
+                        isAbsorbedSource: m.isAbsorbedSource,
+                        value: m.value
+                    ))
+                }
+                r += 1
+            }
+        case .up:
+            var c = 0
+            while c < gridSize {
+                let col = extractCol(c)
+                let lineMovs = simulateLine(col)
+                for m in lineMovs {
+                    movements.append(TwentyFortyEightTileMovement(
+                        startCell: m.startInLine * gridSize + c,
+                        endCell: m.endInLine * gridSize + c,
+                        isAbsorbedSource: m.isAbsorbedSource,
+                        value: m.value
+                    ))
+                }
+                c += 1
+            }
+        case .down:
+            var c = 0
+            while c < gridSize {
+                let col = extractCol(c)
+                let reversedLine = Array(col.reversed())
+                let lineMovs = simulateLine(reversedLine)
+                for m in lineMovs {
+                    let startRow = (gridSize - 1) - m.startInLine
+                    let endRow = (gridSize - 1) - m.endInLine
+                    movements.append(TwentyFortyEightTileMovement(
+                        startCell: startRow * gridSize + c,
+                        endCell: endRow * gridSize + c,
+                        isAbsorbedSource: m.isAbsorbedSource,
+                        value: m.value
+                    ))
+                }
+                c += 1
+            }
+        }
+        return TwentyFortyEightMovePreview(direction: direction, movements: movements)
+    }
+
+    /// Per-line simulation shared by `previewMove`. Given a line oriented so
+    /// the merge target is index 0, returns one record per non-zero tile with
+    /// its post-move position (still in the same line orientation) and merge
+    /// role. Mirrors the structure of `mergeLine` but never mutates state.
+    private func simulateLine(_ line: [Int]) -> [LineMovement] {
+        var nonZeroIndices: [Int] = []
+        var nonZeroValues: [Int] = []
+        var i = 0
+        while i < line.count {
+            if line[i] != 0 {
+                nonZeroIndices.append(i)
+                nonZeroValues.append(line[i])
+            }
+            i += 1
+        }
+
+        var result: [LineMovement] = []
+        var resultPos = 0
+        var k = 0
+        while k < nonZeroValues.count {
+            let curIdx = nonZeroIndices[k]
+            let curVal = nonZeroValues[k]
+            if k + 1 < nonZeroValues.count && nonZeroValues[k + 1] == curVal {
+                let nextIdx = nonZeroIndices[k + 1]
+                // First of the pair stays at resultPos as the merge destination.
+                result.append(LineMovement(startInLine: curIdx, endInLine: resultPos, isAbsorbedSource: false, value: curVal))
+                // Second of the pair is absorbed into the same resultPos.
+                result.append(LineMovement(startInLine: nextIdx, endInLine: resultPos, isAbsorbedSource: true, value: curVal))
+                k += 2
+            } else {
+                result.append(LineMovement(startInLine: curIdx, endInLine: resultPos, isAbsorbedSource: false, value: curVal))
+                k += 1
+            }
+            resultPos += 1
+        }
+        return result
     }
 
     func move(_ direction: Direction) -> Bool {
@@ -477,8 +639,39 @@ struct TwentyFortyEightGameView: View {
     @State private var displayedScore: Int = 0
     @State private var displayedHighScore: Int = 0
     @State private var scoreAnimTimer: Timer? = nil
+
+    // MARK: - Drag-preview state
+
+    /// Locked direction for the current drag, or nil if no drag in progress.
+    @State private var dragDirection: Direction? = nil
+    /// The preview corresponding to `dragDirection`.
+    @State private var dragPreview: TwentyFortyEightMovePreview? = nil
+    /// Per-cell visual offset applied while dragging (in points).
+    @State private var tileOffsetX: [Double] = Array(repeating: 0.0, count: gridSize * gridSize)
+    @State private var tileOffsetY: [Double] = Array(repeating: 0.0, count: gridSize * gridSize)
+    /// Per-cell maximum offset magnitude along the locked drag axis (positive).
+    /// Used to clamp the live drag offset to the tile's intended destination.
+    @State private var tileMaxAxisOffset: [Double] = Array(repeating: 0.0, count: gridSize * gridSize)
+    /// 0..1 glow intensity for the *absorbed source* of a merge — the tile
+    /// that disappears into another. Rendered as a bright gold border.
+    @State private var tileMergeGlow: [Double] = Array(repeating: 0.0, count: gridSize * gridSize)
+    /// 0..1 glow intensity for the *destination* tile of a merge — the tile
+    /// that will hold the doubled value. Rendered as a softer accent border.
+    @State private var tileDestGlow: [Double] = Array(repeating: 0.0, count: gridSize * gridSize)
+    /// Latest measured cell size (in points). Captured from the GeometryReader
+    /// so gesture handlers can compute pixel offsets without rebuilding the view.
+    @State private var measuredCellSize: Double = 0.0
+    /// Step size between cell origins (cellSize + gridSpacing). The distance a
+    /// tile travels for a one-cell shift.
+    @State private var measuredStepSize: Double = 0.0
+    /// True when the current drag-attempt direction has no possible movements
+    /// (dragging into a wall). Suppresses the "lock failed" haptic repeat.
+    @State private var dragRejected: Bool = false
+
     @Environment(\.dismiss) var dismiss
     @Environment(TwentyFortyEightSettings.self) var settings: TwentyFortyEightSettings
+
+    var theme: TwentyFortyEightTheme { return settings.theme }
 
     func playHaptic(_ pattern: HapticPattern) {
         if settings.vibrations {
@@ -510,7 +703,7 @@ struct TwentyFortyEightGameView: View {
                 ZStack {
                     // Board background
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(red: 0.47, green: 0.43, blue: 0.40))
+                        .fill(theme.boardBackground)
                         .frame(width: boardSize, height: boardSize)
 
                     // Empty cell placeholders
@@ -519,25 +712,43 @@ struct TwentyFortyEightGameView: View {
                             HStack(spacing: gridSpacing) {
                                 ForEach(0..<gridSize, id: \.self) { c in
                                     RoundedRectangle(cornerRadius: tileCornerRadius)
-                                        .fill(Color(red: 0.80, green: 0.76, blue: 0.71).opacity(0.35))
+                                        .fill(theme.emptyCellBackground.opacity(theme.emptyCellOpacity))
                                         .frame(width: cellSize, height: cellSize)
                                 }
                             }
                         }
                     }
 
-                    // Tile values
-                    VStack(spacing: gridSpacing) {
-                        ForEach(0..<gridSize, id: \.self) { r in
-                            HStack(spacing: gridSpacing) {
-                                ForEach(0..<gridSize, id: \.self) { c in
-                                    let index = r * gridSize + c
-                                    tileView(value: game.tile(r, c), cellSize: cellSize)
-                                        .scaleEffect(game.tile(r, c) > 0 ? tileScales[index] : 1.0)
-                                }
-                            }
+                    // Tile values — single ZStack with absolute positioning so
+                    // every tile is a *sibling* of every other tile. zIndex
+                    // applied to a sibling actually controls global stacking
+                    // order, which a VStack-of-HStacks layout cannot do (a
+                    // tile in row 0's HStack can never render above row 1's
+                    // HStack, no matter what zIndex it carries).
+                    //
+                    // Offsets are expressed relative to the *center* of the
+                    // ZStack (its default alignment): a tile's natural layout
+                    // position is the ZStack center, and the per-cell offset
+                    // shifts it out from there. Center-relative math avoids
+                    // depending on `alignment: .topLeading`, which Skip can
+                    // fall back to `.center` for and would otherwise drop the
+                    // whole grid into the bottom-right quadrant of the board.
+                    ZStack {
+                        ForEach(0..<(gridSize * gridSize), id: \.self) { index in
+                            let r = index / gridSize
+                            let c = index % gridSize
+                            let stepSize = cellSize + gridSpacing
+                            let centerOffset = Double(gridSize - 1) / 2.0
+                            let cellOffsetX = (Double(c) - centerOffset) * stepSize
+                            let cellOffsetY = (Double(r) - centerOffset) * stepSize
+                            tileView(value: game.tile(r, c), cellSize: cellSize)
+                                .scaleEffect(game.tile(r, c) > 0 ? tileScales[index] : 1.0)
+                                .overlay(mergeHighlightOverlay(idx: index, cellSize: cellSize))
+                                .offset(x: cellOffsetX + tileOffsetX[index], y: cellOffsetY + tileOffsetY[index])
+                                .zIndex(dragZIndex(for: index))
                         }
                     }
+                    .frame(width: boardSize, height: boardSize)
 
                     // Win overlay
                     if game.hasWon {
@@ -559,32 +770,23 @@ struct TwentyFortyEightGameView: View {
                 Spacer()
             }
             .gesture(
-                DragGesture(minimumDistance: 20)
+                DragGesture(minimumDistance: 8)
+                    .onChanged { value in
+                        handleDragChanged(translationWidth: Double(value.translation.width), translationHeight: Double(value.translation.height))
+                    }
                     .onEnded { value in
-                        if game.isGameOver || game.hasWon || showPauseMenu { return }
-                        let dx = value.translation.width
-                        let dy = value.translation.height
-                        let direction: Direction
-                        if abs(dx) > abs(dy) {
-                            direction = dx > 0.0 ? .right : .left
-                        } else {
-                            direction = dy > 0.0 ? .down : .up
-                        }
-                        game.saveUndoState()
-                        let moved = game.move(direction)
-                        if moved {
-                            game.spawnTilesForMove()
-                            triggerAnimations()
-                            playMergeHaptics()
-                        }
-                        game.checkGameState()
-                        if game.isGameOver {
-                            playHaptic(.impact)
-                        }
-                        game.saveState()
+                        handleDragEnded(translationWidth: Double(value.translation.width), translationHeight: Double(value.translation.height))
                     }
             )
-            .background(Color(red: 0.98, green: 0.97, blue: 0.94).ignoresSafeArea())
+            .background(theme.background.ignoresSafeArea())
+            .onAppear {
+                measuredCellSize = cellSize
+                measuredStepSize = cellSize + gridSpacing
+            }
+            .onChange(of: cellSize) { _, newValue in
+                measuredCellSize = newValue
+                measuredStepSize = newValue + gridSpacing
+            }
         }
         .navigationBarBackButtonHidden()
         #if !os(macOS)
@@ -624,9 +826,10 @@ struct TwentyFortyEightGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             TwentyFortyEightSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showDifficultyPicker) {
-            TwentyFortyEightDifficultyPickerView { newDifficulty in
+            TwentyFortyEightDifficultyPickerView(theme: theme) { newDifficulty in
                 TwentyFortyEightModel.clearSavedState()
                 game.newGame(diff: newDifficulty)
                 resetScales()
@@ -645,7 +848,7 @@ struct TwentyFortyEightGameView: View {
     func pauseMenuOverlay(boardSize: Double) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.85))
+                .fill(theme.boardBackground.opacity(0.92))
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
@@ -792,6 +995,306 @@ struct TwentyFortyEightGameView: View {
                     tileScales[i] = 1.0
                 }
             }
+        }
+    }
+
+    // MARK: - Drag preview
+
+    /// Visual lock threshold: how many points of motion are required before
+    /// we lock a drag direction. The DragGesture itself uses
+    /// `minimumDistance: 8`, and we add a small extra buffer so accidental
+    /// taps that just barely register as drags don't lock a direction.
+    private var dragLockThreshold: Double { return 10.0 }
+
+    func handleDragChanged(translationWidth: Double, translationHeight: Double) {
+        if game.isGameOver || game.hasWon || showPauseMenu || showDifficultyPicker { return }
+
+        let dx = translationWidth
+        let dy = translationHeight
+
+        if dragDirection == nil {
+            let absX = dx < 0.0 ? -dx : dx
+            let absY = dy < 0.0 ? -dy : dy
+            let largest = max(absX, absY)
+            if largest < dragLockThreshold { return }
+
+            let candidate: Direction
+            if absX > absY {
+                candidate = dx > 0.0 ? .right : .left
+            } else {
+                candidate = dy > 0.0 ? .down : .up
+            }
+
+            let preview = game.previewMove(candidate)
+            if !preview.anyMovement {
+                if !dragRejected {
+                    dragRejected = true
+                    playHaptic(HapticPattern([HapticEvent(.tick, intensity: 0.25)]))
+                }
+                return
+            }
+
+            lockDirection(candidate, preview: preview)
+        }
+
+        guard let dir = dragDirection else { return }
+        let axisDrag: Double
+        switch dir {
+        case .right: axisDrag = dx > 0.0 ? dx : 0.0
+        case .left:  axisDrag = dx < 0.0 ? -dx : 0.0
+        case .down:  axisDrag = dy > 0.0 ? dy : 0.0
+        case .up:    axisDrag = dy < 0.0 ? -dy : 0.0
+        }
+        applyAxisDrag(axisDrag, direction: dir)
+    }
+
+    func handleDragEnded(translationWidth: Double, translationHeight: Double) {
+        defer { dragRejected = false }
+
+        guard let dir = dragDirection else { return }
+
+        let dx = translationWidth
+        let dy = translationHeight
+        let axisDrag: Double
+        switch dir {
+        case .right: axisDrag = dx > 0.0 ? dx : 0.0
+        case .left:  axisDrag = dx < 0.0 ? -dx : 0.0
+        case .down:  axisDrag = dy > 0.0 ? dy : 0.0
+        case .up:    axisDrag = dy < 0.0 ? -dy : 0.0
+        }
+
+        // Commit if the user dragged at least halfway across one cell. Past
+        // that point each tile is visually closer to its destination than its
+        // origin (capped at destination for tiles that have already arrived).
+        let commitThreshold = max(measuredStepSize * 0.5, 24.0)
+        if axisDrag >= commitThreshold {
+            commitMove(direction: dir)
+        } else {
+            cancelDrag()
+        }
+    }
+
+    /// Lock the drag direction and prep per-cell animation targets from
+    /// `preview`. Called once at the start of a drag.
+    func lockDirection(_ direction: Direction, preview: TwentyFortyEightMovePreview) {
+        dragDirection = direction
+        dragPreview = preview
+
+        var i = 0
+        while i < gridSize * gridSize {
+            tileOffsetX[i] = 0.0
+            tileOffsetY[i] = 0.0
+            tileMaxAxisOffset[i] = 0.0
+            tileMergeGlow[i] = 0.0
+            tileDestGlow[i] = 0.0
+            i += 1
+        }
+
+        for m in preview.movements {
+            let deltaCells: Int
+            switch direction {
+            case .left, .right:
+                let startCol = m.startCell % gridSize
+                let endCol = m.endCell % gridSize
+                let d = endCol - startCol
+                deltaCells = d < 0 ? -d : d
+            case .up, .down:
+                let startRow = m.startCell / gridSize
+                let endRow = m.endCell / gridSize
+                let d = endRow - startRow
+                deltaCells = d < 0 ? -d : d
+            }
+            if deltaCells > 0 {
+                tileMaxAxisOffset[m.startCell] = Double(deltaCells) * measuredStepSize
+            }
+        }
+
+        // Build the set of endCells that are merge targets (so we can identify
+        // the destination tile of each merge — the one we want the soft accent
+        // glow on). Then the destination's glow is attached to its *startCell*
+        // so the highlight follows the tile while it slides into the merge,
+        // not the empty cell it will end up at.
+        var mergeDestEndCells: Set<Int> = []
+        for m in preview.movements {
+            if m.isAbsorbedSource {
+                mergeDestEndCells.insert(m.endCell)
+            }
+        }
+
+        withAnimation(.easeOut(duration: 0.16)) {
+            for m in preview.movements {
+                if m.isAbsorbedSource {
+                    tileMergeGlow[m.startCell] = 1.0
+                } else if mergeDestEndCells.contains(m.endCell) {
+                    tileDestGlow[m.startCell] = 1.0
+                }
+            }
+        }
+
+        playHaptic(HapticPattern([HapticEvent(.tick, intensity: 0.4)]))
+    }
+
+    /// Update per-cell offsets from the current axis drag magnitude.
+    func applyAxisDrag(_ axisDrag: Double, direction: Direction) {
+        var i = 0
+        while i < gridSize * gridSize {
+            let maxOff = tileMaxAxisOffset[i]
+            if maxOff <= 0.0 {
+                tileOffsetX[i] = 0.0
+                tileOffsetY[i] = 0.0
+                i += 1
+                continue
+            }
+            let clamped = axisDrag < maxOff ? axisDrag : maxOff
+            switch direction {
+            case .right:
+                tileOffsetX[i] = clamped
+                tileOffsetY[i] = 0.0
+            case .left:
+                tileOffsetX[i] = -clamped
+                tileOffsetY[i] = 0.0
+            case .down:
+                tileOffsetX[i] = 0.0
+                tileOffsetY[i] = clamped
+            case .up:
+                tileOffsetX[i] = 0.0
+                tileOffsetY[i] = -clamped
+            }
+            i += 1
+        }
+    }
+
+    /// User released past the commit threshold — finish the move.
+    func commitMove(direction: Direction) {
+        // Snap any laggy tile offsets all the way to their destination so the
+        // model mutation lines up with the rendered position.
+        var i = 0
+        while i < gridSize * gridSize {
+            let maxOff = tileMaxAxisOffset[i]
+            if maxOff > 0.0 {
+                switch direction {
+                case .right: tileOffsetX[i] = maxOff
+                case .left:  tileOffsetX[i] = -maxOff
+                case .down:  tileOffsetY[i] = maxOff
+                case .up:    tileOffsetY[i] = -maxOff
+                }
+            }
+            i += 1
+        }
+
+        // Fade the merge highlights out as the merger happens.
+        withAnimation(.easeOut(duration: 0.10)) {
+            var k = 0
+            while k < gridSize * gridSize {
+                tileMergeGlow[k] = 0.0
+                tileDestGlow[k] = 0.0
+                k += 1
+            }
+        }
+
+        game.saveUndoState()
+        let moved = game.move(direction)
+        if moved {
+            game.spawnTilesForMove()
+            // Once the model has settled the new grid, reset offsets — every
+            // tile is now at its natural grid position.
+            var j = 0
+            while j < gridSize * gridSize {
+                tileOffsetX[j] = 0.0
+                tileOffsetY[j] = 0.0
+                tileMaxAxisOffset[j] = 0.0
+                j += 1
+            }
+            triggerAnimations()
+            playMergeHaptics()
+        }
+        game.checkGameState()
+        if game.isGameOver {
+            playHaptic(.impact)
+        }
+        game.saveState()
+
+        dragDirection = nil
+        dragPreview = nil
+    }
+
+    /// User released without crossing the commit threshold — slide tiles back
+    /// to their origin and fade highlights out.
+    func cancelDrag() {
+        withAnimation(.spring(response: 0.26, dampingFraction: 0.78)) {
+            var i = 0
+            while i < gridSize * gridSize {
+                tileOffsetX[i] = 0.0
+                tileOffsetY[i] = 0.0
+                tileMergeGlow[i] = 0.0
+                tileDestGlow[i] = 0.0
+                i += 1
+            }
+        }
+        playHaptic(HapticPattern([HapticEvent(.tick, intensity: 0.28)]))
+        dragDirection = nil
+        dragPreview = nil
+        // Clear max offsets after the cancel animation completes.
+        animTimer?.invalidate()
+        animTimer = Timer.scheduledTimer(withTimeInterval: 0.28, repeats: false) { _ in
+            clearTileMaxAxisOffset()
+        }
+    }
+
+    func clearTileMaxAxisOffset() {
+        var i = 0
+        while i < gridSize * gridSize {
+            tileMaxAxisOffset[i] = 0.0
+            i += 1
+        }
+    }
+
+    /// Z-order for a tile during a drag preview. Sliding tiles must render
+    /// above the stationary cells they pass over (each cell's `tileView`
+    /// paints its own background even when empty, so without lifting moving
+    /// tiles they get covered by the empty-cell background of later siblings
+    /// in the row/column iteration order). Absorbed-source tiles are lifted
+    /// higher still so they render above the merge destination they're
+    /// sliding into.
+    func dragZIndex(for index: Int) -> Double {
+        if tileMergeGlow[index] > 0.0 { return 2.0 }
+        if tileMaxAxisOffset[index] > 0.0 { return 1.0 }
+        return 0.0
+    }
+
+    // MARK: - Merge highlight overlay
+
+    /// A "beautiful" highlight rendered over a tile during a drag preview.
+    /// Tiles being *absorbed* (the source of a merge) get a bright gold
+    /// border with an outer glow; tiles that will *receive* the merge get a
+    /// softer accent border. Both fade in/out via withAnimation.
+    @ViewBuilder
+    func mergeHighlightOverlay(idx: Int, cellSize: Double) -> some View {
+        let mergeGlow = tileMergeGlow[idx]
+        let destGlow = tileDestGlow[idx]
+        if mergeGlow > 0.0 || destGlow > 0.0 {
+            ZStack {
+                if destGlow > 0.0 {
+                    RoundedRectangle(cornerRadius: tileCornerRadius)
+                        .stroke(Color(red: 1.0, green: 0.92, blue: 0.55), lineWidth: 2.5)
+                        .frame(width: cellSize, height: cellSize)
+                        .opacity(destGlow * 0.9)
+                }
+                if mergeGlow > 0.0 {
+                    RoundedRectangle(cornerRadius: tileCornerRadius)
+                        .stroke(Color(red: 1.0, green: 0.83, blue: 0.30), lineWidth: 3.0)
+                        .frame(width: cellSize, height: cellSize)
+                        .shadow(color: Color(red: 1.0, green: 0.85, blue: 0.30).opacity(0.75 * mergeGlow), radius: 8.0)
+                        .opacity(mergeGlow)
+                    // Inner highlight ring for extra polish.
+                    RoundedRectangle(cornerRadius: tileCornerRadius - 1.0)
+                        .stroke(Color.white.opacity(0.55 * mergeGlow), lineWidth: 1.0)
+                        .frame(width: cellSize - 4.0, height: cellSize - 4.0)
+                }
+            }
+            .allowsHitTesting(false)
+        } else {
+            EmptyView()
         }
     }
 
@@ -967,11 +1470,11 @@ struct TwentyFortyEightGameView: View {
             Text(label)
                 .font(.caption2)
                 .fontWeight(.bold)
-                .foregroundStyle(Color(red: 0.93, green: 0.89, blue: 0.85))
+                .foregroundStyle(theme.scoreBoxLabel)
             Text("\(value)")
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundStyle(Color.white)
+                .foregroundStyle(theme.scoreBoxValue)
                 .monospaced()
         }
         .frame(minWidth: 80)
@@ -979,7 +1482,7 @@ struct TwentyFortyEightGameView: View {
         .padding(.horizontal, 16)
         .background(
             RoundedRectangle(cornerRadius: 6)
-                .fill(Color(red: 0.47, green: 0.43, blue: 0.40))
+                .fill(theme.scoreBoxBackground)
         )
     }
 
@@ -988,13 +1491,13 @@ struct TwentyFortyEightGameView: View {
     func tileView(value: Int, cellSize: Double) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: tileCornerRadius)
-                .fill(tileColor(for: value))
+                .fill(value > 0 ? theme.tileColor(for: value) : Color.clear)
                 .frame(width: cellSize, height: cellSize)
 
             if value > 0 {
                 Text("\(value)")
                     .font(.system(size: tileFontSize(for: value, cellSize: cellSize), weight: .bold, design: .rounded))
-                    .foregroundStyle(tileForeground(for: value))
+                    .foregroundStyle(theme.tileForeground(for: value))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
             }
@@ -1008,7 +1511,7 @@ struct TwentyFortyEightGameView: View {
             Button(action: { dismiss() }) {
                 Image("cancel", bundle: .module)
                     .font(.title2)
-                    .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                    .foregroundStyle(theme.hudForeground)
             }
 
             Spacer()
@@ -1017,7 +1520,7 @@ struct TwentyFortyEightGameView: View {
                 Text("2048", bundle: .module)
                     .font(.title)
                     .fontWeight(.black)
-                    .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                    .foregroundStyle(theme.hudForeground)
                 if game.difficulty != .normal {
                     Text(" (\(game.difficulty.label))")
                         .font(.title3)
@@ -1042,7 +1545,7 @@ struct TwentyFortyEightGameView: View {
                             .font(.caption2)
                             .fontWeight(.bold)
                     }
-                    .foregroundStyle(game.hasUndo && game.undosRemaining > 0 ? Color(red: 0.47, green: 0.43, blue: 0.40) : Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.3))
+                    .foregroundStyle(game.hasUndo && game.undosRemaining > 0 ? theme.hudForeground : theme.hudForeground.opacity(0.3))
                 }
                 .disabled(!game.hasUndo || game.undosRemaining <= 0)
             }
@@ -1050,12 +1553,12 @@ struct TwentyFortyEightGameView: View {
             Button(action: { showPauseMenu = true }) {
                 Image("pause_circle", bundle: .module)
                     .font(.title2)
-                    .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                    .foregroundStyle(theme.hudForeground)
             }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-        .background(Color(red: 0.98, green: 0.97, blue: 0.94))
+        .background(theme.hudBackground)
     }
 
     // MARK: - Win Overlay
@@ -1063,7 +1566,7 @@ struct TwentyFortyEightGameView: View {
     func winOverlay(boardSize: Double) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.93, green: 0.81, blue: 0.45).opacity(0.5))
+                .fill(theme.tile2048.opacity(0.65))
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
@@ -1088,7 +1591,7 @@ struct TwentyFortyEightGameView: View {
                         .frame(width: 160, height: 44)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.55, green: 0.47, blue: 0.40))
+                                .fill(theme.boardBackground)
                         )
                 }
                 .buttonStyle(.plain)
@@ -1103,7 +1606,7 @@ struct TwentyFortyEightGameView: View {
                         .frame(width: 160, height: 44)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.55, green: 0.47, blue: 0.40))
+                                .fill(theme.boardBackground)
                         )
                 }
                 .buttonStyle(.plain)
@@ -1116,23 +1619,23 @@ struct TwentyFortyEightGameView: View {
     func gameOverOverlay(boardSize: Double) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .fill(Color(red: 0.93, green: 0.89, blue: 0.85).opacity(0.7))
+                .fill(theme.background.opacity(0.85))
                 .frame(width: boardSize, height: boardSize)
 
             VStack(spacing: 16) {
                 Text("Game Over!", bundle: .module)
                     .font(.largeTitle)
                     .fontWeight(.black)
-                    .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                    .foregroundStyle(theme.hudForeground)
 
                 VStack(spacing: 4) {
                     Text("Score", bundle: .module)
                         .font(.headline)
-                        .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.7))
+                        .foregroundStyle(theme.hudForeground.opacity(0.7))
                     Text("\(displayedScore)")
                         .font(.system(size: 44))
                         .fontWeight(.bold)
-                        .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                        .foregroundStyle(theme.hudForeground)
                         .monospaced()
                 }
 
@@ -1140,7 +1643,7 @@ struct TwentyFortyEightGameView: View {
                     Text("New High Score!", bundle: .module)
                         .font(.title3)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color(red: 0.95, green: 0.69, blue: 0.47))
+                        .foregroundStyle(theme.tile64)
                 }
 
                 Button(action: {
@@ -1153,7 +1656,7 @@ struct TwentyFortyEightGameView: View {
                         .frame(width: 160, height: 44)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.55, green: 0.47, blue: 0.40))
+                                .fill(theme.boardBackground)
                         )
                 }
                 .buttonStyle(.plain)
@@ -1165,7 +1668,7 @@ struct TwentyFortyEightGameView: View {
                 ) {
                     Label { Text("Share", bundle: .module) } icon: { Image(systemName: "square.and.arrow.up") }
                         .font(.subheadline)
-                        .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40).opacity(0.7))
+                        .foregroundStyle(theme.hudForeground.opacity(0.7))
                 }
             }
         }
@@ -1220,6 +1723,7 @@ public struct TwentyFortyEightPreviewIcon: View {
 // MARK: - Difficulty Picker
 
 struct TwentyFortyEightDifficultyPickerView: View {
+    let theme: TwentyFortyEightTheme
     let onSelect: (TwentyFortyEightDifficulty) -> Void
     @Environment(\.dismiss) var dismiss
 
@@ -1230,7 +1734,7 @@ struct TwentyFortyEightDifficultyPickerView: View {
                     Text("Choose Difficulty", bundle: .module)
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color(red: 0.47, green: 0.43, blue: 0.40))
+                        .foregroundStyle(theme.hudForeground)
                         .padding(.top, 10)
 
                     ForEach([TwentyFortyEightDifficulty.easy, TwentyFortyEightDifficulty.normal, TwentyFortyEightDifficulty.hard], id: \.rawValue) { d in
@@ -1243,10 +1747,10 @@ struct TwentyFortyEightDifficultyPickerView: View {
                                     Text(d.label)
                                         .font(.title3)
                                         .fontWeight(.bold)
-                                        .foregroundStyle(Color(red: 0.35, green: 0.32, blue: 0.28))
+                                        .foregroundStyle(theme.hudForeground)
                                     Text(d.description)
                                         .font(.caption)
-                                        .foregroundStyle(Color(red: 0.55, green: 0.50, blue: 0.45))
+                                        .foregroundStyle(theme.hudForeground.opacity(0.75))
                                 }
                                 Spacer()
                             }
@@ -1264,7 +1768,7 @@ struct TwentyFortyEightDifficultyPickerView: View {
                 .padding(.bottom, 24)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red: 0.98, green: 0.97, blue: 0.94).ignoresSafeArea())
+            .background(theme.background.ignoresSafeArea())
             .navigationTitle(Text("New Game", bundle: .module))
             #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
@@ -1275,7 +1779,7 @@ struct TwentyFortyEightDifficultyPickerView: View {
                 }
             }
         }
-        .preferredColorScheme(.light)
+        .preferredColorScheme(theme.isDark ? .dark : .light)
     }
 }
 
@@ -1290,6 +1794,15 @@ struct TwentyFortyEightSettingsView: View {
             Form {
                 Section(header: Text("2048", bundle: .module)) {
                     Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
+                }
+                Section(header: Text("Theme", bundle: .module)) {
+                    ForEach(TwentyFortyEightTheme.all, id: \.id) { t in
+                        TwentyFortyEightThemeRow(
+                            theme: t,
+                            isSelected: t.id == settings.themeID,
+                            onTap: { settings.themeID = t.id }
+                        )
+                    }
                 }
                 Section(header: Text("Data", bundle: .module)) {
                     Button(role: .destructive, action: {
@@ -1312,10 +1825,95 @@ struct TwentyFortyEightSettingsView: View {
     }
 }
 
+/// A single row in the theme picker showing the localized name and a
+/// palette-preview made of mini "tile" swatches. The whole row is tappable.
+struct TwentyFortyEightThemeRow: View {
+    let theme: TwentyFortyEightTheme
+    let isSelected: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 12) {
+                ThemePalettePreview(theme: theme)
+                VStack(alignment: .leading, spacing: 2) {
+                    theme.nameText()
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.primary)
+                    if theme.isDark {
+                        Text("Dark", bundle: .module, comment: "Subtitle under a dark-mode theme name in the 2048 theme picker")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("Light", bundle: .module, comment: "Subtitle under a light-mode theme name in the 2048 theme picker")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                if isSelected {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title3)
+                        .foregroundStyle(.tint)
+                }
+            }
+            #if !SKIP
+            .contentShape(Rectangle())
+            #endif
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("theme.row.\(theme.id)")
+    }
+}
+
+/// Mini board preview shown next to a theme's name in the picker. Renders the
+/// theme's board background framing a 2×3 grid of tile swatches drawn from the
+/// theme's actual tile colors so the user sees the real palette they'll get.
+struct ThemePalettePreview: View {
+    let theme: TwentyFortyEightTheme
+
+    var body: some View {
+        let swatches = theme.previewSwatches
+        ZStack {
+            RoundedRectangle(cornerRadius: 6)
+                .fill(theme.boardBackground)
+            VStack(spacing: 2) {
+                HStack(spacing: 2) {
+                    swatch(swatches[0])
+                    swatch(swatches[1])
+                    swatch(swatches[2])
+                }
+                HStack(spacing: 2) {
+                    swatch(swatches[3])
+                    swatch(swatches[4])
+                    swatch(theme.tileBeyondColor)
+                }
+            }
+            .padding(4)
+        }
+        .frame(width: 56, height: 40)
+    }
+
+    private func swatch(_ color: Color) -> some View {
+        RoundedRectangle(cornerRadius: 2)
+            .fill(color)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 @Observable
 public class TwentyFortyEightSettings {
     public var vibrations: Bool = defaults.value(forKey: "twentyfortyeightVibrations", default: true) {
         didSet { defaults.set(vibrations, forKey: "twentyfortyeightVibrations") }
+    }
+
+    public var themeID: String = defaults.value(forKey: "twentyfortyeightThemeID", default: TwentyFortyEightTheme.classic.id) {
+        didSet { defaults.set(themeID, forKey: "twentyfortyeightThemeID") }
+    }
+
+    public var theme: TwentyFortyEightTheme {
+        return TwentyFortyEightTheme.theme(forID: themeID)
     }
 
     public init() {

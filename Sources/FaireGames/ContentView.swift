@@ -217,6 +217,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showSettings) {
                 SettingsView(gamePreferences: gamePreferences)
+                    .presentationDetents([.medium, .large])
             }
             .confirmationDialog(
                 pendingReset?.resetDialogTitle() ?? Text(verbatim: ""),

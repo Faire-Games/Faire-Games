@@ -795,6 +795,7 @@ struct Drop7GameView: View {
         .onChange(of: game.highScore) { _, _ in startScoreAnimation() }
         .sheet(isPresented: $showSettings) {
             Drop7SettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showDifficultyPicker) {
             Drop7DifficultyPickerView { d in

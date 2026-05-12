@@ -555,6 +555,7 @@ struct BreakoutGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             BreakoutSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
     }
 

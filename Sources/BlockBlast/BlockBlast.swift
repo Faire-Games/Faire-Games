@@ -116,6 +116,7 @@ struct BlockBlastGameView: View {
         #endif
         .sheet(isPresented: $showSettings) {
             BlockBlastSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
         .onAppear {
             if let savedState = GameModel.loadSavedState() {

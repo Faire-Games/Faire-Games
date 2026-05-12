@@ -616,6 +616,7 @@ struct TetrisGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             TetrisSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
     }
 

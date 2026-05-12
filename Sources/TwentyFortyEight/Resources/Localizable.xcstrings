@@ -1,1870 +1,2563 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "" : {
-      "comment" : "Empty navigation title"
+  "sourceLanguage": "en",
+  "strings": {
+    "": {
+      "comment": "Empty navigation title"
     },
-    " (%@)" : {
-      "comment" : "Suffix appended to the game title showing the difficulty (e.g., \" (Hard)\")"
+    " (%@)": {
+      "comment": "Suffix appended to the game title showing the difficulty (e.g., \" (Hard)\")"
     },
-    "%lld" : {
-      "comment" : "Numeric format placeholder"
+    "%lld": {
+      "comment": "Numeric format placeholder"
     },
-    "2048" : {
-      "comment" : "Game title — 2048 (proper noun, do not translate)",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+    "2048": {
+      "comment": "Game title — 2048 (proper noun, do not translate)",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048"
           }
         }
       }
     },
-    "2048 Score" : {
-      "comment" : "Subject line when sharing a 2048 score",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "نتيجة 2048"
+    "2048 Score": {
+      "comment": "Subject line when sharing a 2048 score",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "نتيجة 2048"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048-Punkte"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048-Punkte"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puntuación de 2048"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Puntuación de 2048"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Score 2048"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Score 2048"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048 स्कोर"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048 स्कोर"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skor 2048"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Skor 2048"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Punteggio 2048"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Punteggio 2048"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048スコア"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048スコア"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048 점수"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048 점수"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pontuação 2048"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pontuação 2048"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Счёт в 2048"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Счёт в 2048"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048 得分"
-          }
-        }
-      }
-    },
-    "Cancel" : {
-      "comment" : "Toolbar button on the difficulty sheet to dismiss without choosing",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إلغاء"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Abbrechen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cancelar"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Annuler"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रद्द करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Batal"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Annulla"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "キャンセル"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "취소"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cancelar"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Отмена"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "取消"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048 得分"
           }
         }
       }
     },
-    "Choose Difficulty" : {
-      "comment" : "Title of the new-game difficulty selection sheet",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "اختر الصعوبة"
+    "Cancel": {
+      "comment": "Toolbar button on the difficulty sheet to dismiss without choosing",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "إلغاء"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Schwierigkeit wählen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Abbrechen"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Elegir dificultad"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cancelar"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Choisir la difficulté"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Annuler"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "कठिनाई चुनें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "रद्द करें"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pilih Tingkat Kesulitan"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Batal"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Scegli difficoltà"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Annulla"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "難易度を選択"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "キャンセル"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "난이도 선택"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "취소"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Escolher dificuldade"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cancelar"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Выберите сложность"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Отмена"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "选择难度"
-          }
-        }
-      }
-    },
-    "Data" : {
-      "comment" : "Settings section header for data-related controls",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "البيانات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Daten"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Datos"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Données"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "डेटा"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Data"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Dati"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "データ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "데이터"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Dados"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Данные"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数据"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "取消"
           }
         }
       }
     },
-    "Done" : {
-      "comment" : "Toolbar button to dismiss the Settings sheet",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تم"
+    "Choose Difficulty": {
+      "comment": "Title of the new-game difficulty selection sheet",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اختر الصعوبة"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fertig"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Schwierigkeit wählen"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listo"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Elegir dificultad"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Terminé"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Choisir la difficulté"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "हो गया"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "कठिनाई चुनें"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Selesai"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pilih Tingkat Kesulitan"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fatto"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Scegli difficoltà"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "完了"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "難易度を選択"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "완료"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "난이도 선택"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Concluir"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Escolher dificuldade"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Готово"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Выберите сложность"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "完成"
-          }
-        }
-      }
-    },
-    "Game Over!" : {
-      "comment" : "Banner shown when the board is full and no merges are possible",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "انتهت اللعبة!"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Spiel vorbei!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Fin del juego!"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Partie terminée !"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "खेल समाप्त!"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Permainan Berakhir!"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Game Over!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ゲームオーバー！"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "게임 오버!"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fim de jogo!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Игра окончена!"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "游戏结束！"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "选择难度"
           }
         }
       }
     },
-    "I scored %lld in 2048!" : {
-      "comment" : "Body of the share-sheet message; %lld is the score",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سجلت %lld نقطة في 2048!"
+    "Classic": {
+      "comment": "2048 theme name — the original 2048 palette (beige board, warm orange/yellow tiles)",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "كلاسيكي"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ich habe %lld Punkte bei 2048 erreicht!"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Klassisch"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡He conseguido %lld puntos en 2048!"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Clásico"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "J'ai marqué %lld points à 2048 !"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Classique"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "मैंने 2048 में %lld स्कोर किया!"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "क्लासिक"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Saya mencetak %lld di 2048!"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Klasik"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ho fatto %lld punti a 2048!"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Classico"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048で%lld点獲得！"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クラシック"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048에서 %lld점을 기록했어요!"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "클래식"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Marquei %lld pontos no 2048!"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Clássico"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Я набрал %lld очков в 2048!"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Классика"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "我在 2048 中得了 %lld 分！"
-          }
-        }
-      }
-    },
-    "Instructions" : {
-      "comment" : "Pause-menu button that opens the how-to-play sheet",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "التعليمات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Anleitung"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Instrucciones"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Instructions"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "निर्देश"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Petunjuk"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Istruzioni"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "遊び方"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "방법"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Instruções"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Инструкции"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "玩法说明"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "经典"
           }
         }
       }
     },
-    "Keep Going" : {
-      "comment" : "After-win button: continue playing past 2048 for a higher score",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تابع اللعب"
+    "Dark": {
+      "comment": "Subtitle under a dark-mode theme name in the 2048 theme picker",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "داكن"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Weiterspielen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dunkel"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Seguir jugando"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Oscuro"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Continuer"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sombre"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "खेलते रहें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "गहरा"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lanjutkan"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gelap"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Continua"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Scuro"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "続ける"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ダーク"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "계속하기"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "다크"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Continuar jogando"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Escuro"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Продолжить игру"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Тёмная"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "继续游戏"
-          }
-        }
-      }
-    },
-    "New Game" : {
-      "comment" : "Pause-menu button to start a fresh game",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لعبة جديدة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Neues Spiel"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Partida nueva"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nouvelle partie"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "नया खेल"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Permainan Baru"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nuova partita"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新しいゲーム"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "새 게임"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Novo jogo"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Новая игра"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新游戏"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "深色"
           }
         }
       }
     },
-    "New High Score!" : {
-      "comment" : "Celebration banner when a new high score is set",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "رقم قياسي جديد!"
+    "Data": {
+      "comment": "Settings section header for data-related controls",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "البيانات"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Neuer Highscore!"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Daten"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Nueva mejor puntuación!"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Datos"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nouveau record !"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Données"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "नया उच्च स्कोर!"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "डेटा"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skor Tertinggi Baru!"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Data"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nuovo record!"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dati"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ハイスコア更新！"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "データ"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "최고 점수 갱신!"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "데이터"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Novo recorde!"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dados"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Новый рекорд!"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Данные"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "新纪录！"
-          }
-        }
-      }
-    },
-    "PAUSED" : {
-      "comment" : "Banner shown when the game is paused",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "متوقف مؤقتًا"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "PAUSIERT"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "PAUSADO"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "EN PAUSE"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रुका"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "DIJEDA"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "IN PAUSA"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "一時停止"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "일시정지"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "PAUSADO"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ПАУЗА"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "已暂停"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "数据"
           }
         }
       }
     },
-    "Quit Game" : {
-      "comment" : "Pause-menu button to leave the game",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الخروج من اللعبة"
+    "Done": {
+      "comment": "Toolbar button to dismiss the Settings sheet",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تم"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Spiel beenden"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fertig"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Salir del juego"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Listo"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Quitter"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Terminé"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "खेल छोड़ें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "हो गया"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Keluar Permainan"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Selesai"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Esci dal gioco"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fatto"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ゲーム終了"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "完了"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "게임 종료"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "완료"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sair do jogo"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Concluir"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Выйти из игры"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Готово"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "退出游戏"
-          }
-        }
-      }
-    },
-    "Reset High Score" : {
-      "comment" : "Settings button that resets the saved high score",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة تعيين الرقم القياسي"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Highscore zurücksetzen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Restablecer puntuación"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser le record"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "उच्च स्कोर रीसेट करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reset Skor Tertinggi"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reimposta record"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ハイスコアをリセット"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "최고 점수 초기화"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Redefinir recorde"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сбросить рекорд"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重置最高分"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "完成"
           }
         }
       }
     },
-    "Resume" : {
-      "comment" : "Pause-menu button to continue playing",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "استئناف"
+    "Ember": {
+      "comment": "2048 theme name — dark warm palette evoking glowing embers and firelight",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "جمر"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fortsetzen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Glut"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Continuar"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Brasa"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reprendre"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Braise"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "जारी रखें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "अंगारा"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lanjutkan"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bara"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Riprendi"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Brace"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "再開"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "残り火"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "계속하기"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "잉걸불"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Continuar"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Brasa"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Продолжить"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Уголёк"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "继续"
-          }
-        }
-      }
-    },
-    "Score" : {
-      "comment" : "Label for the current score on the Game Over screen",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "النتيجة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Punkte"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puntuación"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Score"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "स्कोर"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skor"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Punteggio"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "スコア"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "점수"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pontuação"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Счёт"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "得分"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "余烬"
           }
         }
       }
     },
-    "Score: %lld" : {
-      "comment" : "HUD label showing current score on the win screen",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "النتيجة: %lld"
+    "Forest": {
+      "comment": "2048 theme name — dark deep-forest palette with autumn highlights",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "غابة"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Punkte: %lld"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wald"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Puntuación: %lld"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bosque"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Score : %lld"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Forêt"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "स्कोर: %lld"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "वन"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skor: %lld"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hutan"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Punteggio: %lld"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Foresta"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "スコア: %lld"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "森"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "점수: %lld"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "숲"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pontos: %lld"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Floresta"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Счёт: %lld"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Лес"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "得分: %lld"
-          }
-        }
-      }
-    },
-    "Settings" : {
-      "comment" : "Pause-menu button that opens the Settings screen; also navigation title",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الإعدادات"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Einstellungen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajustes"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réglages"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "सेटिंग्स"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Pengaturan"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Impostazioni"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "設定"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "설정"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ajustes"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Настройки"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "设置"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "森林"
           }
         }
       }
     },
-    "Share" : {
-      "comment" : "Button label to share the score via the system share sheet",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "مشاركة"
+    "Game Over!": {
+      "comment": "Banner shown when the board is full and no merges are possible",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "انتهت اللعبة!"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Teilen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Spiel vorbei!"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Compartir"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¡Fin del juego!"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Partager"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Partie terminée !"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "साझा करें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "खेल समाप्त!"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bagikan"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Permainan Berakhir!"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Condividi"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Game Over!"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "共有"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ゲームオーバー！"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "공유"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "게임 오버!"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Compartilhar"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fim de jogo!"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Поделиться"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Игра окончена!"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "分享"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "游戏结束！"
           }
         }
       }
     },
-    "Try Again" : {
-      "comment" : "Button on the Game Over screen to start over",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "حاول مرة أخرى"
+    "I scored %lld in 2048!": {
+      "comment": "Body of the share-sheet message; %lld is the score",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "سجلت %lld نقطة في 2048!"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Erneut versuchen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ich habe %lld Punkte bei 2048 erreicht!"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Intentar de nuevo"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¡He conseguido %lld puntos en 2048!"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réessayer"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "J'ai marqué %lld points à 2048 !"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "फिर से प्रयास करें"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "मैंने 2048 में %lld स्कोर किया!"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Coba Lagi"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Saya mencetak %lld di 2048!"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Riprova"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ho fatto %lld punti a 2048!"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "もう一度"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048で%lld点獲得！"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "다시 시도"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "2048에서 %lld점을 기록했어요!"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tentar novamente"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Marquei %lld pontos no 2048!"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Повторить"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Я набрал %lld очков в 2048!"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "再试一次"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我在 2048 中得了 %lld 分！"
           }
         }
       }
     },
-    "TwentyFortyEight.instructions" : {
-      "comment" : "Markdown body for the 2048 how-to-play sheet",
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "# 2048\n\nCombine matching tiles on a 4×4 grid to reach the **2048** tile.\n\n## How to play\n\n- **Swipe** up, down, left, or right to slide every tile in that direction.\n- When two tiles with the **same number** collide, they merge into one tile with their **sum**.\n- After every move, a new **2** (or sometimes **4**) appears on a random empty cell.\n\n## Goal\n\nCreate a **2048** tile to win. After winning, you can keep going for a higher score.\n\n## Game over\n\nThe game ends when the board is full and no two adjacent tiles match.\n\n## Tips\n\n- Pick a corner and keep your largest tile parked there.\n- Build merges in a single direction so smaller tiles align underneath your big one.\n- On Easy, **undo** is available — use it to recover from mistakes."
+    "Instructions": {
+      "comment": "Pause-menu button that opens the how-to-play sheet",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "التعليمات"
           }
         },
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nاجمع البلاطات المتطابقة على شبكة 4×4 للوصول إلى البلاطة **2048**.\n\n## كيفية اللعب\n\n- **اسحب** لأعلى أو لأسفل أو يسارًا أو يمينًا لتحريك كل البلاطات في ذلك الاتجاه.\n- عندما تصطدم بلاطتان بنفس الرقم، تندمجان في بلاطة واحدة بمجموعهما.\n- بعد كل حركة، تظهر بلاطة **2** (أو أحيانًا **4**) جديدة في خلية فارغة عشوائية.\n\n## الهدف\n\nأنشئ بلاطة **2048** للفوز. بعد الفوز، يمكنك الاستمرار للحصول على نتيجة أعلى.\n\n## نهاية اللعبة\n\nتنتهي اللعبة عندما يمتلئ اللوح ولا تتطابق أي بلاطتين متجاورتين.\n\n## نصائح\n\n- اختر زاوية واحتفظ بأكبر بلاطة لديك فيها.\n- ابنِ الدمج في اتجاه واحد لتصطف البلاطات الأصغر تحت البلاطة الكبيرة.\n- في وضع السهل، يتوفر **التراجع** — استخدمه للتعافي من الأخطاء."
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Anleitung"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nFüge passende Kacheln auf einem 4×4-Gitter zusammen, um die Kachel **2048** zu erreichen.\n\n## So wird gespielt\n\n- **Wische** nach oben, unten, links oder rechts, um alle Kacheln in diese Richtung zu schieben.\n- Treffen zwei Kacheln mit der **gleichen Zahl** aufeinander, verschmelzen sie zu einer Kachel mit deren **Summe**.\n- Nach jedem Zug erscheint eine neue **2** (oder selten **4**) auf einem zufälligen freien Feld.\n\n## Ziel\n\nErzeuge eine **2048**-Kachel, um zu gewinnen. Nach dem Sieg kannst du für eine höhere Punktzahl weiterspielen.\n\n## Spielende\n\nDas Spiel endet, wenn das Feld voll ist und keine zwei benachbarten Kacheln übereinstimmen.\n\n## Tipps\n\n- Such dir eine Ecke und parke deine größte Kachel dort.\n- Baue Verschmelzungen in einer Richtung auf, damit kleinere Kacheln unter deiner großen aufgereiht sind.\n- Im Modus Einfach ist **Rückgängig** verfügbar — nutze es, um Fehler zu korrigieren."
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Instrucciones"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nCombina fichas iguales en una cuadrícula de 4×4 para llegar a la ficha **2048**.\n\n## Cómo jugar\n\n- **Desliza** hacia arriba, abajo, izquierda o derecha para mover todas las fichas en esa dirección.\n- Cuando dos fichas con el **mismo número** chocan, se fusionan en una ficha con su **suma**.\n- Después de cada movimiento aparece un nuevo **2** (a veces un **4**) en una celda vacía al azar.\n\n## Objetivo\n\nCrea una ficha **2048** para ganar. Tras ganar puedes seguir jugando para subir la puntuación.\n\n## Fin del juego\n\nEl juego termina cuando el tablero está lleno y no hay dos fichas adyacentes iguales.\n\n## Consejos\n\n- Elige una esquina y mantén ahí tu ficha más grande.\n- Construye fusiones en una sola dirección para alinear las fichas pequeñas bajo la grande.\n- En Fácil, **deshacer** está disponible — úsalo para corregir errores."
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Instructions"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nCombine des tuiles identiques sur une grille 4×4 pour atteindre la tuile **2048**.\n\n## Comment jouer\n\n- **Glisse** vers le haut, le bas, la gauche ou la droite pour faire glisser toutes les tuiles dans cette direction.\n- Lorsque deux tuiles avec le **même nombre** se rencontrent, elles fusionnent en une tuile avec leur **somme**.\n- Après chaque mouvement, un nouveau **2** (ou parfois un **4**) apparaît sur une case vide au hasard.\n\n## Objectif\n\nCrée une tuile **2048** pour gagner. Après la victoire, tu peux continuer pour un meilleur score.\n\n## Fin de partie\n\nLa partie se termine quand le plateau est plein et qu'aucune paire de tuiles adjacentes n'est identique.\n\n## Astuces\n\n- Choisis un coin et garde ta plus grosse tuile là.\n- Construis des fusions dans une seule direction pour aligner les petites tuiles sous la grosse.\n- En Facile, **annuler** est disponible — utilise-le pour corriger tes erreurs."
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "निर्देश"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\n4×4 ग्रिड पर मेल खाती टाइलें मिलाएँ और **2048** टाइल तक पहुँचें।\n\n## कैसे खेलें\n\n- सभी टाइलें उस दिशा में सरकाने के लिए ऊपर, नीचे, बाएँ या दाएँ **स्वाइप** करें।\n- जब **समान संख्या** वाली दो टाइलें टकराती हैं, तो वे उनके **जोड़** के साथ एक टाइल में विलीन हो जाती हैं।\n- हर चाल के बाद, यादृच्छिक खाली खाने में नया **2** (कभी-कभी **4**) दिखाई देता है।\n\n## लक्ष्य\n\nजीतने के लिए **2048** टाइल बनाएँ। जीतने के बाद उच्च स्कोर के लिए खेलते रह सकते हैं।\n\n## खेल समाप्ति\n\nजब बोर्ड भर जाए और कोई भी दो आसन्न टाइलें मेल न खाएँ, तो खेल समाप्त होता है।\n\n## सुझाव\n\n- एक कोना चुनें और अपनी सबसे बड़ी टाइल वहीं रखें।\n- विलय एक ही दिशा में बनाएं ताकि छोटी टाइलें बड़ी के नीचे संरेखित हों।\n- आसान मोड में **पूर्ववत** उपलब्ध है — गलतियाँ सुधारने के लिए इसका उपयोग करें।"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Petunjuk"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nGabungkan ubin yang sama pada papan 4×4 untuk mencapai ubin **2048**.\n\n## Cara bermain\n\n- **Geser** ke atas, bawah, kiri, atau kanan untuk menggeser semua ubin ke arah itu.\n- Saat dua ubin dengan **angka yang sama** bertemu, keduanya menyatu menjadi satu ubin dengan **jumlahnya**.\n- Setelah setiap gerakan, ubin **2** (atau kadang **4**) baru muncul di sel kosong acak.\n\n## Tujuan\n\nBuat ubin **2048** untuk menang. Setelah menang kamu bisa melanjutkan untuk skor yang lebih tinggi.\n\n## Game over\n\nPermainan berakhir saat papan penuh dan tidak ada dua ubin bersebelahan yang sama.\n\n## Tips\n\n- Pilih sebuah sudut dan letakkan ubin terbesar di sana.\n- Bangun penggabungan dalam satu arah agar ubin-ubin kecil tersusun di bawah ubin besar.\n- Pada mode Mudah, **batalkan** tersedia — gunakan untuk pulih dari kesalahan."
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Istruzioni"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nUnisci tessere uguali su una griglia 4×4 per raggiungere la tessera **2048**.\n\n## Come si gioca\n\n- **Scorri** in alto, in basso, a sinistra o a destra per spostare tutte le tessere in quella direzione.\n- Quando due tessere con lo **stesso numero** si scontrano, si fondono in una tessera con la loro **somma**.\n- Dopo ogni mossa appare una nuova **2** (a volte una **4**) in una cella vuota casuale.\n\n## Obiettivo\n\nCrea una tessera **2048** per vincere. Dopo la vittoria puoi continuare per un punteggio più alto.\n\n## Fine partita\n\nLa partita finisce quando la scacchiera è piena e nessuna coppia di tessere adiacenti è uguale.\n\n## Consigli\n\n- Scegli un angolo e parcheggia lì la tua tessera più grande.\n- Costruisci le fusioni in una sola direzione per allineare le tessere piccole sotto la grande.\n- In Facile è disponibile **annulla** — usalo per rimediare agli errori."
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "遊び方"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\n4×4 のマス目で同じ数字のタイルを合体させて **2048** を目指そう。\n\n## 遊び方\n\n- 上下左右に **スワイプ** すると、すべてのタイルがその方向にスライドします。\n- **同じ数字** のタイルがぶつかると、その **合計** の数字に合体します。\n- 1 手ごとに、ランダムな空きマスに新しい **2**（まれに **4**）が出現します。\n\n## 目的\n\n**2048** のタイルを作れば勝利。勝った後もさらに高得点を目指してプレイ可能です。\n\n## ゲームオーバー\n\nボードが埋まり、隣り合うタイルに同じ数字が無くなるとゲーム終了です。\n\n## ヒント\n\n- 角を一つ決めて、最大のタイルをそこに置き続けましょう。\n- 一方向に合体させていくと、小さいタイルが大きいタイルの下に整列します。\n- やさしい難易度では **アンドゥ** が使えます — 失敗のリカバリーに活用しましょう。"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "방법"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\n4×4 판에서 같은 타일을 합쳐 **2048** 타일을 만들어 보세요.\n\n## 플레이 방법\n\n- 위, 아래, 왼쪽, 오른쪽으로 **스와이프**하여 모든 타일을 해당 방향으로 밀어요.\n- 같은 숫자의 타일이 충돌하면 둘의 **합**으로 하나의 타일로 합쳐집니다.\n- 매 이동 후 임의의 빈 칸에 새 **2**(가끔 **4**)가 등장합니다.\n\n## 목표\n\n**2048** 타일을 만들면 승리. 이긴 뒤에도 더 높은 점수를 위해 계속할 수 있어요.\n\n## 게임 오버\n\n판이 가득 차고 인접한 두 타일이 어떤 것도 일치하지 않으면 게임이 끝납니다.\n\n## 팁\n\n- 한 모서리를 정해 그곳에 가장 큰 타일을 두세요.\n- 한 방향으로만 합쳐 작은 타일들이 큰 타일 아래에 정렬되게 하세요.\n- 쉬움 난이도에서는 **되돌리기** 가 제공됩니다 — 실수 복구에 활용하세요."
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Instruções"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nCombine peças iguais em uma grade 4×4 para chegar à peça **2048**.\n\n## Como jogar\n\n- **Deslize** para cima, baixo, esquerda ou direita para mover todas as peças naquela direção.\n- Quando duas peças com o **mesmo número** se encontram, elas se fundem em uma peça com a **soma** delas.\n- Após cada jogada, um novo **2** (ou às vezes **4**) aparece em uma célula vazia aleatória.\n\n## Objetivo\n\nCrie uma peça **2048** para vencer. Após vencer, você pode continuar para uma pontuação maior.\n\n## Fim de jogo\n\nO jogo termina quando o tabuleiro está cheio e não há duas peças adjacentes iguais.\n\n## Dicas\n\n- Escolha um canto e mantenha sua maior peça lá.\n- Construa fusões em uma única direção para que peças menores se alinhem sob a maior.\n- No Fácil, **desfazer** está disponível — use para se recuperar de erros."
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Инструкции"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\nОбъединяйте одинаковые плитки на поле 4×4, чтобы получить плитку **2048**.\n\n## Как играть\n\n- **Свайпните** вверх, вниз, влево или вправо, чтобы сдвинуть все плитки в этом направлении.\n- Когда сталкиваются две плитки с **одинаковым числом**, они сливаются в одну с их **суммой**.\n- После каждого хода в случайной пустой ячейке появляется новая **2** (иногда **4**).\n\n## Цель\n\nСоздайте плитку **2048**, чтобы победить. После победы можно продолжить ради более высокого счёта.\n\n## Конец игры\n\nИгра заканчивается, когда поле заполнено и нет соседних одинаковых плиток.\n\n## Советы\n\n- Выберите угол и держите там самую большую плитку.\n- Сливайте плитки в одном направлении, чтобы меньшие выстраивались под большой.\n- На Лёгком уровне доступна **отмена** — используйте её, чтобы исправлять ошибки."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 2048\n\n在 4×4 棋盘上合并相同的方块，以达成 **2048** 方块。\n\n## 玩法\n\n- 上下左右 **滑动**，让所有方块朝该方向滑动。\n- 两个 **数字相同** 的方块相撞时，会合并成它们的 **和**。\n- 每次移动后，会在某个随机空格出现一个新的 **2**（偶尔为 **4**）。\n\n## 目标\n\n合成 **2048** 方块即胜利。胜利后可继续游戏冲击更高分。\n\n## 游戏结束\n\n当棋盘填满且任意相邻方块都不相同时游戏结束。\n\n## 小贴士\n\n- 选定一个角落，把最大的方块放在那儿。\n- 朝同一方向合并，让较小的方块整齐排在大方块下方。\n- 简单难度下可使用 **撤销**——可帮助你从失误中恢复。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "玩法说明"
           }
         }
       }
     },
-    "Vibrations" : {
-      "comment" : "Settings toggle to enable/disable haptic feedback",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الاهتزازات"
+    "Keep Going": {
+      "comment": "After-win button: continue playing past 2048 for a higher score",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تابع اللعب"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibrationen"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Weiterspielen"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibraciones"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seguir jugando"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibrations"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Continuer"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "कंपन"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "खेलते रहें"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Getaran"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lanjutkan"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibrazioni"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Continua"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "振動"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "続ける"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "진동"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "계속하기"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibrações"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Continuar jogando"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вибрация"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Продолжить игру"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "振动"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "继续游戏"
           }
         }
       }
     },
-    "You Win!" : {
-      "comment" : "Banner shown when the player creates the 2048 tile",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لقد فزت!"
+    "Lagoon": {
+      "comment": "2048 theme name — bright tropical lagoon blue/teal palette (light theme)",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "بحيرة شاطئية"
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Gewonnen!"
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lagune"
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¡Ganaste!"
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Laguna"
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tu as gagné !"
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lagon"
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "आप जीत गए!"
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "लैगून"
           }
         },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kamu Menang!"
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Laguna"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hai vinto!"
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Laguna"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "クリア！"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ラグーン"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "승리!"
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "라군"
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Você venceu!"
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lagoa"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Победа!"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Лагуна"
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "你赢了！"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "礁湖"
+          }
+        }
+      }
+    },
+    "Light": {
+      "comment": "Subtitle under a light-mode theme name in the 2048 theme picker",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "فاتح"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hell"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Claro"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Clair"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "हल्का"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Terang"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chiaro"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ライト"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "라이트"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Claro"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Светлая"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "浅色"
+          }
+        }
+      }
+    },
+    "Midnight": {
+      "comment": "2048 theme name — dark night-sky palette with neon accents",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "منتصف الليل"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mitternacht"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Medianoche"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Minuit"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "मध्यरात्रि"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tengah Malam"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mezzanotte"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "真夜中"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "자정"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Meia-Noite"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Полночь"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "午夜"
+          }
+        }
+      }
+    },
+    "New Game": {
+      "comment": "Pause-menu button to start a fresh game",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لعبة جديدة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Neues Spiel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Partida nueva"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nouvelle partie"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "नया खेल"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Permainan Baru"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nuova partita"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新しいゲーム"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "새 게임"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Novo jogo"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Новая игра"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新游戏"
+          }
+        }
+      }
+    },
+    "New High Score!": {
+      "comment": "Celebration banner when a new high score is set",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "رقم قياسي جديد!"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Neuer Highscore!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¡Nueva mejor puntuación!"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nouveau record !"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "नया उच्च स्कोर!"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Skor Tertinggi Baru!"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nuovo record!"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ハイスコア更新！"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "최고 점수 갱신!"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Novo recorde!"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Новый рекорд!"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新纪录！"
+          }
+        }
+      }
+    },
+    "PAUSED": {
+      "comment": "Banner shown when the game is paused",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "متوقف مؤقتًا"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "PAUSIERT"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "PAUSADO"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "EN PAUSE"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "रुका"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "DIJEDA"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "IN PAUSA"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "一時停止"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "일시정지"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "PAUSADO"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ПАУЗА"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "已暂停"
+          }
+        }
+      }
+    },
+    "Quit Game": {
+      "comment": "Pause-menu button to leave the game",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الخروج من اللعبة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Spiel beenden"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Salir del juego"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Quitter"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "खेल छोड़ें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Keluar Permainan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esci dal gioco"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ゲーム終了"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "게임 종료"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sair do jogo"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Выйти из игры"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "退出游戏"
+          }
+        }
+      }
+    },
+    "Reset High Score": {
+      "comment": "Settings button that resets the saved high score",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "إعادة تعيين الرقم القياسي"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Highscore zurücksetzen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Restablecer puntuación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Réinitialiser le record"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "उच्च स्कोर रीसेट करें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reset Skor Tertinggi"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reimposta record"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ハイスコアをリセット"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "최고 점수 초기화"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Redefinir recorde"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Сбросить рекорд"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "重置最高分"
+          }
+        }
+      }
+    },
+    "Resume": {
+      "comment": "Pause-menu button to continue playing",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استئناف"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fortsetzen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Continuar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reprendre"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "जारी रखें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lanjutkan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Riprendi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "再開"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "계속하기"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Continuar"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Продолжить"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "继续"
+          }
+        }
+      }
+    },
+    "Sakura": {
+      "comment": "2048 theme name — pink cherry-blossom palette (light theme)",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ساكورا"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "साकुरा"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "桜"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "사쿠라"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sakura"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Сакура"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "樱花"
+          }
+        }
+      }
+    },
+    "Score": {
+      "comment": "Label for the current score on the Game Over screen",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "النتيجة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Punkte"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Puntuación"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Score"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "स्कोर"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Skor"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Punteggio"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "スコア"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "점수"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pontuação"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Счёт"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "得分"
+          }
+        }
+      }
+    },
+    "Score: %lld": {
+      "comment": "HUD label showing current score on the win screen",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "النتيجة: %lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Punkte: %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Puntuación: %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Score : %lld"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "स्कोर: %lld"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Skor: %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Punteggio: %lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "スコア: %lld"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "점수: %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pontos: %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Счёт: %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "得分: %lld"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "comment": "Pause-menu button that opens the Settings screen; also navigation title",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الإعدادات"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Einstellungen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ajustes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Réglages"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "सेटिंग्स"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pengaturan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impostazioni"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "設定"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "설정"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ajustes"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Настройки"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "设置"
+          }
+        }
+      }
+    },
+    "Share": {
+      "comment": "Button label to share the score via the system share sheet",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "مشاركة"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Teilen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Compartir"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Partager"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "साझा करें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bagikan"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Condividi"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "共有"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "공유"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Compartilhar"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Поделиться"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "分享"
+          }
+        }
+      }
+    },
+    "Theme": {
+      "comment": "Section header in the 2048 Settings sheet that lists the color-palette options",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "المظهر"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Erscheinungsbild"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tema"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Thème"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "थीम"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tema"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tema"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "テーマ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "테마"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tema"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Тема"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "主题"
+          }
+        }
+      }
+    },
+    "Try Again": {
+      "comment": "Button on the Game Over screen to start over",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "حاول مرة أخرى"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Erneut versuchen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Intentar de nuevo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Réessayer"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "फिर से प्रयास करें"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Coba Lagi"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Riprova"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "もう一度"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "다시 시도"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tentar novamente"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Повторить"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "再试一次"
+          }
+        }
+      }
+    },
+    "TwentyFortyEight.instructions": {
+      "comment": "Markdown body for the 2048 how-to-play sheet",
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "# 2048\n\nCombine matching tiles on a 4×4 grid to reach the **2048** tile.\n\n## How to play\n\n- **Swipe** up, down, left, or right to slide every tile in that direction.\n- When two tiles with the **same number** collide, they merge into one tile with their **sum**.\n- After every move, a new **2** (or sometimes **4**) appears on a random empty cell.\n\n## Goal\n\nCreate a **2048** tile to win. After winning, you can keep going for a higher score.\n\n## Game over\n\nThe game ends when the board is full and no two adjacent tiles match.\n\n## Tips\n\n- Pick a corner and keep your largest tile parked there.\n- Build merges in a single direction so smaller tiles align underneath your big one.\n- On Easy, **undo** is available — use it to recover from mistakes."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nاجمع البلاطات المتطابقة على شبكة 4×4 للوصول إلى البلاطة **2048**.\n\n## كيفية اللعب\n\n- **اسحب** لأعلى أو لأسفل أو يسارًا أو يمينًا لتحريك كل البلاطات في ذلك الاتجاه.\n- عندما تصطدم بلاطتان بنفس الرقم، تندمجان في بلاطة واحدة بمجموعهما.\n- بعد كل حركة، تظهر بلاطة **2** (أو أحيانًا **4**) جديدة في خلية فارغة عشوائية.\n\n## الهدف\n\nأنشئ بلاطة **2048** للفوز. بعد الفوز، يمكنك الاستمرار للحصول على نتيجة أعلى.\n\n## نهاية اللعبة\n\nتنتهي اللعبة عندما يمتلئ اللوح ولا تتطابق أي بلاطتين متجاورتين.\n\n## نصائح\n\n- اختر زاوية واحتفظ بأكبر بلاطة لديك فيها.\n- ابنِ الدمج في اتجاه واحد لتصطف البلاطات الأصغر تحت البلاطة الكبيرة.\n- في وضع السهل، يتوفر **التراجع** — استخدمه للتعافي من الأخطاء."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nFüge passende Kacheln auf einem 4×4-Gitter zusammen, um die Kachel **2048** zu erreichen.\n\n## So wird gespielt\n\n- **Wische** nach oben, unten, links oder rechts, um alle Kacheln in diese Richtung zu schieben.\n- Treffen zwei Kacheln mit der **gleichen Zahl** aufeinander, verschmelzen sie zu einer Kachel mit deren **Summe**.\n- Nach jedem Zug erscheint eine neue **2** (oder selten **4**) auf einem zufälligen freien Feld.\n\n## Ziel\n\nErzeuge eine **2048**-Kachel, um zu gewinnen. Nach dem Sieg kannst du für eine höhere Punktzahl weiterspielen.\n\n## Spielende\n\nDas Spiel endet, wenn das Feld voll ist und keine zwei benachbarten Kacheln übereinstimmen.\n\n## Tipps\n\n- Such dir eine Ecke und parke deine größte Kachel dort.\n- Baue Verschmelzungen in einer Richtung auf, damit kleinere Kacheln unter deiner großen aufgereiht sind.\n- Im Modus Einfach ist **Rückgängig** verfügbar — nutze es, um Fehler zu korrigieren."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nCombina fichas iguales en una cuadrícula de 4×4 para llegar a la ficha **2048**.\n\n## Cómo jugar\n\n- **Desliza** hacia arriba, abajo, izquierda o derecha para mover todas las fichas en esa dirección.\n- Cuando dos fichas con el **mismo número** chocan, se fusionan en una ficha con su **suma**.\n- Después de cada movimiento aparece un nuevo **2** (a veces un **4**) en una celda vacía al azar.\n\n## Objetivo\n\nCrea una ficha **2048** para ganar. Tras ganar puedes seguir jugando para subir la puntuación.\n\n## Fin del juego\n\nEl juego termina cuando el tablero está lleno y no hay dos fichas adyacentes iguales.\n\n## Consejos\n\n- Elige una esquina y mantén ahí tu ficha más grande.\n- Construye fusiones en una sola dirección para alinear las fichas pequeñas bajo la grande.\n- En Fácil, **deshacer** está disponible — úsalo para corregir errores."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nCombine des tuiles identiques sur une grille 4×4 pour atteindre la tuile **2048**.\n\n## Comment jouer\n\n- **Glisse** vers le haut, le bas, la gauche ou la droite pour faire glisser toutes les tuiles dans cette direction.\n- Lorsque deux tuiles avec le **même nombre** se rencontrent, elles fusionnent en une tuile avec leur **somme**.\n- Après chaque mouvement, un nouveau **2** (ou parfois un **4**) apparaît sur une case vide au hasard.\n\n## Objectif\n\nCrée une tuile **2048** pour gagner. Après la victoire, tu peux continuer pour un meilleur score.\n\n## Fin de partie\n\nLa partie se termine quand le plateau est plein et qu'aucune paire de tuiles adjacentes n'est identique.\n\n## Astuces\n\n- Choisis un coin et garde ta plus grosse tuile là.\n- Construis des fusions dans une seule direction pour aligner les petites tuiles sous la grosse.\n- En Facile, **annuler** est disponible — utilise-le pour corriger tes erreurs."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\n4×4 ग्रिड पर मेल खाती टाइलें मिलाएँ और **2048** टाइल तक पहुँचें।\n\n## कैसे खेलें\n\n- सभी टाइलें उस दिशा में सरकाने के लिए ऊपर, नीचे, बाएँ या दाएँ **स्वाइप** करें।\n- जब **समान संख्या** वाली दो टाइलें टकराती हैं, तो वे उनके **जोड़** के साथ एक टाइल में विलीन हो जाती हैं।\n- हर चाल के बाद, यादृच्छिक खाली खाने में नया **2** (कभी-कभी **4**) दिखाई देता है।\n\n## लक्ष्य\n\nजीतने के लिए **2048** टाइल बनाएँ। जीतने के बाद उच्च स्कोर के लिए खेलते रह सकते हैं।\n\n## खेल समाप्ति\n\nजब बोर्ड भर जाए और कोई भी दो आसन्न टाइलें मेल न खाएँ, तो खेल समाप्त होता है।\n\n## सुझाव\n\n- एक कोना चुनें और अपनी सबसे बड़ी टाइल वहीं रखें।\n- विलय एक ही दिशा में बनाएं ताकि छोटी टाइलें बड़ी के नीचे संरेखित हों।\n- आसान मोड में **पूर्ववत** उपलब्ध है — गलतियाँ सुधारने के लिए इसका उपयोग करें।"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nGabungkan ubin yang sama pada papan 4×4 untuk mencapai ubin **2048**.\n\n## Cara bermain\n\n- **Geser** ke atas, bawah, kiri, atau kanan untuk menggeser semua ubin ke arah itu.\n- Saat dua ubin dengan **angka yang sama** bertemu, keduanya menyatu menjadi satu ubin dengan **jumlahnya**.\n- Setelah setiap gerakan, ubin **2** (atau kadang **4**) baru muncul di sel kosong acak.\n\n## Tujuan\n\nBuat ubin **2048** untuk menang. Setelah menang kamu bisa melanjutkan untuk skor yang lebih tinggi.\n\n## Game over\n\nPermainan berakhir saat papan penuh dan tidak ada dua ubin bersebelahan yang sama.\n\n## Tips\n\n- Pilih sebuah sudut dan letakkan ubin terbesar di sana.\n- Bangun penggabungan dalam satu arah agar ubin-ubin kecil tersusun di bawah ubin besar.\n- Pada mode Mudah, **batalkan** tersedia — gunakan untuk pulih dari kesalahan."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nUnisci tessere uguali su una griglia 4×4 per raggiungere la tessera **2048**.\n\n## Come si gioca\n\n- **Scorri** in alto, in basso, a sinistra o a destra per spostare tutte le tessere in quella direzione.\n- Quando due tessere con lo **stesso numero** si scontrano, si fondono in una tessera con la loro **somma**.\n- Dopo ogni mossa appare una nuova **2** (a volte una **4**) in una cella vuota casuale.\n\n## Obiettivo\n\nCrea una tessera **2048** per vincere. Dopo la vittoria puoi continuare per un punteggio più alto.\n\n## Fine partita\n\nLa partita finisce quando la scacchiera è piena e nessuna coppia di tessere adiacenti è uguale.\n\n## Consigli\n\n- Scegli un angolo e parcheggia lì la tua tessera più grande.\n- Costruisci le fusioni in una sola direzione per allineare le tessere piccole sotto la grande.\n- In Facile è disponibile **annulla** — usalo per rimediare agli errori."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\n4×4 のマス目で同じ数字のタイルを合体させて **2048** を目指そう。\n\n## 遊び方\n\n- 上下左右に **スワイプ** すると、すべてのタイルがその方向にスライドします。\n- **同じ数字** のタイルがぶつかると、その **合計** の数字に合体します。\n- 1 手ごとに、ランダムな空きマスに新しい **2**（まれに **4**）が出現します。\n\n## 目的\n\n**2048** のタイルを作れば勝利。勝った後もさらに高得点を目指してプレイ可能です。\n\n## ゲームオーバー\n\nボードが埋まり、隣り合うタイルに同じ数字が無くなるとゲーム終了です。\n\n## ヒント\n\n- 角を一つ決めて、最大のタイルをそこに置き続けましょう。\n- 一方向に合体させていくと、小さいタイルが大きいタイルの下に整列します。\n- やさしい難易度では **アンドゥ** が使えます — 失敗のリカバリーに活用しましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\n4×4 판에서 같은 타일을 합쳐 **2048** 타일을 만들어 보세요.\n\n## 플레이 방법\n\n- 위, 아래, 왼쪽, 오른쪽으로 **스와이프**하여 모든 타일을 해당 방향으로 밀어요.\n- 같은 숫자의 타일이 충돌하면 둘의 **합**으로 하나의 타일로 합쳐집니다.\n- 매 이동 후 임의의 빈 칸에 새 **2**(가끔 **4**)가 등장합니다.\n\n## 목표\n\n**2048** 타일을 만들면 승리. 이긴 뒤에도 더 높은 점수를 위해 계속할 수 있어요.\n\n## 게임 오버\n\n판이 가득 차고 인접한 두 타일이 어떤 것도 일치하지 않으면 게임이 끝납니다.\n\n## 팁\n\n- 한 모서리를 정해 그곳에 가장 큰 타일을 두세요.\n- 한 방향으로만 합쳐 작은 타일들이 큰 타일 아래에 정렬되게 하세요.\n- 쉬움 난이도에서는 **되돌리기** 가 제공됩니다 — 실수 복구에 활용하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nCombine peças iguais em uma grade 4×4 para chegar à peça **2048**.\n\n## Como jogar\n\n- **Deslize** para cima, baixo, esquerda ou direita para mover todas as peças naquela direção.\n- Quando duas peças com o **mesmo número** se encontram, elas se fundem em uma peça com a **soma** delas.\n- Após cada jogada, um novo **2** (ou às vezes **4**) aparece em uma célula vazia aleatória.\n\n## Objetivo\n\nCrie uma peça **2048** para vencer. Após vencer, você pode continuar para uma pontuação maior.\n\n## Fim de jogo\n\nO jogo termina quando o tabuleiro está cheio e não há duas peças adjacentes iguais.\n\n## Dicas\n\n- Escolha um canto e mantenha sua maior peça lá.\n- Construa fusões em uma única direção para que peças menores se alinhem sob a maior.\n- No Fácil, **desfazer** está disponível — use para se recuperar de erros."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\nОбъединяйте одинаковые плитки на поле 4×4, чтобы получить плитку **2048**.\n\n## Как играть\n\n- **Свайпните** вверх, вниз, влево или вправо, чтобы сдвинуть все плитки в этом направлении.\n- Когда сталкиваются две плитки с **одинаковым числом**, они сливаются в одну с их **суммой**.\n- После каждого хода в случайной пустой ячейке появляется новая **2** (иногда **4**).\n\n## Цель\n\nСоздайте плитку **2048**, чтобы победить. После победы можно продолжить ради более высокого счёта.\n\n## Конец игры\n\nИгра заканчивается, когда поле заполнено и нет соседних одинаковых плиток.\n\n## Советы\n\n- Выберите угол и держите там самую большую плитку.\n- Сливайте плитки в одном направлении, чтобы меньшие выстраивались под большой.\n- На Лёгком уровне доступна **отмена** — используйте её, чтобы исправлять ошибки."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "# 2048\n\n在 4×4 棋盘上合并相同的方块，以达成 **2048** 方块。\n\n## 玩法\n\n- 上下左右 **滑动**，让所有方块朝该方向滑动。\n- 两个 **数字相同** 的方块相撞时，会合并成它们的 **和**。\n- 每次移动后，会在某个随机空格出现一个新的 **2**（偶尔为 **4**）。\n\n## 目标\n\n合成 **2048** 方块即胜利。胜利后可继续游戏冲击更高分。\n\n## 游戏结束\n\n当棋盘填满且任意相邻方块都不相同时游戏结束。\n\n## 小贴士\n\n- 选定一个角落，把最大的方块放在那儿。\n- 朝同一方向合并，让较小的方块整齐排在大方块下方。\n- 简单难度下可使用 **撤销**——可帮助你从失误中恢复。"
+          }
+        }
+      }
+    },
+    "Vibrations": {
+      "comment": "Settings toggle to enable/disable haptic feedback",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الاهتزازات"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vibrationen"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vibraciones"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vibrations"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "कंपन"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Getaran"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vibrazioni"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "振動"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "진동"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vibrações"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Вибрация"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "振动"
+          }
+        }
+      }
+    },
+    "You Win!": {
+      "comment": "Banner shown when the player creates the 2048 tile",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لقد فزت!"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gewonnen!"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¡Ganaste!"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu as gagné !"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "आप जीत गए!"
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kamu Menang!"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hai vinto!"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クリア！"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "승리!"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Você venceu!"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Победа!"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你赢了！"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

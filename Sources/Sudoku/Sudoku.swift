@@ -710,6 +710,7 @@ struct SudokuGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             SudokuSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
         .sheet(isPresented: $showDifficultyPicker) {
             DifficultyPickerView(currentDifficulty: game.difficulty) { newDifficulty in

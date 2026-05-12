@@ -502,6 +502,7 @@ struct FlappyBirdGameView: View {
         }
         .sheet(isPresented: $showSettings) {
             FlappyBirdSettingsView(settings: settings)
+                .presentationDetents([.medium, .large])
         }
         .onChange(of: settings.difficulty) { _, newVal in
             game.difficulty = newVal
