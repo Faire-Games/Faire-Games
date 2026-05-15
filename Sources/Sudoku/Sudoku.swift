@@ -94,29 +94,33 @@ public enum SudokuDifficulty: Int, CaseIterable, Identifiable {
         }
     }
 
-    /// Whether this difficulty tracks and penalizes mistakes.
-    var tracksMistakes: Bool {
+    /// Whether hints are available at this difficulty.
+    var hintsEnabled: Bool {
         switch self {
         case .easy, .medium: return true
         case .hard, .expert: return false
         }
     }
 
-    /// Whether hints are available at this difficulty.
-    var hintsEnabled: Bool {
+    /// Easy mode grants unlimited hints; everything else is capped.
+    var hasUnlimitedHints: Bool { self == .easy }
+
+    /// Starting hint budget. `Int.max` is used as the unlimited sentinel for Easy.
+    var initialHints: Int {
         switch self {
-        case .easy, .medium, .hard: return true
-        case .expert: return false
+        case .easy: return Int.max
+        case .medium: return 3
+        case .hard, .expert: return 0
         }
     }
 
     /// Description shown in the difficulty picker.
     var detail: String {
         switch self {
-        case .easy: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} mistakes tracked"
-        case .medium: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} mistakes tracked"
-        case .hard: return "\(cluesCount) clues \u{2022} 3 hints \u{2022} no mistake warnings"
-        case .expert: return "\(cluesCount) clues \u{2022} no hints \u{2022} no mistake warnings"
+        case .easy: return "\(cluesCount) clues \u{2022} unlimited hints"
+        case .medium: return "\(cluesCount) clues \u{2022} 3 hints"
+        case .hard: return "\(cluesCount) clues \u{2022} no hints"
+        case .expert: return "\(cluesCount) clues \u{2022} no hints \u{2022} no same-number highlight"
         }
     }
 }
@@ -259,16 +263,24 @@ struct SudokuSavedState: Codable {
     var isOriginal: [Bool]
     var solution: [Int]
     var notes: [Int]
+    var isProvisional: [Bool]
+    var isFilledByGiveUp: [Bool]
     var difficultyRaw: Int
-    var mistakes: Int
     var hintsRemaining: Int
     var elapsedSeconds: Int
     var isComplete: Bool
-    var isGameOver: Bool
-    var undoIndices: [Int]
-    var undoValues: [Int]
-    var undoNotes: [Int]
-    var undoNotesModified: [Bool]
+    var hasGivenUp: Bool
+    var checkpointActive: Bool
+    var checkpointValues: [Int]
+    var checkpointNotes: [Int]
+    var historyIndices: [Int]
+    var historyOldValues: [Int]
+    var historyOldNotes: [Int]
+    var historyOldProvisional: [Bool]
+    var historyNewValues: [Int]
+    var historyNewNotes: [Int]
+    var historyNewProvisional: [Bool]
+    var historyCursor: Int
 }
 
 // MARK: - Game Model
@@ -281,21 +293,34 @@ final class SudokuModel {
     var solution: [Int] = Array(repeating: 0, count: 81)
     /// Bitmask of candidate pencil marks per cell. Bit n (1-9) set means note n.
     var notes: [Int] = Array(repeating: 0, count: 81)
+    /// Whether each cell's value was placed during the current checkpoint session.
+    var isProvisional: [Bool] = Array(repeating: false, count: 81)
+    /// Whether each cell's value was inserted by Give Up (vs. placed by the user).
+    /// Used after `hasGivenUp` to tint auto-filled cells distinctly from user-placed ones.
+    var isFilledByGiveUp: [Bool] = Array(repeating: false, count: 81)
 
     // Interaction state
     var selectedIndex: Int? = nil
     var notesMode: Bool = false
 
+    // Checkpoint state
+    var checkpointActive: Bool = false
+    /// Snapshot of values taken when checkpoint mode was entered (for revert).
+    var checkpointValues: [Int] = Array(repeating: 0, count: 81)
+    var checkpointNotes: [Int] = Array(repeating: 0, count: 81)
+
     // Progress
     var difficulty: SudokuDifficulty = .medium
-    var mistakes: Int = 0
-    var maxMistakes: Int = 3
     var hintsRemaining: Int = 3
     var elapsedSeconds: Int = 0
     var isPaused: Bool = false
     var isComplete: Bool = false
-    var isGameOver: Bool = false
     var hasGivenUp: Bool = false
+
+    /// True when the game is finished and the board is locked (give-up only — no
+    /// mistakes-based loss state exists). Kept as a computed alias of `hasGivenUp`
+    /// so view conditionals read naturally.
+    var isGameOver: Bool { hasGivenUp }
 
     // Records
     var bestEasy: Int = UserDefaults.standard.integer(forKey: "sudoku_best_easy")
@@ -304,11 +329,19 @@ final class SudokuModel {
     var bestExpert: Int = UserDefaults.standard.integer(forKey: "sudoku_best_expert")
     var puzzlesSolved: Int = UserDefaults.standard.integer(forKey: "sudoku_puzzles_solved")
 
-    // Undo stack — records (index, oldValue, oldNotes) triples as parallel arrays
-    var undoIndices: [Int] = []
-    var undoValues: [Int] = []
-    var undoNotes: [Int] = []
-    var undoNotesModified: [Bool] = []
+    // Cursor-based history (unlimited undo/redo).
+    // history[0..<cursor] are undoable; history[cursor..<count] are redoable.
+    var historyIndices: [Int] = []
+    var historyOldValues: [Int] = []
+    var historyOldNotes: [Int] = []
+    var historyOldProvisional: [Bool] = []
+    var historyNewValues: [Int] = []
+    var historyNewNotes: [Int] = []
+    var historyNewProvisional: [Bool] = []
+    var historyCursor: Int = 0
+
+    var canUndo: Bool { historyCursor > 0 }
+    var canRedo: Bool { historyCursor < historyIndices.count }
 
     func bestTime(for difficulty: SudokuDifficulty) -> Int {
         switch difficulty {
@@ -339,19 +372,30 @@ final class SudokuModel {
         solution = sol
         isOriginal = puzzle.map { $0 != 0 }
         notes = Array(repeating: 0, count: 81)
+        isProvisional = Array(repeating: false, count: 81)
+        isFilledByGiveUp = Array(repeating: false, count: 81)
         selectedIndex = nil
         notesMode = false
-        mistakes = 0
-        hintsRemaining = difficulty.hintsEnabled ? 3 : 0
+        checkpointActive = false
+        checkpointValues = Array(repeating: 0, count: 81)
+        checkpointNotes = Array(repeating: 0, count: 81)
+        hintsRemaining = difficulty.initialHints
         elapsedSeconds = 0
         isPaused = false
         isComplete = false
-        isGameOver = false
         hasGivenUp = false
-        undoIndices.removeAll()
-        undoValues.removeAll()
-        undoNotes.removeAll()
-        undoNotesModified.removeAll()
+        clearHistory()
+    }
+
+    private func clearHistory() {
+        historyIndices.removeAll()
+        historyOldValues.removeAll()
+        historyOldNotes.removeAll()
+        historyOldProvisional.removeAll()
+        historyNewValues.removeAll()
+        historyNewNotes.removeAll()
+        historyNewProvisional.removeAll()
+        historyCursor = 0
     }
 
     // MARK: Cell queries
@@ -365,31 +409,6 @@ final class SudokuModel {
         return count
     }
 
-    /// Whether the given cell conflicts with another equal-value cell in its row, col, or box.
-    func hasConflict(at index: Int) -> Bool {
-        let v = values[index]
-        if v == 0 { return false }
-        let row = index / 9
-        let col = index % 9
-        // Row
-        for c in 0..<9 {
-            if c != col && values[idx(row, c)] == v { return true }
-        }
-        // Col
-        for r in 0..<9 {
-            if r != row && values[idx(r, col)] == v { return true }
-        }
-        // Box
-        let boxRow = (row / 3) * 3
-        let boxCol = (col / 3) * 3
-        for r in boxRow..<(boxRow + 3) {
-            for c in boxCol..<(boxCol + 3) {
-                if (r != row || c != col) && values[idx(r, c)] == v { return true }
-            }
-        }
-        return false
-    }
-
     func isPeer(_ a: Int, _ b: Int) -> Bool {
         if a == b { return false }
         let ra = a / 9, ca = a % 9
@@ -397,6 +416,29 @@ final class SudokuModel {
         if ra == rb { return true }
         if ca == cb { return true }
         if ra / 3 == rb / 3 && ca / 3 == cb / 3 { return true }
+        return false
+    }
+
+    /// True when this cell holds a value that duplicates another value in the same
+    /// row, column, or 3×3 box. Used by Easy mode to flag obviously-wrong placements.
+    func hasConflict(at index: Int) -> Bool {
+        let v = values[index]
+        if v == 0 { return false }
+        let row = index / 9
+        let col = index % 9
+        for c in 0..<9 {
+            if c != col && values[idx(row, c)] == v { return true }
+        }
+        for r in 0..<9 {
+            if r != row && values[idx(r, col)] == v { return true }
+        }
+        let boxRow = (row / 3) * 3
+        let boxCol = (col / 3) * 3
+        for r in boxRow..<(boxRow + 3) {
+            for c in boxCol..<(boxCol + 3) {
+                if (r != row || c != col) && values[idx(r, c)] == v { return true }
+            }
+        }
         return false
     }
 
@@ -439,18 +481,30 @@ final class SudokuModel {
 
     // MARK: Actions
 
-    private func pushUndo(_ cellIndex: Int, modifiedNotes: Bool) {
-        undoIndices.append(cellIndex)
-        undoValues.append(values[cellIndex])
-        undoNotes.append(notes[cellIndex])
-        undoNotesModified.append(modifiedNotes)
-        // Cap undo history to avoid unbounded growth
-        if undoIndices.count > 100 {
-            undoIndices.removeFirst()
-            undoValues.removeFirst()
-            undoNotes.removeFirst()
-            undoNotesModified.removeFirst()
+    /// Record a single-cell edit in the history, dropping any pending redo entries.
+    /// Caller passes the pre-edit and post-edit (value, notes, provisional) state.
+    private func recordHistory(_ cellIndex: Int,
+                               oldValue: Int, oldNotes: Int, oldProvisional: Bool,
+                               newValue: Int, newNotes: Int, newProvisional: Bool) {
+        // Drop any redo entries past the cursor — they're invalidated by the new edit.
+        // Skip Lite's Array doesn't expose removeSubrange, so we use a removeLast loop.
+        while historyIndices.count > historyCursor {
+            historyIndices.removeLast()
+            historyOldValues.removeLast()
+            historyOldNotes.removeLast()
+            historyOldProvisional.removeLast()
+            historyNewValues.removeLast()
+            historyNewNotes.removeLast()
+            historyNewProvisional.removeLast()
         }
+        historyIndices.append(cellIndex)
+        historyOldValues.append(oldValue)
+        historyOldNotes.append(oldNotes)
+        historyOldProvisional.append(oldProvisional)
+        historyNewValues.append(newValue)
+        historyNewNotes.append(newNotes)
+        historyNewProvisional.append(newProvisional)
+        historyCursor = historyIndices.count
     }
 
     /// Attempt to place `digit` into the selected cell. Returns true if a value change occurred.
@@ -458,58 +512,74 @@ final class SudokuModel {
     func placeDigit(_ digit: Int) -> Bool {
         guard let i = selectedIndex, !isPaused, !isComplete, !isGameOver else { return false }
         if isOriginal[i] { return false }
+        let oldValue = values[i]
+        let oldNotes = notes[i]
+        let oldProvisional = isProvisional[i]
         if notesMode {
-            pushUndo(i, modifiedNotes: true)
             toggleNote(i, digit)
+            // A note edit is provisional iff we are in checkpoint mode and the
+            // edit happens on a fresh (not previously-touched) cell, or the cell
+            // is already provisional.
+            if checkpointActive { isProvisional[i] = true }
+            recordHistory(i,
+                          oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
+                          newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
             return true
         }
-        // If the cell already has this digit, treat as clear
+        // If the cell already has this digit, treat as clear.
         if values[i] == digit {
-            pushUndo(i, modifiedNotes: false)
             values[i] = 0
+            // Clearing a value also clears the provisional flag (cell is now empty).
+            isProvisional[i] = false
+            recordHistory(i,
+                          oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
+                          newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
             return true
         }
-        pushUndo(i, modifiedNotes: false)
         values[i] = digit
         clearNotes(i)
-        if digit != solution[i] {
-            if difficulty.tracksMistakes {
-                mistakes += 1
-                if mistakes >= maxMistakes {
-                    isGameOver = true
-                }
-            }
-        } else {
-            // Correct placement: clear this digit from peer notes
+        isProvisional[i] = checkpointActive
+        if digit == solution[i] {
+            // Correct placement: clear this digit from peer notes for convenience.
             clearPeerNotes(of: i, digit: digit)
-            checkCompletion()
         }
+        recordHistory(i,
+                      oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
+                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
+        checkCompletion()
         return true
     }
 
-    func erase() {
-        guard let i = selectedIndex, !isPaused, !isComplete, !isGameOver else { return }
-        if isOriginal[i] { return }
-        if values[i] == 0 && notes[i] == 0 { return }
-        pushUndo(i, modifiedNotes: notes[i] != 0)
-        values[i] = 0
-        notes[i] = 0
+    func undo() {
+        guard canUndo else { return }
+        historyCursor -= 1
+        let i = historyIndices[historyCursor]
+        values[i] = historyOldValues[historyCursor]
+        notes[i] = historyOldNotes[historyCursor]
+        isProvisional[i] = historyOldProvisional[historyCursor]
     }
 
-    func undo() {
-        guard !undoIndices.isEmpty else { return }
-        let i = undoIndices.removeLast()
-        let v = undoValues.removeLast()
-        let n = undoNotes.removeLast()
-        let _ = undoNotesModified.removeLast()
-        values[i] = v
-        notes[i] = n
+    func redo() {
+        guard canRedo else { return }
+        let i = historyIndices[historyCursor]
+        values[i] = historyNewValues[historyCursor]
+        notes[i] = historyNewNotes[historyCursor]
+        isProvisional[i] = historyNewProvisional[historyCursor]
+        historyCursor += 1
+    }
+
+    /// Whether a hint can be used right now — true when the difficulty grants
+    /// unlimited hints (Easy) or there is at least one hint remaining.
+    var canUseHint: Bool {
+        if !difficulty.hintsEnabled { return false }
+        if difficulty.hasUnlimitedHints { return true }
+        return hintsRemaining > 0
     }
 
     /// Use a hint to auto-fill the correct value into the selected cell.
     /// If no cell is selected, picks the first empty cell.
     func useHint() {
-        guard hintsRemaining > 0, !isPaused, !isComplete, !isGameOver else { return }
+        guard canUseHint, !isPaused, !isComplete, !isGameOver else { return }
         var target = selectedIndex
         if target == nil || (target != nil && (isOriginal[target!] || values[target!] == solution[target!])) {
             // Pick first empty or incorrect cell
@@ -522,13 +592,64 @@ final class SudokuModel {
         }
         guard let i = target else { return }
         if isOriginal[i] { return }
-        pushUndo(i, modifiedNotes: notes[i] != 0)
+        let oldValue = values[i]
+        let oldNotes = notes[i]
+        let oldProvisional = isProvisional[i]
         values[i] = solution[i]
         notes[i] = 0
-        hintsRemaining -= 1
+        // A hint placement is treated as committed even in checkpoint mode — the
+        // user explicitly asked for the correct answer.
+        isProvisional[i] = false
+        if !difficulty.hasUnlimitedHints {
+            hintsRemaining -= 1
+        }
         selectedIndex = i
         clearPeerNotes(of: i, digit: solution[i])
+        recordHistory(i,
+                      oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
+                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
         checkCompletion()
+    }
+
+    // MARK: Checkpoint
+
+    /// Begin checkpoint mode: snapshot current values/notes so a revert can restore them.
+    /// Any pending redo entries are dropped — moves you abandoned before opening the
+    /// checkpoint shouldn't reappear once you commit or revert it.
+    func enterCheckpoint() {
+        guard !isPaused, !isComplete, !isGameOver, !checkpointActive else { return }
+        while historyIndices.count > historyCursor {
+            historyIndices.removeLast()
+            historyOldValues.removeLast()
+            historyOldNotes.removeLast()
+            historyOldProvisional.removeLast()
+            historyNewValues.removeLast()
+            historyNewNotes.removeLast()
+            historyNewProvisional.removeLast()
+        }
+        checkpointValues = values
+        checkpointNotes = notes
+        checkpointActive = true
+    }
+
+    /// Commit the checkpoint: keep all values, clear provisional flags. Clears history
+    /// because committed values are now indistinguishable from any earlier ones.
+    func commitCheckpoint() {
+        guard checkpointActive else { return }
+        isProvisional = Array(repeating: false, count: 81)
+        checkpointActive = false
+        clearHistory()
+    }
+
+    /// Revert the checkpoint: restore the snapshot taken when checkpoint mode began,
+    /// removing every value/note placed during the session. Clears history.
+    func revertCheckpoint() {
+        guard checkpointActive else { return }
+        values = checkpointValues
+        notes = checkpointNotes
+        isProvisional = Array(repeating: false, count: 81)
+        checkpointActive = false
+        clearHistory()
     }
 
     func checkCompletion() {
@@ -542,14 +663,18 @@ final class SudokuModel {
     }
 
     func giveUp() {
-        // Fill all empty cells with the solution
+        // Fill all empty cells with the solution and mark them so the post-mortem
+        // view can tint them distinctly from user-placed cells.
         for i in 0..<81 {
-            if values[i] == 0 {
+            if !isOriginal[i] && values[i] == 0 {
                 values[i] = solution[i]
+                isFilledByGiveUp[i] = true
             }
         }
+        // Drop any checkpoint UI state — there's nothing left to revert to.
+        checkpointActive = false
+        isProvisional = Array(repeating: false, count: 81)
         hasGivenUp = true
-        isGameOver = true
         isPaused = false
     }
 
@@ -566,16 +691,24 @@ final class SudokuModel {
             isOriginal: isOriginal,
             solution: solution,
             notes: notes,
+            isProvisional: isProvisional,
+            isFilledByGiveUp: isFilledByGiveUp,
             difficultyRaw: difficulty.rawValue,
-            mistakes: mistakes,
             hintsRemaining: hintsRemaining,
             elapsedSeconds: elapsedSeconds,
             isComplete: isComplete,
-            isGameOver: isGameOver,
-            undoIndices: undoIndices,
-            undoValues: undoValues,
-            undoNotes: undoNotes,
-            undoNotesModified: undoNotesModified
+            hasGivenUp: hasGivenUp,
+            checkpointActive: checkpointActive,
+            checkpointValues: checkpointValues,
+            checkpointNotes: checkpointNotes,
+            historyIndices: historyIndices,
+            historyOldValues: historyOldValues,
+            historyOldNotes: historyOldNotes,
+            historyOldProvisional: historyOldProvisional,
+            historyNewValues: historyNewValues,
+            historyNewNotes: historyNewNotes,
+            historyNewProvisional: historyNewProvisional,
+            historyCursor: historyCursor
         )
     }
 
@@ -584,16 +717,24 @@ final class SudokuModel {
         isOriginal = state.isOriginal
         solution = state.solution
         notes = state.notes
+        isProvisional = state.isProvisional
+        isFilledByGiveUp = state.isFilledByGiveUp
         difficulty = SudokuDifficulty(rawValue: state.difficultyRaw) ?? .medium
-        mistakes = state.mistakes
         hintsRemaining = state.hintsRemaining
         elapsedSeconds = state.elapsedSeconds
         isComplete = state.isComplete
-        isGameOver = state.isGameOver
-        undoIndices = state.undoIndices
-        undoValues = state.undoValues
-        undoNotes = state.undoNotes
-        undoNotesModified = state.undoNotesModified
+        hasGivenUp = state.hasGivenUp
+        checkpointActive = state.checkpointActive
+        checkpointValues = state.checkpointValues
+        checkpointNotes = state.checkpointNotes
+        historyIndices = state.historyIndices
+        historyOldValues = state.historyOldValues
+        historyOldNotes = state.historyOldNotes
+        historyOldProvisional = state.historyOldProvisional
+        historyNewValues = state.historyNewValues
+        historyNewNotes = state.historyNewNotes
+        historyNewProvisional = state.historyNewProvisional
+        historyCursor = state.historyCursor
         selectedIndex = nil
         notesMode = false
         isPaused = false
@@ -635,6 +776,39 @@ struct SudokuGameView: View {
             HapticFeedback.play(pattern)
         }
     }
+
+    // MARK: Sudoku-specific haptic patterns
+
+    /// Heavy press for placing a digit into a cell — the keycap moves from raised to
+    /// lowered, so a thud reinforces the physical "click in."
+    var pushInHaptic: HapticPattern {
+        HapticPattern([HapticEvent(.thud, intensity: 0.55)])
+    }
+
+    /// Light release for clearing the same digit out of a cell — the keycap pops
+    /// back up, so a low-tick + tick reads as a release.
+    var depressHaptic: HapticPattern {
+        HapticPattern([
+            HapticEvent(.lowTick, intensity: 0.5),
+            HapticEvent(.tick, intensity: 0.3, delay: 0.04)
+        ])
+    }
+
+    /// Undo — feels like reversing direction, so the intensity falls.
+    var undoHaptic: HapticPattern {
+        HapticPattern([HapticEvent(.fall, intensity: 0.6)])
+    }
+
+    /// Redo — re-applying a move, so the intensity rises.
+    var redoHaptic: HapticPattern {
+        HapticPattern([HapticEvent(.rise, intensity: 0.6)])
+    }
+
+    /// Commit — celebratory confirmation when the player locks in a checkpoint.
+    var commitHaptic: HapticPattern { .success }
+
+    /// Revert — sad descending tones when the player throws their experiment away.
+    var revertHaptic: HapticPattern { .error }
 
     var body: some View {
         GeometryReader { geo in
@@ -679,11 +853,13 @@ struct SudokuGameView: View {
             .overlay {
                 if game.isComplete {
                     completeOverlay
-                } else if game.isGameOver {
-                    gameOverOverlay
                 } else if showPauseMenu {
                     pauseMenuOverlay
                 }
+                // Give-up state intentionally has no overlay — the board reveals the
+                // solution in-place, with red/green tints showing what went wrong and
+                // what was auto-filled. The pause button remains available so the
+                // player can start a new game or quit.
             }
         }
         .navigationBarBackButtonHidden()
@@ -759,15 +935,6 @@ struct SudokuGameView: View {
             statusPill(title: "Difficulty", value: game.difficulty.label,
                        tint: game.difficulty.accentColor)
             Spacer(minLength: 8)
-            if game.difficulty.tracksMistakes {
-                statusPill(title: "Mistakes", value: "\(game.mistakes)/\(game.maxMistakes)",
-                           tint: game.mistakes >= game.maxMistakes
-                                ? Color(red: 0.95, green: 0.30, blue: 0.30)
-                                : (game.mistakes > 0
-                                   ? Color(red: 0.95, green: 0.70, blue: 0.30)
-                                   : Color(red: 0.55, green: 0.85, blue: 0.55)))
-                Spacer(minLength: 8)
-            }
             statusPill(title: "Time", value: formatTime(game.elapsedSeconds),
                        tint: Color(red: 0.60, green: 0.75, blue: 0.95))
         }
@@ -869,34 +1036,42 @@ struct SudokuGameView: View {
         let value = game.values[index]
         let isSelected = game.selectedIndex == index
         let isOriginal = game.isOriginal[index]
-        let isConflict = game.difficulty.tracksMistakes && game.hasConflict(at: index)
+        let isProvisional = game.isProvisional[index]
         let highlightLevel = computeHighlight(for: index)
-        // A cell filled by "Give Up" is one that wasn't original and now matches solution after giving up
-        let isGivenUpCell = game.hasGivenUp && !isOriginal && value == game.solution[index]
+        // After Give Up: tint auto-filled cells green, user's incorrect placements red.
+        let isFilledByGiveUp = game.hasGivenUp && game.isFilledByGiveUp[index]
+        let isUserWrong = game.hasGivenUp && !isOriginal && !isFilledByGiveUp
+            && value != 0 && value != game.solution[index]
+        // Easy mode flags obvious mistakes — a user-placed value that duplicates
+        // a peer in its row, column, or box renders red even before Give Up.
+        let isObviousMistake = !isOriginal && value != 0
+            && game.difficulty == .easy && game.hasConflict(at: index)
         return ZStack {
             // Background
             Rectangle()
-                .fill(cellBackground(isSelected: isSelected,
-                                     highlight: highlightLevel,
-                                     isConflict: isConflict))
+                .fill(cellBackground(isSelected: isSelected, highlight: highlightLevel))
 
             if value != 0 {
                 Text("\(value)")
                     .font(.system(size: size * 0.55, weight: isOriginal ? .black : .semibold, design: .rounded))
                     .foregroundStyle(cellTextColor(isOriginal: isOriginal,
-                                                   isConflict: isConflict,
-                                                   isCorrect: value == game.solution[index],
-                                                   isGivenUpSolution: isGivenUpCell))
+                                                   isProvisional: isProvisional,
+                                                   isFilledByGiveUp: isFilledByGiveUp,
+                                                   isUserWrong: isUserWrong,
+                                                   isObviousMistake: isObviousMistake))
                     .monospaced()
             } else {
-                notesGridView(index: index, cellSize: size)
+                notesGridView(index: index, cellSize: size, isProvisional: isProvisional)
             }
         }
         .frame(width: size, height: size)
     }
 
-    func notesGridView(index: Int, cellSize: Double) -> some View {
+    func notesGridView(index: Int, cellSize: Double, isProvisional: Bool) -> some View {
         let noteFont = cellSize * 0.22
+        let noteColor = isProvisional
+            ? Color(red: 1.0, green: 0.78, blue: 0.40).opacity(0.85)
+            : Color.white.opacity(0.55)
         return GeometryReader { _ in
             ZStack {
                 ForEach(1..<10) { d in
@@ -905,7 +1080,7 @@ struct SudokuGameView: View {
                     if game.hasNote(index, d) {
                         Text("\(d)")
                             .font(.system(size: noteFont, weight: .medium, design: .rounded))
-                            .foregroundStyle(Color.white.opacity(0.55))
+                            .foregroundStyle(noteColor)
                             .monospaced()
                             .position(
                                 x: (Double(col) + 0.5) * (cellSize / 3.0),
@@ -919,19 +1094,19 @@ struct SudokuGameView: View {
     }
 
     /// Highlight levels: 0 = none, 1 = peer (row/col/box), 2 = same digit, 3 = selected.
+    /// Expert mode suppresses the same-digit highlight to make the puzzle harder.
     func computeHighlight(for index: Int) -> Int {
         guard let sel = game.selectedIndex else { return 0 }
         if sel == index { return 3 }
         let selValue = game.values[sel]
-        if selValue != 0 && game.values[index] == selValue { return 2 }
+        if game.difficulty != .expert && selValue != 0 && game.values[index] == selValue {
+            return 2
+        }
         if game.isPeer(sel, index) { return 1 }
         return 0
     }
 
-    func cellBackground(isSelected: Bool, highlight: Int, isConflict: Bool) -> Color {
-        if isConflict && highlight != 3 {
-            return Color(red: 0.45, green: 0.15, blue: 0.20).opacity(0.55)
-        }
+    func cellBackground(isSelected: Bool, highlight: Int) -> Color {
         switch highlight {
         case 3:
             return Color(red: 0.25, green: 0.45, blue: 0.85).opacity(0.65)
@@ -944,23 +1119,27 @@ struct SudokuGameView: View {
         }
     }
 
-    func cellTextColor(isOriginal: Bool, isConflict: Bool, isCorrect: Bool, isGivenUpSolution: Bool) -> Color {
-        if isGivenUpSolution {
-            return Color(red: 0.55, green: 0.65, blue: 0.80).opacity(0.55)
+    func cellTextColor(isOriginal: Bool, isProvisional: Bool,
+                       isFilledByGiveUp: Bool, isUserWrong: Bool,
+                       isObviousMistake: Bool) -> Color {
+        if isFilledByGiveUp {
+            // Auto-filled by Give Up — green so the player can spot what they hadn't found.
+            return Color(red: 0.45, green: 0.92, blue: 0.55)
         }
-        if isConflict {
-            return Color(red: 1.0, green: 0.55, blue: 0.55)
+        if isUserWrong || isObviousMistake {
+            // Red flags wrong placements: revealed at the end by Give Up, or in
+            // Easy mode whenever the value duplicates a peer.
+            return Color(red: 1.0, green: 0.45, blue: 0.45)
         }
         if isOriginal {
-            return Color.white
+            // Slightly dimmed so original clues read as immutable.
+            return Color.white.opacity(0.62)
         }
-        if !game.difficulty.tracksMistakes {
-            // Hard/Expert: don't color-code correctness
-            return Color(red: 0.65, green: 0.85, blue: 1.0)
+        if isProvisional {
+            // Distinctive amber/orange for values placed after a checkpoint.
+            return Color(red: 1.0, green: 0.78, blue: 0.40)
         }
-        return isCorrect
-            ? Color(red: 0.65, green: 0.85, blue: 1.0)
-            : Color(red: 1.0, green: 0.70, blue: 0.55)
+        return Color(red: 0.65, green: 0.85, blue: 1.0)
     }
 
     // MARK: Board Pause Cover
@@ -986,24 +1165,45 @@ struct SudokuGameView: View {
     // MARK: Control Pad (number grid + action buttons)
 
     var controlPad: some View {
-        HStack(spacing: 8) {
+        let busy = game.isPaused || game.isGameOver || game.isComplete
+        // Pre-compute the Notes label as a Text view so the ternary is between Text
+        // values (not String literals) — Skip Lite doesn't infer LocalizedStringKey
+        // from a String? : String ternary.
+        let notesLabel: Text = game.notesMode
+            ? Text("Notes ✓", bundle: .module)
+            : Text("Notes", bundle: .module)
+        // Hint label varies: ∞ for unlimited (Easy), a count for Medium, just "Hint"
+        // for difficulties with no hints (Hard/Expert).
+        let hintLabel: Text
+        if game.difficulty.hasUnlimitedHints {
+            hintLabel = Text("Hint (∞)", bundle: .module)
+        } else if !game.difficulty.hintsEnabled {
+            hintLabel = Text("Hint", bundle: .module)
+        } else {
+            hintLabel = Text("Hint (\(game.hintsRemaining))", bundle: .module)
+        }
+        return HStack(spacing: 8) {
             // Left column: Notes (top), Hint (bottom)
             VStack(spacing: 8) {
-                actionButton(label: game.notesMode ? "Notes ✓" : "Notes",
+                actionButton(label: notesLabel,
                              iconName: "edit",
                              highlighted: game.notesMode,
-                             disabled: game.isPaused || game.isGameOver || game.isComplete,
+                             disabled: busy,
                              action: {
                                  game.notesMode.toggle()
                                  playHaptic(.pick)
                              })
-                actionButton(label: "Hint (\(game.hintsRemaining))",
+                actionButton(label: hintLabel,
                              iconName: "lightbulb",
-                             disabled: game.hintsRemaining == 0 || game.isPaused || game.isGameOver || game.isComplete,
+                             disabled: !game.canUseHint || busy,
                              action: {
                                  game.useHint()
                                  game.saveState()
-                                 playHaptic(.snap)
+                                 if game.isComplete {
+                                     playHaptic(.bigCelebrate)
+                                 } else {
+                                     playHaptic(.snap)
+                                 }
                              })
             }
             .frame(width: 64)
@@ -1011,28 +1211,78 @@ struct SudokuGameView: View {
             // Center: 3x3 number grid
             numberPad
 
-            // Right column: Undo (top), Erase (bottom)
+            // Right column: Undo/Redo (top), Checkpoint/Commit-Revert (bottom)
             VStack(spacing: 8) {
-                actionButton(label: "Undo", iconName: "undo",
-                             disabled: game.undoIndices.isEmpty || game.isPaused || game.isGameOver || game.isComplete,
-                             action: {
-                                 game.undo()
-                                 game.saveState()
-                                 playHaptic(.pick)
-                             })
-                actionButton(label: "Erase", iconName: "ink_eraser",
-                             disabled: game.selectedIndex == nil || game.isPaused || game.isGameOver || game.isComplete,
-                             action: {
-                                 game.erase()
-                                 game.saveState()
-                                 playHaptic(.pick)
-                             })
+                undoOrUndoRedoButton(busy: busy)
+                checkpointOrCommitRevertButton(busy: busy)
             }
             .frame(width: 64)
         }
     }
 
-    func actionButton(label: String, iconName: String, highlighted: Bool = false, disabled: Bool, action: @escaping () -> Void) -> some View {
+    @ViewBuilder
+    func undoOrUndoRedoButton(busy: Bool) -> some View {
+        if game.canRedo {
+            splitActionButton(
+                topLabel: Text("Undo", bundle: .module), topIcon: "undo",
+                topDisabled: !game.canUndo || busy,
+                topAction: {
+                    game.undo()
+                    game.saveState()
+                    playHaptic(undoHaptic)
+                },
+                bottomLabel: Text("Redo", bundle: .module), bottomIcon: "redo",
+                bottomDisabled: busy,
+                bottomAction: {
+                    game.redo()
+                    game.saveState()
+                    if game.isComplete {
+                        playHaptic(.bigCelebrate)
+                    } else {
+                        playHaptic(redoHaptic)
+                    }
+                })
+        } else {
+            actionButton(label: Text("Undo", bundle: .module), iconName: "undo",
+                         disabled: !game.canUndo || busy,
+                         action: {
+                             game.undo()
+                             game.saveState()
+                             playHaptic(undoHaptic)
+                         })
+        }
+    }
+
+    @ViewBuilder
+    func checkpointOrCommitRevertButton(busy: Bool) -> some View {
+        if game.checkpointActive {
+            splitActionButton(
+                topLabel: Text("Commit", bundle: .module), topIcon: "check",
+                topDisabled: busy,
+                topAction: {
+                    game.commitCheckpoint()
+                    game.saveState()
+                    playHaptic(commitHaptic)
+                },
+                bottomLabel: Text("Revert", bundle: .module), bottomIcon: "close",
+                bottomDisabled: busy,
+                bottomAction: {
+                    game.revertCheckpoint()
+                    game.saveState()
+                    playHaptic(revertHaptic)
+                })
+        } else {
+            actionButton(label: Text("Checkpoint", bundle: .module), iconName: "flag",
+                         disabled: busy,
+                         action: {
+                             game.enterCheckpoint()
+                             game.saveState()
+                             playHaptic(.pick)
+                         })
+        }
+    }
+
+    func actionButton(label: Text, iconName: String, highlighted: Bool = false, disabled: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             VStack(spacing: 3) {
                 Image(iconName, bundle: .module)
@@ -1040,10 +1290,10 @@ struct SudokuGameView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 18, height: 18)
-                Text(label)
+                label
                     .font(.system(size: 10, weight: .semibold))
                     .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .minimumScaleFactor(0.6)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundStyle(highlighted ? Color.white : Color.white.opacity(disabled ? 0.35 : 0.80))
@@ -1053,6 +1303,51 @@ struct SudokuGameView: View {
                           ? Color(red: 0.30, green: 0.55, blue: 0.95).opacity(0.6)
                           : Color.white.opacity(0.06))
             )
+        }
+        .buttonStyle(.plain)
+        .disabled(disabled)
+    }
+
+    /// Two stacked buttons sharing the same footprint as a single action button,
+    /// separated by a thin horizontal divider.
+    func splitActionButton(topLabel: Text, topIcon: String,
+                           topDisabled: Bool, topAction: @escaping () -> Void,
+                           bottomLabel: Text, bottomIcon: String,
+                           bottomDisabled: Bool, bottomAction: @escaping () -> Void) -> some View {
+        VStack(spacing: 0) {
+            splitHalf(label: topLabel, iconName: topIcon,
+                      disabled: topDisabled, action: topAction)
+            Rectangle()
+                .fill(Color.white.opacity(0.18))
+                .frame(height: 1)
+            splitHalf(label: bottomLabel, iconName: bottomIcon,
+                      disabled: bottomDisabled, action: bottomAction)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white.opacity(0.06))
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+
+    /// One half of a vertically-split action button. Lays out the icon and label
+    /// side-by-side to use the wider horizontal space in the half-height slot.
+    private func splitHalf(label: Text, iconName: String,
+                           disabled: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 4) {
+                Image(iconName, bundle: .module)
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 13, height: 13)
+                label
+                    .font(.system(size: 10, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foregroundStyle(Color.white.opacity(disabled ? 0.35 : 0.80))
         }
         .buttonStyle(.plain)
         .disabled(disabled)
@@ -1073,37 +1368,112 @@ struct SudokuGameView: View {
     }
 
     func numberButton(digit: Int) -> some View {
-        let remaining = 9 - game.placedCount(of: digit)
-        let exhausted = remaining <= 0
+        let placedCount = game.placedCount(of: digit)
+        // Clamp the remaining count so non-Easy difficulties (which allow more than
+        // 9 of a digit) don't display negative numbers once a duplicate sneaks in.
+        let remainingDisplay = max(0, 9 - placedCount)
+        let easyMode = game.difficulty == .easy
+        // Exhaustion only locks the button in Easy mode — other difficulties let the
+        // player place as many copies of a digit as they want.
+        let exhausted = easyMode && placedCount >= 9
+        // When the selected cell already holds this digit (and isn't a clue), tapping
+        // it clears the cell. The button visually lowers (pushed in) to signal that.
+        let clearAffordance: Bool = {
+            guard let sel = game.selectedIndex else { return false }
+            if game.isOriginal[sel] { return false }
+            return game.values[sel] == digit
+        }()
+        // When the selected cell is an immutable clue, every number button is dead —
+        // gray them all out to make that obvious.
+        let immutableCellSelected: Bool = {
+            guard let sel = game.selectedIndex else { return false }
+            return game.isOriginal[sel]
+        }()
+        // Three visual states for the keycap: lowered (selected digit), flat (disabled
+        // because the cell is locked or the digit is exhausted), and raised (default).
+        let lowered = clearAffordance && !immutableCellSelected
+        let flat = immutableCellSelected || (exhausted && !clearAffordance)
+        let raised = !lowered && !flat
+        let digitColor: Color = {
+            if immutableCellSelected { return Color.white.opacity(0.18) }
+            if exhausted { return Color.white.opacity(0.25) }
+            if game.notesMode { return Color(red: 0.75, green: 0.85, blue: 1.0) }
+            return Color.white
+        }()
+        let countColor: Color = immutableCellSelected
+            ? Color.white.opacity(0.18)
+            : Color.white.opacity(0.45)
+        let backgroundFill: Color = {
+            if immutableCellSelected { return Color.white.opacity(0.04) }
+            if lowered {
+                // Pushed-in background: noticeably darker than the raised face.
+                return Color.white.opacity(0.05)
+            }
+            if game.notesMode {
+                return Color(red: 0.18, green: 0.30, blue: 0.65).opacity(0.55)
+            }
+            // Default raised face — slightly brighter than the previous flat tint.
+            return Color.white.opacity(0.16)
+        }()
+        // Top/bottom highlight stack: raised has a bright top edge over a darker
+        // bottom; lowered inverts both so the keycap reads as pressed in.
+        let topShade: Color
+        let bottomShade: Color
+        if raised {
+            topShade = Color.white.opacity(0.22)
+            bottomShade = Color.black.opacity(0.22)
+        } else if lowered {
+            topShade = Color.black.opacity(0.32)
+            bottomShade = Color.white.opacity(0.12)
+        } else {
+            topShade = Color.clear
+            bottomShade = Color.clear
+        }
+        let disabled = flat || game.isPaused || game.isComplete || game.isGameOver
         return Button(action: {
+            // Capture whether this tap is a push-in (placing a new value) or a
+            // de-press (clearing the existing same-digit) before placeDigit mutates
+            // state, so the haptic matches the visual transition.
+            let wasClearAffordance = clearAffordance
             game.placeDigit(digit)
             game.saveState()
-            playHaptic(.pick)
+            if game.isComplete {
+                playHaptic(.bigCelebrate)
+            } else if wasClearAffordance {
+                playHaptic(depressHaptic)
+            } else {
+                playHaptic(pushInHaptic)
+            }
         }) {
             VStack(spacing: 1) {
                 Text("\(digit)")
                     .font(.system(size: 28, weight: .heavy, design: .rounded))
                     .monospaced()
-                    .foregroundStyle(exhausted
-                                     ? Color.white.opacity(0.25)
-                                     : (game.notesMode
-                                        ? Color(red: 0.75, green: 0.85, blue: 1.0)
-                                        : Color.white))
-                Text("\(remaining)")
+                    .foregroundStyle(digitColor)
+                Text("\(remainingDisplay)")
                     .font(.system(size: 9, weight: .medium))
                     .monospaced()
-                    .foregroundStyle(Color.white.opacity(0.45))
+                    .foregroundStyle(countColor)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(game.notesMode
-                          ? Color(red: 0.15, green: 0.25, blue: 0.55).opacity(0.45)
-                          : Color.white.opacity(0.12))
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10).fill(backgroundFill)
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(LinearGradient(
+                            colors: [topShade, Color.clear, bottomShade],
+                            startPoint: .top, endPoint: .bottom
+                        ))
+                }
+            )
+            .shadow(
+                color: raised ? Color.black.opacity(0.45) : Color.clear,
+                radius: raised ? 2.0 : 0.0,
+                x: 0.0, y: raised ? 1.5 : 0.0
             )
         }
         .buttonStyle(.plain)
-        .disabled(exhausted || game.isPaused || game.isComplete || game.isGameOver)
+        .disabled(disabled)
     }
 
     // MARK: Pause Menu Overlay
@@ -1119,15 +1489,17 @@ struct SudokuGameView: View {
                     .fontWeight(.black)
                     .foregroundStyle(.white)
 
-                Button(action: { resumeGame() }) {
-                    Text("Resume", bundle: .module)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .frame(width: 160)
+                if !game.isGameOver && !game.isComplete {
+                    Button(action: { resumeGame() }) {
+                        Text("Resume", bundle: .module)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                            .frame(width: 160)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.green)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.green)
 
                 Button(action: { showDifficultyPicker = true }) {
                     Text("New Game", bundle: .module)
@@ -1162,18 +1534,20 @@ struct SudokuGameView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(Color(red: 0.4, green: 0.4, blue: 0.7))
 
-                Button(action: {
-                    game.giveUp()
-                    showPauseMenu = false
-                }) {
-                    Text("Give Up", bundle: .module)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .frame(width: 160)
+                if !game.isGameOver && !game.isComplete {
+                    Button(action: {
+                        game.giveUp()
+                        showPauseMenu = false
+                    }) {
+                        Text("Give Up", bundle: .module)
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.white)
+                            .frame(width: 160)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(Color(red: 0.7, green: 0.4, blue: 0.1))
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(Color(red: 0.7, green: 0.4, blue: 0.1))
 
                 Button(action: { dismiss() }) {
                     Text("Quit Game", bundle: .module)
@@ -1210,12 +1584,8 @@ struct SudokuGameView: View {
                                        startPoint: .top, endPoint: .bottom))
 
                 VStack(spacing: 6) {
-                    HStack(spacing: 24) {
-                        statLine(title: "Time", value: formatTime(game.elapsedSeconds),
-                                 color: Color(red: 0.60, green: 0.85, blue: 1.0))
-                        statLine(title: "Mistakes", value: "\(game.mistakes)",
-                                 color: Color(red: 1.0, green: 0.80, blue: 0.60))
-                    }
+                    statLine(title: "Time", value: formatTime(game.elapsedSeconds),
+                             color: Color(red: 0.60, green: 0.85, blue: 1.0))
 
                     let best = game.bestTime(for: game.difficulty)
                     if best == game.elapsedSeconds && best > 0 {
@@ -1276,57 +1646,6 @@ struct SudokuGameView: View {
         }
     }
 
-    // MARK: Game Over Overlay
-
-    var gameOverOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.75).ignoresSafeArea()
-
-            VStack(spacing: 16) {
-                Text("GAME OVER", bundle: .module)
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                    .foregroundStyle(.white)
-                Text("Too many mistakes", bundle: .module)
-                    .font(.callout)
-                    .foregroundStyle(Color.white.opacity(0.65))
-
-                HStack(spacing: 24) {
-                    statLine(title: "Time", value: formatTime(game.elapsedSeconds),
-                             color: Color(red: 0.60, green: 0.85, blue: 1.0))
-                    statLine(title: "Mistakes", value: "\(game.mistakes)",
-                             color: Color(red: 1.0, green: 0.50, blue: 0.50))
-                }
-
-                Button(action: { showDifficultyPicker = true }) {
-                    Text("Play Again", bundle: .module)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .frame(width: 160)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.blue)
-                .padding(.top, 4.0)
-
-                Button(action: { dismiss() }) {
-                    Text("Quit Game", bundle: .module)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .foregroundStyle(.white)
-                        .frame(width: 160)
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.red)
-            }
-            .padding(28)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(red: 0.08, green: 0.08, blue: 0.18))
-            )
-        }
-    }
-
     func statLine(title: String, value: String, color: Color) -> some View {
         VStack(spacing: 2) {
             Text(title)
@@ -1343,8 +1662,12 @@ struct SudokuGameView: View {
     // MARK: Pause / Resume / Timer
 
     func pauseGame() {
-        guard !showPauseMenu && !game.isComplete && !game.isGameOver else { return }
-        game.isPaused = true
+        guard !showPauseMenu else { return }
+        // After Give Up (or completion) the game is already stopped — just surface
+        // the menu so the player can start a new game or quit.
+        if !game.isComplete && !game.isGameOver {
+            game.isPaused = true
+        }
         showPauseMenu = true
     }
 
@@ -1551,7 +1874,6 @@ struct SudokuSettingsView: View {
             Form {
                 Section(header: Text("Sudoku", bundle: .module)) {
                     Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
-                    Toggle(isOn: $settings.highlightMistakes) { Text("Highlight Mistakes", bundle: .module) }
                     Picker(selection: $settings.lastDifficulty) {
                         ForEach(SudokuDifficulty.allCases) { d in
                             Text(d.label).tag(d)
@@ -1616,10 +1938,6 @@ struct SudokuSettingsView: View {
 public class SudokuSettings {
     public var vibrations: Bool = defaults.value(forKey: "sudokuVibrations", default: true) {
         didSet { defaults.set(vibrations, forKey: "sudokuVibrations") }
-    }
-
-    public var highlightMistakes: Bool = defaults.value(forKey: "sudokuHighlightMistakes", default: true) {
-        didSet { defaults.set(highlightMistakes, forKey: "sudokuHighlightMistakes") }
     }
 
     public var lastDifficulty: SudokuDifficulty =

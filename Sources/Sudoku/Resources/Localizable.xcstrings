@@ -238,6 +238,83 @@
         }
       }
     },
+    "Checkpoint" : {
+      "comment" : "Label of the control-pad button that begins a checkpoint — a tentative-edit session whose placements can later be committed or reverted as a group.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "نقطة حفظ"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Prüfpunkt"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marca"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marque"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "चेकपॉइंट"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Titik Periksa"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "保存点"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "체크포인트"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Marcador"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Метка"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "检查点"
+          }
+        }
+      }
+    },
     "Choose Difficulty" : {
       "comment" : "Heading shown in the Sudoku difficulty picker.",
       "localizations" : {
@@ -311,6 +388,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "选择难度"
+          }
+        }
+      }
+    },
+    "Commit" : {
+      "comment" : "Label on the left half of the split Checkpoint button. Tapping keeps all values placed since the checkpoint was started, clearing their provisional styling.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تثبيت"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Übernehmen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Confirmar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Valider"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "पुष्टि"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Terapkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Conferma"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "確定"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "확정"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Confirmar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Принять"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "确认"
           }
         }
       }
@@ -700,6 +854,237 @@
         }
       }
     },
+    "Hint" : {
+      "comment" : "Label of the Hint button on difficulties that do not grant hints (Hard, Expert). Shown without a count so the button is visibly inert.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تلميح"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hinweis"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pista"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Indice"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "संकेत"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aiuto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒント"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "힌트"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dica"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Подсказка"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "提示"
+          }
+        }
+      }
+    },
+    "Hint (%lld)" : {
+      "comment" : "Label of the Hint button. %lld is the number of hints remaining for the current game.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تلميح (%lld)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hinweis (%lld)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pista (%lld)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Indice (%lld)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "संकेत (%lld)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk (%lld)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aiuto (%lld)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒント (%lld)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "힌트 (%lld)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dica (%lld)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Подсказка (%lld)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "提示 (%lld)"
+          }
+        }
+      }
+    },
+    "Hint (∞)" : {
+      "comment" : "Label of the Hint button on Easy difficulty, where hints are unlimited. The ∞ glyph stands in for an unbounded count.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تلميح (∞)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hinweis (∞)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pista (∞)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Indice (∞)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "संकेत (∞)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Petunjuk (∞)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aiuto (∞)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ヒント (∞)"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "힌트 (∞)"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dica (∞)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Подсказка (∞)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "提示 (∞)"
+          }
+        }
+      }
+    },
     "Highlight Mistakes" : {
       "comment" : "Settings toggle that controls whether incorrect placements are highlighted on the board.",
       "localizations" : {
@@ -1085,6 +1470,160 @@
         }
       }
     },
+    "Notes" : {
+      "comment" : "Label of the control-pad button that toggles notes (pencil-mark) mode off.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ملاحظات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notizen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notes"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "नोट्स"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Catatan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Note"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "メモ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "메모"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anotações"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Заметки"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "笔记"
+          }
+        }
+      }
+    },
+    "Notes ✓" : {
+      "comment" : "Label of the control-pad button when notes mode is active. The check mark indicates the toggled-on state.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ملاحظات ✓"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notizen ✓"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notas ✓"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Notes ✓"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "नोट्स ✓"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Catatan ✓"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Note ✓"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "メモ ✓"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "메모 ✓"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anotações ✓"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Заметки ✓"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "笔记 ✓"
+          }
+        }
+      }
+    },
     "PAUSED" : {
       "comment" : "Overlay text shown over the Sudoku board and pause menu when the game is paused.",
       "localizations" : {
@@ -1235,6 +1774,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "再玩一次"
+          }
+        }
+      }
+    },
+    "Puzzle Revealed" : {
+      "comment" : "Subtitle shown beneath GAME OVER after the player taps Give Up, indicating the full solution has been revealed on the board.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تم كشف اللغز"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rätsel aufgedeckt"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Puzle revelado"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Grille révélée"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "पहेली प्रकट"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Teka-teki terungkap"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Soluzione rivelata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "答えを公開"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "정답 공개"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Solução revelada"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Решение показано"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "已揭示答案"
           }
         }
       }
@@ -1547,6 +2163,83 @@
         }
       }
     },
+    "Redo" : {
+      "comment" : "Label on the right half of the split Undo button. Tapping re-applies the most recently undone move.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Wiederholen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rehacer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rétablir"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "फिर से"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ulangi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ripeti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "やり直し"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "다시 실행"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Refazer"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Повторить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重做"
+          }
+        }
+      }
+    },
     "Reset" : {
       "comment" : "Destructive confirmation button shown in the reset-records dialog.",
       "localizations" : {
@@ -1851,6 +2544,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "继续"
+          }
+        }
+      }
+    },
+    "Revert" : {
+      "comment" : "Label on the right half of the split Checkpoint button. Tapping discards every value placed since the checkpoint began, restoring the board to its checkpoint state.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تراجع"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Verwerfen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Revertir"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annuler"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "वापस लें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kembalikan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ripristina"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "取り消し"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "되돌리기"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reverter"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Откатить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "撤回"
           }
         }
       }
@@ -2247,79 +3017,79 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "# Sudoku\n\nFill the 9×9 grid so every row, every column, and every 3×3 box contains the digits 1 through 9 exactly once.\n\n## How to play\n\n- **Tap a cell** to select it.\n- **Tap a digit** in the bottom keypad to fill the selected cell.\n- Tap the **eraser** to clear a cell.\n- Use **notes mode** (the pencil icon) to mark candidate digits in a cell — handy for working out which numbers are still possible.\n\n## Hints and mistakes\n\n- The starting clues cannot be changed.\n- The timer runs while you play. Your **best time** for each difficulty is saved.\n- Some difficulties allow **hints** — use them sparingly.\n\n## Winning\n\nThe puzzle is complete when every cell holds a valid digit and every row, column, and 3×3 box satisfies the no-repeat rule."
+            "value" : "# Sudoku\n\nFill the 9×9 grid so every row, every column, and every 3×3 box contains the digits 1 through 9 exactly once.\n\n## How to play\n\n- **Tap a cell** to select it.\n- **Tap a digit** in the bottom keypad to fill the selected cell.\n- When the selected cell already contains a digit, that digit's keypad button shows a circle-slash — tap it again to clear the cell.\n- Use **notes mode** (the pencil icon) to mark candidate digits in a cell — handy for working out which numbers are still possible.\n\n## Checkpoint\n\n- Tap **Checkpoint** to start a tentative session. Every digit you place after that point is shown in a distinctive color so you can tell experiment from confirmed work.\n- The Checkpoint button then splits into **Commit** (keep the placements and clear the highlight) and **Revert** (remove every checkpoint placement and return to the state when you started the session).\n\n## Undo and Redo\n\n- Tap **Undo** to take back the most recent move. After undoing, the button splits in two so you can **Redo**.\n- Undo and redo are unlimited within the current puzzle. Making a new placement after an undo clears the redo history, and reaching the front of the timeline with Redo collapses the split button back to a single Undo.\n\n## Hints and winning\n\n- The starting clues cannot be changed.\n- The timer runs while you play. Your **best time** for each difficulty is saved.\n- Some difficulties allow **hints** — use them sparingly.\n- The puzzle is complete when every cell holds a valid digit and every row, column, and 3×3 box satisfies the no-repeat rule."
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nاملأ شبكة 9×9 بحيث يحتوي كل صف وعمود وصندوق 3×3 على الأرقام من 1 إلى 9 مرة واحدة فقط.\n\n## كيفية اللعب\n\n- **اضغط على خلية** لتحديدها، ثم **اختر رقمًا** من لوحة الأرقام.\n- اضغط على رقم محدد لاستخدامه كملاحظة (إدخال صغير) إذا تم تفعيل وضع الملاحظات.\n- استخدم **التراجع** للتراجع عن الحركات و **مسح** لإزالة قيمة من خلية.\n\n## مساعدات\n\n- **التلميحات** تكشف خلية واحدة صحيحة (وقد تخصم نقاطًا أو تحدد بناءً على الصعوبة).\n- إكمال الشبكة بأكملها بشكل صحيح يؤدي إلى نهاية اللعبة.\n\n## نصائح\n\n- ابدأ بالخلايا التي تحتوي على أقل عدد من الاحتمالات.\n- استخدم الملاحظات لتسجيل الأرقام المرشحة عندما لا تتأكد بعد."
+            "value" : "# Sudoku\n\nاملأ شبكة 9×9 بحيث يحتوي كل صف وعمود وصندوق 3×3 على الأرقام من 1 إلى 9 مرة واحدة فقط.\n\n## كيفية اللعب\n\n- **اضغط على خلية** لتحديدها.\n- اضغط على **رقم** من اللوحة السفلية لتعبئة الخلية المحددة.\n- إذا كانت الخلية المحددة تحتوي بالفعل على رقم، فإن زر هذا الرقم يعرض شارة دائرة مشطوبة — اضغط مرة أخرى لمسح الخلية.\n- استخدم **وضع الملاحظات** (أيقونة القلم) لتدوين الأرقام المرشحة في الخلية.\n\n## نقطة الحفظ\n\n- اضغط **نقطة حفظ** لبدء جلسة تجريبية. كل رقم تضعه بعد ذلك يظهر بلون مميز حتى تميّز التجربة من العمل المؤكد.\n- ينقسم زر نقطة الحفظ إلى **تثبيت** (الإبقاء على الإدخالات) و**تراجع** (حذف كل ما أُدخل والعودة إلى الحالة عند بدء الجلسة).\n\n## التراجع والإعادة\n\n- اضغط **تراجع** لإلغاء آخر حركة. بعد التراجع، ينقسم الزر إلى نصفين لتتمكن من **إعادة**.\n- التراجع والإعادة غير محدودَين داخل اللغز الحالي. وضع إدخال جديد بعد التراجع يحذف سجل الإعادة، والوصول إلى آخر السجل عبر الإعادة يُرجع الزر إلى **تراجع** فقط.\n\n## التلميحات والفوز\n\n- لا يمكن تغيير الأرقام الأولية.\n- يستمر المؤقت أثناء اللعب. يُحفظ **أفضل وقت** لكل مستوى صعوبة.\n- بعض المستويات تسمح بـ **التلميحات** — استخدمها باعتدال.\n- يكتمل اللغز عندما تحتوي كل خلية على رقم صحيح وكل صف وعمود وصندوق 3×3 يحقق قاعدة عدم التكرار."
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nFülle ein 9×9-Gitter, sodass jede Zeile, Spalte und jedes 3×3-Kästchen die Ziffern 1 bis 9 jeweils genau einmal enthält.\n\n## So wird gespielt\n\n- **Tippe auf eine Zelle**, um sie auszuwählen, dann **wähle eine Ziffer** über das Ziffernfeld.\n- Im Notizmodus tippst du eine Ziffer als kleine Notiz in eine Zelle.\n- **Rückgängig** macht Züge zurück, **Löschen** entfernt einen Wert aus einer Zelle.\n\n## Hilfen\n\n- **Hinweise** decken eine richtige Zelle auf (kann je nach Schwierigkeitsgrad Punkte oder Limits kosten).\n- Wird das gesamte Gitter korrekt ausgefüllt, ist das Spiel beendet.\n\n## Tipps\n\n- Fang mit Zellen an, in denen die wenigsten Ziffern möglich sind.\n- Nutze Notizen, um mögliche Kandidaten festzuhalten, solange du dir noch nicht sicher bist."
+            "value" : "# Sudoku\n\nFülle ein 9×9-Gitter, sodass jede Zeile, Spalte und jedes 3×3-Kästchen die Ziffern 1 bis 9 jeweils genau einmal enthält.\n\n## So wird gespielt\n\n- **Tippe auf eine Zelle**, um sie auszuwählen.\n- **Tippe auf eine Ziffer** im unteren Tastenfeld, um die ausgewählte Zelle zu füllen.\n- Enthält die ausgewählte Zelle bereits eine Ziffer, zeigt die Taste dieser Ziffer ein durchgestrichenes Symbol – noch einmal antippen leert die Zelle.\n- Im **Notizmodus** (Stift-Symbol) markierst du Kandidatenziffern in einer Zelle.\n\n## Prüfpunkt\n\n- Tippe auf **Prüfpunkt**, um eine versuchsweise Sitzung zu starten. Jede Ziffer, die du danach setzt, erscheint in einer auffälligen Farbe.\n- Die Prüfpunkt-Taste teilt sich in **Übernehmen** (die Setzungen behalten) und **Verwerfen** (alle Setzungen entfernen und zum Zustand vor der Sitzung zurückkehren).\n\n## Rückgängig und Wiederholen\n\n- Tippe auf **Rückgängig**, um den letzten Zug zurückzunehmen. Danach teilt sich die Taste, sodass du **Wiederholen** drücken kannst.\n- Rückgängig und Wiederholen sind im aktuellen Rätsel unbegrenzt. Ein neuer Zug nach einem Rückgängig löscht den Wiederholen-Verlauf; erreicht Wiederholen das Ende, wird die Taste wieder zu einer einfachen Rückgängig-Taste.\n\n## Hinweise und Gewinnen\n\n- Vorgegebene Zahlen können nicht geändert werden.\n- Die Uhr läuft, während du spielst. Deine **beste Zeit** pro Schwierigkeit wird gespeichert.\n- Manche Schwierigkeiten erlauben **Hinweise** – nutze sie sparsam.\n- Das Rätsel ist gelöst, wenn jede Zelle eine gültige Ziffer enthält und jede Zeile, Spalte und jedes 3×3-Kästchen die Wiederholungsfreiheit erfüllt."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nRellena una cuadrícula de 9×9 de modo que cada fila, columna y caja 3×3 contenga los dígitos del 1 al 9 exactamente una vez.\n\n## Cómo jugar\n\n- **Toca una celda** para seleccionarla y luego **elige un dígito** del teclado numérico.\n- En modo notas, las pulsaciones colocan anotaciones pequeñas en la celda.\n- **Deshacer** revierte movimientos; **borrar** elimina el valor de una celda.\n\n## Ayudas\n\n- **Pistas** revelan una celda correcta (pueden costar puntos o estar limitadas según la dificultad).\n- Cuando completes correctamente todo el tablero, la partida termina.\n\n## Consejos\n\n- Empieza por las celdas con menos candidatos posibles.\n- Usa notas para anotar candidatos cuando aún no estés seguro."
+            "value" : "# Sudoku\n\nRellena una cuadrícula de 9×9 de modo que cada fila, columna y caja 3×3 contenga los dígitos del 1 al 9 exactamente una vez.\n\n## Cómo jugar\n\n- **Toca una celda** para seleccionarla.\n- **Toca un dígito** del teclado inferior para rellenar la celda seleccionada.\n- Si la celda seleccionada ya contiene un dígito, el botón de ese dígito muestra un círculo tachado: tócalo de nuevo para borrar la celda.\n- Usa el **modo notas** (icono del lápiz) para marcar dígitos candidatos en una celda.\n\n## Marca\n\n- Toca **Marca** para iniciar una sesión tentativa. Cada dígito que coloques después se mostrará en un color distintivo.\n- El botón se divide en **Confirmar** (mantener las colocaciones) y **Revertir** (eliminar todas las colocaciones y volver al estado al iniciar la sesión).\n\n## Deshacer y Rehacer\n\n- Toca **Deshacer** para revertir el último movimiento. Tras deshacer, el botón se divide en dos para que puedas **Rehacer**.\n- Deshacer y rehacer son ilimitados dentro del rompecabezas actual. Una nueva jugada tras deshacer borra el historial de rehacer, y al llegar al final con Rehacer el botón vuelve a ser solo Deshacer.\n\n## Pistas y victoria\n\n- Las pistas iniciales no se pueden cambiar.\n- El temporizador corre mientras juegas. Se guarda tu **mejor tiempo** para cada dificultad.\n- Algunas dificultades permiten **pistas**: úsalas con moderación.\n- El rompecabezas se completa cuando cada celda tiene un dígito válido y cada fila, columna y caja 3×3 cumple la regla de no repetición."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nRemplis une grille 9×9 de sorte que chaque ligne, chaque colonne et chaque carré 3×3 contiennent les chiffres de 1 à 9 une seule fois.\n\n## Comment jouer\n\n- **Tape sur une case** pour la sélectionner, puis **choisis un chiffre** sur le pavé numérique.\n- En mode notes, taper un chiffre place une petite annotation dans la case.\n- **Annuler** revient en arrière, **effacer** retire la valeur d'une case.\n\n## Aides\n\n- Les **indices** révèlent une case correcte (peuvent coûter des points ou être limités selon la difficulté).\n- Quand toute la grille est correctement remplie, la partie est terminée.\n\n## Astuces\n\n- Commence par les cases qui ont le moins de candidats possibles.\n- Utilise les notes pour marquer les candidats quand tu n'es pas encore sûr."
+            "value" : "# Sudoku\n\nRemplis une grille 9×9 de sorte que chaque ligne, chaque colonne et chaque carré 3×3 contiennent les chiffres de 1 à 9 une seule fois.\n\n## Comment jouer\n\n- **Tape sur une case** pour la sélectionner.\n- **Tape sur un chiffre** du pavé inférieur pour remplir la case sélectionnée.\n- Si la case sélectionnée contient déjà un chiffre, son bouton affiche un cercle barré : tape à nouveau pour vider la case.\n- Utilise le **mode notes** (icône crayon) pour marquer les chiffres candidats dans une case.\n\n## Marque\n\n- Tape sur **Marque** pour lancer une session d'essai. Chaque chiffre placé ensuite apparaît dans une couleur distinctive.\n- Le bouton se sépare en **Valider** (garder les placements) et **Annuler** (supprimer tous les placements et revenir à l'état avant la session).\n\n## Annuler et Rétablir\n\n- Tape sur **Annuler** pour revenir sur le dernier coup. Le bouton se sépare ensuite pour t'offrir **Rétablir**.\n- Annuler et rétablir sont illimités dans la grille en cours. Un nouveau coup après une annulation efface l'historique de rétablissement, et revenir au bout avec Rétablir refait du bouton un simple Annuler.\n\n## Indices et victoire\n\n- Les chiffres de départ ne peuvent pas être modifiés.\n- Le chrono tourne pendant la partie. Ton **meilleur temps** pour chaque difficulté est conservé.\n- Certaines difficultés autorisent des **indices** – utilise-les avec parcimonie.\n- La grille est résolue quand chaque case contient un chiffre valide et que chaque ligne, colonne et carré 3×3 respecte la règle de non-répétition."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\n9×9 ग्रिड को इस तरह भरें कि हर पंक्ति, स्तंभ और 3×3 बॉक्स में अंक 1 से 9 ठीक एक बार आएं।\n\n## कैसे खेलें\n\n- कोई **खाना टैप** कर चुनें, फिर अंक पैड से **एक अंक चुनें**।\n- नोट्स मोड में अंक टैप करने से खाने में छोटा नोट जाता है।\n- **पूर्ववत** चालें वापस लेता है, **मिटाएं** खाने का मान हटाता है।\n\n## सहायताएं\n\n- **संकेत** एक सही खाना दिखाते हैं (कठिनाई के अनुसार अंक खर्च हो सकते हैं या सीमा हो सकती है)।\n- पूरी ग्रिड सही ढंग से भर जाने पर खेल समाप्त होता है।\n\n## सुझाव\n\n- सबसे कम संभावनाओं वाले खानों से शुरू करें।\n- जब अनिश्चित हों तब संभावित अंकों के लिए नोट्स का उपयोग करें।"
+            "value" : "# Sudoku\n\n9×9 ग्रिड को इस तरह भरें कि हर पंक्ति, स्तंभ और 3×3 बॉक्स में अंक 1 से 9 ठीक एक बार आएं।\n\n## कैसे खेलें\n\n- कोई **खाना टैप** कर चुनें।\n- नीचे के अंक पैड से **अंक टैप** करके चुनी हुई खाने को भरें।\n- यदि चुनी हुई खाने में पहले से अंक है, तो उस अंक के बटन पर वृत्त-स्लैश दिखेगा — दोबारा टैप कर खाना खाली करें।\n- **नोट्स मोड** (पेंसिल आइकन) से खाने में संभावित अंक चिह्नित करें।\n\n## चेकपॉइंट\n\n- **चेकपॉइंट** टैप कर एक प्रयोगात्मक सत्र शुरू करें। उसके बाद रखे गए सभी अंक विशिष्ट रंग में दिखेंगे।\n- बटन **पुष्टि** (मान रखना) और **वापस लें** (सभी प्रविष्टियाँ हटाकर सत्र की शुरुआत वाली स्थिति पर लौटना) में बँट जाता है।\n\n## पूर्ववत और फिर से\n\n- **पूर्ववत** टैप कर पिछली चाल वापस लें। बाद में बटन दो भागों में बँट जाता है ताकि आप **फिर से** टैप कर सकें।\n- वर्तमान पहेली में पूर्ववत और फिर से असीमित हैं। पूर्ववत के बाद नई प्रविष्टि से फिर से इतिहास साफ हो जाता है, और फिर से से अंत तक पहुँचने पर बटन फिर से एकमात्र पूर्ववत बन जाता है।\n\n## संकेत और जीत\n\n- शुरुआती संकेत बदले नहीं जा सकते।\n- आप खेलते समय टाइमर चलता है। हर कठिनाई का **सर्वश्रेष्ठ समय** सहेजा जाता है।\n- कुछ कठिनाइयों में **संकेत** उपलब्ध हैं — संयम से उपयोग करें।\n- पहेली तब पूरी होती है जब हर खाने में मान्य अंक हो और हर पंक्ति, स्तंभ व 3×3 बॉक्स बिना दोहराव की शर्त पूरी करे।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nIsi papan 9×9 sehingga setiap baris, kolom, dan kotak 3×3 berisi angka 1 sampai 9 tepat sekali.\n\n## Cara bermain\n\n- **Ketuk sel** untuk memilihnya, lalu **pilih angka** dari pad angka.\n- Dalam mode catatan, ketukan angka memberi catatan kecil pada sel.\n- **Batalkan** membalik langkah, **hapus** menghilangkan nilai dari sel.\n\n## Bantuan\n\n- **Petunjuk** mengungkap satu sel yang benar (bisa mengurangi poin atau dibatasi sesuai kesulitan).\n- Saat seluruh papan terisi dengan benar, permainan selesai.\n\n## Tips\n\n- Mulai dari sel dengan kemungkinan paling sedikit.\n- Gunakan catatan untuk menandai kandidat saat kamu belum yakin."
+            "value" : "# Sudoku\n\nIsi papan 9×9 sehingga setiap baris, kolom, dan kotak 3×3 berisi angka 1 sampai 9 tepat sekali.\n\n## Cara bermain\n\n- **Ketuk sel** untuk memilihnya.\n- **Ketuk angka** pada pad bawah untuk mengisi sel terpilih.\n- Jika sel terpilih sudah berisi angka, tombol angka tersebut menampilkan lingkaran bergaris — ketuk lagi untuk mengosongkan sel.\n- Gunakan **mode catatan** (ikon pensil) untuk menandai angka kandidat pada sel.\n\n## Titik Periksa\n\n- Ketuk **Titik Periksa** untuk memulai sesi percobaan. Setiap angka yang dimasukkan setelahnya muncul dalam warna khas.\n- Tombolnya terbagi menjadi **Terapkan** (mempertahankan masukan) dan **Kembalikan** (menghapus seluruh masukan dan kembali ke keadaan saat sesi dimulai).\n\n## Urungkan dan Ulangi\n\n- Ketuk **Urungkan** untuk membatalkan langkah terakhir. Setelah itu tombolnya terbagi sehingga kamu bisa **Ulangi**.\n- Urungkan dan ulangi tak terbatas untuk teka-teki saat ini. Masukan baru setelah urungkan menghapus riwayat ulangi, dan saat Ulangi mencapai akhir tombol kembali menjadi Urungkan tunggal.\n\n## Petunjuk dan menang\n\n- Angka petunjuk awal tidak dapat diubah.\n- Pengatur waktu berjalan saat kamu bermain. **Waktu terbaik** untuk setiap kesulitan disimpan.\n- Beberapa kesulitan mengizinkan **petunjuk** — gunakan secukupnya.\n- Teka-teki selesai ketika setiap sel berisi angka yang valid dan setiap baris, kolom, dan kotak 3×3 memenuhi aturan tanpa pengulangan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nRiempi una griglia 9×9 in modo che ogni riga, colonna e quadrato 3×3 contenga le cifre da 1 a 9 esattamente una volta.\n\n## Come si gioca\n\n- **Tocca una cella** per selezionarla, poi **scegli una cifra** dal tastierino numerico.\n- In modalità note, toccare una cifra scrive una piccola annotazione nella cella.\n- **Annulla** torna indietro, **cancella** rimuove il valore da una cella.\n\n## Aiuti\n\n- I **suggerimenti** rivelano una cella corretta (possono costare punti o essere limitati a seconda della difficoltà).\n- Quando tutta la griglia è completata correttamente, la partita finisce.\n\n## Consigli\n\n- Inizia dalle celle con meno candidati possibili.\n- Usa le note per segnare i candidati quando non sei ancora sicuro."
+            "value" : "# Sudoku\n\nRiempi una griglia 9×9 in modo che ogni riga, colonna e quadrato 3×3 contenga le cifre da 1 a 9 esattamente una volta.\n\n## Come si gioca\n\n- **Tocca una cella** per selezionarla.\n- **Tocca una cifra** dal tastierino in basso per riempire la cella selezionata.\n- Se la cella selezionata contiene già una cifra, il pulsante di quella cifra mostra un cerchio barrato: toccalo di nuovo per svuotarla.\n- Usa la **modalità note** (icona della matita) per segnare le cifre candidate in una cella.\n\n## Marca\n\n- Tocca **Marca** per iniziare una sessione tentativa. Ogni cifra che inserisci da quel momento appare in un colore distintivo.\n- Il pulsante si divide in **Conferma** (mantenere gli inserimenti) e **Ripristina** (rimuoverli tutti e tornare allo stato iniziale della sessione).\n\n## Annulla e Ripeti\n\n- Tocca **Annulla** per annullare l'ultima mossa. Dopo l'annullamento il pulsante si divide in due e puoi **Ripetere**.\n- Annulla e ripeti sono illimitati nel rompicapo corrente. Un nuovo inserimento dopo l'annullamento cancella la cronologia di ripetizione, e quando arrivi alla fine con Ripeti il pulsante torna a essere solo Annulla.\n\n## Suggerimenti e vittoria\n\n- I numeri iniziali non possono essere modificati.\n- Il cronometro scorre mentre giochi. Il tuo **miglior tempo** per ogni difficoltà viene salvato.\n- Alcune difficoltà consentono **suggerimenti** — usali con parsimonia.\n- Il rompicapo è risolto quando ogni cella contiene una cifra valida e ogni riga, colonna e quadrato 3×3 rispetta la regola di non ripetizione."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\n9×9 のマスに、各行・各列・各 3×3 のブロックが 1〜9 の数字を 1 回ずつ含むように埋めましょう。\n\n## 遊び方\n\n- **マスをタップ**して選択し、数字パッドから **数字を選択** します。\n- メモモードでは、タップした数字がマスに小さなメモとして入ります。\n- **元に戻す** で操作を取り消し、**消去** でマスの値を消します。\n\n## ヘルプ\n\n- **ヒント** は正しいマスを 1 つ明らかにします（難易度によりポイント減算・回数制限がある場合があります）。\n- 全マスを正しく埋めるとゲーム終了です。\n\n## ヒント\n\n- 候補が一番少ないマスから埋めましょう。\n- 確信が持てない時はメモで候補を残しておきましょう。"
+            "value" : "# Sudoku\n\n9×9 のマスに、各行・各列・各 3×3 のブロックが 1〜9 の数字を 1 回ずつ含むように埋めましょう。\n\n## 遊び方\n\n- **マスをタップ**して選択します。\n- 下部の数字パッドで **数字をタップ** すると選択中のマスに入ります。\n- 選択中のマスに既に数字が入っている場合、その数字のボタンに丸スラッシュが表示されます。もう一度タップするとマスが空になります。\n- **メモモード**（鉛筆アイコン）で候補数字をマスに書き込めます。\n\n## チェックポイント\n\n- **保存点** をタップして仮の入力セッションを始めます。以降に入れた数字は目立つ色で表示されます。\n- ボタンは **確定**（入力をそのまま残す）と **取り消し**（セッション開始時の状態に戻す）に分かれます。\n\n## 元に戻す／やり直し\n\n- **元に戻す** をタップして直前の手を取り消します。元に戻した後、ボタンが二つに分かれて **やり直し** できます。\n- 現在のパズル中は元に戻す／やり直しともに無制限です。元に戻した後で新たに数字を置くとやり直し履歴は消え、Redo を最後までやると単一の元に戻すボタンに戻ります。\n\n## ヒントとクリア\n\n- 初期ヒントは変更できません。\n- プレイ中はタイマーが動き、難易度ごとの **ベストタイム** が保存されます。\n- 一部の難易度では **ヒント** を使えます。控えめに使いましょう。\n- 全マスに正しい数字が入り、各行・列・3×3 ブロックが重複しない条件を満たすとクリアです。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\n각 행, 열, 3×3 블록에 1~9가 정확히 한 번씩 들어가도록 9×9 격자를 채우세요.\n\n## 플레이 방법\n\n- 셀을 **탭하여 선택**한 뒤 숫자 패드에서 **숫자를 선택**하세요.\n- 메모 모드에서는 탭한 숫자가 셀에 작은 메모로 들어갑니다.\n- **되돌리기**로 동작을 되돌리고, **지우기**로 셀의 값을 지웁니다.\n\n## 도움\n\n- **힌트** 는 정답 셀 하나를 보여줍니다(난이도에 따라 점수 차감 또는 제한이 있을 수 있습니다).\n- 격자를 모두 올바르게 채우면 게임이 끝납니다.\n\n## 팁\n\n- 후보가 가장 적은 셀부터 채우세요.\n- 확신이 없을 때는 메모로 후보를 표시해 두세요."
+            "value" : "# Sudoku\n\n각 행, 열, 3×3 블록에 1~9가 정확히 한 번씩 들어가도록 9×9 격자를 채우세요.\n\n## 플레이 방법\n\n- 셀을 **탭하여 선택**하세요.\n- 아래 숫자 패드에서 **숫자를 탭** 하면 선택한 셀에 입력됩니다.\n- 선택한 셀에 이미 숫자가 있으면 해당 숫자 버튼에 원/슬래시 표시가 나타납니다. 다시 탭하면 셀이 비워집니다.\n- **메모 모드**(연필 아이콘)를 사용해 후보 숫자를 셀에 표시할 수 있습니다.\n\n## 체크포인트\n\n- **체크포인트** 를 탭하여 시험 입력을 시작하세요. 이후 입력한 모든 숫자는 구분 색으로 표시됩니다.\n- 버튼은 **확정**(입력을 유지) 과 **되돌리기**(모든 입력을 지우고 세션 시작 시 상태로 복귀) 로 분리됩니다.\n\n## 실행 취소 / 다시 실행\n\n- **실행 취소** 를 탭하여 마지막 동작을 되돌리세요. 실행 취소 후 버튼이 두 개로 나뉘어 **다시 실행** 할 수 있습니다.\n- 현재 퍼즐 안에서 실행 취소/다시 실행은 무제한입니다. 실행 취소 후 새 입력을 하면 다시 실행 기록이 지워지며, 다시 실행으로 끝까지 가면 버튼이 다시 단일 실행 취소로 돌아갑니다.\n\n## 힌트와 승리\n\n- 초기 단서는 변경할 수 없습니다.\n- 플레이 중 타이머가 작동합니다. 난이도별 **최고 기록** 이 저장됩니다.\n- 일부 난이도는 **힌트** 를 허용합니다. 아껴서 쓰세요.\n- 모든 셀에 올바른 숫자가 들어가고 모든 행/열/3×3 블록이 중복 없는 규칙을 만족하면 퍼즐이 완성됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nPreencha uma grade 9×9 de modo que cada linha, coluna e bloco 3×3 contenha os algarismos de 1 a 9 exatamente uma vez.\n\n## Como jogar\n\n- **Toque em uma célula** para selecioná-la, depois **escolha um algarismo** no teclado numérico.\n- No modo de anotações, tocar um algarismo coloca uma pequena anotação na célula.\n- **Desfazer** reverte jogadas, **apagar** remove o valor de uma célula.\n\n## Ajudas\n\n- **Dicas** revelam uma célula correta (podem custar pontos ou ser limitadas pela dificuldade).\n- Quando toda a grade é preenchida corretamente, o jogo termina.\n\n## Dicas\n\n- Comece pelas células com menos candidatos possíveis.\n- Use anotações para marcar candidatos enquanto não tiver certeza."
+            "value" : "# Sudoku\n\nPreencha uma grade 9×9 de modo que cada linha, coluna e bloco 3×3 contenha os algarismos de 1 a 9 exatamente uma vez.\n\n## Como jogar\n\n- **Toque em uma célula** para selecioná-la.\n- **Toque em um algarismo** no teclado inferior para preencher a célula selecionada.\n- Se a célula selecionada já contiver um algarismo, o botão desse algarismo mostra um círculo cortado — toque novamente para esvaziar a célula.\n- Use o **modo de anotações** (ícone de lápis) para marcar algarismos candidatos em uma célula.\n\n## Marcador\n\n- Toque em **Marcador** para iniciar uma sessão experimental. Todo algarismo colocado depois aparece em cor distintiva.\n- O botão se divide em **Confirmar** (manter as jogadas) e **Reverter** (remover tudo e voltar ao estado inicial da sessão).\n\n## Desfazer e Refazer\n\n- Toque em **Desfazer** para reverter a última jogada. Em seguida o botão se divide para permitir **Refazer**.\n- Desfazer e refazer são ilimitados no enigma atual. Uma nova jogada após o desfazer apaga o histórico de refazer, e ao chegar ao fim com Refazer o botão volta a ser apenas Desfazer.\n\n## Dicas e vitória\n\n- As pistas iniciais não podem ser alteradas.\n- O cronômetro corre enquanto você joga. O **melhor tempo** de cada dificuldade é salvo.\n- Algumas dificuldades permitem **dicas** — use com moderação.\n- O enigma é resolvido quando cada célula contém um algarismo válido e cada linha, coluna e bloco 3×3 atende à regra de não repetição."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\nЗаполните сетку 9×9 так, чтобы в каждом ряду, столбце и квадрате 3×3 цифры от 1 до 9 встречались ровно по одному разу.\n\n## Как играть\n\n- **Коснитесь клетки**, чтобы выделить её, затем **выберите цифру** на цифровой панели.\n- В режиме заметок касание цифры ставит в клетку маленькую пометку.\n- **Отмена** возвращает ход назад, **стереть** убирает значение из клетки.\n\n## Помощь\n\n- **Подсказки** открывают одну верную клетку (могут стоить очков или быть ограничены в зависимости от сложности).\n- Когда вся сетка заполнена правильно, игра завершается.\n\n## Советы\n\n- Начинайте с клеток, для которых меньше всего вариантов.\n- Используйте заметки, чтобы отмечать кандидатов, пока не уверены."
+            "value" : "# Sudoku\n\nЗаполните сетку 9×9 так, чтобы в каждом ряду, столбце и квадрате 3×3 цифры от 1 до 9 встречались ровно по одному разу.\n\n## Как играть\n\n- **Коснитесь клетки**, чтобы выделить её.\n- **Коснитесь цифры** на нижней панели, чтобы заполнить выбранную клетку.\n- Если в выбранной клетке уже стоит цифра, на кнопке этой цифры появляется перечёркнутый кружок — коснитесь ещё раз, чтобы очистить клетку.\n- В **режиме заметок** (иконка карандаша) можно отмечать кандидатные цифры.\n\n## Контрольная точка\n\n- Нажмите **Метка**, чтобы начать пробную сессию. Все цифры, поставленные после этого, выделяются особым цветом.\n- Кнопка разделяется на **Принять** (сохранить ходы) и **Откатить** (удалить все ходы сессии и вернуться к состоянию до её начала).\n\n## Отмена и повтор\n\n- Нажмите **Отменить**, чтобы вернуть последний ход. После отмены кнопка делится надвое, и появляется **Повторить**.\n- Отмена и повтор не ограничены в пределах текущего пазла. Новый ход после отмены стирает историю повторов, а доход до конца с помощью Повторить возвращает кнопку к одиночной Отмене.\n\n## Подсказки и победа\n\n- Начальные подсказки изменять нельзя.\n- Во время игры идёт таймер. Лучший результат каждой сложности сохраняется как **лучшее время**.\n- На некоторых уровнях доступны **подсказки** — используйте их экономно.\n- Пазл решён, когда каждая клетка содержит верную цифру и каждый ряд, столбец и квадрат 3×3 удовлетворяет правилу без повторов."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "# Sudoku\n\n填满 9×9 的格子，使每一行、每一列、每个 3×3 宫格都正好出现数字 1 到 9 各一次。\n\n## 玩法\n\n- **点击某个格子**选中，再从数字键盘 **选择一个数字**。\n- 在笔记模式下，点击数字会在格子里留下小小的候选笔记。\n- **撤销** 可撤回操作，**清除** 可移除格子里的值。\n\n## 辅助\n\n- **提示** 会揭示一个正确格子（可能扣分或按难度受限）。\n- 整盘正确填满即游戏结束。\n\n## 小贴士\n\n- 从可填候选最少的格子下手。\n- 不确定时用笔记记录候选数字。"
+            "value" : "# Sudoku\n\n填满 9×9 的格子，使每一行、每一列、每个 3×3 宫格都正好出现数字 1 到 9 各一次。\n\n## 玩法\n\n- **点击某个格子**选中。\n- 在下方数字键盘上 **点击一个数字** 填入选中的格子。\n- 当选中的格子已有数字时，该数字的按钮会显示一个圆圈斜线——再次点击即可清除该格。\n- 使用 **笔记模式**（铅笔图标）在格子里标记候选数字。\n\n## 检查点\n\n- 点击 **检查点** 开始一段试探性输入。之后填入的数字会用醒目的颜色显示。\n- 按钮分为 **确认**（保留填写）与 **撤回**（移除所有填写并回到检查点开始时的状态）。\n\n## 撤销与重做\n\n- 点击 **撤销** 取消上一步。撤销后按钮分为两半，可以 **重做**。\n- 当前题目内的撤销与重做无限制。撤销后再次填写会清空重做记录；用重做回到最末端时按钮会恢复为单一的撤销按钮。\n\n## 提示与获胜\n\n- 起始提示不可更改。\n- 计时器在你游戏时运行。每个难度的 **最佳时间** 会被保存。\n- 部分难度允许 **提示** — 请适度使用。\n- 当每个格子都填上有效数字，并且每行、每列、每个 3×3 宫格都满足无重复条件时，题目完成。"
           }
         }
       }
@@ -2474,6 +3244,83 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "错误太多"
+          }
+        }
+      }
+    },
+    "Undo" : {
+      "comment" : "Label of the control-pad button that reverts the most recent move. Splits into Undo and Redo after the first tap.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تراجع"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rückgängig"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Deshacer"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annuler"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "पूर्ववत"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Urungkan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annulla"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "元に戻す"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "실행 취소"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Desfazer"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отменить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "撤销"
           }
         }
       }
