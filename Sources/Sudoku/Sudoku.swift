@@ -652,10 +652,54 @@ final class SudokuModel {
         clearHistory()
     }
 
-    func checkCompletion() {
-        for i in 0..<81 {
-            if values[i] != solution[i] { return }
+    /// True when the board is fully filled and satisfies the Sudoku constraints:
+    /// every row, column, and 3×3 box contains the digits 1–9 exactly once.
+    ///
+    /// A puzzle is allowed to have multiple valid completions (e.g., when a "deadly
+    /// pair" of cells in two adjacent blocks could be swapped), so we evaluate the
+    /// board purely on its own merits rather than comparing against the canonical
+    /// `solution`. Anything passing the Sudoku rules is a win.
+    func isBoardValid() -> Bool {
+        // All cells must hold a digit in 1...9.
+        for v in values {
+            if v < 1 || v > 9 { return false }
         }
+        // Each row must contain every digit exactly once.
+        for r in 0..<9 {
+            var seen = 0
+            for c in 0..<9 {
+                let bit = 1 << values[idx(r, c)]
+                if (seen & bit) != 0 { return false }
+                seen = seen | bit
+            }
+        }
+        // Each column must contain every digit exactly once.
+        for c in 0..<9 {
+            var seen = 0
+            for r in 0..<9 {
+                let bit = 1 << values[idx(r, c)]
+                if (seen & bit) != 0 { return false }
+                seen = seen | bit
+            }
+        }
+        // Each 3×3 box must contain every digit exactly once.
+        for br in 0..<3 {
+            for bc in 0..<3 {
+                var seen = 0
+                for r in (br * 3)..<(br * 3 + 3) {
+                    for c in (bc * 3)..<(bc * 3 + 3) {
+                        let bit = 1 << values[idx(r, c)]
+                        if (seen & bit) != 0 { return false }
+                        seen = seen | bit
+                    }
+                }
+            }
+        }
+        return true
+    }
+
+    func checkCompletion() {
+        if !isBoardValid() { return }
         isComplete = true
         puzzlesSolved += 1
         UserDefaults.standard.set(puzzlesSolved, forKey: "sudoku_puzzles_solved")
@@ -931,21 +975,31 @@ struct SudokuGameView: View {
     }
 
     var statusBar: some View {
-        HStack(spacing: 0) {
-            statusPill(title: "Difficulty", value: game.difficulty.label,
+        // After Give Up the timer freezes and the pill simply reads "Game Over" in
+        // place of the running MM:SS time.
+        let timeValue: Text = game.hasGivenUp
+            ? Text("Game Over", bundle: .module)
+            : Text(verbatim: formatTime(game.elapsedSeconds))
+        let timeTint: Color = game.hasGivenUp
+            ? Color(red: 1.0, green: 0.55, blue: 0.55)
+            : Color(red: 0.60, green: 0.75, blue: 0.95)
+        return HStack(spacing: 0) {
+            statusPill(title: Text("Difficulty", bundle: .module),
+                       value: Text(verbatim: game.difficulty.label),
                        tint: game.difficulty.accentColor)
             Spacer(minLength: 8)
-            statusPill(title: "Time", value: formatTime(game.elapsedSeconds),
-                       tint: Color(red: 0.60, green: 0.75, blue: 0.95))
+            statusPill(title: Text("Time", bundle: .module),
+                       value: timeValue,
+                       tint: timeTint)
         }
     }
 
-    func statusPill(title: String, value: String, tint: Color) -> some View {
+    func statusPill(title: Text, value: Text, tint: Color) -> some View {
         VStack(spacing: 2) {
-            Text(title)
+            title
                 .font(.caption2)
                 .foregroundStyle(Color.white.opacity(0.55))
-            Text(value)
+            value
                 .font(.callout)
                 .fontWeight(.bold)
                 .foregroundStyle(tint)
@@ -1403,32 +1457,19 @@ struct SudokuGameView: View {
         let countColor: Color = immutableCellSelected
             ? Color.white.opacity(0.18)
             : Color.white.opacity(0.45)
-        let backgroundFill: Color = {
-            if immutableCellSelected { return Color.white.opacity(0.04) }
-            if lowered {
-                // Pushed-in background: noticeably darker than the raised face.
-                return Color.white.opacity(0.05)
-            }
-            if game.notesMode {
-                return Color(red: 0.18, green: 0.30, blue: 0.65).opacity(0.55)
-            }
-            // Default raised face — slightly brighter than the previous flat tint.
-            return Color.white.opacity(0.16)
+        // Primitive keycap look: a thick rounded outline (the "well") that stays put,
+        // with an inner face that shifts up when de-pressed and down when pressed in.
+        let outlineColor: Color = flat
+            ? Color.white.opacity(0.18)
+            : Color.white.opacity(0.42)
+        let faceColor: Color = {
+            if flat { return Color.white.opacity(0.04) }
+            if lowered { return Color.white.opacity(0.06) }
+            if game.notesMode { return Color(red: 0.20, green: 0.32, blue: 0.65).opacity(0.55) }
+            return Color.white.opacity(0.22)
         }()
-        // Top/bottom highlight stack: raised has a bright top edge over a darker
-        // bottom; lowered inverts both so the keycap reads as pressed in.
-        let topShade: Color
-        let bottomShade: Color
-        if raised {
-            topShade = Color.white.opacity(0.22)
-            bottomShade = Color.black.opacity(0.22)
-        } else if lowered {
-            topShade = Color.black.opacity(0.32)
-            bottomShade = Color.white.opacity(0.12)
-        } else {
-            topShade = Color.clear
-            bottomShade = Color.clear
-        }
+        // How far the face (and its content) shift inside the outline.
+        let faceOffset: Double = lowered ? 2.0 : (raised ? -2.0 : 0.0)
         let disabled = flat || game.isPaused || game.isComplete || game.isGameOver
         return Button(action: {
             // Capture whether this tap is a push-in (placing a new value) or a
@@ -1445,32 +1486,31 @@ struct SudokuGameView: View {
                 playHaptic(pushInHaptic)
             }
         }) {
-            VStack(spacing: 1) {
-                Text("\(digit)")
-                    .font(.system(size: 28, weight: .heavy, design: .rounded))
-                    .monospaced()
-                    .foregroundStyle(digitColor)
-                Text("\(remainingDisplay)")
-                    .font(.system(size: 9, weight: .medium))
-                    .monospaced()
-                    .foregroundStyle(countColor)
+            ZStack {
+                // 1. Outline "well" — fixed in place, never moves with press state.
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(outlineColor, lineWidth: 2.5)
+                // 2. Inner face — sits inside the outline with a small inset, and
+                //    shifts vertically to read as raised (default) or pressed in.
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(faceColor)
+                    .padding(4)
+                    .offset(y: faceOffset)
+                // 3. Content (digit + remaining count) — rides with the face so the
+                //    label appears physically attached to the moving keycap.
+                VStack(spacing: 1) {
+                    Text("\(digit)")
+                        .font(.system(size: 28, weight: .heavy, design: .rounded))
+                        .monospaced()
+                        .foregroundStyle(digitColor)
+                    Text("\(remainingDisplay)")
+                        .font(.system(size: 9, weight: .medium))
+                        .monospaced()
+                        .foregroundStyle(countColor)
+                }
+                .offset(y: faceOffset)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10).fill(backgroundFill)
-                    RoundedRectangle(cornerRadius: 10)
-                        .fill(LinearGradient(
-                            colors: [topShade, Color.clear, bottomShade],
-                            startPoint: .top, endPoint: .bottom
-                        ))
-                }
-            )
-            .shadow(
-                color: raised ? Color.black.opacity(0.45) : Color.clear,
-                radius: raised ? 2.0 : 0.0,
-                x: 0.0, y: raised ? 1.5 : 0.0
-            )
         }
         .buttonStyle(.plain)
         .disabled(disabled)

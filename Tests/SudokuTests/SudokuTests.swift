@@ -156,6 +156,74 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
     }
 
     @MainActor
+    @Test func completionAcceptsAnyValidBoardEvenIfDifferentFromSolution() throws {
+        // A puzzle can have multiple valid completions — for example, when a "deadly
+        // pair" of cells in two adjacent boxes could legitimately be swapped. The win
+        // condition must accept any board that satisfies the Sudoku rules, not just
+        // the canonical solution the generator happened to start from.
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.easy)
+
+        // Install a known canonical solution so the deadly-pair coordinates below are
+        // deterministic (newGame's generator otherwise randomizes the board).
+        let canonical: [Int] = [
+            5, 3, 4,  6, 7, 8,  9, 1, 2,
+            6, 7, 2,  1, 9, 5,  3, 4, 8,
+            1, 9, 8,  3, 4, 2,  5, 6, 7,
+            8, 5, 9,  7, 6, 1,  4, 2, 3,
+            4, 2, 6,  8, 5, 3,  7, 9, 1,
+            7, 1, 3,  9, 2, 4,  8, 5, 6,
+            9, 6, 1,  5, 3, 7,  2, 8, 4,
+            2, 8, 7,  4, 1, 9,  6, 3, 5,
+            3, 4, 5,  2, 8, 6,  1, 7, 9
+        ]
+        model.solution = canonical
+
+        // First completion: the canonical board itself wins.
+        model.values = canonical
+        model.isComplete = false
+        model.checkCompletion()
+        #expect(model.isComplete)
+
+        // Construct an alternate completion by swapping a deadly-pair rectangle that
+        // lives in two adjacent 3×3 blocks. In the canonical solution above, rows 3
+        // and 4 hold a {1,3}/{3,1} pattern across columns 5 and 8 — those four cells
+        // form a swappable rectangle whose swap stays valid in every row, column,
+        // and box.
+        var swapped = canonical
+        // (3,5)=1, (3,8)=3, (4,5)=3, (4,8)=1   →   (3,5)=3, (3,8)=1, (4,5)=1, (4,8)=3
+        swapped[3 * 9 + 5] = 3
+        swapped[3 * 9 + 8] = 1
+        swapped[4 * 9 + 5] = 1
+        swapped[4 * 9 + 8] = 3
+
+        // The alternate is genuinely different from the canonical "solution".
+        #expect(swapped != canonical)
+
+        // The win condition should still fire on the alternate, demonstrating that
+        // any valid Sudoku is a winning completion.
+        model.values = swapped
+        model.isComplete = false
+        model.checkCompletion()
+        #expect(model.isComplete)
+        #expect(model.values != model.solution)
+    }
+
+    @MainActor
+    @Test func completionRejectsInvalidBoard() throws {
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.easy)
+        // Take the canonical solution, but corrupt one cell so the row+column it sits
+        // in now has a duplicate. checkCompletion must NOT mark the board as won.
+        var bad = model.solution
+        bad[0] = (model.solution[0] % 9) + 1  // any other digit, will conflict
+        model.values = bad
+        model.isComplete = false
+        model.checkCompletion()
+        #expect(!model.isComplete)
+    }
+
+    @MainActor
     @Test func hasConflictDetectsRowColumnAndBoxDuplicates() throws {
         let model = SudokuModel()
         model.newGame(difficulty: SudokuDifficulty.easy)
