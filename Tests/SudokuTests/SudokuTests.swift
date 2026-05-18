@@ -224,6 +224,89 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
     }
 
     @MainActor
+    @Test func loadSavedStateRejectsCorruptedClues() throws {
+        // A saved state from an older build that produced an invalid puzzle (or one
+        // hand-corrupted in UserDefaults) should be discarded rather than restored,
+        // so the user is never served an unsolvable board after relaunching.
+        SudokuModel.clearSavedState()
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.medium)
+        // Corrupt the saved state: place a duplicate "1" clue in row 7.
+        var state = model.makeSavedState()
+        // Find two empty cells in row 7 that aren't clues and force them into
+        // clue-positions holding the same digit.
+        let row = 7
+        var firstCol = -1
+        var secondCol = -1
+        for c in 0..<9 {
+            let i = row * 9 + c
+            if !state.isOriginal[i] {
+                if firstCol == -1 { firstCol = c } else if secondCol == -1 { secondCol = c; break }
+            }
+        }
+        if firstCol >= 0 && secondCol >= 0 {
+            state.values[row * 9 + firstCol] = 1
+            state.values[row * 9 + secondCol] = 1
+            state.isOriginal[row * 9 + firstCol] = true
+            state.isOriginal[row * 9 + secondCol] = true
+            // Save the corrupted state directly to UserDefaults.
+            let data = try JSONEncoder().encode(state)
+            UserDefaults.standard.set(String(data: data, encoding: .utf8), forKey: "sudoku_saved_state")
+            // loadSavedState must reject it.
+            let loaded = SudokuModel.loadSavedState()
+            #expect(loaded == nil, "corrupted saved state with duplicate clues must be rejected")
+            // And the corrupted state must have been cleared from UserDefaults.
+            #expect(UserDefaults.standard.string(forKey: "sudoku_saved_state") == nil)
+        }
+        SudokuModel.clearSavedState()
+    }
+
+    @MainActor
+    @Test func generateSolutionDirectlyManyIterations() throws {
+        // Call generateSolution() directly (bypassing generatePuzzle's retry/fallback
+        // safety net) to see if the underlying transformer can ever emit an invalid
+        // board. Also confirm canonicalSolution itself is never mutated as a side
+        // effect of a shared-storage / copy-on-write bug.
+        let canonicalBefore = canonicalSolution
+        var firstInvalid: [Int]? = nil
+        for _ in 0..<100_000 {
+            let solution = generateSolution()
+            if !isFullSudokuSolution(solution) {
+                firstInvalid = solution
+                break
+            }
+        }
+        #expect(firstInvalid == nil,
+                "generateSolution emitted an invalid board: \(firstInvalid ?? [])")
+        #expect(canonicalSolution == canonicalBefore,
+                "canonicalSolution must never be mutated by the generator")
+    }
+
+    @MainActor
+    @Test func generatedPuzzlesAreAlwaysSolvable() throws {
+        // Earlier versions of the generator (very rarely) emitted a puzzle whose
+        // pre-selected clues had a duplicate digit in the same row and box, leaving
+        // the player with no valid solution. Generate a large pool of puzzles across
+        // every difficulty and assert that every one has (a) a fully-valid hidden
+        // solution and (b) a consistent set of starting clues.
+        let difficulties: [SudokuDifficulty] = [.easy, .medium, .hard, .expert]
+        for difficulty in difficulties {
+            for _ in 0..<200 {
+                let model = SudokuModel()
+                model.newGame(difficulty: difficulty)
+                #expect(isFullSudokuSolution(model.solution),
+                        "generated solution must be a complete valid Sudoku")
+                #expect(isPuzzleConsistent(model.values),
+                        "starting clues must not duplicate a digit in any row, column, or 3×3 box")
+                // Each starting clue should also match the hidden solution.
+                for i in 0..<81 where model.isOriginal[i] {
+                    #expect(model.values[i] == model.solution[i])
+                }
+            }
+        }
+    }
+
+    @MainActor
     @Test func hasConflictDetectsRowColumnAndBoxDuplicates() throws {
         let model = SudokuModel()
         model.newGame(difficulty: SudokuDifficulty.easy)

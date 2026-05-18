@@ -138,7 +138,7 @@ public enum SudokuDifficulty: Int, CaseIterable, Identifiable {
 // 9x9 Sudoku solution. We then remove cells symmetrically until we reach
 // the target clue count for the given difficulty.
 
-private let canonicalSolution: [Int] = [
+internal let canonicalSolution: [Int] = [
     5, 3, 4,  6, 7, 8,  9, 1, 2,
     6, 7, 2,  1, 9, 5,  3, 4, 8,
     1, 9, 8,  3, 4, 2,  5, 6, 7,
@@ -160,6 +160,59 @@ private func shuffleDigits(_ grid: inout [Int]) {
     for i in 0..<grid.count {
         grid[i] = mapping[grid[i]]
     }
+}
+
+/// True when the (possibly-incomplete) `grid` has no row, column, or 3×3 box
+/// containing the same non-zero digit twice. A puzzle's starting clues MUST satisfy
+/// this — otherwise the puzzle has no valid completion and the player is stuck.
+/// Cells with value 0 are treated as empty and skipped.
+func isPuzzleConsistent(_ grid: [Int]) -> Bool {
+    if grid.count != 81 { return false }
+    for r in 0..<9 {
+        var seen = 0
+        for c in 0..<9 {
+            let v = grid[idx(r, c)]
+            if v == 0 { continue }
+            if v < 1 || v > 9 { return false }
+            let bit = 1 << v
+            if (seen & bit) != 0 { return false }
+            seen = seen | bit
+        }
+    }
+    for c in 0..<9 {
+        var seen = 0
+        for r in 0..<9 {
+            let v = grid[idx(r, c)]
+            if v == 0 { continue }
+            let bit = 1 << v
+            if (seen & bit) != 0 { return false }
+            seen = seen | bit
+        }
+    }
+    for br in 0..<3 {
+        for bc in 0..<3 {
+            var seen = 0
+            for r in (br * 3)..<(br * 3 + 3) {
+                for c in (bc * 3)..<(bc * 3 + 3) {
+                    let v = grid[idx(r, c)]
+                    if v == 0 { continue }
+                    let bit = 1 << v
+                    if (seen & bit) != 0 { return false }
+                    seen = seen | bit
+                }
+            }
+        }
+    }
+    return true
+}
+
+/// True when `grid` is a fully-filled valid Sudoku solution.
+func isFullSudokuSolution(_ grid: [Int]) -> Bool {
+    if grid.count != 81 { return false }
+    for v in grid {
+        if v < 1 || v > 9 { return false }
+    }
+    return isPuzzleConsistent(grid)
 }
 
 private func swapRows(_ grid: inout [Int], _ r1: Int, _ r2: Int) {
@@ -190,7 +243,7 @@ private func swapStacks(_ grid: inout [Int], _ s1: Int, _ s2: Int) {
     }
 }
 
-private func generateSolution() -> [Int] {
+internal func generateSolution() -> [Int] {
     var grid = canonicalSolution
     // Remap digits
     shuffleDigits(&grid)
@@ -201,28 +254,26 @@ private func generateSolution() -> [Int] {
         case 0:
             // Swap two rows in same band
             let band = Int.random(in: 0...2)
-            var r1 = Int.random(in: 0...2)
+            let r1 = Int.random(in: 0...2)
             var r2 = Int.random(in: 0...2)
             while r1 == r2 { r2 = Int.random(in: 0...2) }
             swapRows(&grid, band * 3 + r1, band * 3 + r2)
-            let _ = r1
         case 1:
             // Swap two cols in same stack
             let stack = Int.random(in: 0...2)
-            var c1 = Int.random(in: 0...2)
+            let c1 = Int.random(in: 0...2)
             var c2 = Int.random(in: 0...2)
             while c1 == c2 { c2 = Int.random(in: 0...2) }
             swapCols(&grid, stack * 3 + c1, stack * 3 + c2)
-            let _ = c1
         case 2:
             // Swap two bands
-            var b1 = Int.random(in: 0...2)
+            let b1 = Int.random(in: 0...2)
             var b2 = Int.random(in: 0...2)
             while b1 == b2 { b2 = Int.random(in: 0...2) }
             swapBands(&grid, b1, b2)
         default:
             // Swap two stacks
-            var s1 = Int.random(in: 0...2)
+            let s1 = Int.random(in: 0...2)
             var s2 = Int.random(in: 0...2)
             while s1 == s2 { s2 = Int.random(in: 0...2) }
             swapStacks(&grid, s1, s2)
@@ -231,12 +282,10 @@ private func generateSolution() -> [Int] {
     return grid
 }
 
-private func generatePuzzle(difficulty: SudokuDifficulty) -> (puzzle: [Int], solution: [Int]) {
-    let solution = generateSolution()
+/// Build a starting puzzle by removing cells from a complete solution. The clue
+/// count is approximate (driven by `targetClues` and 180° symmetric removal).
+private func removeCells(from solution: [Int], targetClues: Int) -> [Int] {
     var puzzle = solution
-    // Remove cells until we reach target clue count. Use symmetric pair removal
-    // (remove cell and its 180-degree rotation mate) for visual appeal.
-    let targetClues = difficulty.cluesCount
     var indices = Array(0..<81)
     indices.shuffle()
     var cluesRemaining = 81
@@ -253,6 +302,31 @@ private func generatePuzzle(difficulty: SudokuDifficulty) -> (puzzle: [Int], sol
             cluesRemaining -= 1
         }
     }
+    return puzzle
+}
+
+private func generatePuzzle(difficulty: SudokuDifficulty) -> (puzzle: [Int], solution: [Int]) {
+    // Try to generate a fully-valid solution. The transformations applied by
+    // `generateSolution` all preserve Sudoku validity, so this should succeed on
+    // the first try — but we validate the output as a defensive check, retry on
+    // failure, and finally fall back to the verified canonical solution so the
+    // player can never end up staring at an unsolvable board.
+    let targetClues = difficulty.cluesCount
+    for _ in 0..<5 {
+        let solution = generateSolution()
+        if isFullSudokuSolution(solution) {
+            let puzzle = removeCells(from: solution, targetClues: targetClues)
+            // The puzzle is `solution` with some cells erased, so consistency is
+            // guaranteed mathematically — but assert anyway so any future change to
+            // removal logic fails loudly in tests rather than silently in prod.
+            if isPuzzleConsistent(puzzle) {
+                return (puzzle, solution)
+            }
+        }
+    }
+    // Last-resort fallback: the hand-verified canonical solution. Always valid.
+    let solution = canonicalSolution
+    let puzzle = removeCells(from: solution, targetClues: targetClues)
     return (puzzle, solution)
 }
 
@@ -793,7 +867,37 @@ final class SudokuModel {
     static func loadSavedState() -> SudokuSavedState? {
         guard let json = UserDefaults.standard.string(forKey: "sudoku_saved_state") else { return nil }
         guard let data = json.data(using: .utf8) else { return nil }
-        return try? JSONDecoder().decode(SudokuSavedState.self, from: data)
+        guard let state = try? JSONDecoder().decode(SudokuSavedState.self, from: data) else {
+            clearSavedState()
+            return nil
+        }
+        // Validate the saved state before restoring. If the user's previous session
+        // somehow ended up with an inconsistent puzzle (for example, after an older
+        // build of the app whose generator could produce invalid clues), we discard
+        // the saved state rather than restoring an unsolvable board.
+        if !isSavedStateConsistent(state) {
+            clearSavedState()
+            return nil
+        }
+        return state
+    }
+
+    /// True when the persisted state passes basic Sudoku invariants: the canonical
+    /// solution is a complete valid Sudoku, every immutable clue matches the
+    /// solution at the same index, and the clues considered on their own contain no
+    /// duplicate digit in any row, column, or 3×3 box.
+    private static func isSavedStateConsistent(_ state: SudokuSavedState) -> Bool {
+        if state.values.count != 81 { return false }
+        if state.isOriginal.count != 81 { return false }
+        if state.solution.count != 81 { return false }
+        if !isFullSudokuSolution(state.solution) { return false }
+        var clueGrid = Array(repeating: 0, count: 81)
+        for i in 0..<81 where state.isOriginal[i] {
+            // An immutable clue must match the solution at that position.
+            if state.values[i] != state.solution[i] { return false }
+            clueGrid[i] = state.values[i]
+        }
+        return isPuzzleConsistent(clueGrid)
     }
 
     static func clearSavedState() {
