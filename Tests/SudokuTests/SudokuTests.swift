@@ -431,6 +431,50 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
         #expect(model.values[b] == solB)
         #expect(!model.canUndo)
     }
+
+    @MainActor
+    @Test func revertCheckpointPreservesPreCheckpointUndo() throws {
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.easy)
+        var empties: [Int] = []
+        for i in 0..<81 where model.values[i] == 0 {
+            empties.append(i)
+            if empties.count >= 2 { break }
+        }
+        #expect(empties.count == 2)
+        let a = empties[0]
+        let b = empties[1]
+        let solA = model.solution[a]
+        let solB = model.solution[b]
+
+        // Place a value before the checkpoint — this must remain undoable after revert.
+        model.selectedIndex = a
+        model.placeDigit(solA)
+        #expect(model.canUndo)
+        #expect(model.values[a] == solA)
+
+        model.enterCheckpoint()
+        model.selectedIndex = b
+        model.placeDigit(solB)
+        #expect(model.canUndo)
+        #expect(model.values[b] == solB)
+
+        model.revertCheckpoint()
+        #expect(!model.checkpointActive)
+        // Reverting restores the snapshot taken at checkpoint entry: cell a still
+        // holds the pre-checkpoint placement; cell b is back to empty.
+        #expect(model.values[a] == solA)
+        #expect(model.values[b] == 0)
+        // The pre-checkpoint placement is still undoable, and there is no redo
+        // entry because the in-checkpoint move was dropped, not stashed.
+        #expect(model.canUndo)
+        #expect(!model.canRedo)
+
+        // Undoing actually walks back to the pre-placement state.
+        model.undo()
+        #expect(model.values[a] == 0)
+        #expect(!model.canUndo)
+    }
 }
 
 struct TestData : Codable, Hashable {

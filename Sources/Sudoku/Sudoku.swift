@@ -347,6 +347,7 @@ struct SudokuSavedState: Codable {
     var checkpointActive: Bool
     var checkpointValues: [Int]
     var checkpointNotes: [Int]
+    var checkpointHistoryCursor: Int
     var historyIndices: [Int]
     var historyOldValues: [Int]
     var historyOldNotes: [Int]
@@ -382,6 +383,10 @@ final class SudokuModel {
     /// Snapshot of values taken when checkpoint mode was entered (for revert).
     var checkpointValues: [Int] = Array(repeating: 0, count: 81)
     var checkpointNotes: [Int] = Array(repeating: 0, count: 81)
+    /// History cursor position when the current checkpoint began. On revert we
+    /// rewind to this point so the undo stack from before the checkpoint stays
+    /// usable rather than being wiped along with the in-checkpoint moves.
+    var checkpointHistoryCursor: Int = 0
 
     // Progress
     var difficulty: SudokuDifficulty = .medium
@@ -453,6 +458,7 @@ final class SudokuModel {
         checkpointActive = false
         checkpointValues = Array(repeating: 0, count: 81)
         checkpointNotes = Array(repeating: 0, count: 81)
+        checkpointHistoryCursor = 0
         hintsRemaining = difficulty.initialHints
         elapsedSeconds = 0
         isPaused = false
@@ -703,6 +709,7 @@ final class SudokuModel {
         }
         checkpointValues = values
         checkpointNotes = notes
+        checkpointHistoryCursor = historyCursor
         checkpointActive = true
     }
 
@@ -716,14 +723,25 @@ final class SudokuModel {
     }
 
     /// Revert the checkpoint: restore the snapshot taken when checkpoint mode began,
-    /// removing every value/note placed during the session. Clears history.
+    /// removing every value/note placed during the session. The undo stack is
+    /// rewound to the cursor position from checkpoint entry — pre-checkpoint moves
+    /// remain undoable; entries made during the checkpoint are dropped.
     func revertCheckpoint() {
         guard checkpointActive else { return }
         values = checkpointValues
         notes = checkpointNotes
         isProvisional = Array(repeating: false, count: 81)
         checkpointActive = false
-        clearHistory()
+        while historyIndices.count > checkpointHistoryCursor {
+            historyIndices.removeLast()
+            historyOldValues.removeLast()
+            historyOldNotes.removeLast()
+            historyOldProvisional.removeLast()
+            historyNewValues.removeLast()
+            historyNewNotes.removeLast()
+            historyNewProvisional.removeLast()
+        }
+        historyCursor = checkpointHistoryCursor
     }
 
     /// True when the board is fully filled and satisfies the Sudoku constraints:
@@ -819,6 +837,7 @@ final class SudokuModel {
             checkpointActive: checkpointActive,
             checkpointValues: checkpointValues,
             checkpointNotes: checkpointNotes,
+            checkpointHistoryCursor: checkpointHistoryCursor,
             historyIndices: historyIndices,
             historyOldValues: historyOldValues,
             historyOldNotes: historyOldNotes,
@@ -845,6 +864,7 @@ final class SudokuModel {
         checkpointActive = state.checkpointActive
         checkpointValues = state.checkpointValues
         checkpointNotes = state.checkpointNotes
+        checkpointHistoryCursor = state.checkpointHistoryCursor
         historyIndices = state.historyIndices
         historyOldValues = state.historyOldValues
         historyOldNotes = state.historyOldNotes
