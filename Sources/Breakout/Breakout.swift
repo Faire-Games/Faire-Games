@@ -55,6 +55,39 @@ private let brickSpacing: Double = 2.0
 private let brickTopMargin: Double = 80.0
 private let initialBallSpeed: Double = 320.0
 
+private let basePaddleWidth: Double = 72.0
+private let widePaddleWidth: Double = 112.0
+private let paddleWidthLerpRate: Double = 6.0
+
+// Power-ups
+private let powerUpDropChance: Double = 0.20
+private let powerUpFallSpeed: Double = 130.0
+private let powerUpWidth: Double = 30.0
+private let powerUpHeight: Double = 16.0
+private let powerUpCatchScore: Int = 50
+private let widePaddleDuration: Double = 14.0
+private let slowBallDuration: Double = 13.0
+private let slowBallFactor: Double = 0.62
+private let smashBallDuration: Double = 8.0
+private let maxLives: Int = 5
+
+// Combo
+private let comboCap: Int = 4
+private let comboMinDisplay: Int = 2
+private let comboDecayWindow: Double = 1.4   // seconds of inactivity to reset
+
+// Particles
+private let particleGravity: Double = 240.0
+private let particleLifeMin: Double = 0.45
+private let particleLifeMax: Double = 0.85
+
+// Score popups
+private let popupLife: Double = 0.85
+private let popupRiseSpeed: Double = 60.0
+
+// Ball trail
+private let ballTrailMax: Int = 7
+
 // Row colors — classic rainbow from top to bottom
 private let rowColors: [(Double, Double, Double)] = [
     (0.90, 0.20, 0.20), // red
@@ -70,18 +103,152 @@ private let rowColors: [(Double, Double, Double)] = [
 // Points per row (top rows are worth more)
 private let rowPoints: [Int] = [7, 7, 5, 5, 3, 3, 1, 1]
 
+// MARK: - Power-up Kind
+
+enum PowerUpKind: Int, Codable, CaseIterable {
+    case widePaddle = 0
+    case multiBall = 1
+    case slowBall = 2
+    case extraLife = 3
+    case smashBall = 4
+
+    var letter: String {
+        switch self {
+        case .widePaddle: return "W"
+        case .multiBall: return "M"
+        case .slowBall: return "S"
+        case .extraLife: return "+1"
+        case .smashBall: return "★"
+        }
+    }
+
+    var color: (Double, Double, Double) {
+        switch self {
+        case .widePaddle: return (0.30, 0.72, 0.95)  // cyan
+        case .multiBall:  return (0.95, 0.40, 0.85)  // magenta
+        case .slowBall:   return (0.55, 0.55, 1.00)  // sky-blue
+        case .extraLife:  return (0.42, 0.88, 0.45)  // green
+        case .smashBall:  return (1.00, 0.55, 0.20)  // fiery orange
+        }
+    }
+
+    /// Effect duration in seconds. Zero means instantaneous (no timer indicator).
+    var duration: Double {
+        switch self {
+        case .widePaddle: return widePaddleDuration
+        case .slowBall:   return slowBallDuration
+        case .smashBall:  return smashBallDuration
+        case .multiBall, .extraLife: return 0.0
+        }
+    }
+}
+
+/// A randomly-picked power-up kind. Implemented as a free function (rather than a
+/// `static` factory) so it transpiles cleanly through Skip Lite.
+private func randomPowerUpKind() -> PowerUpKind {
+    let all = PowerUpKind.allCases
+    let i = Int.random(in: 0..<all.count)
+    return all[i]
+}
+
+// MARK: - Ball, Particle, Power-up, Popup
+
+/// One ball — primary and any extras from multi-ball share this type. Reference
+/// semantics keep mutation cheap when the array changes during a frame.
+final class Ball {
+    var x: Double
+    var y: Double
+    var dx: Double
+    var dy: Double
+
+    init(x: Double, y: Double, dx: Double, dy: Double) {
+        self.x = x
+        self.y = y
+        self.dx = dx
+        self.dy = dy
+    }
+}
+
+final class FallingPowerUp {
+    var x: Double
+    var y: Double
+    let kind: PowerUpKind
+
+    init(x: Double, y: Double, kind: PowerUpKind) {
+        self.x = x
+        self.y = y
+        self.kind = kind
+    }
+}
+
+final class Particle {
+    var x: Double
+    var y: Double
+    var dx: Double
+    var dy: Double
+    /// Remaining lifetime in seconds.
+    var life: Double
+    let maxLife: Double
+    let r: Double
+    let g: Double
+    let b: Double
+    let size: Double
+
+    init(x: Double, y: Double, dx: Double, dy: Double,
+         life: Double, color: (Double, Double, Double), size: Double) {
+        self.x = x
+        self.y = y
+        self.dx = dx
+        self.dy = dy
+        self.life = life
+        self.maxLife = life
+        self.r = color.0
+        self.g = color.1
+        self.b = color.2
+        self.size = size
+    }
+}
+
+final class ScorePopup {
+    var x: Double
+    var y: Double
+    var life: Double
+    let text: String
+    let r: Double
+    let g: Double
+    let b: Double
+
+    init(x: Double, y: Double, text: String, color: (Double, Double, Double)) {
+        self.x = x
+        self.y = y
+        self.text = text
+        self.life = popupLife
+        self.r = color.0
+        self.g = color.1
+        self.b = color.2
+    }
+}
+
 // MARK: - Brick Model
 
 final class BrickData {
-    var alive: Bool
+    var hp: Int
+    let maxHp: Int
     let row: Int
     let col: Int
+    /// -1 = no power-up; otherwise PowerUpKind.rawValue. Used as a sentinel rather
+    /// than `Optional<PowerUpKind>` because plain Int transpiles more predictably.
+    let powerUpKindRaw: Int
 
-    init(row: Int, col: Int) {
-        self.alive = true
+    init(row: Int, col: Int, hp: Int, powerUpKindRaw: Int) {
         self.row = row
         self.col = col
+        self.hp = hp
+        self.maxHp = hp
+        self.powerUpKindRaw = powerUpKindRaw
     }
+
+    var alive: Bool { hp > 0 }
 }
 
 // MARK: - Saved State
@@ -111,13 +278,20 @@ final class BreakoutModel {
 
     // Paddle
     var paddleX: Double = 200.0 // center
-    var paddleWidth: Double = 72.0
+    var paddleWidth: Double = basePaddleWidth
 
-    // Ball
+    // Primary ball (scalar state kept for save compatibility + simple observation)
     var ballX: Double = 200.0
     var ballY: Double = 500.0
     var ballDX: Double = 0.0
     var ballDY: Double = 0.0
+
+    /// Extra balls spawned by the multi-ball power-up. Reduced in-place as they
+    /// fall off the bottom; if the primary ball is lost, one extra is promoted.
+    var extraBalls: [Ball] = []
+
+    /// Recent positions of the primary ball, drawn as a fading trail.
+    var ballTrail: [(Double, Double)] = []
 
     // Paddle hit feedback: -1 = no hit this frame, 0..1 = deflection amount
     // (0 = mirror reflection, 1 = maximum angle change)
@@ -125,6 +299,26 @@ final class BreakoutModel {
 
     // Bricks
     var bricks: [[BrickData]] = []
+
+    // Power-ups in flight + active effect timers
+    var fallingPowerUps: [FallingPowerUp] = []
+    var widePaddleTimer: Double = 0.0
+    var slowBallTimer: Double = 0.0
+    var smashBallTimer: Double = 0.0
+
+    // Combo
+    var combo: Int = 0
+    var comboDecay: Double = 0.0
+    var lastComboFlash: Double = 0.0
+
+    // Particles & popups
+    var particles: [Particle] = []
+    var scorePopups: [ScorePopup] = []
+
+    // Side-wall hit prediction (for the guide indicator)
+    /// -1 = none, 0 = left wall, 1 = right wall.
+    var predictedSide: Int = -1
+    var predictedY: Double = 0.0
 
     // State
     var score: Int = 0
@@ -160,6 +354,7 @@ final class BreakoutModel {
         isGameOver = false
         isLevelComplete = false
         ballSpeed = initialBallSpeed
+        clearTransient()
         buildLevel()
         resetBall()
     }
@@ -169,16 +364,59 @@ final class BreakoutModel {
         isLevelComplete = false
         // Speed increases each level
         ballSpeed = initialBallSpeed + Double(level - 1) * 25.0
+        clearTransient()
         buildLevel()
         resetBall()
     }
 
+    /// Clears in-flight state that shouldn't survive a new game or level transition.
+    private func clearTransient() {
+        extraBalls.removeAll()
+        ballTrail.removeAll()
+        fallingPowerUps.removeAll()
+        particles.removeAll()
+        scorePopups.removeAll()
+        widePaddleTimer = 0.0
+        slowBallTimer = 0.0
+        smashBallTimer = 0.0
+        combo = 0
+        comboDecay = 0.0
+        paddleWidth = basePaddleWidth
+        predictedSide = -1
+    }
+
+    private func brickHP(row: Int, level lvl: Int) -> Int {
+        // Higher levels sprinkle in tougher bricks at the top.
+        if lvl >= 4 && row == 0 { return 3 }
+        if lvl >= 3 && row < 2 { return 2 }
+        if lvl >= 2 && row == 0 { return 2 }
+        return 1
+    }
+
     private func buildLevel() {
         bricks = []
+        // Decide which bricks carry power-ups before construction so each level has
+        // a predictable handful (2–4) rather than the chance-of-drop being purely
+        // per-hit. We still randomise *which* bricks and *which* kinds.
+        let totalCells = brickRows * brickCols
+        let numPowerUps = 2 + Int.random(in: 0...2)
+        var powerUpCells: Set<Int> = []
+        while powerUpCells.count < numPowerUps {
+            powerUpCells.insert(Int.random(in: 0..<totalCells))
+        }
         for r in 0..<brickRows {
             var row: [BrickData] = []
             for c in 0..<brickCols {
-                row.append(BrickData(row: r, col: c))
+                let flatIndex = r * brickCols + c
+                let puRaw: Int
+                if powerUpCells.contains(flatIndex) {
+                    puRaw = randomPowerUpKind().rawValue
+                } else {
+                    puRaw = -1
+                }
+                row.append(BrickData(row: r, col: c,
+                                     hp: brickHP(row: r, level: level),
+                                     powerUpKindRaw: puRaw))
             }
             bricks.append(row)
         }
@@ -190,6 +428,10 @@ final class BreakoutModel {
         ballY = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight - ballRadius - 2.0
         ballDX = 0.0
         ballDY = 0.0
+        ballTrail.removeAll()
+        combo = 0
+        comboDecay = 0.0
+        // Don't clear extras here — they're cleared on lose-life / new game.
     }
 
     func launch() {
@@ -201,74 +443,154 @@ final class BreakoutModel {
         ballDY = -ballSpeed * cos(angle)
     }
 
+    // MARK: - Update loop
+
     func update(dt: Double) {
         guard isLaunched && !isGameOver && !isLevelComplete else { return }
 
         lastPaddleDeflection = -1.0
 
-        ballX += ballDX * dt
-        ballY += ballDY * dt
-
-        // Wall collisions (left/right)
-        if ballX - ballRadius < 0.0 {
-            ballX = ballRadius
-            ballDX = abs(ballDX)
-        } else if ballX + ballRadius > fieldWidth {
-            ballX = fieldWidth - ballRadius
-            ballDX = -abs(ballDX)
+        // Power-up effect timers
+        if widePaddleTimer > 0.0 {
+            widePaddleTimer -= dt
+            if widePaddleTimer < 0.0 { widePaddleTimer = 0.0 }
+        }
+        if slowBallTimer > 0.0 {
+            slowBallTimer -= dt
+            if slowBallTimer < 0.0 { slowBallTimer = 0.0 }
+        }
+        if smashBallTimer > 0.0 {
+            smashBallTimer -= dt
+            if smashBallTimer < 0.0 { smashBallTimer = 0.0 }
         }
 
-        // Ceiling
-        if ballY - ballRadius < 0.0 {
-            ballY = ballRadius
-            ballDY = abs(ballDY)
-        }
+        // Smoothly lerp paddle width toward target.
+        let targetWidth = widePaddleTimer > 0.0 ? widePaddleWidth : basePaddleWidth
+        let lerpStep = min(dt * paddleWidthLerpRate, 1.0)
+        paddleWidth = paddleWidth + (targetWidth - paddleWidth) * lerpStep
 
-        // Paddle collision
-        let paddleTop = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight
-        let paddleLeft = paddleX - paddleWidth / 2.0
-        let paddleRight = paddleX + paddleWidth / 2.0
+        // Apply slow-ball as a position-update scale so we don't lose precision in
+        // the stored velocity (and the effect smoothly ends without a speed jump).
+        let speedScale = slowBallTimer > 0.0 ? slowBallFactor : 1.0
 
-        if ballDY > 0.0 && ballY + ballRadius >= paddleTop && ballY + ballRadius <= paddleTop + paddleHeight + 4.0 {
-            if ballX >= paddleLeft - ballRadius && ballX <= paddleRight + ballRadius {
-                // Compute incoming angle (relative to vertical)
-                let incomingAngle = atan2(ballDX, ballDY)
+        // ---- Primary ball physics ----
+        let primaryLost = stepPrimaryBall(dt: dt, speedScale: speedScale)
 
-                ballY = paddleTop - ballRadius
-                // Reflect with angle based on where ball hit the paddle
-                let hitPos = (ballX - paddleX) / (paddleWidth / 2.0) // -1 to 1
-                let clampedHit = min(max(hitPos, -0.95), 0.95)
-                let maxAngle = 1.15 // ~66 degrees max
-                let outAngle = clampedHit * maxAngle
-                let speed = currentSpeed()
-                ballDX = speed * sin(outAngle)
-                ballDY = -speed * cos(outAngle)
-
-                // Mirror reflection would negate DX and DY, so the mirror
-                // outgoing angle (relative to vertical, going up) is -incomingAngle.
-                let mirrorAngle = -incomingAngle
-                // Deflection = how far the actual outgoing angle is from the mirror angle,
-                // normalized to 0..1 where 0 = perfect mirror, 1 = max deviation
-                let angleDiff = abs(outAngle - mirrorAngle)
-                let maxPossibleDiff = 2.0 * maxAngle // theoretical max
-                lastPaddleDeflection = min(angleDiff / maxPossibleDiff, 1.0)
-            }
-        }
-
-        // Ball lost (below paddle)
-        if ballY - ballRadius > fieldHeight {
-            lives -= 1
-            if lives <= 0 {
-                isGameOver = true
-                saveHighScore()
+        // ---- Extra balls physics ----
+        var i = 0
+        while i < extraBalls.count {
+            let b = extraBalls[i]
+            let lost = stepBall(ball: b, dt: dt, speedScale: speedScale)
+            if lost {
+                extraBalls.remove(at: i)
             } else {
-                resetBall()
+                i += 1
             }
-            return
         }
 
-        // Brick collisions
-        checkBrickCollisions()
+        // Trail (primary ball only)
+        ballTrail.append((ballX, ballY))
+        while ballTrail.count > ballTrailMax {
+            ballTrail.removeFirst()
+        }
+
+        // Predicted side-wall hit (primary ball only)
+        updatePrediction()
+
+        // Combo decay timer — resets combo if no brick was hit for a while.
+        if combo > 0 {
+            comboDecay -= dt
+            if comboDecay <= 0.0 { combo = 0 }
+        }
+
+        // Falling power-ups
+        var pi = 0
+        while pi < fallingPowerUps.count {
+            let p = fallingPowerUps[pi]
+            p.y += powerUpFallSpeed * dt
+            // Off-screen
+            if p.y > fieldHeight + powerUpHeight {
+                fallingPowerUps.remove(at: pi)
+                continue
+            }
+            // Paddle catch
+            let paddleTop = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight
+            let paddleLeft = paddleX - paddleWidth / 2.0
+            let paddleRight = paddleX + paddleWidth / 2.0
+            let halfPU = powerUpWidth / 2.0
+            if p.y + powerUpHeight / 2.0 >= paddleTop &&
+               p.y - powerUpHeight / 2.0 <= paddleTop + paddleHeight &&
+               p.x + halfPU >= paddleLeft &&
+               p.x - halfPU <= paddleRight {
+                applyPowerUp(kind: p.kind, at: p.x, y: p.y)
+                fallingPowerUps.remove(at: pi)
+                continue
+            }
+            pi += 1
+        }
+
+        // Particles physics + culling
+        var qi = 0
+        while qi < particles.count {
+            let q = particles[qi]
+            q.dy += particleGravity * dt
+            q.x += q.dx * dt
+            q.y += q.dy * dt
+            q.life -= dt
+            if q.life <= 0.0 || q.y > fieldHeight + 30.0 {
+                particles.remove(at: qi)
+            } else {
+                qi += 1
+            }
+        }
+
+        // Score popups
+        var si = 0
+        while si < scorePopups.count {
+            let s = scorePopups[si]
+            s.y -= popupRiseSpeed * dt
+            s.life -= dt
+            if s.life <= 0.0 {
+                scorePopups.remove(at: si)
+            } else {
+                si += 1
+            }
+        }
+
+        // Handle primary loss after extras have stepped — promotion needs both lists consistent.
+        if primaryLost {
+            if !extraBalls.isEmpty {
+                // Promote the most central extra so the demotion feels natural.
+                let centerX = fieldWidth / 2.0
+                var best = 0
+                var bestDist = abs(extraBalls[0].x - centerX)
+                for k in 1..<extraBalls.count {
+                    let d = abs(extraBalls[k].x - centerX)
+                    if d < bestDist { best = k; bestDist = d }
+                }
+                let promoted = extraBalls.remove(at: best)
+                ballX = promoted.x
+                ballY = promoted.y
+                ballDX = promoted.dx
+                ballDY = promoted.dy
+                ballTrail.removeAll()
+            } else {
+                lives -= 1
+                combo = 0
+                widePaddleTimer = 0.0
+                slowBallTimer = 0.0
+                smashBallTimer = 0.0
+                paddleWidth = basePaddleWidth
+                fallingPowerUps.removeAll()
+                if lives <= 0 {
+                    isGameOver = true
+                    saveHighScore()
+                } else {
+                    resetBall()
+                }
+                return
+            }
+        }
 
         // Check level complete
         var anyAlive = false
@@ -284,10 +606,108 @@ final class BreakoutModel {
         if !anyAlive {
             isLevelComplete = true
             saveHighScore()
+            clearTransient()
         }
     }
 
-    private func checkBrickCollisions() {
+    /// Step the primary (scalar) ball. Returns true if the ball was lost this frame.
+    private func stepPrimaryBall(dt: Double, speedScale: Double) -> Bool {
+        ballX += ballDX * dt * speedScale
+        ballY += ballDY * dt * speedScale
+
+        if ballX - ballRadius < 0.0 {
+            ballX = ballRadius
+            ballDX = abs(ballDX)
+        } else if ballX + ballRadius > fieldWidth {
+            ballX = fieldWidth - ballRadius
+            ballDX = -abs(ballDX)
+        }
+
+        if ballY - ballRadius < 0.0 {
+            ballY = ballRadius
+            ballDY = abs(ballDY)
+        }
+
+        // Paddle collision
+        let paddleTop = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight
+        let paddleLeft = paddleX - paddleWidth / 2.0
+        let paddleRight = paddleX + paddleWidth / 2.0
+
+        if ballDY > 0.0 && ballY + ballRadius >= paddleTop && ballY + ballRadius <= paddleTop + paddleHeight + 4.0 {
+            if ballX >= paddleLeft - ballRadius && ballX <= paddleRight + ballRadius {
+                let incomingAngle = atan2(ballDX, ballDY)
+                ballY = paddleTop - ballRadius
+                let hitPos = (ballX - paddleX) / (paddleWidth / 2.0)
+                let clampedHit = min(max(hitPos, -0.95), 0.95)
+                let maxAngle = 1.15
+                let outAngle = clampedHit * maxAngle
+                let speed = currentSpeed()
+                ballDX = speed * sin(outAngle)
+                ballDY = -speed * cos(outAngle)
+                let mirrorAngle = -incomingAngle
+                let angleDiff = abs(outAngle - mirrorAngle)
+                let maxPossibleDiff = 2.0 * maxAngle
+                lastPaddleDeflection = min(angleDiff / maxPossibleDiff, 1.0)
+                // Paddle bounce breaks combos.
+                combo = 0
+            }
+        }
+
+        if ballY - ballRadius > fieldHeight {
+            return true
+        }
+
+        // Brick collisions (primary ball only — extras don't break combos but still award score)
+        checkBrickCollisionsForPrimary()
+        return false
+    }
+
+    /// Step an extra ball. Returns true if lost this frame.
+    private func stepBall(ball b: Ball, dt: Double, speedScale: Double) -> Bool {
+        b.x += b.dx * dt * speedScale
+        b.y += b.dy * dt * speedScale
+
+        if b.x - ballRadius < 0.0 {
+            b.x = ballRadius
+            b.dx = abs(b.dx)
+        } else if b.x + ballRadius > fieldWidth {
+            b.x = fieldWidth - ballRadius
+            b.dx = -abs(b.dx)
+        }
+
+        if b.y - ballRadius < 0.0 {
+            b.y = ballRadius
+            b.dy = abs(b.dy)
+        }
+
+        // Paddle bounce
+        let paddleTop = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight
+        let paddleLeft = paddleX - paddleWidth / 2.0
+        let paddleRight = paddleX + paddleWidth / 2.0
+        if b.dy > 0.0 && b.y + ballRadius >= paddleTop && b.y + ballRadius <= paddleTop + paddleHeight + 4.0 {
+            if b.x >= paddleLeft - ballRadius && b.x <= paddleRight + ballRadius {
+                b.y = paddleTop - ballRadius
+                let hitPos = (b.x - paddleX) / (paddleWidth / 2.0)
+                let clampedHit = min(max(hitPos, -0.95), 0.95)
+                let maxAngle = 1.15
+                let outAngle = clampedHit * maxAngle
+                let speed = currentSpeed()
+                b.dx = speed * sin(outAngle)
+                b.dy = -speed * cos(outAngle)
+            }
+        }
+
+        if b.y - ballRadius > fieldHeight {
+            return true
+        }
+
+        // Brick collisions for extra (no combo tracking, full score)
+        checkBrickCollisionsForExtra(ball: b)
+        return false
+    }
+
+    private func checkBrickCollisionsForPrimary() {
+        let smashActive = smashBallTimer > 0.0
         for r in 0..<brickRows {
             for c in 0..<brickCols {
                 let brick = bricks[r][c]
@@ -296,7 +716,6 @@ final class BreakoutModel {
                 let bx = brickAreaLeft + Double(c) * (brickWidth + brickSpacing)
                 let by = brickTopMargin + Double(r) * (brickHeight + brickSpacing)
 
-                // AABB vs circle collision
                 let closestX = min(max(ballX, bx), bx + brickWidth)
                 let closestY = min(max(ballY, by), by + brickHeight)
                 let dx = ballX - closestX
@@ -304,10 +723,16 @@ final class BreakoutModel {
                 let distSq = dx * dx + dy * dy
 
                 if distSq < ballRadius * ballRadius {
-                    brick.alive = false
-                    score += rowPoints[r]
+                    if smashActive {
+                        // Smash-ball flatlines multi-hit bricks too — set HP to 1
+                        // so onBrickHit's decrement lands at 0 in one shot. The ball
+                        // continues straight through, so keep scanning for more bricks.
+                        brick.hp = 1
+                        onBrickHit(brick: brick, brickX: bx, brickY: by, fromPrimary: true)
+                        continue
+                    }
+                    onBrickHit(brick: brick, brickX: bx, brickY: by, fromPrimary: true)
 
-                    // Determine reflection axis — which face was hit?
                     let overlapLeft = (ballX + ballRadius) - bx
                     let overlapRight = (bx + brickWidth) - (ballX - ballRadius)
                     let overlapTop = (ballY + ballRadius) - by
@@ -318,7 +743,6 @@ final class BreakoutModel {
 
                     if minOverlapX < minOverlapY {
                         ballDX = -ballDX
-                        // Push out
                         if overlapLeft < overlapRight {
                             ballX = bx - ballRadius
                         } else {
@@ -332,10 +756,244 @@ final class BreakoutModel {
                             ballY = by + brickHeight + ballRadius
                         }
                     }
-                    return // one brick per frame for cleaner physics
+                    return
                 }
             }
         }
+    }
+
+    private func checkBrickCollisionsForExtra(ball b: Ball) {
+        let smashActive = smashBallTimer > 0.0
+        for r in 0..<brickRows {
+            for c in 0..<brickCols {
+                let brick = bricks[r][c]
+                if !brick.alive { continue }
+
+                let bx = brickAreaLeft + Double(c) * (brickWidth + brickSpacing)
+                let by = brickTopMargin + Double(r) * (brickHeight + brickSpacing)
+
+                let closestX = min(max(b.x, bx), bx + brickWidth)
+                let closestY = min(max(b.y, by), by + brickHeight)
+                let dx = b.x - closestX
+                let dy = b.y - closestY
+                let distSq = dx * dx + dy * dy
+
+                if distSq < ballRadius * ballRadius {
+                    if smashActive {
+                        brick.hp = 1
+                        onBrickHit(brick: brick, brickX: bx, brickY: by, fromPrimary: false)
+                        continue
+                    }
+                    onBrickHit(brick: brick, brickX: bx, brickY: by, fromPrimary: false)
+
+                    let overlapLeft = (b.x + ballRadius) - bx
+                    let overlapRight = (bx + brickWidth) - (b.x - ballRadius)
+                    let overlapTop = (b.y + ballRadius) - by
+                    let overlapBottom = (by + brickHeight) - (b.y - ballRadius)
+
+                    let minOverlapX = min(overlapLeft, overlapRight)
+                    let minOverlapY = min(overlapTop, overlapBottom)
+
+                    if minOverlapX < minOverlapY {
+                        b.dx = -b.dx
+                        if overlapLeft < overlapRight {
+                            b.x = bx - ballRadius
+                        } else {
+                            b.x = bx + brickWidth + ballRadius
+                        }
+                    } else {
+                        b.dy = -b.dy
+                        if overlapTop < overlapBottom {
+                            b.y = by - ballRadius
+                        } else {
+                            b.y = by + brickHeight + ballRadius
+                        }
+                    }
+                    return
+                }
+            }
+        }
+    }
+
+    /// Apply a brick hit: knock down HP, award score, spawn particles/popup,
+    /// drop power-up if HP reaches zero, advance combo (primary only).
+    private func onBrickHit(brick: BrickData, brickX: Double, brickY: Double, fromPrimary: Bool) {
+        brick.hp -= 1
+        let basePoints = rowPoints[brick.row]
+        if brick.hp <= 0 {
+            // Award points (with combo multiplier from primary hits)
+            let multiplier: Int
+            if fromPrimary {
+                combo += 1
+                comboDecay = comboDecayWindow
+                multiplier = min(combo, comboCap)
+                if combo >= comboMinDisplay {
+                    lastComboFlash = 1.0
+                }
+            } else {
+                multiplier = 1
+            }
+            let earned = basePoints * multiplier
+            score += earned
+            spawnParticles(centerX: brickX + brickWidth / 2.0,
+                           centerY: brickY + brickHeight / 2.0,
+                           color: rowColors[brick.row % rowColors.count])
+            spawnPopup(x: brickX + brickWidth / 2.0,
+                       y: brickY + brickHeight / 2.0,
+                       text: multiplier > 1 ? "+\(earned) x\(multiplier)" : "+\(earned)",
+                       color: rowColors[brick.row % rowColors.count])
+            // Drop pre-assigned power-up, plus a small random chance for any brick
+            // to drop one (a little nudge of generosity).
+            if brick.powerUpKindRaw >= 0 {
+                if let kind = PowerUpKind(rawValue: brick.powerUpKindRaw) {
+                    fallingPowerUps.append(FallingPowerUp(
+                        x: brickX + brickWidth / 2.0,
+                        y: brickY + brickHeight / 2.0,
+                        kind: kind))
+                }
+            } else if Double.random(in: 0.0...1.0) < powerUpDropChance * 0.25 {
+                fallingPowerUps.append(FallingPowerUp(
+                    x: brickX + brickWidth / 2.0,
+                    y: brickY + brickHeight / 2.0,
+                    kind: randomPowerUpKind()))
+            }
+        } else {
+            // Just damaged — award smaller score, small popup
+            score += 1
+            spawnPopup(x: brickX + brickWidth / 2.0,
+                       y: brickY + brickHeight / 2.0,
+                       text: "+1",
+                       color: (1.0, 1.0, 1.0))
+            spawnSparks(centerX: brickX + brickWidth / 2.0,
+                        centerY: brickY + brickHeight / 2.0,
+                        color: rowColors[brick.row % rowColors.count])
+        }
+    }
+
+    private func spawnParticles(centerX: Double, centerY: Double, color: (Double, Double, Double)) {
+        let count = 9
+        for k in 0..<count {
+            let angle = Double(k) * (.pi * 2.0 / Double(count)) + Double.random(in: -0.2...0.2)
+            let speed = Double.random(in: 80.0...170.0)
+            let life = Double.random(in: particleLifeMin...particleLifeMax)
+            particles.append(Particle(
+                x: centerX, y: centerY,
+                dx: cos(angle) * speed,
+                dy: sin(angle) * speed - 40.0,
+                life: life,
+                color: color,
+                size: Double.random(in: 2.2...3.6)))
+        }
+    }
+
+    /// Smaller burst for a non-fatal hit on a multi-hit brick.
+    private func spawnSparks(centerX: Double, centerY: Double, color: (Double, Double, Double)) {
+        for _ in 0..<3 {
+            let angle = Double.random(in: -.pi ... .pi)
+            let speed = Double.random(in: 40.0...90.0)
+            particles.append(Particle(
+                x: centerX, y: centerY,
+                dx: cos(angle) * speed,
+                dy: sin(angle) * speed - 20.0,
+                life: Double.random(in: 0.25...0.45),
+                color: color,
+                size: 2.0))
+        }
+    }
+
+    private func spawnPopup(x: Double, y: Double, text: String, color: (Double, Double, Double)) {
+        scorePopups.append(ScorePopup(x: x, y: y, text: text, color: color))
+    }
+
+    private func applyPowerUp(kind: PowerUpKind, at x: Double, y: Double) {
+        score += powerUpCatchScore
+        spawnPopup(x: x, y: y, text: "+\(powerUpCatchScore)", color: kind.color)
+        switch kind {
+        case .widePaddle:
+            widePaddleTimer = widePaddleDuration
+        case .slowBall:
+            slowBallTimer = slowBallDuration
+        case .multiBall:
+            spawnMultiBall()
+        case .extraLife:
+            if lives < maxLives { lives += 1 }
+            // Confetti burst at the paddle.
+            for _ in 0..<14 {
+                let angle = Double.random(in: -.pi ... .pi)
+                let speed = Double.random(in: 90.0...190.0)
+                particles.append(Particle(
+                    x: paddleX, y: fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight / 2.0,
+                    dx: cos(angle) * speed,
+                    dy: sin(angle) * speed - 100.0,
+                    life: Double.random(in: 0.6...1.0),
+                    color: kind.color,
+                    size: Double.random(in: 2.5...4.0)))
+            }
+        case .smashBall:
+            smashBallTimer = smashBallDuration
+            // Ignition flare at the ball's current position so the activation reads.
+            for _ in 0..<10 {
+                let angle = Double.random(in: -.pi ... .pi)
+                let speed = Double.random(in: 60.0...160.0)
+                particles.append(Particle(
+                    x: ballX, y: ballY,
+                    dx: cos(angle) * speed,
+                    dy: sin(angle) * speed - 30.0,
+                    life: Double.random(in: 0.35...0.7),
+                    color: kind.color,
+                    size: Double.random(in: 2.5...3.5)))
+            }
+        }
+    }
+
+    /// Split the primary ball into three: the original plus two extras at ±0.32 rad.
+    private func spawnMultiBall() {
+        let baseDx = ballDX
+        let baseDy = ballDY
+        let speed = sqrt(baseDx * baseDx + baseDy * baseDy)
+        // Angle of motion (relative to vertical, going up = -y direction)
+        let baseAngle = atan2(baseDx, -baseDy)
+        let offsets: [Double] = [0.32, -0.32]
+        for off in offsets {
+            let a = baseAngle + off
+            extraBalls.append(Ball(
+                x: ballX, y: ballY,
+                dx: speed * sin(a),
+                dy: -speed * cos(a)))
+        }
+    }
+
+    /// Linear prediction of where the primary ball will hit a side wall, ignoring
+    /// bricks. Used purely as a player-facing visual aid.
+    private func updatePrediction() {
+        if ballDX == 0.0 || !isLaunched {
+            predictedSide = -1
+            return
+        }
+        let targetX: Double
+        let side: Int
+        if ballDX > 0.0 {
+            targetX = fieldWidth - ballRadius
+            side = 1
+        } else {
+            targetX = ballRadius
+            side = 0
+        }
+        let dx = targetX - ballX
+        let t = dx / ballDX
+        if t <= 0.0 {
+            predictedSide = -1
+            return
+        }
+        let predY = ballY + ballDY * t
+        // If the trajectory hits ceiling or paddle line first, the side prediction is moot.
+        let paddleTop = fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight
+        if predY < ballRadius || predY > paddleTop {
+            predictedSide = -1
+            return
+        }
+        predictedSide = side
+        predictedY = predY
     }
 
     private func currentSpeed() -> Double {
@@ -398,13 +1056,31 @@ final class BreakoutModel {
         highScore = UserDefaults.standard.integer(forKey: "breakout_highscore")
         ballSpeed = initialBallSpeed + Double(level - 1) * 25.0
 
-        // Rebuild bricks and apply saved alive states
+        // Drop transient state — extras, power-ups, particles, timers don't
+        // survive a save/restore cycle (they're cosmetic / short-lived).
+        extraBalls.removeAll()
+        ballTrail.removeAll()
+        fallingPowerUps.removeAll()
+        particles.removeAll()
+        scorePopups.removeAll()
+        widePaddleTimer = 0.0
+        slowBallTimer = 0.0
+        smashBallTimer = 0.0
+        paddleWidth = basePaddleWidth
+        combo = 0
+        comboDecay = 0.0
+        predictedSide = -1
+
+        // Rebuild bricks and apply saved alive states.
         buildLevel()
         var idx = 0
         for r in 0..<bricks.count {
             for c in 0..<bricks[r].count {
                 if idx < state.brickAlive.count {
-                    bricks[r][c].alive = state.brickAlive[idx]
+                    if !state.brickAlive[idx] {
+                        bricks[r][c].hp = 0
+                    }
+                    // alive bricks restore at full HP (acceptable for resume)
                 }
                 idx += 1
             }
@@ -454,77 +1130,78 @@ struct BreakoutGameView: View {
         GeometryReader { geo in
             let _ = initField(geo: geo)
 
-            VStack(spacing: 0) {
-                // Fixed HUD bar — buttons live here, outside the drag area
-                hudView
-                    .frame(height: 44)
+            // Outer ZStack so the modal overlays (pause/game-over/level-complete)
+            // can be drawn OUTSIDE the gesture-handled play area. On Android, the
+            // play area's DragGesture captures pointer events before any child
+            // Buttons could react, leaving the pause dialog unresponsive.
+            ZStack {
+                VStack(spacing: 0) {
+                    hudView
+                        .frame(height: 44)
 
-                // Playfield — the drag gesture target
-                ZStack {
-                    // Background — fills the ZStack so it is hittable
-                    Color(red: 0.04, green: 0.04, blue: 0.12)
+                    ZStack {
+                        backgroundView
 
-                    gameFieldView(paddleX: game.paddleX, ballX: game.ballX, ballY: game.ballY)
+                        gameFieldView()
 
-                    if !game.isLaunched && !game.isGameOver && !game.isLevelComplete {
-                        launchPrompt
-                    }
-
-                    if game.isLevelComplete {
-                        levelCompleteOverlay
-                    }
-
-                    if game.isGameOver {
-                        gameOverOverlay
-                    }
-
-                    if showPauseMenu && !game.isGameOver && !game.isLevelComplete {
-                        pauseMenuOverlay
-                    }
-
-                    // Debug overlay
-                    if settings.debugInfo {
-                        VStack {
-                            Spacer()
-                            Text(debugText)
-                                .font(.system(size: 11, design: .monospaced))
-                                .foregroundStyle(Color.green)
-                                .padding(6)
-                                .background(Color.black.opacity(0.7))
-                                .padding(.bottom, 100)
+                        if !game.isLaunched && !game.isGameOver && !game.isLevelComplete {
+                            launchPrompt
                         }
-                        .allowsHitTesting(false)
+
+                        if settings.debugInfo {
+                            VStack {
+                                Spacer()
+                                Text(debugText)
+                                    .font(.system(size: 11, design: .monospaced))
+                                    .foregroundStyle(Color.green)
+                                    .padding(6)
+                                    .background(Color.black.opacity(0.7))
+                                    .padding(.bottom, 100)
+                            }
+                            .allowsHitTesting(false)
+                        }
                     }
+                    .gesture(
+                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                            .onChanged { value in
+                                debugTouchCount += 1
+                                debugText = "drag #\(debugTouchCount) loc=(\(Int(value.location.x)),\(Int(value.location.y))) start=(\(Int(value.startLocation.x)),\(Int(value.startLocation.y))) paddleX=\(Int(game.paddleX)) launched=\(game.isLaunched) over=\(game.isGameOver)"
+
+                                if game.isGameOver || game.isLevelComplete || showPauseMenu { return }
+
+                                if !game.isLaunched {
+                                    game.launch()
+                                    playHaptic(.pick)
+                                }
+
+                                if dragAnchorX == nil {
+                                    dragAnchorX = game.paddleX - value.startLocation.x
+                                }
+
+                                let x = min(max((dragAnchorX ?? 0.0) + value.location.x, game.paddleWidth / 2.0), game.fieldWidth - game.paddleWidth / 2.0)
+                                game.paddleX = x
+                            }
+                            .onEnded { _ in
+                                dragAnchorX = nil
+                            }
+                    )
                 }
-                .gesture(
-                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                        .onChanged { value in
-                            debugTouchCount += 1
-                            debugText = "drag #\(debugTouchCount) loc=(\(Int(value.location.x)),\(Int(value.location.y))) start=(\(Int(value.startLocation.x)),\(Int(value.startLocation.y))) paddleX=\(Int(game.paddleX)) launched=\(game.isLaunched) over=\(game.isGameOver)"
+                .background(Color(red: 0.04, green: 0.04, blue: 0.12).ignoresSafeArea())
 
-                            if game.isGameOver || game.isLevelComplete || showPauseMenu { return }
+                // Modal overlays — siblings of the gesture-handled VStack so their
+                // buttons are not shadowed by the DragGesture on Android/Compose.
+                if game.isLevelComplete {
+                    levelCompleteOverlay
+                }
 
-                            // Launch ball on first touch
-                            if !game.isLaunched {
-                                game.launch()
-                                playHaptic(.pick)
-                            }
+                if game.isGameOver {
+                    gameOverOverlay
+                }
 
-                            // On first touch of a drag, record the anchor
-                            if dragAnchorX == nil {
-                                dragAnchorX = game.paddleX - value.startLocation.x
-                            }
-
-                            // Move paddle relative to the anchor so it never jumps
-                            let x = min(max((dragAnchorX ?? 0.0) + value.location.x, game.paddleWidth / 2.0), game.fieldWidth - game.paddleWidth / 2.0)
-                            game.paddleX = x
-                        }
-                        .onEnded { _ in
-                            dragAnchorX = nil
-                        }
-                )
+                if showPauseMenu && !game.isGameOver && !game.isLevelComplete {
+                    pauseMenuOverlay
+                }
             }
-            .background(Color(red: 0.04, green: 0.04, blue: 0.12).ignoresSafeArea())
         }
         .navigationBarBackButtonHidden()
         #if !os(macOS)
@@ -564,10 +1241,37 @@ struct BreakoutGameView: View {
         return true
     }
 
+    // MARK: - Background
+
+    var backgroundView: some View {
+        ZStack {
+            LinearGradient(
+                colors: [
+                    Color(red: 0.06, green: 0.06, blue: 0.16),
+                    Color(red: 0.02, green: 0.02, blue: 0.08)
+                ],
+                startPoint: .top, endPoint: .bottom
+            )
+            // Soft radial glow centered above the paddle to give the playfield depth.
+            RadialGradient(
+                colors: [Color.white.opacity(0.04), Color.clear],
+                center: .center,
+                startRadius: 0,
+                endRadius: 280
+            )
+            .allowsHitTesting(false)
+        }
+    }
+
     // MARK: - Game Field
 
-    func gameFieldView(paddleX: Double, ballX: Double, ballY: Double) -> some View {
+    func gameFieldView() -> some View {
         ZStack(alignment: .topLeading) {
+            // Side-wall guide markers (drawn under bricks so bricks don't get cluttered)
+            if game.predictedSide >= 0 {
+                sideGuideMarker
+            }
+
             // Bricks
             ForEach(0..<brickRows, id: \.self) { r in
                 ForEach(0..<brickCols, id: \.self) { c in
@@ -577,33 +1281,134 @@ struct BreakoutGameView: View {
                 }
             }
 
-            // Ball
-            Circle()
-                .fill(Color.white)
-                .frame(width: ballRadius * 2.0, height: ballRadius * 2.0)
-                .position(x: ballX, y: ballY)
+            // Falling power-ups
+            ForEach(0..<game.fallingPowerUps.count, id: \.self) { i in
+                if i < game.fallingPowerUps.count {
+                    powerUpCapsuleView(p: game.fallingPowerUps[i])
+                }
+            }
 
-            // Paddle
-            paddleShape(atX: paddleX)
+            // Particles
+            ForEach(0..<game.particles.count, id: \.self) { i in
+                if i < game.particles.count {
+                    particleView(p: game.particles[i])
+                }
+            }
+
+            // Score popups
+            ForEach(0..<game.scorePopups.count, id: \.self) { i in
+                if i < game.scorePopups.count {
+                    popupView(s: game.scorePopups[i])
+                }
+            }
+
+            // Ball trail (primary)
+            ForEach(0..<game.ballTrail.count, id: \.self) { i in
+                if i < game.ballTrail.count {
+                    let p = game.ballTrail[i]
+                    let frac = Double(i + 1) / Double(ballTrailMax + 1)
+                    Circle()
+                        .fill(Color.white.opacity(0.10 + 0.20 * frac))
+                        .frame(width: (ballRadius * 2.0) * (0.35 + 0.55 * frac),
+                               height: (ballRadius * 2.0) * (0.35 + 0.55 * frac))
+                        .position(x: p.0, y: p.1)
+                }
+            }
+
+            // Primary ball
+            ballView(x: game.ballX, y: game.ballY)
+
+            // Extra balls
+            ForEach(0..<game.extraBalls.count, id: \.self) { i in
+                if i < game.extraBalls.count {
+                    let b = game.extraBalls[i]
+                    ballView(x: b.x, y: b.y)
+                }
+            }
+
+            // Paddle (drawn last so power-ups slide UNDER it as they get caught)
+            paddleShape(atX: game.paddleX)
+
+            // Power-up timer badges along the top of the playfield
+            if game.widePaddleTimer > 0.0 || game.slowBallTimer > 0.0 || game.smashBallTimer > 0.0 {
+                powerUpStatusBar
+            }
+
+            // Combo flash near the center top
+            if game.combo >= comboMinDisplay {
+                comboBadge
+            }
         }
+    }
+
+    // MARK: - Side-wall guide
+
+    /// A short glowing dash on the wall where the primary ball is predicted to next hit.
+    var sideGuideMarker: some View {
+        let side = game.predictedSide
+        let y = game.predictedY
+        let isRight = (side == 1)
+        let baseColor = Color(red: 0.55, green: 0.85, blue: 1.0)
+        // Brighten as the ball gets closer.
+        let dist: Double
+        if isRight {
+            dist = max(0.0, game.fieldWidth - game.ballX)
+        } else {
+            dist = max(0.0, game.ballX)
+        }
+        let fadeWindow: Double = max(80.0, game.fieldWidth * 0.35)
+        let intensity = 1.0 - min(dist / fadeWindow, 1.0) * 0.65
+        let markerWidth: Double = 3.0
+        let markerLength: Double = 26.0
+        let x = isRight ? game.fieldWidth - markerWidth / 2.0 : markerWidth / 2.0
+        return ZStack {
+            // Glow halo
+            RoundedRectangle(cornerRadius: 1.5)
+                .fill(baseColor.opacity(0.18 * intensity))
+                .frame(width: markerWidth * 4.0, height: markerLength + 14.0)
+                .blur(radius: 4)
+            // Core dash
+            RoundedRectangle(cornerRadius: 1.5)
+                .fill(baseColor.opacity(0.85 * intensity))
+                .frame(width: markerWidth, height: markerLength)
+        }
+        .position(x: x, y: y)
+        .allowsHitTesting(false)
     }
 
     // MARK: - Brick
 
     func brickView(row: Int, col: Int) -> some View {
+        let brick = game.bricks[row][col]
         let x = game.brickAreaLeft + Double(col) * (game.brickWidth + brickSpacing)
         let y = brickTopMargin + Double(row) * (brickHeight + brickSpacing)
         let ci = row % rowColors.count
         let base = rowColors[ci]
-        let baseColor = Color(red: base.0, green: base.1, blue: base.2)
-        let lightColor = Color(red: min(base.0 + 0.18, 1.0), green: min(base.1 + 0.18, 1.0), blue: min(base.2 + 0.18, 1.0))
-        let darkColor = Color(red: max(base.0 - 0.15, 0.0), green: max(base.1 - 0.15, 0.0), blue: max(base.2 - 0.15, 0.0))
+        // Multi-hit bricks render slightly darker until damaged; once damaged
+        // they brighten to their row color so progress is legible.
+        let damageFrac: Double = brick.maxHp > 1
+            ? Double(brick.maxHp - brick.hp) / Double(max(brick.maxHp - 1, 1))
+            : 1.0
+        let armor: Double = brick.maxHp > 1 ? (1.0 - damageFrac) * 0.35 : 0.0
+        let r = max(base.0 - armor, 0.0)
+        let g = max(base.1 - armor, 0.0)
+        let b = max(base.2 - armor, 0.0)
+        let baseColor = Color(red: r, green: g, blue: b)
+        let lightColor = Color(red: min(r + 0.18, 1.0), green: min(g + 0.18, 1.0), blue: min(b + 0.18, 1.0))
+        let darkColor = Color(red: max(r - 0.15, 0.0), green: max(g - 0.15, 0.0), blue: max(b - 0.15, 0.0))
+        let hasPower = brick.powerUpKindRaw >= 0
 
         return ZStack {
             // Base
             RoundedRectangle(cornerRadius: 3)
                 .fill(baseColor)
                 .frame(width: game.brickWidth, height: brickHeight)
+            // Multi-hit armor outline
+            if brick.maxHp > 1 {
+                RoundedRectangle(cornerRadius: 3)
+                    .strokeBorder(Color.white.opacity(0.55), lineWidth: 1)
+                    .frame(width: game.brickWidth, height: brickHeight)
+            }
             // Top highlight
             RoundedRectangle(cornerRadius: 3)
                 .fill(lightColor)
@@ -614,26 +1419,127 @@ struct BreakoutGameView: View {
                 .fill(darkColor)
                 .frame(width: game.brickWidth - 2, height: brickHeight * 0.2)
                 .offset(y: brickHeight * 0.35)
+            // Power-up indicator: a tinted shine + a kind-specific glyph so the
+            // player can read which kind of pickup a brick will drop.
+            if hasPower {
+                if let pkind = PowerUpKind(rawValue: brick.powerUpKindRaw) {
+                    let pc = pkind.color
+                    let tint = Color(red: pc.0, green: pc.1, blue: pc.2)
+                    // Diagonal sheen across the brick in the kind's tint — gives a
+                    // "candy"/shiny look that pulls the eye to the power-up brick.
+                    Capsule()
+                        .fill(LinearGradient(
+                            colors: [Color.white.opacity(0.0), tint.opacity(0.75), Color.white.opacity(0.0)],
+                            startPoint: .leading, endPoint: .trailing))
+                        .frame(width: game.brickWidth * 0.95, height: brickHeight * 0.30)
+                        .offset(y: -brickHeight * 0.18)
+                        .blur(radius: 0.6)
+                    // Faint outer halo in the kind's color
+                    RoundedRectangle(cornerRadius: 3)
+                        .strokeBorder(tint.opacity(0.85), lineWidth: 1.0)
+                        .frame(width: game.brickWidth, height: brickHeight)
+                    powerUpBrickGlyph(kind: pkind)
+                }
+            }
         }
         .position(x: x + game.brickWidth / 2.0, y: y + brickHeight / 2.0)
+    }
+
+    /// Small icon centered on a power-up brick, distinct per kind. Drawn in white
+    /// so the silhouette reads against any row color; the tinted shine + halo on
+    /// the brick itself carries the colour hint.
+    @ViewBuilder
+    func powerUpBrickGlyph(kind: PowerUpKind) -> some View {
+        let glyphColor = Color.white.opacity(0.95)
+        if kind == .widePaddle {
+            // Wide bar with two end caps — suggests paddle widening.
+            HStack(spacing: 1.5) {
+                Circle().fill(glyphColor).frame(width: 2.5, height: 2.5)
+                Capsule().fill(glyphColor).frame(width: 8, height: 2.5)
+                Circle().fill(glyphColor).frame(width: 2.5, height: 2.5)
+            }
+        } else if kind == .multiBall {
+            // Three small circles — three balls in flight.
+            HStack(spacing: 1.5) {
+                Circle().fill(glyphColor).frame(width: 2.6, height: 2.6)
+                Circle().fill(glyphColor).frame(width: 2.6, height: 2.6)
+                Circle().fill(glyphColor).frame(width: 2.6, height: 2.6)
+            }
+        } else if kind == .slowBall {
+            // Ring — reads as a clock face / slowdown.
+            Circle()
+                .strokeBorder(glyphColor, lineWidth: 1.3)
+                .frame(width: 6, height: 6)
+        } else if kind == .extraLife {
+            // Plus / cross — extra life.
+            ZStack {
+                Capsule().fill(glyphColor).frame(width: 7, height: 1.7)
+                Capsule().fill(glyphColor).frame(width: 1.7, height: 7)
+            }
+        } else if kind == .smashBall {
+            // 4-point burst — power / smash.
+            ZStack {
+                Capsule().fill(glyphColor).frame(width: 8, height: 1.6)
+                Capsule().fill(glyphColor).frame(width: 1.6, height: 8)
+                Capsule().fill(glyphColor).frame(width: 6, height: 1.3)
+                    .rotationEffect(.degrees(45))
+                Capsule().fill(glyphColor).frame(width: 6, height: 1.3)
+                    .rotationEffect(.degrees(-45))
+            }
+        }
+    }
+
+    // MARK: - Ball
+
+    func ballView(x: Double, y: Double) -> some View {
+        let slow = game.slowBallTimer > 0.0
+        let smash = game.smashBallTimer > 0.0
+        let coreColor: Color
+        let haloColor: Color
+        let haloMultiplier: Double
+        if smash {
+            // Smash-ball: fiery, larger glow.
+            coreColor = Color(red: 1.00, green: 0.78, blue: 0.30)
+            haloColor = Color(red: 1.00, green: 0.45, blue: 0.10).opacity(0.55)
+            haloMultiplier = 5.0
+        } else if slow {
+            coreColor = Color(red: 0.70, green: 0.85, blue: 1.0)
+            haloColor = Color(red: 0.55, green: 0.75, blue: 1.0).opacity(0.40)
+            haloMultiplier = 3.6
+        } else {
+            coreColor = Color.white
+            haloColor = Color.white.opacity(0.22)
+            haloMultiplier = 3.6
+        }
+        return ZStack {
+            Circle()
+                .fill(haloColor)
+                .frame(width: ballRadius * haloMultiplier, height: ballRadius * haloMultiplier)
+                .blur(radius: smash ? 6.0 : 4.0)
+            Circle()
+                .fill(coreColor)
+                .frame(width: ballRadius * 2.0, height: ballRadius * 2.0)
+        }
+        .position(x: x, y: y)
     }
 
     // MARK: - Paddle
 
     func paddleShape(atX px: Double) -> some View {
         let y = game.fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight / 2.0
+        let wide = game.widePaddleTimer > 0.0
+        let coreTop = wide ? Color(red: 0.55, green: 0.85, blue: 1.0) : Color(red: 0.70, green: 0.75, blue: 0.85)
+        let coreBot = wide ? Color(red: 0.20, green: 0.55, blue: 0.95) : Color(red: 0.45, green: 0.50, blue: 0.65)
         return ZStack {
+            // Glow when widened
+            if wide {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color(red: 0.30, green: 0.70, blue: 0.95).opacity(0.35))
+                    .frame(width: game.paddleWidth + 14, height: paddleHeight + 10)
+                    .blur(radius: 6)
+            }
             RoundedRectangle(cornerRadius: 6)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(red: 0.70, green: 0.75, blue: 0.85),
-                            Color(red: 0.45, green: 0.50, blue: 0.65)
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
+                .fill(LinearGradient(colors: [coreTop, coreBot], startPoint: .top, endPoint: .bottom))
                 .frame(width: game.paddleWidth, height: paddleHeight)
             // Top shine
             RoundedRectangle(cornerRadius: 4)
@@ -642,6 +1548,134 @@ struct BreakoutGameView: View {
                 .offset(y: -paddleHeight * 0.2)
         }
         .position(x: px, y: y)
+    }
+
+    // MARK: - Particles, popups, capsules
+
+    func particleView(p: Particle) -> some View {
+        let alpha = max(0.0, min(p.life / p.maxLife, 1.0))
+        return Circle()
+            .fill(Color(red: p.r, green: p.g, blue: p.b).opacity(alpha))
+            .frame(width: p.size, height: p.size)
+            .position(x: p.x, y: p.y)
+    }
+
+    func popupView(s: ScorePopup) -> some View {
+        let alpha = max(0.0, min(s.life / popupLife, 1.0))
+        return Text(s.text)
+            .font(.system(size: 13, weight: .heavy, design: .rounded))
+            .foregroundStyle(Color(red: s.r, green: s.g, blue: s.b).opacity(alpha))
+            .shadow(color: Color.black.opacity(0.5 * alpha), radius: 2, x: 0, y: 1)
+            .position(x: s.x, y: s.y)
+            .allowsHitTesting(false)
+    }
+
+    func powerUpCapsuleView(p: FallingPowerUp) -> some View {
+        let kind = p.kind
+        let c = kind.color
+        let fill = Color(red: c.0, green: c.1, blue: c.2)
+        return ZStack {
+            // Halo
+            Capsule()
+                .fill(fill.opacity(0.40))
+                .frame(width: powerUpWidth + 12, height: powerUpHeight + 10)
+                .blur(radius: 6)
+            // Body
+            Capsule()
+                .fill(LinearGradient(
+                    colors: [fill.opacity(0.95), fill.opacity(0.65)],
+                    startPoint: .top, endPoint: .bottom))
+                .frame(width: powerUpWidth, height: powerUpHeight)
+            Capsule()
+                .strokeBorder(Color.white.opacity(0.75), lineWidth: 1)
+                .frame(width: powerUpWidth, height: powerUpHeight)
+            // Letter
+            Text(kind.letter)
+                .font(.system(size: 11, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.white)
+        }
+        .position(x: p.x, y: p.y)
+    }
+
+    // MARK: - Status bar (active power-up timers)
+
+    var powerUpStatusBar: some View {
+        VStack {
+            HStack(spacing: 8) {
+                if game.widePaddleTimer > 0.0 {
+                    timerBadge(kind: PowerUpKind.widePaddle,
+                               remaining: game.widePaddleTimer,
+                               total: widePaddleDuration)
+                }
+                if game.slowBallTimer > 0.0 {
+                    timerBadge(kind: PowerUpKind.slowBall,
+                               remaining: game.slowBallTimer,
+                               total: slowBallDuration)
+                }
+                if game.smashBallTimer > 0.0 {
+                    timerBadge(kind: PowerUpKind.smashBall,
+                               remaining: game.smashBallTimer,
+                               total: smashBallDuration)
+                }
+            }
+            .padding(.top, 6)
+            Spacer()
+        }
+    }
+
+    func timerBadge(kind: PowerUpKind, remaining: Double, total: Double) -> some View {
+        let frac = max(0.0, min(remaining / total, 1.0))
+        let c = kind.color
+        let color = Color(red: c.0, green: c.1, blue: c.2)
+        return HStack(spacing: 4) {
+            Text(kind.letter)
+                .font(.system(size: 10, weight: .heavy, design: .rounded))
+                .foregroundStyle(Color.white)
+                .frame(width: 14, height: 14)
+                .background(Circle().fill(color))
+            // Time bar
+            GeometryReader { g in
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(Color.white.opacity(0.10))
+                    Capsule()
+                        .fill(color.opacity(0.85))
+                        .frame(width: g.size.width * frac)
+                }
+            }
+            .frame(width: 38, height: 5)
+        }
+        .padding(.horizontal, 6)
+        .padding(.vertical, 3)
+        .background(
+            Capsule()
+                .fill(Color.black.opacity(0.55))
+        )
+    }
+
+    // MARK: - Combo badge
+
+    var comboBadge: some View {
+        let multiplier = min(game.combo, comboCap)
+        return VStack {
+            Spacer().frame(height: 30)
+            Text("x\(multiplier)")
+                .font(.system(size: 26, weight: .black, design: .rounded))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [Color.yellow, Color.orange],
+                        startPoint: .top, endPoint: .bottom)
+                )
+                .shadow(color: Color.orange.opacity(0.7), radius: 6, x: 0, y: 0)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 4)
+                .background(
+                    Capsule().fill(Color.black.opacity(0.45))
+                )
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .allowsHitTesting(false)
     }
 
     // MARK: - HUD
@@ -975,24 +2009,19 @@ struct BreakoutGameView: View {
             playHaptic(.snap)
         }
 
-        // Paddle hit haptic — intensity varies with deflection
         if game.lastPaddleDeflection >= 0.0 {
             let deflection = game.lastPaddleDeflection
-            // 0 = mirror reflection (hardest hit), 1 = max deflection (lightest)
-            let intensity = 1.0 - deflection * 0.7 // range: 1.0 (mirror) to 0.3 (max deflection)
+            let intensity = 1.0 - deflection * 0.7
             if deflection < 0.15 {
-                // Near-mirror: heavy thud + tap (satisfying direct return)
                 HapticFeedback.play(HapticPattern([
                     HapticEvent(.thud, intensity: intensity),
                     HapticEvent(.tap, intensity: intensity * 0.7, delay: 0.04),
                 ]))
             } else if deflection < 0.5 {
-                // Moderate deflection: medium tap
                 HapticFeedback.play(HapticPattern([
                     HapticEvent(.tap, intensity: intensity),
                 ]))
             } else {
-                // Large deflection: light tick
                 HapticFeedback.play(HapticPattern([
                     HapticEvent(.tick, intensity: intensity),
                 ]))
