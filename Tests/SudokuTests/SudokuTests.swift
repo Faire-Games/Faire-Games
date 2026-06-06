@@ -433,6 +433,57 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
     }
 
     @MainActor
+    @Test func placingDigitClearsPeerNotesRegardlessOfCorrectness() throws {
+        // Regression: the peer-note clearing must NOT reveal correctness. Earlier,
+        // placeDigit only invoked clearPeerNotes when the placed digit matched
+        // solution[i], which let a player verify guesses by watching whether a
+        // pencil mark vanished from a peer cell. Removing that side channel means
+        // the peer notes are cleared for *every* committed value — correct or not.
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.easy)
+
+        // Find an empty cell whose row neighbours have at least one other empty
+        // cell we can scribble a note into.
+        var target = -1
+        var peer = -1
+        for i in 0..<81 where model.values[i] == 0 {
+            let row = i / 9
+            for c in 0..<9 {
+                let j = row * 9 + c
+                if j != i && model.values[j] == 0 && !model.isOriginal[j] {
+                    target = i
+                    peer = j
+                    break
+                }
+            }
+            if target >= 0 { break }
+        }
+        #expect(target >= 0)
+        #expect(peer >= 0)
+
+        let correct = model.solution[target]
+        // Build a "wrong" digit guaranteed different from `correct` and in 1...9.
+        let wrong = (correct % 9) + 1
+        #expect(wrong != correct)
+
+        // Drop a pencil mark for `wrong` into the peer cell, then commit `wrong`
+        // into the target. Before the fix, the peer note survived because the
+        // guess was incorrect — leaking that "wrong" really was wrong.
+        model.selectedIndex = peer
+        model.notesMode = true
+        model.placeDigit(wrong)
+        #expect(model.hasNote(peer, wrong))
+
+        model.notesMode = false
+        model.selectedIndex = target
+        model.placeDigit(wrong)
+
+        #expect(model.values[target] == wrong)
+        #expect(!model.hasNote(peer, wrong),
+                "peer notes for the placed digit must be cleared even when the guess is wrong; surviving notes would leak correctness")
+    }
+
+    @MainActor
     @Test func revertCheckpointPreservesPreCheckpointUndo() throws {
         let model = SudokuModel()
         model.newGame(difficulty: SudokuDifficulty.easy)

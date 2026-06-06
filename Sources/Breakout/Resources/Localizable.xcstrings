@@ -242,12 +242,6 @@
       "comment" : "Markdown body for the Breakout how-to-play sheet",
       "extractionState" : "manual",
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "# Breakout\n\nBounce a ball off your paddle to break every brick.\n\n## How to play\n\n- **Drag** anywhere on the play area to move the paddle left or right.\n- Keep the ball in play — if it falls below the paddle, you lose a life.\n- Hit every brick to clear the level and advance.\n\n## Power-ups\n\nSome bricks drop power-ups when broken. Catch them with the paddle for short-lived bonuses such as a wider paddle, a slower ball, or extra balls.\n\n## Lives and game over\n\nYou start with a few lives. Lose all of them and the game ends. Clearing every brick advances you to the next, faster level."
-          }
-        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
@@ -258,6 +252,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "# Breakout\n\nLasse den Ball am Schläger abprallen, um jeden Stein zu zerstören.\n\n## So wird gespielt\n\n- **Ziehe** überall im Spielbereich, um den Schläger nach links oder rechts zu bewegen.\n- Halte den Ball im Spiel — fällt er unter den Schläger, verlierst du ein Leben.\n- Zerstöre jeden Stein, um das Level zu schaffen und weiterzukommen.\n\n## Power-ups\n\nManche Steine lassen beim Zerbrechen Power-ups fallen. Fange sie mit dem Schläger für kurze Boni wie einen breiteren Schläger, einen langsameren Ball oder zusätzliche Bälle.\n\n## Leben und Spielende\n\nDu startest mit einigen Leben. Verlierst du alle, ist das Spiel vorbei. Wenn du alle Steine zerstörst, kommst du in das nächste, schnellere Level."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "# Breakout\n\nBounce a ball off your paddle to break every brick.\n\n## How to play\n\n- **Drag** anywhere on the play area to move the paddle left or right.\n- Keep the ball in play — if it falls below the paddle, you lose a life.\n- Hit every brick to clear the level and advance.\n\n## Power-ups\n\nSome bricks drop power-ups when broken. Catch them with the paddle for short-lived bonuses such as a wider paddle, a slower ball, or extra balls.\n\n## Lives and game over\n\nYou start with a few lives. Lose all of them and the game ends. Clearing every brick advances you to the next, faster level."
           }
         },
         "es" : {
@@ -2246,6 +2246,9 @@
           }
         }
       }
+    },
+    "x%lld" : {
+      "comment" : "Combo multiplier badge (e.g., 'x3'). The 'x' multiplication sign is universal — leave as-is."
     }
   },
   "version" : "1.0"

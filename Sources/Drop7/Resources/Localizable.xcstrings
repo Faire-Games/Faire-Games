@@ -14,15 +14,7 @@
       "comment" : "Numeric format placeholder"
     },
     "%lld/%lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld/%2$lld"
-          }
-        }
-      },
-      "comment" : "Progress indicator showing drops out of target for the current level"
+      "comment" : "Progress indicator showing drops out of target for the current level (e.g., '3/10'). Slash is universal — leave as-is."
     },
     "+%lld" : {
       "comment" : "Floating bonus points popup"

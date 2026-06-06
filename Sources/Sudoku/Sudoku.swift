@@ -619,10 +619,11 @@ final class SudokuModel {
         values[i] = digit
         clearNotes(i)
         isProvisional[i] = checkpointActive
-        if digit == solution[i] {
-            // Correct placement: clear this digit from peer notes for convenience.
-            clearPeerNotes(of: i, digit: digit)
-        }
+        // Clear this digit from peer notes for convenience. Done unconditionally
+        // so the side effect doesn't reveal whether the guess was correct — a
+        // previous version only ran this on a correct placement, which let
+        // players verify guesses by watching whether peer notes vanished.
+        clearPeerNotes(of: i, digit: digit)
         recordHistory(i,
                       oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
                       newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])

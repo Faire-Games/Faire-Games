@@ -7,7 +7,23 @@ import SkipKit
 import SkipModel
 import FaireGamesModel
 
-private let boardClearBonus: Int = 200
+/// Big chunky bonus awarded when the player clears the entire 8×8 board.
+/// The score is intentionally large so a perfect clear feels like a payoff.
+private let boardClearBonus: Int = 5000
+
+/// Per-cell placement points. Bigger than 1 because four-digit gains feel more
+/// rewarding than single-digit ones — placement of a 5-cell piece nets 50.
+private let placementPointsPerCell: Int = 10
+
+/// Base per-line points before the multi-line and combo bonuses are applied.
+private let basePointsPerLine: Int = 100
+
+/// How long the encouraging-message popup lingers before fading.
+private let messageHoldDuration: Double = 1.1
+/// How long the board-clear "perfect" popup lingers.
+private let perfectMessageHoldDuration: Double = 1.9
+/// Confetti pool size used during board-clear celebrations.
+private let confettiCount: Int = 80
 
 public struct BlockBlastContainerView: View {
     @State private var settings = BlockBlastSettings()
@@ -63,8 +79,72 @@ struct BlockBlastGameView: View {
     @State var displayedScore: Int = 0
     @State var displayedHighScore: Int = 0
     @State var scoreAnimTimer: Timer? = nil
+
+    // MARK: - Animation state (per-cell parallel arrays, indexed by row * gridSize + col)
+
+    /// Color of the ghost cell to render in the burst layer (-1 = none).
+    @State var ghostColor: [Int] = Array(repeating: -1, count: GameModel.gridSize * GameModel.gridSize)
+    /// Scale of the ghost cell as it fades out.
+    @State var ghostScale: [CGFloat] = Array(repeating: 1.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Opacity of the ghost cell as it fades out.
+    @State var ghostOpacity: [CGFloat] = Array(repeating: 0.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Rotation of the ghost cell as it tumbles outward.
+    @State var ghostRotation: [CGFloat] = Array(repeating: 0.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Color used for the burst ring at this cell.
+    @State var burstColor: [Int] = Array(repeating: 0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Scale of the expanding burst ring.
+    @State var burstScale: [CGFloat] = Array(repeating: 0.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Opacity of the burst ring.
+    @State var burstOpacity: [CGFloat] = Array(repeating: 0.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// White flash overlay opacity, used to telegraph a line clear.
+    @State var flashOpacity: [CGFloat] = Array(repeating: 0.0, count: GameModel.gridSize * GameModel.gridSize)
+    /// Squash-pulse scale for cells that were just placed.
+    @State var placedScale: [CGFloat] = Array(repeating: 1.0, count: GameModel.gridSize * GameModel.gridSize)
+
+    /// Camera shake offsets.
+    @State var shakeOffsetX: CGFloat = 0.0
+    @State var shakeOffsetY: CGFloat = 0.0
+
+    /// Encouraging message popup state.
+    /// `messageIndex` selects a phrase within the tier (see `EncouragingMessages`).
+    @State var messageTier: Int = 0
+    @State var messageIndex: Int = 0
+    @State var messageScale: CGFloat = 0.0
+    @State var messageOpacity: CGFloat = 0.0
+    @State var messageRotation: CGFloat = 0.0
+
+    /// Floating "+points" score-gain popup state.
+    @State var scoreGain: Int = 0
+    @State var scoreGainOffset: CGFloat = 0.0
+    @State var scoreGainOpacity: CGFloat = 0.0
+    @State var scoreGainScale: CGFloat = 0.0
+
+    /// Combo badge pulse value (0 = idle, 1 = peak).
+    @State var comboPulse: CGFloat = 0.0
+    /// Whole-board gentle pulse used on every successful clear.
+    @State var boardPulse: CGFloat = 0.0
+
+    /// Confetti pool used on a perfect board clear. Parallel arrays.
+    @State var confettiX: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiY: [CGFloat] = Array(repeating: -100.0, count: confettiCount)
+    @State var confettiVX: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiVY: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiRotation: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiRotationSpeed: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiColor: [Int] = Array(repeating: 0, count: confettiCount)
+    @State var confettiOpacity: [CGFloat] = Array(repeating: 0.0, count: confettiCount)
+    @State var confettiActive: Bool = false
+    @State var confettiTimer: Timer? = nil
+
+    /// Pending animation timers — invalidated on disappear / new game.
+    @State var animTimers: [Timer] = []
     @Environment(\.dismiss) var dismiss
     @Environment(BlockBlastSettings.self) var settings: BlockBlastSettings
+
+    /// Returns whether the message popup should be visible.
+    var hasActivePopup: Bool {
+        return messageOpacity > 0.0 || scoreGainOpacity > 0.0
+    }
 
     var body: some View {
         ZStack {
@@ -85,6 +165,8 @@ struct BlockBlastGameView: View {
 
                 // Game board
                 gameBoard
+                    .offset(x: shakeOffsetX, y: shakeOffsetY)
+                    .scaleEffect(1.0 + boardPulse * 0.025)
 
                 // Piece tray
                 pieceTray
@@ -94,6 +176,16 @@ struct BlockBlastGameView: View {
             .padding(.horizontal, 8)
             .padding(.top, 8)
 
+            // Confetti overlay (full screen)
+            if confettiActive {
+                confettiOverlay
+            }
+
+            // Encouraging message + score gain popup
+            if messageOpacity > 0.0 || scoreGainOpacity > 0.0 {
+                messagePopup
+            }
+
             // Game over overlay
             if game.isGameOver {
                 gameOverOverlay
@@ -102,11 +194,6 @@ struct BlockBlastGameView: View {
             // Pause menu overlay
             if showPauseMenu && !game.isGameOver {
                 pauseMenuOverlay
-            }
-
-            // Combo popup
-            if showCombo && game.lastLinesCleared > 0 {
-                comboPopup
             }
 
         }
@@ -131,6 +218,7 @@ struct BlockBlastGameView: View {
         }
         .onDisappear {
             stopScoreAnimation()
+            cancelAllAnimTimers()
         }
         .onChange(of: game.score) { _, newScore in
             if newScore == 0 {
@@ -163,6 +251,8 @@ struct BlockBlastGameView: View {
                     .background(Color.white.opacity(0.12))
                     .clipShape(Circle())
             }
+            .accessibilityIdentifier("button.close")
+            .accessibilityLabel(Text("Close", bundle: .module, comment: "accessibility label for the close-game button"))
 
             VStack(alignment: .leading, spacing: 2) {
                 Text("SCORE", bundle: .module)
@@ -174,6 +264,7 @@ struct BlockBlastGameView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.white)
                     .monospaced()
+                    .accessibilityIdentifier("label.score")
             }
 
             Spacer()
@@ -182,6 +273,7 @@ struct BlockBlastGameView: View {
                 .font(.title3)
                 .fontWeight(.heavy)
                 .foregroundStyle(Color.white)
+                .accessibilityIdentifier("label.title")
 
             Spacer()
 
@@ -195,6 +287,7 @@ struct BlockBlastGameView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(Color.yellow)
                     .monospaced()
+                    .accessibilityIdentifier("label.bestScore")
             }
 
             Button(action: { showPauseMenu = true }) {
@@ -205,6 +298,8 @@ struct BlockBlastGameView: View {
                     .background(Color.white.opacity(0.12))
                     .clipShape(Circle())
             }
+            .accessibilityIdentifier("button.pause")
+            .accessibilityLabel(Text("Pause", bundle: .module, comment: "accessibility label for the pause-menu button"))
         }
         .padding(.leading, 12)
         .padding(.trailing, 12)
@@ -236,6 +331,7 @@ struct BlockBlastGameView: View {
                     ForEach(0..<GameModel.gridSize, id: \.self) { col in
                         let cellValue = game.grid[row][col]
                         let isHighlight = isDragging && isHighlightCell(row: row, col: col)
+                        let idx = row * GameModel.gridSize + col
 
                         cellView(
                             colorIndex: cellValue,
@@ -243,10 +339,24 @@ struct BlockBlastGameView: View {
                             isValidHighlight: highlightValid,
                             size: cs
                         )
+                        .scaleEffect(placedScale[idx])
                         .offset(
                             x: originX + CGFloat(col) * cs,
                             y: originY + CGFloat(row) * cs
                         )
+                    }
+                }
+
+                // Burst + ghost effects layer
+                ForEach(0..<GameModel.gridSize, id: \.self) { row in
+                    ForEach(0..<GameModel.gridSize, id: \.self) { col in
+                        let idx = row * GameModel.gridSize + col
+                        burstEffectCell(idx: idx, size: cs)
+                            .offset(
+                                x: originX + CGFloat(col) * cs,
+                                y: originY + CGFloat(row) * cs
+                            )
+                            .allowsHitTesting(false)
                     }
                 }
 
@@ -324,6 +434,65 @@ struct BlockBlastGameView: View {
                 RoundedRectangle(cornerRadius: 3)
                     .fill(Color.white.opacity(0.05))
                     .frame(width: size - inset * 2, height: size - inset * 2)
+            }
+        }
+        .frame(width: size, height: size)
+    }
+
+    /// Renders the per-cell burst + ghost layer at a single grid position.
+    /// The layer is empty during normal gameplay and lights up during a clear.
+    func burstEffectCell(idx: Int, size: CGFloat) -> some View {
+        let inset: CGFloat = 1.5
+        let cellSide = size - inset * 2
+        let ghostC = ghostColor[idx]
+        let ghostS = ghostScale[idx]
+        let ghostO = ghostOpacity[idx]
+        let ghostR = ghostRotation[idx]
+        let burstC = burstColor[idx]
+        let burstS = burstScale[idx]
+        let burstO = burstOpacity[idx]
+        let flashO = flashOpacity[idx]
+
+        return ZStack {
+            // Pre-clear white flash — telegraphs that this cell is about to vanish
+            if flashO > 0.0 {
+                RoundedRectangle(cornerRadius: 3)
+                    .fill(Color.white)
+                    .frame(width: cellSide, height: cellSide)
+                    .opacity(flashO)
+            }
+            // Expanding burst ring + filled halo
+            if burstO > 0.0 {
+                RoundedRectangle(cornerRadius: 4)
+                    .stroke(BlockColors.color(for: burstC), lineWidth: 3)
+                    .frame(width: cellSide, height: cellSide)
+                    .scaleEffect(burstS)
+                    .opacity(burstO)
+                RoundedRectangle(cornerRadius: 4)
+                    .fill(BlockColors.color(for: burstC).opacity(0.4))
+                    .frame(width: cellSide, height: cellSide)
+                    .scaleEffect(burstS * 0.7)
+                    .opacity(burstO)
+            }
+            // Ghost cell — the original colored block tumbling outward
+            if ghostO > 0.0 && ghostC >= 0 {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(BlockColors.color(for: ghostC))
+                        .frame(width: cellSide, height: cellSide)
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.white.opacity(0.5), Color.clear],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: cellSide, height: cellSide)
+                }
+                .scaleEffect(ghostS)
+                .rotationEffect(.degrees(Double(ghostR)))
+                .opacity(ghostO)
             }
         }
         .frame(width: size, height: size)
@@ -476,7 +645,14 @@ struct BlockBlastGameView: View {
         if displayedScore != game.score {
             let diff = game.score - displayedScore
             if diff > 0 {
-                let step = max(1, diff / 8)
+                // Stretch the count-up so big four-digit gains feel weighty
+                // (the timer fires every 20ms, so 25 steps ≈ 500ms).
+                let steps: Int
+                if diff > 2000 { steps = 40 }
+                else if diff > 500 { steps = 25 }
+                else if diff > 100 { steps = 15 }
+                else { steps = 8 }
+                let step = max(1, diff / steps)
                 displayedScore = min(displayedScore + step, game.score)
             } else {
                 displayedScore = game.score
@@ -487,7 +663,12 @@ struct BlockBlastGameView: View {
         if displayedHighScore != game.highScore {
             let diff = game.highScore - displayedHighScore
             if diff > 0 {
-                let step = max(1, diff / 8)
+                let steps: Int
+                if diff > 2000 { steps = 40 }
+                else if diff > 500 { steps = 25 }
+                else if diff > 100 { steps = 15 }
+                else { steps = 8 }
+                let step = max(1, diff / steps)
                 displayedHighScore = min(displayedHighScore + step, game.highScore)
             } else {
                 displayedHighScore = game.highScore
@@ -552,26 +733,17 @@ struct BlockBlastGameView: View {
             if let piece = game.currentPieces[index] {
                 game.placeShape(shape: piece.shape, atRow: highlightRow, col: highlightCol, pieceIndex: index)
 
-                if game.comboStreak > 2 {
-                    playHaptic(.combo(streak: game.comboStreak))
-                } else if game.lastLinesCleared > 1 {
-                    playHaptic(.bigCelebrate)
-                } else if game.lastLinesCleared > 0 {
-                    playHaptic(.celebrate)
+                triggerPlacementAnimation()
+
+                if game.lastLinesCleared > 0 {
+                    triggerClearAnimation()
                 } else {
                     playHaptic(.place)
                 }
 
-                if game.lastLinesCleared > 0 {
-                    showCombo = true
-                    let popupDuration = game.boardCleared ? 2.0 : 1.0
-                    DispatchQueue.main.asyncAfter(deadline: .now() + popupDuration) {
-                        showCombo = false
-                    }
-                }
-
                 if game.isGameOver {
                     playHaptic(.error)
+                    triggerShake(intensity: 1.0)
                 }
 
                 game.saveState()
@@ -588,6 +760,387 @@ struct BlockBlastGameView: View {
         highlightValid = false
         prevHighlightRow = -1
         prevHighlightCol = -1
+    }
+
+    // MARK: - Animation Pipeline
+
+    /// Trigger the squash-pulse animation on cells just placed by the player.
+    func triggerPlacementAnimation() {
+        let n = min(game.lastPlacedRows.count, game.lastPlacedCols.count)
+        if n == 0 { return }
+        let gs = GameModel.gridSize
+
+        for i in 0..<n {
+            let idx = game.lastPlacedRows[i] * gs + game.lastPlacedCols[i]
+            if idx >= 0 && idx < placedScale.count {
+                placedScale[idx] = 1.18
+            }
+        }
+        withAnimation(.spring(response: 0.22, dampingFraction: 0.5)) {
+            for i in 0..<n {
+                let idx = game.lastPlacedRows[i] * gs + game.lastPlacedCols[i]
+                if idx >= 0 && idx < placedScale.count {
+                    placedScale[idx] = 1.0
+                }
+            }
+        }
+    }
+
+    /// Choreograph the full burst pipeline for a line clear.
+    /// Stages: flash → burst rings + ghost tumble → score popup → message.
+    func triggerClearAnimation() {
+        let gs = GameModel.gridSize
+        let cleared = min(
+            min(game.lastClearedRows.count, game.lastClearedCols.count),
+            game.lastClearedColors.count
+        )
+        if cleared == 0 { return }
+
+        let tier = EncouragingMessages.tier(
+            linesCleared: game.lastLinesCleared,
+            combo: game.comboStreak,
+            boardCleared: game.boardCleared
+        )
+
+        // Stage 0 (immediate): pre-clear white flash to telegraph the kill.
+        for i in 0..<cleared {
+            let idx = game.lastClearedRows[i] * gs + game.lastClearedCols[i]
+            if idx >= 0 && idx < flashOpacity.count {
+                flashOpacity[idx] = 0.9
+            }
+        }
+        withAnimation(.easeOut(duration: 0.18)) {
+            for i in 0..<cleared {
+                let idx = game.lastClearedRows[i] * gs + game.lastClearedCols[i]
+                if idx >= 0 && idx < flashOpacity.count {
+                    flashOpacity[idx] = 0.0
+                }
+            }
+        }
+
+        // Stage 1 (after 60ms): ghost tumble + burst rings begin.
+        scheduleAnim(after: 0.06) {
+            for i in 0..<cleared {
+                let idx = game.lastClearedRows[i] * gs + game.lastClearedCols[i]
+                if idx >= 0 && idx < ghostColor.count {
+                    ghostColor[idx] = game.lastClearedColors[i]
+                    ghostScale[idx] = 1.0
+                    ghostOpacity[idx] = 1.0
+                    ghostRotation[idx] = 0.0
+                    burstColor[idx] = game.lastClearedColors[i]
+                    burstScale[idx] = 1.0
+                    burstOpacity[idx] = 0.9
+                }
+            }
+            withAnimation(.easeOut(duration: 0.42)) {
+                for i in 0..<cleared {
+                    let idx = game.lastClearedRows[i] * gs + game.lastClearedCols[i]
+                    if idx >= 0 && idx < ghostColor.count {
+                        ghostScale[idx] = 1.6
+                        ghostOpacity[idx] = 0.0
+                        ghostRotation[idx] = CGFloat(((idx % 3) - 1) * 90)
+                        burstScale[idx] = 2.4
+                        burstOpacity[idx] = 0.0
+                    }
+                }
+            }
+
+            // Settle the ghost state once the animation finishes
+            scheduleAnim(after: 0.5) {
+                for i in 0..<cleared {
+                    let idx = game.lastClearedRows[i] * gs + game.lastClearedCols[i]
+                    if idx >= 0 && idx < ghostColor.count {
+                        ghostColor[idx] = -1
+                        ghostScale[idx] = 1.0
+                        ghostOpacity[idx] = 0.0
+                        ghostRotation[idx] = 0.0
+                        burstScale[idx] = 0.0
+                        burstOpacity[idx] = 0.0
+                    }
+                }
+            }
+        }
+
+        // Stage 2: board pulse + camera shake (intensity scales with tier).
+        let shakeIntensity: Double
+        switch tier {
+        case 1: shakeIntensity = 0.0
+        case 2: shakeIntensity = 0.35
+        case 3: shakeIntensity = 0.55
+        case 4: shakeIntensity = 0.75
+        case 5: shakeIntensity = 0.95
+        case 6: shakeIntensity = 1.0
+        default: shakeIntensity = 0.0
+        }
+        if shakeIntensity > 0.0 {
+            triggerShake(intensity: shakeIntensity)
+        }
+        triggerBoardPulse(tier: tier)
+
+        // Stage 3: encouraging-message popup.
+        showMessagePopup(tier: tier)
+
+        // Stage 4: floating "+points" score gain popup.
+        showScoreGainPopup(tier: tier)
+
+        // Stage 5: haptics (escalating with tier and combo).
+        playClearHaptic(tier: tier, combo: game.comboStreak)
+
+        // Stage 6: confetti shower on perfect board clear.
+        if game.boardCleared {
+            triggerConfetti()
+        }
+    }
+
+    // MARK: - Animation Helpers
+
+    func triggerBoardPulse(tier: Int) {
+        boardPulse = 0.0
+        withAnimation(.spring(response: 0.18, dampingFraction: 0.45)) {
+            boardPulse = tier >= 4 ? 1.6 : 1.0
+        }
+        scheduleAnim(after: 0.22) {
+            withAnimation(.spring(response: 0.28, dampingFraction: 0.7)) {
+                boardPulse = 0.0
+            }
+        }
+    }
+
+    func showMessagePopup(tier: Int) {
+        messageTier = tier
+        messageIndex = EncouragingMessages.randomIndex(tier: tier)
+        messageScale = 0.4
+        messageOpacity = 0.0
+        // Slight playful rotation for higher tiers.
+        let wiggle: CGFloat
+        switch tier {
+        case 5: wiggle = -6
+        case 6: wiggle = 4
+        default: wiggle = 0
+        }
+        messageRotation = wiggle
+
+        let popScale: CGFloat
+        switch tier {
+        case 1: popScale = 1.0
+        case 2: popScale = 1.08
+        case 3: popScale = 1.15
+        case 4: popScale = 1.22
+        case 5: popScale = 1.3
+        case 6: popScale = 1.4
+        default: popScale = 1.0
+        }
+
+        withAnimation(.spring(response: 0.28, dampingFraction: 0.55)) {
+            messageScale = popScale
+            messageOpacity = 1.0
+            messageRotation = 0.0
+        }
+
+        let hold = tier >= 6 ? perfectMessageHoldDuration : messageHoldDuration
+        scheduleAnim(after: hold) {
+            withAnimation(.easeIn(duration: 0.4)) {
+                messageOpacity = 0.0
+                messageScale = popScale * 0.85
+            }
+        }
+    }
+
+    func showScoreGainPopup(tier: Int) {
+        // The model has already added `lastScoreGain` to `score`; reading it
+        // here guarantees the popup matches the running total.
+        scoreGain = game.lastScoreGain
+        scoreGainOffset = 0.0
+        scoreGainOpacity = 1.0
+        scoreGainScale = 0.6
+
+        // Bigger tiers get a bigger pop so a four-digit gain reads louder than
+        // a small line clear.
+        let popScale: CGFloat
+        switch tier {
+        case 1: popScale = 1.15
+        case 2: popScale = 1.3
+        case 3: popScale = 1.5
+        case 4: popScale = 1.7
+        case 5: popScale = 1.9
+        case 6: popScale = 2.1
+        default: popScale = 1.2
+        }
+
+        withAnimation(.spring(response: 0.34, dampingFraction: 0.55)) {
+            scoreGainScale = popScale
+        }
+        withAnimation(.easeOut(duration: 1.3)) {
+            scoreGainOffset = -110.0
+            scoreGainOpacity = 0.0
+        }
+    }
+
+    func triggerShake(intensity: Double) {
+        let amplitude: CGFloat = CGFloat(10.0 * intensity)
+        withAnimation(.linear(duration: 0.04)) {
+            shakeOffsetX = amplitude
+            shakeOffsetY = -amplitude * 0.4
+        }
+        scheduleAnim(after: 0.04) {
+            withAnimation(.linear(duration: 0.04)) {
+                shakeOffsetX = -amplitude * 0.85
+                shakeOffsetY = amplitude * 0.35
+            }
+            scheduleAnim(after: 0.04) {
+                withAnimation(.linear(duration: 0.04)) {
+                    shakeOffsetX = amplitude * 0.55
+                    shakeOffsetY = -amplitude * 0.2
+                }
+                scheduleAnim(after: 0.04) {
+                    withAnimation(.linear(duration: 0.05)) {
+                        shakeOffsetX = -amplitude * 0.3
+                        shakeOffsetY = amplitude * 0.15
+                    }
+                    scheduleAnim(after: 0.05) {
+                        withAnimation(.spring(response: 0.18, dampingFraction: 0.6)) {
+                            shakeOffsetX = 0.0
+                            shakeOffsetY = 0.0
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func playClearHaptic(tier: Int, combo: Int) {
+        switch tier {
+        case 1:
+            playHaptic(.celebrate)
+        case 2:
+            playHaptic(HapticPattern([
+                HapticEvent(.tap, intensity: 0.85),
+                HapticEvent(.tick, intensity: 0.7, delay: 0.06),
+                HapticEvent(.tap, intensity: 0.9, delay: 0.06)
+            ]))
+        case 3:
+            playHaptic(.bigCelebrate)
+        case 4:
+            playHaptic(HapticPattern([
+                HapticEvent(.thud, intensity: 0.85),
+                HapticEvent(.tap, intensity: 1.0, delay: 0.07),
+                HapticEvent(.rise, intensity: 0.8, delay: 0.06),
+                HapticEvent(.tap, intensity: 1.0, delay: 0.08),
+                HapticEvent(.thud, intensity: 0.95, delay: 0.07)
+            ]))
+        case 5:
+            playHaptic(.combo(streak: max(combo, 6)))
+        case 6:
+            // Perfect-clear flourish: rise into a thud cascade with a final fall.
+            playHaptic(HapticPattern([
+                HapticEvent(.rise, intensity: 1.0),
+                HapticEvent(.thud, intensity: 1.0, delay: 0.10),
+                HapticEvent(.thud, intensity: 1.0, delay: 0.06),
+                HapticEvent(.tap, intensity: 1.0, delay: 0.05),
+                HapticEvent(.tick, intensity: 0.9, delay: 0.04),
+                HapticEvent(.tap, intensity: 1.0, delay: 0.05),
+                HapticEvent(.thud, intensity: 1.0, delay: 0.06),
+                HapticEvent(.fall, intensity: 0.9, delay: 0.10)
+            ]))
+        default:
+            playHaptic(.celebrate)
+        }
+    }
+
+    // MARK: - Confetti
+
+    func triggerConfetti() {
+        // Seed all confetti pieces at the top of the screen with random horizontal
+        // velocity and a downward gravity. A repeating Timer steps physics until
+        // every piece has faded.
+        for i in 0..<confettiCount {
+            confettiX[i] = CGFloat.random(in: 40.0...360.0)
+            confettiY[i] = CGFloat.random(in: -40.0...80.0)
+            confettiVX[i] = CGFloat.random(in: -2.0...2.0)
+            confettiVY[i] = CGFloat.random(in: 2.0...5.0)
+            confettiRotation[i] = CGFloat.random(in: 0.0...360.0)
+            confettiRotationSpeed[i] = CGFloat.random(in: -8.0...8.0)
+            confettiColor[i] = Int.random(in: 0..<7)
+            confettiOpacity[i] = 1.0
+        }
+        confettiActive = true
+
+        confettiTimer?.invalidate()
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.03, repeats: true) { t in
+            DispatchQueue.main.async {
+                tickConfetti()
+            }
+        }
+        confettiTimer = timer
+
+        // Auto-stop after 2.4s
+        scheduleAnim(after: 2.4) {
+            confettiTimer?.invalidate()
+            confettiTimer = nil
+            confettiActive = false
+            for i in 0..<confettiCount {
+                confettiOpacity[i] = 0.0
+            }
+        }
+    }
+
+    func tickConfetti() {
+        for i in 0..<confettiCount {
+            if confettiOpacity[i] <= 0.0 { continue }
+            confettiX[i] += confettiVX[i]
+            confettiY[i] += confettiVY[i]
+            confettiVY[i] += 0.18 // gravity
+            confettiRotation[i] += confettiRotationSpeed[i]
+            // Fade as the piece falls past the bottom of a typical screen
+            if confettiY[i] > 700 {
+                confettiOpacity[i] = max(0.0, confettiOpacity[i] - 0.08)
+            }
+        }
+    }
+
+    // MARK: - Animation Timers
+
+    func scheduleAnim(after delay: Double, block: @escaping () -> Void) {
+        let t = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
+            block()
+        }
+        animTimers.append(t)
+    }
+
+    func cancelAllAnimTimers() {
+        for t in animTimers {
+            t.invalidate()
+        }
+        animTimers = []
+        confettiTimer?.invalidate()
+        confettiTimer = nil
+    }
+
+    func resetAllAnimationState() {
+        let n = GameModel.gridSize * GameModel.gridSize
+        for i in 0..<n {
+            ghostColor[i] = -1
+            ghostScale[i] = 1.0
+            ghostOpacity[i] = 0.0
+            ghostRotation[i] = 0.0
+            burstColor[i] = 0
+            burstScale[i] = 0.0
+            burstOpacity[i] = 0.0
+            flashOpacity[i] = 0.0
+            placedScale[i] = 1.0
+        }
+        shakeOffsetX = 0.0
+        shakeOffsetY = 0.0
+        messageOpacity = 0.0
+        messageScale = 0.0
+        scoreGainOpacity = 0.0
+        scoreGainOffset = 0.0
+        comboPulse = 0.0
+        boardPulse = 0.0
+        for i in 0..<confettiCount {
+            confettiOpacity[i] = 0.0
+        }
+        confettiActive = false
     }
 
     // MARK: - Pause Menu Overlay
@@ -620,6 +1173,8 @@ struct BlockBlastGameView: View {
                     GameModel.clearSavedState()
                     game.newGame()
                     stopScoreAnimation()
+                    cancelAllAnimTimers()
+                    resetAllAnimationState()
                     displayedScore = 0
                     displayedHighScore = game.highScore
                 }) {
@@ -721,6 +1276,8 @@ struct BlockBlastGameView: View {
                     GameModel.clearSavedState()
                     game.newGame()
                     stopScoreAnimation()
+                    cancelAllAnimTimers()
+                    resetAllAnimationState()
                     displayedScore = 0
                     displayedHighScore = game.highScore
                 }) {
@@ -764,42 +1321,125 @@ struct BlockBlastGameView: View {
         }
     }
 
-    // MARK: - Combo Popup
+    // MARK: - Message + Score-Gain Popup
 
-    var comboPopup: some View {
-        VStack(spacing: 4) {
-            if game.boardCleared {
-                Text("Board Clear! +\(boardClearBonus)")
-                    .font(.title)
-                    .fontWeight(.heavy)
-                    .foregroundStyle(Color.green)
+    /// Floating encouraging-message popup, colored and sized by `messageTier`.
+    /// Tiers: 1 = white/small, 2 = cyan, 3 = yellow, 4 = orange, 5 = hot pink,
+    /// 6 = rainbow (perfect board clear).
+    var messagePopup: some View {
+        VStack(spacing: 8) {
+            if messageOpacity > 0.0 {
+                messageLabel
             }
-            if game.lastLinesCleared > 1 {
-                Text("\(game.lastLinesCleared)x Lines!")
-                    .font(.title)
+
+            if game.lastLinesCleared > 1 && messageOpacity > 0.0 {
+                Text("\(game.lastLinesCleared)x Lines!", bundle: .module)
+                    .font(.title3)
                     .fontWeight(.heavy)
                     .foregroundStyle(Color.yellow)
+                    .scaleEffect(messageScale * 0.92)
+                    .opacity(messageOpacity)
             }
-            if game.comboStreak > 1 {
-                Text("Combo x\(game.comboStreak)!")
-                    .font(.title2)
-                    .fontWeight(.bold)
+
+            if game.comboStreak > 1 && messageOpacity > 0.0 {
+                Text("Combo x\(game.comboStreak)!", bundle: .module)
+                    .font(.title3)
+                    .fontWeight(.heavy)
                     .foregroundStyle(Color.orange)
-            } else if game.lastLinesCleared == 1 {
-                Text("Line Clear!", bundle: .module)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.cyan)
+                    .scaleEffect(messageScale * 0.88)
+                    .opacity(messageOpacity * 0.95)
+            }
+
+            if scoreGainOpacity > 0.0 && scoreGain > 0 {
+                Text("+\(scoreGain)", bundle: .module)
+                    .font(.system(size: 36, weight: .black, design: .rounded))
+                    .foregroundStyle(tierColor(messageTier))
+                    .scaleEffect(scoreGainScale)
+                    .opacity(scoreGainOpacity)
+                    .offset(y: scoreGainOffset)
+                    .shadow(color: Color.black.opacity(0.6), radius: 4)
             }
         }
-        .padding(.horizontal, 24)
-        .padding(.vertical, 12)
-        .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.7))
-        )
         .allowsHitTesting(false)
-        .transition(.opacity)
+    }
+
+    /// The big tier-coloured headline. The actual phrase is picked from a
+    /// random pool keyed on the tier; see `EncouragingMessages` below.
+    @ViewBuilder
+    var messageLabel: some View {
+        EncouragingMessages.text(tier: messageTier, index: messageIndex)
+            .font(tierFont(messageTier))
+            .fontWeight(.heavy)
+            .foregroundStyle(tierColor(messageTier))
+            .scaleEffect(messageScale)
+            .rotationEffect(.degrees(Double(messageRotation)))
+            .opacity(messageOpacity)
+            .shadow(color: tierGlow(messageTier).opacity(0.85), radius: 14)
+            .shadow(color: Color.black.opacity(0.7), radius: 4)
+    }
+
+    /// Font for the headline at each tier.
+    func tierFont(_ tier: Int) -> Font {
+        switch tier {
+        case 1: return Font.title2.weight(.heavy)
+        case 2: return Font.title.weight(.heavy)
+        case 3: return Font.largeTitle.weight(.heavy)
+        case 4: return Font.system(size: 44, weight: .black, design: .rounded)
+        case 5: return Font.system(size: 52, weight: .black, design: .rounded)
+        case 6: return Font.system(size: 56, weight: .black, design: .rounded)
+        default: return Font.title2.weight(.bold)
+        }
+    }
+
+    /// Solid color associated with each tier.
+    func tierColor(_ tier: Int) -> Color {
+        switch tier {
+        case 1: return Color.white
+        case 2: return Color.cyan
+        case 3: return Color.yellow
+        case 4: return Color.orange
+        case 5: return Color(red: 1.0, green: 0.4, blue: 0.7)
+        case 6: return Color(red: 1.0, green: 0.85, blue: 0.3)
+        default: return Color.white
+        }
+    }
+
+    /// Glow color for the message — usually matches the tier color but warmer.
+    func tierGlow(_ tier: Int) -> Color {
+        switch tier {
+        case 1: return Color.white
+        case 2: return Color.cyan
+        case 3: return Color.yellow
+        case 4: return Color.orange
+        case 5: return Color(red: 1.0, green: 0.4, blue: 0.7)
+        case 6: return Color(red: 1.0, green: 0.7, blue: 0.0)
+        default: return Color.white
+        }
+    }
+
+    // MARK: - Confetti Overlay
+
+    var confettiOverlay: some View {
+        GeometryReader { geo in
+            ZStack {
+                ForEach(0..<confettiCount, id: \.self) { i in
+                    if confettiOpacity[i] > 0.0 {
+                        Rectangle()
+                            .fill(BlockColors.color(for: confettiColor[i]))
+                            .frame(width: 10, height: 14)
+                            .rotationEffect(.degrees(Double(confettiRotation[i])))
+                            .opacity(Double(confettiOpacity[i]))
+                            .position(
+                                x: confettiX[i],
+                                y: confettiY[i]
+                            )
+                    }
+                }
+            }
+            .frame(width: geo.size.width, height: geo.size.height)
+        }
+        .allowsHitTesting(false)
+        .ignoresSafeArea()
     }
 }
 
@@ -830,6 +1470,104 @@ struct BlockColors {
         case 5: return Color(red: 0.7, green: 0.6, blue: 0.0)
         case 6: return Color(red: 0.8, green: 0.3, blue: 0.5)
         default: return Color.gray
+        }
+    }
+}
+
+// MARK: - Encouraging Messages
+
+/// Tiered pool of encouraging headline phrases shown when the player clears
+/// lines. Tiers escalate from a small "Nice!" up through a perfect-board
+/// "Masterpiece!" so the visual reward matches the magnitude of the play.
+///
+/// All phrases use `bundle: .module` so they land in `Localizable.xcstrings`
+/// and translate alongside the rest of the game. Adding a new phrase only
+/// requires extending the `switch` and bumping the corresponding `count`.
+struct EncouragingMessages {
+    /// Pick a random message index for the given tier.
+    static func randomIndex(tier: Int) -> Int {
+        let n = count(tier: tier)
+        if n <= 0 { return 0 }
+        return Int.random(in: 0..<n)
+    }
+
+    /// Number of phrases defined for a given tier.
+    static func count(tier: Int) -> Int {
+        switch tier {
+        case 1: return 5
+        case 2: return 5
+        case 3: return 5
+        case 4: return 5
+        case 5: return 5
+        case 6: return 4
+        default: return 1
+        }
+    }
+
+    /// Compute the appropriate tier from a clear's magnitude.
+    static func tier(linesCleared: Int, combo: Int, boardCleared: Bool) -> Int {
+        if boardCleared { return 6 }
+        if combo >= 7 || linesCleared >= 5 { return 5 }
+        if combo >= 5 || linesCleared >= 4 { return 4 }
+        if combo >= 3 || linesCleared >= 3 { return 3 }
+        if combo >= 2 || linesCleared >= 2 { return 2 }
+        return 1
+    }
+
+    /// Localized Text view for the given (tier, index) pair. The string
+    /// literals must remain visible inline so they're picked up by the
+    /// xcstrings extractor.
+    static func text(tier: Int, index: Int) -> Text {
+        switch tier {
+        case 1:
+            switch index {
+            case 0: return Text("Nice!", bundle: .module, comment: "Tier 1 encouraging message after a small line clear")
+            case 1: return Text("Good!", bundle: .module, comment: "Tier 1 encouraging message after a small line clear")
+            case 2: return Text("Sweet!", bundle: .module, comment: "Tier 1 encouraging message after a small line clear")
+            case 3: return Text("Cool!", bundle: .module, comment: "Tier 1 encouraging message after a small line clear")
+            default: return Text("Clean!", bundle: .module, comment: "Tier 1 encouraging message after a small line clear")
+            }
+        case 2:
+            switch index {
+            case 0: return Text("Great!", bundle: .module, comment: "Tier 2 encouraging message after a 2-line clear or 2x combo")
+            case 1: return Text("Nice Job!", bundle: .module, comment: "Tier 2 encouraging message after a 2-line clear or 2x combo")
+            case 2: return Text("Smooth!", bundle: .module, comment: "Tier 2 encouraging message after a 2-line clear or 2x combo")
+            case 3: return Text("Tasty!", bundle: .module, comment: "Tier 2 encouraging message after a 2-line clear or 2x combo")
+            default: return Text("Slick!", bundle: .module, comment: "Tier 2 encouraging message after a 2-line clear or 2x combo")
+            }
+        case 3:
+            switch index {
+            case 0: return Text("Awesome!", bundle: .module, comment: "Tier 3 encouraging message after a 3-line clear or 3-4x combo")
+            case 1: return Text("Excellent!", bundle: .module, comment: "Tier 3 encouraging message after a 3-line clear or 3-4x combo")
+            case 2: return Text("Fantastic!", bundle: .module, comment: "Tier 3 encouraging message after a 3-line clear or 3-4x combo")
+            case 3: return Text("Brilliant!", bundle: .module, comment: "Tier 3 encouraging message after a 3-line clear or 3-4x combo")
+            default: return Text("Wonderful!", bundle: .module, comment: "Tier 3 encouraging message after a 3-line clear or 3-4x combo")
+            }
+        case 4:
+            switch index {
+            case 0: return Text("Amazing!", bundle: .module, comment: "Tier 4 encouraging message after a 4-line clear or 5-6x combo")
+            case 1: return Text("Spectacular!", bundle: .module, comment: "Tier 4 encouraging message after a 4-line clear or 5-6x combo")
+            case 2: return Text("Marvelous!", bundle: .module, comment: "Tier 4 encouraging message after a 4-line clear or 5-6x combo")
+            case 3: return Text("Incredible!", bundle: .module, comment: "Tier 4 encouraging message after a 4-line clear or 5-6x combo")
+            default: return Text("Outrageous!", bundle: .module, comment: "Tier 4 encouraging message after a 4-line clear or 5-6x combo")
+            }
+        case 5:
+            switch index {
+            case 0: return Text("UNBELIEVABLE!", bundle: .module, comment: "Tier 5 huge encouraging message after a 5+ line clear or 7+ combo")
+            case 1: return Text("INSANE!", bundle: .module, comment: "Tier 5 huge encouraging message after a 5+ line clear or 7+ combo")
+            case 2: return Text("LEGENDARY!", bundle: .module, comment: "Tier 5 huge encouraging message after a 5+ line clear or 7+ combo")
+            case 3: return Text("GODLIKE!", bundle: .module, comment: "Tier 5 huge encouraging message after a 5+ line clear or 7+ combo")
+            default: return Text("UNSTOPPABLE!", bundle: .module, comment: "Tier 5 huge encouraging message after a 5+ line clear or 7+ combo")
+            }
+        case 6:
+            switch index {
+            case 0: return Text("PERFECT CLEAR!", bundle: .module, comment: "Tier 6 perfect-board message when every cell is empty")
+            case 1: return Text("FLAWLESS!", bundle: .module, comment: "Tier 6 perfect-board message when every cell is empty")
+            case 2: return Text("MASTERPIECE!", bundle: .module, comment: "Tier 6 perfect-board message when every cell is empty")
+            default: return Text("UNREAL!", bundle: .module, comment: "Tier 6 perfect-board message when every cell is empty")
+            }
+        default:
+            return Text("Nice!", bundle: .module, comment: "Default encouraging message")
         }
     }
 }
@@ -1136,6 +1874,58 @@ final class GamePiece: Identifiable, Hashable {
     /// Set of cells to animate as clearing
     var clearingCells: Set<Int> = []
 
+    /// Parallel arrays describing the cells cleared by the most recent move,
+    /// captured *before* they were zeroed out so the view can render fading
+    /// ghost blocks at their original colors. Length matches across all three.
+    var lastClearedRows: [Int] = []
+    var lastClearedCols: [Int] = []
+    var lastClearedColors: [Int] = []
+
+    /// Cells placed by the most recent move (row, col pairs). Used by the
+    /// view to drive the squash-pulse animation on freshly placed cells.
+    var lastPlacedRows: [Int] = []
+    var lastPlacedCols: [Int] = []
+
+    /// Total points awarded by the most recent move. The view reads this for
+    /// the floating "+N" popup so the displayed number is always identical to
+    /// what was actually added to `score`.
+    var lastScoreGain: Int = 0
+
+    /// Compute the score gain for a single move. Combines a per-cell placement
+    /// bonus, a per-line bonus that grows quadratically with the number of
+    /// lines cleared, a combo multiplier that *multiplies* the gain (vs the
+    /// old additive bonus), and a flat board-clear bonus. The same formula is
+    /// used by `placeShape` to update `score` and re-quoted via `lastScoreGain`
+    /// so the popup never disagrees with the running total.
+    static func computeMoveScore(
+        cellsPlaced: Int,
+        linesCleared: Int,
+        comboStreak: Int,
+        boardWillBeEmpty: Bool
+    ) -> Int {
+        let placementPoints = cellsPlaced * placementPointsPerCell
+        // Quadratic line bonus: 1→100, 2→400, 3→900, 4→1600, 5→2500, 6→3600…
+        let linePoints = linesCleared * linesCleared * basePointsPerLine
+        let preMultGain = placementPoints + linePoints
+
+        // Combo multiplier (multiplicative — much more rewarding than the
+        // previous additive `comboStreak * 5` bonus).
+        let multiplier: Double
+        switch comboStreak {
+        case 0, 1: multiplier = 1.0
+        case 2: multiplier = 1.5
+        case 3: multiplier = 2.0
+        case 4: multiplier = 2.5
+        case 5: multiplier = 3.0
+        case 6: multiplier = 3.5
+        default: multiplier = 4.0
+        }
+
+        let multipliedGain = Int(Double(preMultGain) * multiplier)
+        let boardBonus = boardWillBeEmpty ? boardClearBonus : 0
+        return multipliedGain + boardBonus
+    }
+
     /// Number of attempts to make when generating a solvable piece set.
     /// 0 means no validation (purely random), higher values try harder to
     /// find a solvable set. Set by the view from the player's difficulty preference.
@@ -1156,6 +1946,12 @@ final class GamePiece: Identifiable, Hashable {
         comboStreak = 0
         boardCleared = false
         clearingCells = []
+        lastClearedRows = []
+        lastClearedCols = []
+        lastClearedColors = []
+        lastPlacedRows = []
+        lastPlacedCols = []
+        lastScoreGain = 0
         spawnNewPieces()
     }
 
@@ -1291,6 +2087,20 @@ final class GamePiece: Identifiable, Hashable {
     /// Place a shape on the grid and handle scoring/clearing
     func placeShape(shape: BlockShape, atRow row: Int, col: Int, pieceIndex: Int) {
         boardCleared = false
+        // Reset cleared-cell tracking; clearCompletedLines may repopulate it.
+        lastClearedRows = []
+        lastClearedCols = []
+        lastClearedColors = []
+
+        // Capture which cells the player just placed (for placement animation)
+        var placedR: [Int] = []
+        var placedC: [Int] = []
+        for cell in shape.cells {
+            placedR.append(row + cell.row)
+            placedC.append(col + cell.col)
+        }
+        lastPlacedRows = placedR
+        lastPlacedCols = placedC
 
         // Place the cells
         for cell in shape.cells {
@@ -1298,9 +2108,6 @@ final class GamePiece: Identifiable, Hashable {
             let c = col + cell.col
             grid[r][c] = shape.colorIndex
         }
-
-        // Add points for placing (1 point per cell)
-        score += shape.cells.count
 
         // Remove the placed piece
         currentPieces[pieceIndex] = nil
@@ -1311,20 +2118,23 @@ final class GamePiece: Identifiable, Hashable {
 
         if linesCleared > 0 {
             comboStreak += 1
-            // Scoring: 10 points per line, bonus for combos and multi-line clears
-            let linePoints = linesCleared * 10
-            let comboBonus = comboStreak > 1 ? comboStreak * 5 : 0
-            let multiLineBonus = linesCleared > 1 ? linesCleared * 5 : 0
-            score += linePoints + comboBonus + multiLineBonus
-
-            // Board clear bonus
-            if isBoardEmpty() {
-                boardCleared = true
-                score += boardClearBonus
-            }
         } else {
             comboStreak = 0
         }
+
+        // Detect a full-board clear before computing the bonus.
+        boardCleared = linesCleared > 0 && isBoardEmpty()
+
+        // Roll the full move into a single score gain via the shared helper so
+        // the floating popup and the running total always agree.
+        let gain = GameModel.computeMoveScore(
+            cellsPlaced: shape.cells.count,
+            linesCleared: linesCleared,
+            comboStreak: comboStreak,
+            boardWillBeEmpty: boardCleared
+        )
+        lastScoreGain = gain
+        score += gain
 
         // Check if all three pieces are placed
         let allPlaced = currentPieces[0] == nil && currentPieces[1] == nil && currentPieces[2] == nil
@@ -1388,6 +2198,25 @@ final class GamePiece: Identifiable, Hashable {
             }
         }
         clearingCells = cellsToClear
+
+        // Capture the colors of cells about to be cleared so the view can
+        // animate ghost blocks at their original colors after the model
+        // zeroes the grid. Iterate the set deterministically by row, col.
+        var lr: [Int] = []
+        var lc: [Int] = []
+        var lcol: [Int] = []
+        for r in 0..<GameModel.gridSize {
+            for c in 0..<GameModel.gridSize {
+                if cellsToClear.contains(r * GameModel.gridSize + c) {
+                    lr.append(r)
+                    lc.append(c)
+                    lcol.append(grid[r][c])
+                }
+            }
+        }
+        lastClearedRows = lr
+        lastClearedCols = lc
+        lastClearedColors = lcol
 
         // Clear the rows
         for r in rowsToClear {
