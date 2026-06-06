@@ -23,6 +23,7 @@ let package = Package(
         .package(url: "https://source.skip.dev/skip-ui.git", from: "1.0.0"),
         .package(url: "https://source.skip.dev/skip-kit.git", from: "1.0.0"),
         .package(url: "https://github.com/appfair/appfair-app.git", from: "1.0.0"),
+        .package(url: "https://github.com/Faire-Games/skip-chess.git", branch: "main"),
     ],
     targets: [
         .target(name: "FaireGames", dependencies: [
