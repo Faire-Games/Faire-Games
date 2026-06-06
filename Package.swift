@@ -18,10 +18,10 @@ let package = Package(
         .library(name: "Drop7", type: .dynamic, targets: ["Drop7"]),
     ],
     dependencies: [
-        .package(url: "https://source.skip.tools/skip.git", from: "1.0.0"),
-        .package(url: "https://source.skip.tools/skip-model.git", from: "1.0.0"),
-        .package(url: "https://source.skip.tools/skip-ui.git", from: "1.0.0"),
-        .package(url: "https://source.skip.tools/skip-kit.git", from: "1.0.0"),
+        .package(url: "https://source.skip.dev/skip.git", from: "1.0.0"),
+        .package(url: "https://source.skip.dev/skip-model.git", from: "1.0.0"),
+        .package(url: "https://source.skip.dev/skip-ui.git", from: "1.0.0"),
+        .package(url: "https://source.skip.dev/skip-kit.git", from: "1.0.0"),
         .package(url: "https://github.com/appfair/appfair-app.git", from: "1.0.0"),
     ],
     targets: [
@@ -114,7 +114,7 @@ if let dependencyRoot = Context.environment["SKIP_DEPENDENCY_ROOT"] {
     package.dependencies = package.dependencies.map { dep in
         switch dep.kind {
         case .sourceControl(_, let location, _):
-            // turn "https://source.skip.tools/skip-foundation.git" into "skip-foundation"
+            // turn "https://source.skip.dev/skip-foundation.git" into "skip-foundation"
             guard let baseName = location.split(separator: "/").last?.split(separator: ".").first else {
                 return dep
             }
