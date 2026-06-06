@@ -76,6 +76,11 @@ struct BlockBlastGameView: View {
     @State var prevHighlightCol: Int = -1
     @State var showSettings: Bool = false
     @State var showPauseMenu: Bool = false
+    @State var showDifficultyPicker: Bool = false
+    /// Guards the initial `onAppear` so the difficulty picker (or saved-state
+    /// restore) fires exactly once per view lifetime, even if SwiftUI reruns
+    /// `onAppear` after sheet dismissals or focus changes.
+    @State var hasInitialized: Bool = false
     @State var displayedScore: Int = 0
     @State var displayedHighScore: Int = 0
     @State var scoreAnimTimer: Timer? = nil
@@ -205,16 +210,34 @@ struct BlockBlastGameView: View {
             BlockBlastSettingsView(settings: settings)
                 .presentationDetents([.medium, .large])
         }
-        .onAppear {
-            if let savedState = GameModel.loadSavedState() {
-                game.restoreState(savedState)
-                displayedScore = game.score
+        .sheet(isPresented: $showDifficultyPicker) {
+            BlockBlastDifficultyPickerView(currentDifficulty: game.difficulty) { picked in
+                GameModel.clearSavedState()
+                cancelAllAnimTimers()
+                resetAllAnimationState()
+                game.newGame(difficulty: picked)
+                stopScoreAnimation()
+                displayedScore = 0
                 displayedHighScore = game.highScore
-            } else {
-                displayedScore = game.score
-                displayedHighScore = game.highScore
+                showDifficultyPicker = false
+                showPauseMenu = false
+                playHaptic(.snap)
             }
-            game.solvabilityAttempts = settings.solvabilityAttempts
+        }
+        .onAppear {
+            if !hasInitialized {
+                hasInitialized = true
+                if let savedState = GameModel.loadSavedState() {
+                    game.restoreState(savedState)
+                    displayedScore = game.score
+                    displayedHighScore = game.highScore
+                } else {
+                    // No saved state — prompt for difficulty before starting.
+                    displayedScore = game.score
+                    displayedHighScore = game.highScore
+                    showDifficultyPicker = true
+                }
+            }
         }
         .onDisappear {
             stopScoreAnimation()
@@ -233,9 +256,6 @@ struct BlockBlastGameView: View {
             } else {
                 startScoreAnimation()
             }
-        }
-        .onChange(of: settings.difficulty) { _, _ in
-            game.solvabilityAttempts = settings.solvabilityAttempts
         }
     }
 
@@ -1170,13 +1190,7 @@ struct BlockBlastGameView: View {
 
                 Button(action: {
                     showPauseMenu = false
-                    GameModel.clearSavedState()
-                    game.newGame()
-                    stopScoreAnimation()
-                    cancelAllAnimTimers()
-                    resetAllAnimationState()
-                    displayedScore = 0
-                    displayedHighScore = game.highScore
+                    showDifficultyPicker = true
                 }) {
                     Text("New Game", bundle: .module)
                         .font(.headline)
@@ -1259,10 +1273,10 @@ struct BlockBlastGameView: View {
                     Text("Difficulty", bundle: .module)
                         .font(.caption)
                         .foregroundStyle(Color.white.opacity(0.6))
-                    Text("\(settings.difficulty)")
+                    game.difficulty.label
                         .font(.title3)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(game.difficulty.accentColor)
                 }
 
                 if game.score >= game.highScore && game.score > 0 {
@@ -1273,13 +1287,7 @@ struct BlockBlastGameView: View {
                 }
 
                 Button(action: {
-                    GameModel.clearSavedState()
-                    game.newGame()
-                    stopScoreAnimation()
-                    cancelAllAnimTimers()
-                    resetAllAnimationState()
-                    displayedScore = 0
-                    displayedHighScore = game.highScore
+                    showDifficultyPicker = true
                 }) {
                     Text("Play Again", bundle: .module)
                         .font(.title3)
@@ -1304,7 +1312,7 @@ struct BlockBlastGameView: View {
                 .tint(.red)
 
                 ShareLink(
-                    item: "I scored \(game.score) in Block Blast (difficulty \(settings.difficulty)) on Faire Games! Can you beat it?\nhttps://appfair.net",
+                    item: "I scored \(game.score) in Block Blast on Faire Games! Can you beat it?\nhttps://appfair.net",
                     subject: Text("Block Blast Score", bundle: .module),
                     message: Text("I scored \(game.score) in Block Blast!")
                 ) {
@@ -1470,6 +1478,70 @@ struct BlockColors {
         case 5: return Color(red: 0.7, green: 0.6, blue: 0.0)
         case 6: return Color(red: 0.8, green: 0.3, blue: 0.5)
         default: return Color.gray
+        }
+    }
+}
+
+// MARK: - Difficulty
+
+/// Three-tier difficulty for Block Blast. Replaces the old 0–10 slider so the
+/// new-game flow matches Drop 7 / Sudoku: the player picks Easy, Normal, or
+/// Hard at the start of every game and the chosen tier rides along in the
+/// saved state. Each tier controls how aggressively the piece generator
+/// retries to find a solvable set.
+enum BlockBlastDifficulty: Int, CaseIterable, Identifiable {
+    case easy = 0
+    case normal = 1
+    case hard = 2
+
+    var id: Int { rawValue }
+
+    /// Number of attempts the piece generator makes to find a *solvable* set
+    /// of three pieces before falling back to whatever it last drew. Easy
+    /// guarantees solvability, Normal usually does, Hard is pure random.
+    var solvabilityAttempts: Int {
+        switch self {
+        case .easy: return 20
+        case .normal: return 10
+        case .hard: return 0
+        }
+    }
+
+    /// Accent color used by the picker card and game-over difficulty chip.
+    var accentColor: Color {
+        switch self {
+        case .easy:   return Color(red: 0.35, green: 0.75, blue: 0.45)
+        case .normal: return Color(red: 0.30, green: 0.60, blue: 0.95)
+        case .hard:   return Color(red: 0.90, green: 0.35, blue: 0.30)
+        }
+    }
+
+    /// Localized one-word title for the tier. Inline `Text(literal, bundle:)`
+    /// so the xcstrings extractor picks each variant up.
+    @MainActor
+    var label: Text {
+        switch self {
+        case .easy:
+            return Text("Easy", bundle: .module, comment: "Block Blast difficulty: easy tier label")
+        case .normal:
+            return Text("Normal", bundle: .module, comment: "Block Blast difficulty: normal tier label")
+        case .hard:
+            return Text("Hard", bundle: .module, comment: "Block Blast difficulty: hard tier label")
+        }
+    }
+
+    /// Localized one-line description shown under the tier label in the
+    /// difficulty picker. Phrased factually rather than judgmentally so it
+    /// reads the same way as the Drop 7 / Sudoku pickers.
+    @MainActor
+    var detail: Text {
+        switch self {
+        case .easy:
+            return Text("Pieces always fit somewhere. Relaxed play.", bundle: .module, comment: "Block Blast picker: detail under the Easy tier")
+        case .normal:
+            return Text("Pieces usually fit. Balanced challenge.", bundle: .module, comment: "Block Blast picker: detail under the Normal tier")
+        case .hard:
+            return Text("Pieces are random. The board may become unwinnable.", bundle: .module, comment: "Block Blast picker: detail under the Hard tier")
         }
     }
 }
@@ -1820,6 +1892,9 @@ struct BlockBlastSavedState: Codable {
     var isGameOver: Bool
     var comboStreak: Int
     var boardCleared: Bool
+    /// Difficulty raw value chosen for this game. Required so a relaunched
+    /// game resumes at the same tier the player started in.
+    var difficultyRaw: Int
 }
 
 // MARK: - Game Model
@@ -1926,10 +2001,17 @@ final class GamePiece: Identifiable, Hashable {
         return multipliedGain + boardBonus
     }
 
+    /// Difficulty tier for this game. Drives `solvabilityAttempts` and is
+    /// persisted as part of the saved state so a relaunched game resumes at
+    /// the same tier it started in.
+    var difficulty: BlockBlastDifficulty = .normal
+
     /// Number of attempts to make when generating a solvable piece set.
     /// 0 means no validation (purely random), higher values try harder to
-    /// find a solvable set. Set by the view from the player's difficulty preference.
-    var solvabilityAttempts: Int = 20
+    /// find a solvable set. Derived from `difficulty`.
+    var solvabilityAttempts: Int {
+        return difficulty.solvabilityAttempts
+    }
 
     init() {
         loadHighScore()
@@ -1938,7 +2020,13 @@ final class GamePiece: Identifiable, Hashable {
 
     // MARK: - Core Game Logic
 
-    func newGame() {
+    /// Start a fresh game. When `difficulty` is passed in, the model adopts
+    /// it; pass `nil` to keep the current tier (used by tests and the
+    /// "restore on first launch" path that doesn't go through the picker).
+    func newGame(difficulty: BlockBlastDifficulty? = nil) {
+        if let difficulty = difficulty {
+            self.difficulty = difficulty
+        }
         grid = Array(repeating: Array(repeating: -1, count: 8), count: 8)
         score = 0
         isGameOver = false
@@ -2295,7 +2383,8 @@ final class GamePiece: Identifiable, Hashable {
             highScore: highScore,
             isGameOver: isGameOver,
             comboStreak: comboStreak,
-            boardCleared: boardCleared
+            boardCleared: boardCleared,
+            difficultyRaw: difficulty.rawValue
         )
     }
 
@@ -2306,6 +2395,7 @@ final class GamePiece: Identifiable, Hashable {
         isGameOver = state.isGameOver
         comboStreak = state.comboStreak
         boardCleared = state.boardCleared
+        difficulty = BlockBlastDifficulty(rawValue: state.difficultyRaw) ?? .normal
 
         var restoredPieces: [GamePiece?] = []
         for shapeId in state.pieceShapeIds {
@@ -2434,39 +2524,6 @@ struct BlockBlastSettingsView: View {
                 Section(header: Text("Block Blast", bundle: .module)) {
                     Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
-                Section(header: Text("Difficulty", bundle: .module)) {
-                    VStack(alignment: .leading, spacing: 8) {
-                        HStack {
-                            Text("Level", bundle: .module)
-                            Spacer()
-                            Text("\(settings.difficulty)")
-                                .foregroundStyle(Color.secondary)
-                                .monospaced()
-                        }
-                        Slider(
-                            value: Binding(
-                                get: { Double(settings.difficulty) },
-                                set: { settings.difficulty = Int($0.rounded()) }
-                            ),
-                            in: 0.0...10.0,
-                            step: 1.0
-                        )
-                        HStack {
-                            Text("Easy", bundle: .module)
-                                .font(.caption2)
-                                .foregroundStyle(Color.secondary)
-                            Spacer()
-                            Text("Hard", bundle: .module)
-                                .font(.caption2)
-                                .foregroundStyle(Color.secondary)
-                        }
-                    }
-                }
-                Section {
-                    Text("At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable.", bundle: .module)
-                        .font(.caption)
-                        .foregroundStyle(Color.secondary)
-                }
             }
             .navigationTitle(Text("Settings", bundle: .module))
             #if !os(macOS)
@@ -2481,24 +2538,88 @@ struct BlockBlastSettingsView: View {
     }
 }
 
+// MARK: - Difficulty Picker Sheet
+
+/// Sheet shown when starting a new Block Blast game. Mirrors the layout used
+/// by Sudoku and Drop 7 — three accent-coloured cards with a description, plus
+/// a checkmark on the currently-active tier.
+struct BlockBlastDifficultyPickerView: View {
+    let currentDifficulty: BlockBlastDifficulty
+    let onSelect: (BlockBlastDifficulty) -> Void
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 14) {
+                    Text("Choose Difficulty", bundle: .module, comment: "Block Blast difficulty picker: heading above the three tier cards")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color.white)
+                        .padding(.top, 10.0)
+
+                    ForEach(BlockBlastDifficulty.allCases) { d in
+                        Button(action: {
+                            onSelect(d)
+                            dismiss()
+                        }) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    d.label
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .foregroundStyle(Color.white)
+                                    d.detail
+                                        .font(.caption)
+                                        .foregroundStyle(Color.white.opacity(0.7))
+                                }
+                                Spacer()
+                                if d == currentDifficulty {
+                                    Image(systemName: "checkmark.circle.fill")
+                                        .font(.title3)
+                                        .foregroundStyle(d.accentColor)
+                                }
+                            }
+                            .padding(16)
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .fill(d.accentColor.opacity(0.18))
+                            )
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(d.accentColor.opacity(0.5), lineWidth: 1.5)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("button.difficulty.\(d.rawValue)")
+                    }
+                }
+                .padding(.horizontal, 20.0)
+                .padding(.bottom, 24.0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color(red: 0.08, green: 0.08, blue: 0.18).ignoresSafeArea())
+            .navigationTitle(Text("New Game", bundle: .module))
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { dismiss() }) { Text("Cancel", bundle: .module, comment: "Block Blast difficulty picker: cancel button in the toolbar") }
+                        .foregroundStyle(Color.white)
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
+    }
+}
+
 /// Settings specific to the Block Blast game.
 @Observable
 public class BlockBlastSettings {
     /// Whether vibrations (haptic feedback) are enabled for Block Blast.
     public var vibrations: Bool = defaults.value(forKey: "blockBlastVibrations", default: true) {
         didSet { defaults.set(vibrations, forKey: "blockBlastVibrations") }
-    }
-
-    /// Difficulty level from 0 (easiest — always solvable) to 10 (hardest — pure
-    /// random). The number of solvability attempts when generating a piece set
-    /// is `20 - 2 * difficulty`, so 0 → 20 attempts, 5 → 10 attempts, 10 → 0.
-    public var difficulty: Int = defaults.value(forKey: "blockBlastDifficulty", default: 0) {
-        didSet { defaults.set(difficulty, forKey: "blockBlastDifficulty") }
-    }
-
-    /// The number of solvability attempts implied by the current difficulty.
-    public var solvabilityAttempts: Int {
-        return max(0, 20 - difficulty * 2)
     }
 
     public init() {

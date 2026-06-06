@@ -17,7 +17,7 @@ let logger: Logger = Logger(subsystem: "BlockBlast", category: "Tests")
 
     @Test func saveAndRestoreState() throws {
         let model = GameModel()
-        model.newGame()
+        model.newGame(difficulty: BlockBlastDifficulty.hard)
         model.score = 99
         model.comboStreak = 3
         model.grid[0][0] = 2
@@ -33,6 +33,37 @@ let logger: Logger = Logger(subsystem: "BlockBlast", category: "Tests")
         #expect(restored.comboStreak == 3)
         #expect(restored.grid[0][0] == 2)
         #expect(restored.grid[3][5] == 4)
+        #expect(restored.difficulty == BlockBlastDifficulty.hard)
+    }
+
+    @Test func difficultyDrivesSolvabilityAttempts() throws {
+        let model = GameModel()
+        model.newGame(difficulty: BlockBlastDifficulty.easy)
+        #expect(model.difficulty == BlockBlastDifficulty.easy)
+        #expect(model.solvabilityAttempts == 20)
+
+        model.newGame(difficulty: BlockBlastDifficulty.normal)
+        #expect(model.difficulty == BlockBlastDifficulty.normal)
+        #expect(model.solvabilityAttempts == 10)
+
+        model.newGame(difficulty: BlockBlastDifficulty.hard)
+        #expect(model.difficulty == BlockBlastDifficulty.hard)
+        #expect(model.solvabilityAttempts == 0)
+
+        // Calling newGame() without a difficulty preserves the current tier.
+        model.newGame()
+        #expect(model.difficulty == BlockBlastDifficulty.hard)
+    }
+
+    @Test func loadingPreV170SavedStateIsDiscarded() throws {
+        // The new BlockBlastSavedState carries a required `difficultyRaw` field.
+        // A pre-1.7 saved state written without that field must fail to decode
+        // and be silently discarded — the player gets routed to the difficulty
+        // picker instead of being restored into a half-initialised model.
+        let oldJson = "{\"grid\":[[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1]],\"pieceShapeIds\":[\"dot\",\"dot\",\"dot\"],\"score\":42,\"highScore\":100,\"isGameOver\":false,\"comboStreak\":0,\"boardCleared\":false}"
+        let data = oldJson.data(using: .utf8)!
+        let decoded = try? JSONDecoder().decode(BlockBlastSavedState.self, from: data)
+        #expect(decoded == nil, "saved states from before difficulty was added must be rejected")
     }
 
     @Test func decodeType() throws {

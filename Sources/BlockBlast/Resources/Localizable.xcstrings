@@ -788,6 +788,160 @@
         }
       }
     },
+    "Cancel" : {
+      "comment" : "Block Blast difficulty picker: cancel button in the toolbar",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إلغاء"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Abbrechen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cancelar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annuler"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "रद्द करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Batal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Annulla"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "キャンセル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "취소"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cancelar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Отмена"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "Choose Difficulty" : {
+      "comment" : "Block Blast difficulty picker: heading above the three tier cards",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "اختر مستوى الصعوبة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schwierigkeit wählen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Elige la dificultad"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Choisir la difficulté"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कठिनाई चुनें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pilih Kesulitan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Scegli la difficoltà"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "難易度を選ぶ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "난이도 선택"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Escolher Dificuldade"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Выберите сложность"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "选择难度"
+          }
+        }
+      }
+    },
     "Clean!" : {
       "comment" : "Tier 1 encouraging message after a small line clear",
       "localizations" : {
@@ -1251,7 +1405,7 @@
       }
     },
     "Easy" : {
-      "comment" : "End label below the Block Blast difficulty slider for the easiest setting (low values).",
+      "comment" : "Block Blast difficulty: easy tier label",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1867,7 +2021,7 @@
       }
     },
     "Hard" : {
-      "comment" : "End label below the Block Blast difficulty slider for the hardest setting (high values).",
+      "comment" : "Block Blast difficulty: hard tier label",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2945,6 +3099,83 @@
         }
       }
     },
+    "Normal" : {
+      "comment" : "Block Blast difficulty: normal tier label",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "عادي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normal"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normal"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normal"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "सामान्य"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ノーマル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "보통"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Normal"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Обычно"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "普通"
+          }
+        }
+      }
+    },
     "Outrageous!" : {
       "comment" : "Tier 4 encouraging message after a 4-line clear or 5-6x combo",
       "localizations" : {
@@ -3249,6 +3480,237 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "完美清屏！"
+          }
+        }
+      }
+    },
+    "Pieces always fit somewhere. Relaxed play." : {
+      "comment" : "Block Blast picker: detail under the Easy tier",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "القطع تجد دائمًا مكانًا. لعب مريح."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Steine passen immer irgendwohin. Entspanntes Spiel."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Las piezas siempre caben en algún lugar. Juego relajado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les pièces trouvent toujours leur place. Jeu détendu."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "टुकड़े हमेशा कहीं फिट हो जाते हैं। आरामदायक खेल।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Balok selalu muat di suatu tempat. Bermain santai."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "I pezzi trovano sempre posto. Gioco rilassato."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ピースは必ずどこかに置けます。気軽なプレイ。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "블록을 항상 놓을 자리가 있어요. 편안한 플레이."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "As peças sempre cabem em algum lugar. Jogo relaxado."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Фигуры всегда куда-нибудь поместятся. Расслабленная игра."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "方块总能放下。轻松游玩。"
+          }
+        }
+      }
+    },
+    "Pieces are random. The board may become unwinnable." : {
+      "comment" : "Block Blast picker: detail under the Hard tier",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "القطع عشوائية. قد تصبح اللوحة غير قابلة للفوز."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Steine sind zufällig. Das Brett kann unlösbar werden."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Las piezas son aleatorias. La partida puede volverse imposible."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les pièces sont aléatoires. La partie peut devenir injouable."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "टुकड़े यादृच्छिक हैं। बोर्ड अजेय हो सकता है।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Balok dipilih acak. Papan bisa menjadi tidak terselesaikan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "I pezzi sono casuali. La partita può diventare impossibile."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ピースは完全にランダム。詰む可能性があります。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "블록은 완전히 무작위로 선택돼요. 게임을 풀 수 없을 수도 있어요."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "As peças são aleatórias. O tabuleiro pode se tornar impossível."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Фигуры случайны. Поле может стать непроходимым."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "方块完全随机。棋盘可能无法获胜。"
+          }
+        }
+      }
+    },
+    "Pieces usually fit. Balanced challenge." : {
+      "comment" : "Block Blast picker: detail under the Normal tier",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "القطع تجد مكانًا عادةً. تحدٍ متوازن."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Steine passen meistens. Ausgewogene Herausforderung."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Las piezas suelen caber. Desafío equilibrado."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Les pièces s'adaptent généralement. Défi équilibré."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "टुकड़े आमतौर पर फिट होते हैं। संतुलित चुनौती।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Balok biasanya muat. Tantangan seimbang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "I pezzi di solito trovano posto. Sfida equilibrata."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "たいていピースは置けます。バランスの取れた挑戦。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "보통은 블록을 놓을 수 있어요. 균형 잡힌 도전."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "As peças geralmente cabem. Desafio equilibrado."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Фигуры обычно подходят. Сбалансированный вызов."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "方块通常能放下。平衡的挑战。"
           }
         }
       }
