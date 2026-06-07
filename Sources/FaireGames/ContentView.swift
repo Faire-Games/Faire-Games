@@ -11,6 +11,7 @@ import Breakout
 import Sudoku
 import TwentyFortyEight
 import Drop7
+import Chess
 
 let gamePreviewIconSpan = 120.0
 
@@ -112,9 +113,20 @@ extension FaireGameInfo {
         reset: { resetFlappyBirdHighScore() }
     )
 
+    static let chess = FaireGameInfo(
+        id: "chess",
+        title: { Text("Chess", bundle: .module) },
+        previewIcon: { AnyView(ChessPreviewIcon()) },
+        destination: { AnyView(ChessContainerView()) },
+        resetMenuLabel: { Text("Reset Saved Game", bundle: .module) },
+        resetDialogTitle: { Text("Reset Chess Save?", bundle: .module) },
+        resetDialogMessage: { Text("This will permanently discard the saved Chess game.", bundle: .module) },
+        reset: { resetChessSavedState() }
+    )
+
     /// Canonical default ordering of every shipping game.
     static let allGames: [FaireGameInfo] = [
-        .twentyFortyEight, .blockBlast, .drop7, .sudoku, .sirtet, .breakout, .flappyBird,
+        .twentyFortyEight, .blockBlast, .drop7, .sudoku, .sirtet, .breakout, .flappyBird, .chess,
     ]
 
     static func lookup(id: String) -> FaireGameInfo? {

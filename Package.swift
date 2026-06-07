@@ -16,6 +16,7 @@ let package = Package(
         .library(name: "Sudoku", type: .dynamic, targets: ["Sudoku"]),
         .library(name: "TwentyFortyEight", type: .dynamic, targets: ["TwentyFortyEight"]),
         .library(name: "Drop7", type: .dynamic, targets: ["Drop7"]),
+        .library(name: "Chess", type: .dynamic, targets: ["Chess"]),
     ],
     dependencies: [
         .package(url: "https://source.skip.dev/skip.git", from: "1.0.0"),
@@ -35,6 +36,7 @@ let package = Package(
             "Sudoku",
             "TwentyFortyEight",
             "Drop7",
+            "Chess",
             .product(name: "AppFairUI", package: "appfair-app")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "FaireGamesTests", dependencies: [
@@ -102,6 +104,16 @@ let package = Package(
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "Drop7Tests", dependencies: [
             "Drop7",
+            .product(name: "SkipTest", package: "skip")
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .target(name: "Chess", dependencies: [
+            "FaireGamesModel",
+            .product(name: "SkipKit", package: "skip-kit"),
+            .product(name: "AppFairUI", package: "appfair-app"),
+            .product(name: "SkipChess", package: "skip-chess"),
+        ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
+        .testTarget(name: "ChessTests", dependencies: [
+            "Chess",
             .product(name: "SkipTest", package: "skip")
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .target(name: "FaireGamesModel", dependencies: [

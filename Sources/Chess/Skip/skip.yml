@@ -1,0 +1,4 @@
+# Skip configuration for Chess module
+skip:
+  mode: 'transpiled'
+  package: 'org.appfair.app.fairegames.games.chess'

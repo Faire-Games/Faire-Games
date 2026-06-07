@@ -1,0 +1,7 @@
+{
+  "info" : { "author" : "xcode", "version" : 1 },
+  "images" : [
+    { "idiom" : "universal", "filename" : "bQ.svg" }
+  ],
+  "properties" : { "preserves-vector-representation" : true }
+}

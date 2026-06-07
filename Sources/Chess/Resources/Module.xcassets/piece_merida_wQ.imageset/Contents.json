@@ -1,0 +1,7 @@
+{
+  "info" : { "author" : "xcode", "version" : 1 },
+  "images" : [
+    { "idiom" : "universal", "filename" : "wQ.svg" }
+  ],
+  "properties" : { "preserves-vector-representation" : true }
+}
