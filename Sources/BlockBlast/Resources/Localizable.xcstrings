@@ -166,6 +166,7 @@
     },
     "At difficulty 0, the game tries 20 times to offer a solvable set of blocks. At difficulty 10, blocks are picked purely at random and the game may become unwinnable." : {
       "comment" : "Footer text under the Difficulty slider explaining how the difficulty value affects block selection.",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2484,6 +2485,7 @@
     },
     "Level" : {
       "comment" : "Settings row label preceding the current Block Blast difficulty level value.",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

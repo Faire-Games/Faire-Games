@@ -23,6 +23,7 @@ let package = Package(
         .package(url: "https://source.skip.dev/skip-model.git", from: "1.0.0"),
         .package(url: "https://source.skip.dev/skip-ui.git", from: "1.0.0"),
         .package(url: "https://source.skip.dev/skip-kit.git", from: "1.0.0"),
+        .package(url: "https://source.skip.tools/skip-device.git", "0.0.0"..<"2.0.0"),
         .package(url: "https://github.com/appfair/appfair-app.git", from: "1.0.0"),
         .package(url: "https://github.com/Faire-Games/skip-chess.git", branch: "main"),
     ],
@@ -73,6 +74,7 @@ let package = Package(
         .target(name: "Breakout", dependencies: [
             "FaireGamesModel",
             .product(name: "SkipKit", package: "skip-kit"),
+            .product(name: "SkipDevice", package: "skip-device"),
             .product(name: "AppFairUI", package: "appfair-app"),
         ], resources: [.process("Resources")], plugins: [.plugin(name: "skipstone", package: "skip")]),
         .testTarget(name: "BreakoutTests", dependencies: [

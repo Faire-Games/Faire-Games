@@ -544,6 +544,9 @@
         }
       }
     },
+    "Chess" : {
+
+    },
     "Dark" : {
       "comment" : "Menu item indicating that the appearance should be in dark mode",
       "extractionState" : "stale",
@@ -777,7 +780,91 @@
         }
       }
     },
+    "Done" : {
+      "comment" : "Toolbar button on the home screen that exits drag-to-rearrange mode",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "تم"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fertig"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Listo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Terminé"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "हो गया"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Selesai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fatto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "완료"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Concluir"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Готово"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "完成"
+          }
+        }
+      }
+    },
     "Drop 7" : {
+      "comment" : "Game title — Drop 7 (proper noun, do not translate)",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -851,8 +938,7 @@
             "value" : "Drop 7"
           }
         }
-      },
-      "comment" : "Game title — Drop 7 (proper noun, do not translate)"
+      }
     },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
@@ -1477,6 +1563,89 @@
         }
       }
     },
+    "Rearrange" : {
+      "comment" : "Context-menu item on a game tile that enters drag-to-rearrange mode for the home grid",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة الترتيب"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anordnen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rearrange"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reordenar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réorganiser"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "पुनर्व्यवस्थित करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Atur Ulang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Riordina"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "並べ替え"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "재정렬"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reorganizar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Переставить"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重新排列"
+          }
+        }
+      }
+    },
     "Reset" : {
       "comment" : "Destructive confirmation button shown in reset-progress dialogs.",
       "localizations" : {
@@ -2016,7 +2185,11 @@
         }
       }
     },
+    "Reset Chess Save?" : {
+
+    },
     "Reset Drop 7 High Score?" : {
+      "comment" : "Confirmation dialog title shown before clearing the Drop 7 saved high score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -2090,8 +2263,7 @@
             "value" : "重置 Drop 7 最高分？"
           }
         }
-      },
-      "comment" : "Confirmation dialog title shown before clearing the Drop 7 saved high score"
+      }
     },
     "Reset Flappy Bird High Score?" : {
       "comment" : "Confirmation dialog title shown when the user wants to reset the Flappy Bird high score.",
@@ -2323,6 +2495,9 @@
           }
         }
       }
+    },
+    "Reset Saved Game" : {
+
     },
     "Reset Sirtet High Score?" : {
       "comment" : "Confirmation dialog title shown when the user wants to reset the Sirtet high score. Sirtet is the in-app name for the Tetris-style game.",
@@ -2866,6 +3041,9 @@
         }
       }
     },
+    "This will permanently discard the saved Chess game." : {
+
+    },
     "This will permanently reset all high scores and game progress to zero." : {
       "comment" : "Body text for the Reset All Progress confirmation dialog warning that all game data will be wiped.",
       "localizations" : {
@@ -3175,6 +3353,7 @@
       }
     },
     "This will permanently reset your Drop 7 high score to zero." : {
+      "comment" : "Confirmation dialog body warning before clearing the Drop 7 saved high score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -3248,8 +3427,7 @@
             "value" : "这将永久把您的 Drop 7 最高分重置为零。"
           }
         }
-      },
-      "comment" : "Confirmation dialog body warning before clearing the Drop 7 saved high score"
+      }
     },
     "This will permanently reset your Flappy Bird high score to zero." : {
       "comment" : "Body text for the Reset Flappy Bird High Score confirmation dialog.",
@@ -3718,172 +3896,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "欢迎"
-          }
-        }
-      }
-    },
-    "Done" : {
-      "comment" : "Toolbar button on the home screen that exits drag-to-rearrange mode",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تم"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fertig"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Listo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Terminé"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "हो गया"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Selesai"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fatto"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "完了"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "완료"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Concluir"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Готово"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "完成"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Done"
-          }
-        }
-      }
-    },
-    "Rearrange" : {
-      "comment" : "Context-menu item on a game tile that enters drag-to-rearrange mode for the home grid",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة الترتيب"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Anordnen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reordenar"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réorganiser"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "पुनर्व्यवस्थित करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Atur Ulang"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Riordina"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "並べ替え"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "재정렬"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reorganizar"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Переставить"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重新排列"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rearrange"
           }
         }
       }
