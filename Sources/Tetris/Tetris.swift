@@ -24,6 +24,9 @@ public struct TetrisContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(.dark)
             #endif
             .environment(settings)
@@ -596,6 +599,9 @@ struct TetrisGameView: View {
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
         #endif
         .onAppear {
             if let savedState = TetrisModel.loadSavedState() {

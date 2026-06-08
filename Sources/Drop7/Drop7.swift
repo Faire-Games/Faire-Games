@@ -24,6 +24,9 @@ public struct Drop7ContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(.dark)
             #endif
             .environment(settings)
@@ -774,6 +777,9 @@ struct Drop7GameView: View {
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
         #endif
         .onAppear {
             if !hasInitialized {

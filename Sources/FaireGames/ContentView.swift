@@ -126,7 +126,7 @@ extension FaireGameInfo {
 
     /// Canonical default ordering of every shipping game.
     static let allGames: [FaireGameInfo] = [
-        .twentyFortyEight, .blockBlast, .drop7, .sudoku, .sirtet, .breakout, .flappyBird, .chess,
+        .twentyFortyEight, .blockBlast, .drop7, .sudoku, .sirtet, .breakout, .chess, .flappyBird,
     ]
 
     static func lookup(id: String) -> FaireGameInfo? {

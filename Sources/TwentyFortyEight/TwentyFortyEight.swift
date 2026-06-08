@@ -24,6 +24,9 @@ public struct TwentyFortyEightContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(settings.theme.isDark ? .dark : .light)
             #endif
             .environment(settings)
@@ -791,6 +794,9 @@ struct TwentyFortyEightGameView: View {
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
         #endif
         .onAppear {
             if !hasInitialized {

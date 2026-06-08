@@ -24,6 +24,9 @@ public struct SudokuContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(.dark)
             #endif
             .environment(settings)
@@ -1034,6 +1037,9 @@ struct SudokuGameView: View {
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
         #endif
         .onAppear {
             if !hasInitialized {

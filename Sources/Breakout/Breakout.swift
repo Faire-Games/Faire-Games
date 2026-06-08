@@ -24,6 +24,9 @@ public struct BreakoutContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(.dark)
             #endif
             .environment(settings)
@@ -1206,6 +1209,9 @@ struct BreakoutGameView: View {
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
         #endif
         .onAppear {
             if let state = BreakoutModel.loadSavedState() {

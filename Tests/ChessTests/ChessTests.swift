@@ -5,6 +5,9 @@ import Testing
 import OSLog
 import Foundation
 import SkipChess
+import SkipChessModel
+import SkipChessEngine
+import SkipChessEngineAlphaBeta
 @testable import Chess
 
 let logger: Logger = Logger(subsystem: "Chess", category: "Tests")
@@ -85,10 +88,9 @@ let logger: Logger = Logger(subsystem: "Chess", category: "Tests")
     @Test func uciMoveParserAcceptsPromotion() throws {
         // Build a board where a white pawn on e7 can promote on e8. The
         // black king sits on a8 so the promotion target square is empty.
-        guard let board = FEN.parse("k7/4P3/8/8/8/8/8/4K3 w - - 0 1") else {
-            Issue.record("FEN parse failed")
-            return
-        }
+        // `try #require` instead of `Issue.record` because Skip's Kotlin
+        // transpiler doesn't recognise the latter.
+        let board = try #require(FEN.parse("k7/4P3/8/8/8/8/8/4K3 w - - 0 1"))
         let move = try #require(parseUCIMove("e7e8q", on: board))
         #expect(move.isPromotion)
         #expect(move.promotionKind == PieceKind.queen)
@@ -211,8 +213,12 @@ let logger: Logger = Logger(subsystem: "Chess", category: "Tests")
         )
         state.cancelEngineSearch()
         state.resign()
-        #expect(state.outcome == ChessOutcome.blackResigns ||
-                state.outcome == ChessOutcome.whiteResigns)
+        // Bind the boolean to a let before passing to #expect — Skip's
+        // Kotlin transpiler mis-types the result of a ||-chained pair of
+        // enum `==` comparisons when fed straight into the macro.
+        let resigned: Bool = state.outcome == ChessOutcome.blackResigns
+            || state.outcome == ChessOutcome.whiteResigns
+        #expect(resigned)
         // White player resigning means black wins → outcome.blackResigns is
         // NOT what we want — "blackResigns" means *black* resigned. Verify
         // semantics: outcome is whichever maps to "white player gave up".

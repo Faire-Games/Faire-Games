@@ -33,6 +33,9 @@ public struct ChessContainerView: View {
             #if !os(macOS)
             .toolbar(.hidden, for: .navigationBar)
             .toolbar(.hidden, for: .tabBar)
+            #if SKIP
+            .ignoresSafeArea(.container, edges: .top)
+            #endif
             .colorScheme(.dark)
             #endif
             .environment(settings)
@@ -2026,17 +2029,17 @@ struct ChessGameView: View {
             Spacer(minLength: 0)
 
             // Top captured strip — sits next to the OPPONENT's side of the
-            // board (black side when player is white; white side when
-            // player is black). Indicator dot fires when that side is to
-            // move.
+            // board, and shows the pieces THAT side captured (so the
+            // captures appear on the captor's own side). Indicator dot
+            // fires when it's the opponent's turn to move.
             if game.playerIsWhite {
-                capturedStrip(forCaptor: PieceColor.white, isToMove: blackToMove)
-                    .frame(height: 36)
-                    .accessibilityIdentifier("strip.captured.byWhite")
-            } else {
-                capturedStrip(forCaptor: PieceColor.black, isToMove: whiteToMove)
-                    .frame(height: 36)
+                capturedStrip(forCaptor: PieceColor.black, isToMove: blackToMove)
+                    .frame(height: 52)
                     .accessibilityIdentifier("strip.captured.byBlack")
+            } else {
+                capturedStrip(forCaptor: PieceColor.white, isToMove: whiteToMove)
+                    .frame(height: 52)
+                    .accessibilityIdentifier("strip.captured.byWhite")
             }
 
             // The board fills the entire horizontal space.
@@ -2046,28 +2049,40 @@ struct ChessGameView: View {
             // implicitly by the parent VStack.
             boardArea
 
-            // Bottom captured strip — sits next to the PLAYER's side. The
-            // indicator fires here when it's the player's turn.
+            // Bottom captured strip — sits next to the PLAYER's side and
+            // shows the pieces THAT side captured. Indicator dot fires
+            // when it's the player's turn to move.
             if game.playerIsWhite {
-                capturedStrip(forCaptor: PieceColor.black, isToMove: whiteToMove)
-                    .frame(height: 36)
-                    .accessibilityIdentifier("strip.captured.byBlack")
-            } else {
-                capturedStrip(forCaptor: PieceColor.white, isToMove: blackToMove)
-                    .frame(height: 36)
+                capturedStrip(forCaptor: PieceColor.white, isToMove: whiteToMove)
+                    .frame(height: 52)
                     .accessibilityIdentifier("strip.captured.byWhite")
+            } else {
+                capturedStrip(forCaptor: PieceColor.black, isToMove: blackToMove)
+                    .frame(height: 52)
+                    .accessibilityIdentifier("strip.captured.byBlack")
             }
 
             Spacer(minLength: 0)
 
             historySliderBar
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 20)
                 .accessibilityIdentifier("slider.history")
         }
         .background(palette.pageBackground.ignoresSafeArea())
         .navigationBarBackButtonHidden()
         #if !os(macOS)
         .toolbar(.hidden, for: .navigationBar)
+        // Skip's Compose backend doesn't fully remove the navigation
+        // toolbar's reserved area when .toolbar(.hidden) is applied, so
+        // a dark gap shows above each game's own top bar. Tinting that
+        // hidden bar's background to match the page colour makes the gap
+        // visually disappear (it now looks like the page bg extending
+        // up to the status bar). Combined with .ignoresSafeArea above
+        // for content that should sit flush.
+        .toolbarBackground(palette.pageBackground, for: .navigationBar)
+        #if SKIP
+        .ignoresSafeArea(.container, edges: .top)
+        #endif
         #endif
         .sheet(isPresented: $showPauseMenu) {
             ChessPauseMenuView(
@@ -2232,21 +2247,32 @@ struct ChessGameView: View {
 
     // MARK: Captured strip
 
-    /// Pieces the *captor* has taken, displayed left-to-right sorted by
-    /// material value (most valuable first). Plus an "advantage" badge if
-    /// this side is up material.
+    /// Pieces the *captor* has taken, split across two rows — major/minor
+    /// pieces on top, pawns on bottom — sorted descending by material
+    /// value within each row. The two-row layout keeps each row's
+    /// intrinsic width small enough that the strip can't exceed the
+    /// screen even with the full set of captures on each side, so the
+    /// parent `VStack` is never forced wider than the screen (which
+    /// previously caused the aspect-ratio-locked board to bleed off the
+    /// right edge in late-endgame positions). The turn-indicator dot is
+    /// rendered in the captor's piece colour so it visually identifies
+    /// whose side just acted.
     private func capturedStrip(forCaptor captor: PieceColor, isToMove: Bool) -> some View {
-        let pieces = piecesCaptured(by: captor)
+        let allPieces = piecesCaptured(by: captor)
+        var pawns: [Piece] = []
+        var others: [Piece] = []
+        for p in allPieces {
+            if p.kind == PieceKind.pawn {
+                pawns.append(p)
+            } else {
+                others.append(p)
+            }
+        }
         let advantage = materialAdvantage(for: captor)
         let palette = settings.theme.palette
-        // The strip displays pieces belonging to the OPPOSITE side from the
-        // captor — those are the pieces sitting next to the displayed side
-        // of the board. The turn-indicator dot is rendered in that side's
-        // piece colour so it visually identifies whose move it is.
-        let displayedSide: PieceColor = captor == PieceColor.white ? PieceColor.black : PieceColor.white
-        let dotColor: Color = displayedSide == PieceColor.white ? palette.whitePiece : palette.blackPiece
-        let dotId: String = displayedSide == PieceColor.white ? "indicator.toMove.white" : "indicator.toMove.black"
-        return HStack(spacing: 6) {
+        let dotColor: Color = captor == PieceColor.white ? palette.whitePiece : palette.blackPiece
+        let dotId: String = captor == PieceColor.white ? "indicator.toMove.white" : "indicator.toMove.black"
+        return HStack(alignment: .center, spacing: 8) {
             if isToMove {
                 ZStack {
                     Circle()
@@ -2258,10 +2284,23 @@ struct ChessGameView: View {
                 }
                 .accessibilityIdentifier(dotId)
             }
-            ForEach(0..<pieces.count, id: \.self) { i in
-                ChessPieceView(piece: pieces[i], theme: settings.theme)
-                    .frame(width: 24, height: 24)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 4) {
+                    ForEach(0..<others.count, id: \.self) { i in
+                        ChessPieceView(piece: others[i], theme: settings.theme)
+                            .frame(width: 20, height: 20)
+                    }
+                }
+                .frame(minHeight: 20, alignment: .leading)
+                HStack(spacing: 4) {
+                    ForEach(0..<pawns.count, id: \.self) { i in
+                        ChessPieceView(piece: pawns[i], theme: settings.theme)
+                            .frame(width: 20, height: 20)
+                    }
+                }
+                .frame(minHeight: 20, alignment: .leading)
             }
+            Spacer()
             if advantage > 0 {
                 Text("+\(advantage)")
                     .font(.caption)
@@ -2271,9 +2310,17 @@ struct ChessGameView: View {
                     .padding(.vertical, 2)
                     .background(Capsule().fill(Color.white.opacity(0.12)))
             }
-            Spacer()
         }
-        .padding(.horizontal, 14)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 4)
+        // Panel background so the silhouette pieces are clearly framed
+        // against the page colour. The slight opacity lets the page colour
+        // tint through so the strip still feels part of the same surface.
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(palette.panelBackground.opacity(0.7))
+        )
+        .padding(.horizontal, 8)
     }
 
     /// All pieces captured by `captor`, sorted descending by material value.
@@ -3440,7 +3487,10 @@ struct ChessPromotionPickerView: View {
 // MARK: - Preview icon
 
 /// Tile shown on the FaireGames home grid. A mini board with a few pieces
-/// in the player's currently-selected theme.
+/// laid out on actual squares so the icon looks like a real chess game in
+/// progress. The board is drawn as a `VStack` of `HStack`s of cells, and
+/// each cell hosts its piece directly (no offset positioning) so pieces
+/// always align to their square — independent of icon size.
 public struct ChessPreviewIcon: View {
     public init() { }
 
@@ -3449,29 +3499,14 @@ public struct ChessPreviewIcon: View {
             let palette = ChessTheme.classic.palette
             let cells: Int = 5
             let cellSide: Double = min(geo.size.width, geo.size.height) / Double(cells)
-            ZStack {
-                // Background board
-                VStack(spacing: 0) {
-                    ForEach(0..<cells, id: \.self) { row in
-                        HStack(spacing: 0) {
-                            ForEach(0..<cells, id: \.self) { col in
-                                Rectangle()
-                                    .fill((row + col) % 2 == 0 ? palette.lightSquare : palette.darkSquare)
-                                    .frame(width: cellSide, height: cellSide)
-                            }
+            VStack(spacing: 0) {
+                ForEach(0..<cells, id: \.self) { row in
+                    HStack(spacing: 0) {
+                        ForEach(0..<cells, id: \.self) { col in
+                            previewCell(row: row, col: col, cellSide: cellSide, palette: palette)
                         }
                     }
                 }
-                // Three pieces arranged in the lower-right corner.
-                ChessPieceView(piece: Piece(color: PieceColor.white, kind: PieceKind.king), theme: ChessTheme.classic)
-                    .frame(width: cellSide, height: cellSide)
-                    .offset(x: cellSide * 1.5, y: cellSide * 1.5)
-                ChessPieceView(piece: Piece(color: PieceColor.black, kind: PieceKind.knight), theme: ChessTheme.classic)
-                    .frame(width: cellSide, height: cellSide)
-                    .offset(x: -cellSide * 1.5, y: -cellSide * 0.5)
-                ChessPieceView(piece: Piece(color: PieceColor.white, kind: PieceKind.pawn), theme: ChessTheme.classic)
-                    .frame(width: cellSide, height: cellSide)
-                    .offset(x: cellSide * 0.5, y: -cellSide * 1.5)
             }
         }
         .aspectRatio(1.0, contentMode: .fit)
@@ -3479,6 +3514,37 @@ public struct ChessPreviewIcon: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color(red: 0.12, green: 0.12, blue: 0.22))
         )
+    }
+
+    @ViewBuilder
+    private func previewCell(row: Int, col: Int, cellSide: Double, palette: ChessBoardPalette) -> some View {
+        let isLight = (row + col) % 2 == 0
+        ZStack {
+            Rectangle()
+                .fill(isLight ? palette.lightSquare : palette.darkSquare)
+            if let piece = previewPiece(row: row, col: col) {
+                ChessPieceView(piece: piece, theme: ChessTheme.classic)
+                    .padding(cellSide * 0.06)
+            }
+        }
+        .frame(width: cellSide, height: cellSide)
+    }
+
+    /// Three pieces forming a simple king-vs-king-with-knight scene. Cell
+    /// indices are (row, col) with origin top-left, so the position reads
+    /// roughly as: black king up top, a white knight in the middle, white
+    /// king down low — a recognisable late-endgame vignette.
+    private func previewPiece(row: Int, col: Int) -> Piece? {
+        if row == 0 && col == 1 {
+            return Piece(color: PieceColor.black, kind: PieceKind.king)
+        }
+        if row == 2 && col == 2 {
+            return Piece(color: PieceColor.white, kind: PieceKind.knight)
+        }
+        if row == 4 && col == 3 {
+            return Piece(color: PieceColor.white, kind: PieceKind.king)
+        }
+        return nil
     }
 }
 
