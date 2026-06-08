@@ -4,7 +4,6 @@
 import SwiftUI
 import Observation
 import SkipKit
-import SkipDevice
 import FaireGamesModel
 
 public struct BreakoutContainerView: View {
@@ -285,18 +284,26 @@ final class BreakoutModel {
     var paddleY: Double = 525.0 // baseline; reset in setup() once fieldHeight is known
     var paddleWidth: Double = basePaddleWidth
 
+    /// Paddle position captured at the start of the previous tick. Used by
+    /// the swept paddle-ball collision check to detect fast paddle motion
+    /// (a quick drag through the ball would otherwise let the ball tunnel
+    /// straight through). Also drives the "fast paddle adds ball speed"
+    /// behaviour on impact.
+    var prevPaddleX: Double = 200.0
+    var prevPaddleY: Double = 525.0
+
     /// Default resting Y for the paddle: 1/4 of the way up from the bottom,
     /// adjusted so the paddle's center (not edge) sits at that line.
     var paddleYBaseline: Double {
         fieldHeight * (1.0 - paddleBottomFraction) - paddleHeight / 2.0
     }
 
-    /// Upper bound of the paddle's vertical travel: 1/3 down from the top
-    /// of the playfield. Tilt control (or vertical drag) can lift the paddle
-    /// this far from its baseline but no higher — anything above this would
-    /// start to crowd the bricks.
+    /// Upper bound of the paddle's vertical travel: half-way down from the
+    /// top of the playfield. A vertical drag can lift the paddle this far
+    /// from its baseline but no higher — anything above this crowds the
+    /// bricks and makes the game trivial.
     var paddleYMin: Double {
-        fieldHeight / 3.0
+        fieldHeight / 2.0
     }
 
     /// Lower bound of the paddle's vertical travel: the paddle's bottom edge
@@ -368,6 +375,8 @@ final class BreakoutModel {
         fieldHeight = height
         paddleX = width / 2.0
         paddleY = height * (1.0 - paddleBottomFraction) - paddleHeight / 2.0
+        prevPaddleX = paddleX
+        prevPaddleY = paddleY
 
         // Calculate brick layout
         let totalSpacing = brickSpacing * Double(brickCols + 1)
@@ -453,8 +462,10 @@ final class BreakoutModel {
     func resetBall() {
         isLaunched = false
         // Drop the paddle back to its baseline so the ball can re-sit on it
-        // without ending up mid-air after a tilt-up before launch.
+        // without ending up mid-air after a vertical drag before launch.
         paddleY = paddleYBaseline
+        prevPaddleX = paddleX
+        prevPaddleY = paddleY
         ballX = paddleX
         ballY = paddleY - paddleHeight / 2.0 - ballRadius - 2.0
         ballDX = 0.0
@@ -639,10 +650,18 @@ final class BreakoutModel {
             saveHighScore()
             clearTransient()
         }
+
+        // Save current paddle position for next tick's swept-collision check.
+        // Done at the very end so the next tick's stepPrimaryBall() can read
+        // these as "where the paddle was at the start of THIS tick".
+        prevPaddleX = paddleX
+        prevPaddleY = paddleY
     }
 
     /// Step the primary (scalar) ball. Returns true if the ball was lost this frame.
     private func stepPrimaryBall(dt: Double, speedScale: Double) -> Bool {
+        let prevBallX = ballX
+        let prevBallY = ballY
         ballX += ballDX * dt * speedScale
         ballY += ballDY * dt * speedScale
 
@@ -659,20 +678,50 @@ final class BreakoutModel {
             ballDY = abs(ballDY)
         }
 
-        // Paddle collision
+        // Paddle collision — swept against the paddle's motion this tick so a
+        // fast-moving paddle (drag through the ball) can't tunnel past, and
+        // a fast-moving ball can't pass through a stationary paddle.
         let paddleTop = paddleY - paddleHeight / 2.0
         let paddleLeft = paddleX - paddleWidth / 2.0
         let paddleRight = paddleX + paddleWidth / 2.0
+        let prevPaddleTop = prevPaddleY - paddleHeight / 2.0
+        let prevBallBottom = prevBallY + ballRadius
+        let currBallBottom = ballY + ballRadius
 
-        if ballDY > 0.0 && ballY + ballRadius >= paddleTop && ballY + ballRadius <= paddleTop + paddleHeight + 4.0 {
-            if ballX >= paddleLeft - ballRadius && ballX <= paddleRight + ballRadius {
+        // Two cases catch tunnelling. Either:
+        //  (a) the ball's bottom went from above the paddle's top to at/below
+        //      the paddle's top this tick (covers fast ball + fast upward paddle),
+        //      OR
+        //  (b) the static check still passes — ball is currently inside the
+        //      paddle's bounce window. Keeps the existing behaviour when neither
+        //      object is moving fast.
+        let crossedDown = prevBallBottom <= prevPaddleTop && currBallBottom >= paddleTop
+        let staticOverlap = ballDY > 0.0 && currBallBottom >= paddleTop && currBallBottom <= paddleTop + paddleHeight + 4.0
+
+        if ballDY > 0.0 && (crossedDown || staticOverlap) {
+            // Horizontal: check overlap against the SWEPT paddle X range (its
+            // left/right edges traced from prev to current position).
+            let sweptLeft = min(prevPaddleX, paddleX) - paddleWidth / 2.0
+            let sweptRight = max(prevPaddleX, paddleX) + paddleWidth / 2.0
+
+            if ballX >= sweptLeft - ballRadius && ballX <= sweptRight + ballRadius {
                 let incomingAngle = atan2(ballDX, ballDY)
                 ballY = paddleTop - ballRadius
                 let hitPos = (ballX - paddleX) / (paddleWidth / 2.0)
                 let clampedHit = min(max(hitPos, -0.95), 0.95)
                 let maxAngle = 1.15
                 let outAngle = clampedHit * maxAngle
-                let speed = currentSpeed()
+
+                // Speed boost: a paddle that's moving UP into the ball at the
+                // moment of impact transfers some of its own speed to the ball,
+                // so a "smash" with a quick upward swipe punches the ball
+                // harder than a flat tap. Downward paddle motion doesn't slow
+                // the ball — that would feel deadening.
+                let paddleVy = dt > 0.0 ? (paddleY - prevPaddleY) / dt : 0.0
+                let upwardSpeed = max(0.0, -paddleVy)
+                let boost = min(upwardSpeed * 0.45, currentSpeed() * 0.6)
+                let speed = currentSpeed() + boost
+
                 ballDX = speed * sin(outAngle)
                 ballDY = -speed * cos(outAngle)
                 let mirrorAngle = -incomingAngle
@@ -681,6 +730,48 @@ final class BreakoutModel {
                 lastPaddleDeflection = min(angleDiff / maxPossibleDiff, 1.0)
                 // Paddle bounce breaks combos.
                 combo = 0
+            }
+        } else {
+            // "Smash from above" — the paddle was ABOVE the ball and its
+            // bottom edge crashed down through the ball's top this tick.
+            // Without this, dragging the paddle quickly downward into a ball
+            // that was below it lets the paddle pass right through. Instead
+            // we punt the ball further DOWN with a boost proportional to the
+            // paddle's downward speed.
+            let prevPaddleBottom = prevPaddleY + paddleHeight / 2.0
+            let paddleBottom = paddleY + paddleHeight / 2.0
+            let prevBallTop = prevBallY - ballRadius
+            let currBallTop = ballY - ballRadius
+            let smashedDown = prevBallTop >= prevPaddleBottom && currBallTop <= paddleBottom
+
+            if smashedDown {
+                let sweptLeft = min(prevPaddleX, paddleX) - paddleWidth / 2.0
+                let sweptRight = max(prevPaddleX, paddleX) + paddleWidth / 2.0
+
+                if ballX >= sweptLeft - ballRadius && ballX <= sweptRight + ballRadius {
+                    // Park the ball just under the paddle so it can't end the
+                    // tick still overlapping (which would re-trigger next frame).
+                    ballY = paddleBottom + ballRadius
+                    let hitPos = (ballX - paddleX) / (paddleWidth / 2.0)
+                    let clampedHit = min(max(hitPos, -0.95), 0.95)
+                    let maxAngle = 1.15
+                    let outAngle = clampedHit * maxAngle
+
+                    // Mirror of the upward boost, but more aggressive — a
+                    // deliberate downward slam should noticeably accelerate
+                    // the ball toward the death zone.
+                    let paddleVy = dt > 0.0 ? (paddleY - prevPaddleY) / dt : 0.0
+                    let downwardSpeed = max(0.0, paddleVy)
+                    let boost = min(downwardSpeed * 0.6, currentSpeed() * 0.8)
+                    let speed = currentSpeed() + boost
+
+                    ballDX = speed * sin(outAngle)
+                    ballDY = speed * cos(outAngle) // positive = downward
+                    // Loud combo break + max deflection signal so the haptic
+                    // engine fires the "hard hit" pattern.
+                    combo = 0
+                    lastPaddleDeflection = 1.0
+                }
             }
         }
 
@@ -695,6 +786,7 @@ final class BreakoutModel {
 
     /// Step an extra ball. Returns true if lost this frame.
     private func stepBall(ball b: Ball, dt: Double, speedScale: Double) -> Bool {
+        let prevBallY = b.y
         b.x += b.dx * dt * speedScale
         b.y += b.dy * dt * speedScale
 
@@ -711,20 +803,57 @@ final class BreakoutModel {
             b.dy = abs(b.dy)
         }
 
-        // Paddle bounce
+        // Paddle bounce — swept against the paddle's motion (same tunnelling
+        // fix as the primary ball, just without the deflection/combo state).
         let paddleTop = paddleY - paddleHeight / 2.0
-        let paddleLeft = paddleX - paddleWidth / 2.0
-        let paddleRight = paddleX + paddleWidth / 2.0
-        if b.dy > 0.0 && b.y + ballRadius >= paddleTop && b.y + ballRadius <= paddleTop + paddleHeight + 4.0 {
-            if b.x >= paddleLeft - ballRadius && b.x <= paddleRight + ballRadius {
+        let prevPaddleTop = prevPaddleY - paddleHeight / 2.0
+        let prevBallBottom = prevBallY + ballRadius
+        let currBallBottom = b.y + ballRadius
+        let crossedDown = prevBallBottom <= prevPaddleTop && currBallBottom >= paddleTop
+        let staticOverlap = b.dy > 0.0 && currBallBottom >= paddleTop && currBallBottom <= paddleTop + paddleHeight + 4.0
+
+        if b.dy > 0.0 && (crossedDown || staticOverlap) {
+            let sweptLeft = min(prevPaddleX, paddleX) - paddleWidth / 2.0
+            let sweptRight = max(prevPaddleX, paddleX) + paddleWidth / 2.0
+            if b.x >= sweptLeft - ballRadius && b.x <= sweptRight + ballRadius {
                 b.y = paddleTop - ballRadius
                 let hitPos = (b.x - paddleX) / (paddleWidth / 2.0)
                 let clampedHit = min(max(hitPos, -0.95), 0.95)
                 let maxAngle = 1.15
                 let outAngle = clampedHit * maxAngle
-                let speed = currentSpeed()
+                let paddleVy = dt > 0.0 ? (paddleY - prevPaddleY) / dt : 0.0
+                let upwardSpeed = max(0.0, -paddleVy)
+                let boost = min(upwardSpeed * 0.45, currentSpeed() * 0.6)
+                let speed = currentSpeed() + boost
                 b.dx = speed * sin(outAngle)
                 b.dy = -speed * cos(outAngle)
+            }
+        } else {
+            // Mirror of the smash-from-above check on the primary ball: a
+            // paddle dragged downward through an extra ball below it should
+            // knock the ball further down instead of slipping through.
+            let prevPaddleBottom = prevPaddleY + paddleHeight / 2.0
+            let paddleBottom = paddleY + paddleHeight / 2.0
+            let prevBallTop = prevBallY - ballRadius
+            let currBallTop = b.y - ballRadius
+            let smashedDown = prevBallTop >= prevPaddleBottom && currBallTop <= paddleBottom
+
+            if smashedDown {
+                let sweptLeft = min(prevPaddleX, paddleX) - paddleWidth / 2.0
+                let sweptRight = max(prevPaddleX, paddleX) + paddleWidth / 2.0
+                if b.x >= sweptLeft - ballRadius && b.x <= sweptRight + ballRadius {
+                    b.y = paddleBottom + ballRadius
+                    let hitPos = (b.x - paddleX) / (paddleWidth / 2.0)
+                    let clampedHit = min(max(hitPos, -0.95), 0.95)
+                    let maxAngle = 1.15
+                    let outAngle = clampedHit * maxAngle
+                    let paddleVy = dt > 0.0 ? (paddleY - prevPaddleY) / dt : 0.0
+                    let downwardSpeed = max(0.0, paddleVy)
+                    let boost = min(downwardSpeed * 0.6, currentSpeed() * 0.8)
+                    let speed = currentSpeed() + boost
+                    b.dx = speed * sin(outAngle)
+                    b.dy = speed * cos(outAngle) // positive = downward
+                }
             }
         }
 
@@ -1148,12 +1277,6 @@ struct BreakoutGameView: View {
     @State private var debugTouchCount: Int = 0
     @State private var dragAnchorX: Double? = nil // paddle X at drag start
     @State private var dragAnchorY: Double? = nil // paddle Y at drag start
-    // Smoothed accelerometer readings. The raw sensor is noisy; tick() reads
-    // these to drive paddle motion when settings.tiltMode is on.
-    @State private var tiltX: Double = 0.0
-    @State private var tiltZ: Double = 0.0
-    @State private var accelMonitor: AccelerometerProvider? = nil
-    @State private var accelTask: Task<Void, Never>? = nil
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @Environment(BreakoutSettings.self) var settings: BreakoutSettings
@@ -1212,13 +1335,9 @@ struct BreakoutGameView: View {
                                     playHaptic(.pick)
                                 }
 
-                                // When tilt mode is on, the accelerometer owns
-                                // the paddle — finger drags only serve to launch
-                                // the ball. Otherwise the drag controls both axes:
-                                // horizontal across the play area, plus vertical
-                                // up to 1/3 of the way down from the top.
-                                if settings.tiltMode { return }
-
+                                // The drag controls both paddle axes: horizontal
+                                // across the play area, vertical between the top
+                                // cap (paddleYMin) and the bottom edge.
                                 if dragAnchorX == nil {
                                     dragAnchorX = game.paddleX - value.startLocation.x
                                 }
@@ -1268,8 +1387,10 @@ struct BreakoutGameView: View {
         // can still invoke them with a second deliberate swipe. Skip's
         // SkipUI marks the modifier @available(*, unavailable), so it's
         // limited to native iOS via #if !SKIP.
-        #if !SKIP && os(iOS)
+        #if !SKIP
+        #if os(iOS)
         .defersSystemGestures(on: .all)
+        #endif
         #endif
         .onAppear {
             if let state = BreakoutModel.loadSavedState() {
@@ -1281,38 +1402,17 @@ struct BreakoutGameView: View {
                 game.newGame()
             }
             startTimer()
-            if settings.tiltMode {
-                startAccelerometer()
-            }
         }
-        .onDisappear {
-            stopTimer()
-            stopAccelerometer()
-        }
+        .onDisappear { stopTimer() }
         .onChange(of: scenePhase) { _, newPhase in
             if newPhase != .active {
                 game.saveState()
                 stopTimer()
-                stopAccelerometer()
                 if game.isLaunched && !game.isGameOver && !game.isLevelComplete {
                     showPauseMenu = true
                 }
             } else if !showPauseMenu {
                 startTimer()
-                if settings.tiltMode {
-                    startAccelerometer()
-                }
-            }
-        }
-        .onChange(of: settings.tiltMode) { _, newValue in
-            if newValue {
-                startAccelerometer()
-            } else {
-                stopAccelerometer()
-                // Snap any lifted-by-tilt paddle gently back to baseline so the
-                // first ball after toggling tilt off doesn't feel mid-air.
-                tiltX = 0.0
-                tiltZ = 0.0
             }
         }
         .sheet(isPresented: $showSettings) {
@@ -2078,110 +2178,6 @@ struct BreakoutGameView: View {
         tickTimer = nil
     }
 
-    // MARK: - Accelerometer
-
-    /// Begin streaming accelerometer events into `tiltX`/`tiltZ`. tick() reads
-    /// those each frame and slides the paddle toward a tilt-mapped target.
-    func startAccelerometer() {
-        if accelMonitor != nil { return } // already running
-        let provider = AccelerometerProvider()
-        provider.updateInterval = 1.0 / 60.0
-        accelMonitor = provider
-        accelTask = Task { @MainActor in
-            do {
-                for try await event in provider.monitor() {
-                    // Low-pass filter — sensor jitter would otherwise make the
-                    // paddle quiver. ~0.25 weight on the new sample feels lively
-                    // without going twitchy.
-                    let alpha = 0.25
-                    tiltX = tiltX * (1.0 - alpha) + event.x * alpha
-                    tiltZ = tiltZ * (1.0 - alpha) + event.z * alpha
-                }
-            } catch {
-                // Sensor stream errored — drop the controller and fall back to
-                // the resting tilt values so the paddle settles at baseline.
-                tiltX = 0.0
-                tiltZ = 0.0
-            }
-        }
-    }
-
-    func stopAccelerometer() {
-        accelTask?.cancel()
-        accelTask = nil
-        accelMonitor?.stop()
-        accelMonitor = nil
-    }
-
-    /// Apply the latest smoothed tilt values to the paddle. Maps:
-    ///   x tilt (device leaning left/right) → horizontal target across the play area
-    ///   z tilt (device leaning forward/back) → vertical target across the full
-    ///       paddle range — forward (top away from player) lifts toward the
-    ///       bricks, back (top toward player) drops toward the bottom edge.
-    /// Both axes lerp from current to target each frame so the paddle feels
-    /// momentum-led instead of glued to the sensor. The sensitivity setting
-    /// shrinks the "max tilt" threshold uniformly so a larger value means a
-    /// smaller physical tilt produces a bigger paddle motion.
-    func applyTilt(dt: Double) {
-        guard settings.tiltMode else { return }
-        if game.fieldWidth <= 0 || game.fieldHeight <= 0 { return }
-        if showPauseMenu || game.isGameOver || game.isLevelComplete { return }
-
-        // Sensitivity scales the max-tilt threshold down: higher sensitivity
-        // value → smaller xMax/zMax → less tilt to reach the edge of travel.
-        let sens = max(0.1, settings.tiltSensitivity)
-
-        // Horizontal. Dead-zone is small so micro-tilts don't drift, but
-        // xMax base is a little tighter than the original (felt sluggish in
-        // testing). Effective max = base / sensitivity.
-        let xDead = 0.025
-        let xBase = 0.32 // ~18° base — sensitivity 1.0 already feels lively
-        let xMax = max(xDead + 0.01, xBase / sens)
-        let xRaw = tiltX
-        let xSign: Double = xRaw >= 0 ? 1.0 : -1.0
-        let xMag = max(0.0, min(xMax, abs(xRaw) - xDead))
-        let xNorm = xMag / (xMax - xDead) * xSign
-        let halfW = game.paddleWidth / 2.0
-        let centerX = game.fieldWidth / 2.0
-        let targetX = centerX + xNorm * (centerX - halfW)
-
-        // Vertical via Z. Held upright in portrait, Z ≈ 0; tilting the top
-        // of the device AWAY from the player makes Z go negative (gravity
-        // gains a -Z component), tilting it TOWARD the player makes Z go
-        // positive. We pull the sign so forward = positive, which then drives
-        // the paddle UP (toward the bricks); back = negative drives it DOWN
-        // (toward the bottom edge).
-        let zDead = 0.04
-        let zBase = 0.5
-        let zMax = max(zDead + 0.01, zBase / sens)
-        let zRaw = -tiltZ
-        let zSign: Double = zRaw >= 0 ? 1.0 : -1.0
-        let zMag = max(0.0, min(zMax, abs(zRaw) - zDead))
-        let zNorm = zMag / (zMax - zDead) * zSign
-
-        let targetY: Double
-        if zNorm >= 0 {
-            // Lift up from baseline toward the top cap.
-            targetY = game.paddleYBaseline - zNorm * (game.paddleYBaseline - game.paddleYMin)
-        } else {
-            // Drop from baseline toward the bottom cap (full range now goes
-            // all the way down to the bottom of the play area).
-            targetY = game.paddleYBaseline + (-zNorm) * (game.paddleYMax - game.paddleYBaseline)
-        }
-
-        // Lerp current toward target. A 14/sec rate feels responsive but
-        // doesn't snap so hard that micro-jitter is visible.
-        let rate = 14.0
-        let step = min(1.0, dt * rate)
-        game.paddleX = game.paddleX + (targetX - game.paddleX) * step
-        game.paddleY = game.paddleY + (targetY - game.paddleY) * step
-
-        // Clamp inside the playfield in case the sensor or layout produced an
-        // out-of-range value.
-        game.paddleX = max(halfW, min(game.fieldWidth - halfW, game.paddleX))
-        game.paddleY = max(game.paddleYMin, min(game.paddleYMax, game.paddleY))
-    }
-
     func tick() {
         let now = currentTime()
         var dt = now - lastTick
@@ -2189,8 +2185,6 @@ struct BreakoutGameView: View {
         if dt > 0.1 { dt = 0.016 }
 
         if showPauseMenu { return }
-
-        applyTilt(dt: dt)
 
         let wasBrickCount = aliveBrickCount()
         game.update(dt: dt)
@@ -2298,33 +2292,6 @@ struct BreakoutSettingsView: View {
                 Section(header: Text("Breakout", bundle: .module)) {
                     Toggle(isOn: $settings.vibrations) { Text("Vibrations", bundle: .module) }
                 }
-                Section(header: Text("Controls", bundle: .module)) {
-                    Toggle(isOn: $settings.tiltMode) {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Tilt Mode", bundle: .module)
-                            Text("Use the accelerometer to move the paddle: tilt left or right to slide it sideways, tilt forward or back to push it up or down the screen.", bundle: .module)
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                    .accessibilityIdentifier("toggle.tiltMode")
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text("Sensitivity", bundle: .module)
-                            Spacer()
-                            Text(String(format: "%.1f×", settings.tiltSensitivity))
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                                .monospacedDigit()
-                        }
-                        Slider(value: $settings.tiltSensitivity, in: 0.5...3.0, step: 0.1)
-                            .disabled(!settings.tiltMode)
-                            .accessibilityIdentifier("slider.tiltSensitivity")
-                        Text("Higher values turn smaller tilts into bigger paddle moves.", bundle: .module)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                }
                 Section(header: Text("Debug", bundle: .module)) {
                     Toggle(isOn: $settings.debugInfo) { Text("Debug Information", bundle: .module) }
                 }
@@ -2353,23 +2320,6 @@ struct BreakoutSettingsView: View {
 public class BreakoutSettings {
     public var vibrations: Bool = defaults.value(forKey: "breakoutVibrations", default: true) {
         didSet { defaults.set(vibrations, forKey: "breakoutVibrations") }
-    }
-
-    /// When on, the accelerometer drives the paddle: tilt left/right to move
-    /// the paddle horizontally, tilt the phone forward/back (Z axis) to slide
-    /// the paddle up the screen toward the bricks (up to 1/3 of the way up).
-    /// When off, the paddle is only controlled by dragging a finger across
-    /// the play area.
-    public var tiltMode: Bool = defaults.value(forKey: "breakoutTiltMode", default: true) {
-        didSet { defaults.set(tiltMode, forKey: "breakoutTiltMode") }
-    }
-
-    /// Multiplier for tilt response on both axes — larger values mean a
-    /// smaller physical tilt produces a larger paddle motion. 1.0 is the
-    /// neutral reference; the slider in settings allows 0.5..3.0. Default
-    /// is set above 1 because the natural raw response felt sluggish.
-    public var tiltSensitivity: Double = defaults.value(forKey: "breakoutTiltSensitivity", default: 1.6) {
-        didSet { defaults.set(tiltSensitivity, forKey: "breakoutTiltSensitivity") }
     }
 
     public var debugInfo: Bool = defaults.value(forKey: "breakoutDebugInfo", default: false) {

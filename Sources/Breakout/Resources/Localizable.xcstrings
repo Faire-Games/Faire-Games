@@ -322,9 +322,6 @@
         }
       }
     },
-    "Controls" : {
-
-    },
     "Data" : {
       "comment" : "Settings section header for data-related controls",
       "localizations" : {
@@ -2172,12 +2169,6 @@
           }
         }
       }
-    },
-    "Tilt Mode" : {
-
-    },
-    "Use the accelerometer to move the paddle: tilt left or right to slide it sideways, tilt forward or back to lift it up the screen." : {
-
     },
     "Vibrations" : {
       "comment" : "Settings toggle to enable/disable haptic feedback",

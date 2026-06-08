@@ -545,7 +545,81 @@
       }
     },
     "Chess" : {
-
+      "comment" : "Game title for the Chess tile on the game-picker grid",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "الشطرنج"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schach"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ajedrez"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Échecs"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "शतरंज"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Catur"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Scacchi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "チェス"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "체스"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Xadrez"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Шахматы"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "国际象棋"
+          }
+        }
+      }
     },
     "Dark" : {
       "comment" : "Menu item indicating that the appearance should be in dark mode",
@@ -2186,7 +2260,81 @@
       }
     },
     "Reset Chess Save?" : {
-
+      "comment" : "Confirmation dialog title shown before discarding the saved Chess game",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة تعيين حفظ الشطرنج؟"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schach-Spielstand zurücksetzen?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¿Restablecer partida de ajedrez?"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialiser la partie d'échecs ?"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "शतरंज सेव रीसेट करें?"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reset Simpanan Catur?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reimpostare la partita di Scacchi?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "チェスのセーブをリセットしますか？"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "체스 저장 게임을 초기화하시겠어요?"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Redefinir partida de Xadrez salva?"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Сбросить сохранение шахмат?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重置国际象棋存档？"
+          }
+        }
+      }
     },
     "Reset Drop 7 High Score?" : {
       "comment" : "Confirmation dialog title shown before clearing the Drop 7 saved high score",
@@ -2497,7 +2645,81 @@
       }
     },
     "Reset Saved Game" : {
-
+      "comment" : "Menu item that discards a game's saved state (currently used for Chess in-progress games)",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة تعيين اللعبة المحفوظة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spielstand zurücksetzen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Restablecer partida guardada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Réinitialiser la partie sauvegardée"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "सहेजा गया खेल रीसेट करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reset Game Tersimpan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reimposta partita salvata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "セーブをリセット"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "저장된 게임 초기화"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Redefinir jogo salvo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Сбросить сохранение"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "重置已保存的游戏"
+          }
+        }
+      }
     },
     "Reset Sirtet High Score?" : {
       "comment" : "Confirmation dialog title shown when the user wants to reset the Sirtet high score. Sirtet is the in-app name for the Tetris-style game.",
@@ -3042,7 +3264,81 @@
       }
     },
     "This will permanently discard the saved Chess game." : {
-
+      "comment" : "Body text for the Reset Chess Save confirmation dialog explaining the in-progress game will be lost",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "سيؤدي ذلك إلى حذف لعبة الشطرنج المحفوظة نهائيًا."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Damit wird der gespeicherte Schachspielstand endgültig verworfen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Esto descartará permanentemente la partida de ajedrez guardada."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La partie d'échecs sauvegardée sera définitivement supprimée."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "इससे सहेजा गया शतरंज खेल स्थायी रूप से हट जाएगा।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ini akan menghapus permanen game Catur yang tersimpan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "La partita di Scacchi salvata verrà eliminata in modo permanente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "保存されているチェスの対局が完全に削除されます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "저장된 체스 게임이 영구적으로 삭제됩니다."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Isso descartará permanentemente a partida de Xadrez salva."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Сохранённая партия в шахматы будет удалена без возможности восстановления."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "这将永久删除已保存的国际象棋对局。"
+          }
+        }
+      }
     },
     "This will permanently reset all high scores and game progress to zero." : {
       "comment" : "Body text for the Reset All Progress confirmation dialog warning that all game data will be wiped.",

@@ -7,10 +7,8 @@
     "%lld" : {
       "comment" : "Numeric format placeholder"
     },
-    "▲" : {
-      "comment" : "Upward arrow icon used in difficulty stepper"
-    },
     "Best" : {
+      "comment" : "Label for the player's best (high) score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -87,6 +85,7 @@
       }
     },
     "Data" : {
+      "comment" : "Settings section header for data-related controls",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -163,6 +162,7 @@
       }
     },
     "Difficulty" : {
+      "comment" : "Settings section header for difficulty options; also a label shown after game over",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -239,6 +239,7 @@
       }
     },
     "Done" : {
+      "comment" : "Toolbar button to dismiss a sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -315,6 +316,7 @@
       }
     },
     "Easy" : {
+      "comment" : "Difficulty preset button — easiest setting",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -629,6 +631,7 @@
       }
     },
     "GAME OVER" : {
+      "comment" : "Banner shown when the player crashes",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -705,6 +708,7 @@
       }
     },
     "Hard" : {
+      "comment" : "Difficulty preset button — hardest setting",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -858,6 +862,7 @@
       }
     },
     "Instructions" : {
+      "comment" : "Pause-menu button that opens the how-to-play sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -934,6 +939,7 @@
       }
     },
     "Level" : {
+      "comment" : "Label for the difficulty level number in settings",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1010,6 +1016,7 @@
       }
     },
     "New Game" : {
+      "comment" : "Pause-menu button to start a fresh game",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1086,6 +1093,7 @@
       }
     },
     "New High Score!" : {
+      "comment" : "Celebration banner when a new high score is set",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1162,6 +1170,7 @@
       }
     },
     "PAUSED" : {
+      "comment" : "Banner shown when the game is paused",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1238,6 +1247,7 @@
       }
     },
     "Play Again" : {
+      "comment" : "Button on the Game Over screen to start over",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1314,6 +1324,7 @@
       }
     },
     "Quit Game" : {
+      "comment" : "Pause-menu button to leave the game",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1390,6 +1401,7 @@
       }
     },
     "Reset High Score" : {
+      "comment" : "Settings button that resets the saved high score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1466,6 +1478,7 @@
       }
     },
     "Resume" : {
+      "comment" : "Pause-menu button to continue playing",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1542,6 +1555,7 @@
       }
     },
     "Score" : {
+      "comment" : "Label for the current score",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1618,6 +1632,7 @@
       }
     },
     "Settings" : {
+      "comment" : "Pause-menu button that opens the Settings screen; also the navigation title",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1694,6 +1709,7 @@
       }
     },
     "Share" : {
+      "comment" : "Button label to share the score via the system share sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1847,6 +1863,7 @@
       }
     },
     "Vibrations" : {
+      "comment" : "Settings toggle to enable/disable haptic feedback",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -1921,6 +1938,9 @@
           }
         }
       }
+    },
+    "▲" : {
+      "comment" : "Upward arrow icon used in difficulty stepper"
     }
   },
   "version" : "1.0"
