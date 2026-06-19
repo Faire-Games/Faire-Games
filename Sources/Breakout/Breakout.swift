@@ -1451,52 +1451,76 @@ struct BreakoutGameView: View {
     // MARK: - Game Field
 
     func gameFieldView() -> some View {
+        // IMPORTANT: each visual layer below is wrapped in its OWN ZStack rather than
+        // listed directly as a sibling here. SkipUI's ZStack composes its (flattened)
+        // children in a positional loop without a per-child Compose `key()`, so the
+        // remembered animation state behind `.position`/`.frame`/`.fill` is bound to a
+        // child's INDEX in that loop, not its identity. When a layer's child count
+        // changes mid-frame (a brick is destroyed, a particle spawns, the side guide
+        // toggles), every element drawn after it shifts index and inherits a neighbour's
+        // remembered `Animatable` — making the paddle jump and bricks flash a neighbouring
+        // row's colour for a frame. Wrapping each layer collapses it to a SINGLE child of
+        // this parent ZStack at a fixed index, so a count change inside one layer can no
+        // longer shift the slots of the paddle, ball, or other layers. The bricks layer
+        // additionally emits a fixed-length grid (see `brickCell`) so a destroyed brick
+        // doesn't shift its sibling bricks either.
         ZStack(alignment: .topLeading) {
             // Side-wall guide markers (drawn under bricks so bricks don't get cluttered)
-            if game.predictedSide >= 0 {
-                sideGuideMarker
+            ZStack(alignment: .topLeading) {
+                if game.predictedSide >= 0 {
+                    sideGuideMarker
+                }
             }
 
-            // Bricks
-            ForEach(0..<brickRows, id: \.self) { r in
-                ForEach(0..<brickCols, id: \.self) { c in
-                    if game.bricks.count > r && game.bricks[r].count > c && game.bricks[r][c].alive {
-                        brickView(row: r, col: c)
+            // Bricks — always emit a fixed brickRows×brickCols grid so a destroyed brick
+            // keeps its slot (as a clear placeholder) instead of shifting siblings.
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<brickRows, id: \.self) { r in
+                    ForEach(0..<brickCols, id: \.self) { c in
+                        brickCell(row: r, col: c)
                     }
                 }
             }
 
             // Falling power-ups
-            ForEach(0..<game.fallingPowerUps.count, id: \.self) { i in
-                if i < game.fallingPowerUps.count {
-                    powerUpCapsuleView(p: game.fallingPowerUps[i])
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<game.fallingPowerUps.count, id: \.self) { i in
+                    if i < game.fallingPowerUps.count {
+                        powerUpCapsuleView(p: game.fallingPowerUps[i])
+                    }
                 }
             }
 
             // Particles
-            ForEach(0..<game.particles.count, id: \.self) { i in
-                if i < game.particles.count {
-                    particleView(p: game.particles[i])
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<game.particles.count, id: \.self) { i in
+                    if i < game.particles.count {
+                        particleView(p: game.particles[i])
+                    }
                 }
             }
 
             // Score popups
-            ForEach(0..<game.scorePopups.count, id: \.self) { i in
-                if i < game.scorePopups.count {
-                    popupView(s: game.scorePopups[i])
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<game.scorePopups.count, id: \.self) { i in
+                    if i < game.scorePopups.count {
+                        popupView(s: game.scorePopups[i])
+                    }
                 }
             }
 
             // Ball trail (primary)
-            ForEach(0..<game.ballTrail.count, id: \.self) { i in
-                if i < game.ballTrail.count {
-                    let p = game.ballTrail[i]
-                    let frac = Double(i + 1) / Double(ballTrailMax + 1)
-                    Circle()
-                        .fill(Color.white.opacity(0.10 + 0.20 * frac))
-                        .frame(width: (ballRadius * 2.0) * (0.35 + 0.55 * frac),
-                               height: (ballRadius * 2.0) * (0.35 + 0.55 * frac))
-                        .position(x: p.0, y: p.1)
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<game.ballTrail.count, id: \.self) { i in
+                    if i < game.ballTrail.count {
+                        let p = game.ballTrail[i]
+                        let frac = Double(i + 1) / Double(ballTrailMax + 1)
+                        Circle()
+                            .fill(Color.white.opacity(0.10 + 0.20 * frac))
+                            .frame(width: (ballRadius * 2.0) * (0.35 + 0.55 * frac),
+                                   height: (ballRadius * 2.0) * (0.35 + 0.55 * frac))
+                            .position(x: p.0, y: p.1)
+                    }
                 }
             }
 
@@ -1504,10 +1528,12 @@ struct BreakoutGameView: View {
             ballView(x: game.ballX, y: game.ballY)
 
             // Extra balls
-            ForEach(0..<game.extraBalls.count, id: \.self) { i in
-                if i < game.extraBalls.count {
-                    let b = game.extraBalls[i]
-                    ballView(x: b.x, y: b.y)
+            ZStack(alignment: .topLeading) {
+                ForEach(0..<game.extraBalls.count, id: \.self) { i in
+                    if i < game.extraBalls.count {
+                        let b = game.extraBalls[i]
+                        ballView(x: b.x, y: b.y)
+                    }
                 }
             }
 
@@ -1523,6 +1549,19 @@ struct BreakoutGameView: View {
             if game.combo >= comboMinDisplay {
                 comboBadge
             }
+        }
+    }
+
+    /// One cell of the fixed-length brick grid. Emits the brick when alive, or a tiny clear
+    /// placeholder when not — keeping the bricks layer's child count constant at
+    /// brickRows×brickCols so a destroyed brick can't shift the remembered render state of
+    /// its sibling bricks (which would flash them a neighbouring row's colour). See the note
+    /// in `gameFieldView`.
+    @ViewBuilder func brickCell(row r: Int, col c: Int) -> some View {
+        if game.bricks.count > r && game.bricks[r].count > c && game.bricks[r][c].alive {
+            brickView(row: r, col: c)
+        } else {
+            Color.clear.frame(width: 1.0, height: 1.0)
         }
     }
 

@@ -6,15 +6,69 @@
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld عنصرًا"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عناصر"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عنصرًا"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "عنصر واحد"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عنصر"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "عنصران"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "لا عناصر"
+                }
+              }
+            }
           }
         },
         "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld Einträge"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Eintrag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Einträge"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Keine Einträge"
+                }
+              }
+            }
           }
         },
         "es" : {
@@ -30,21 +84,69 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld आइटम"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              }
+            }
           }
         },
         "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld item"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Item"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Item"
+                }
+              }
+            }
           }
         },
         "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld elementi"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld elemento"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld elementi"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Nessun elemento"
+                }
+              }
+            }
           }
         },
         "ja" : {
@@ -54,21 +156,75 @@
           }
         },
         "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld개 항목"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld개 항목"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "항목 없음"
+                }
+              }
+            }
           }
         },
         "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld itens"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld itens"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld itens"
+                }
+              }
+            }
           }
         },
         "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld элементов"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемента"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элементов"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемент"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемента"
+                }
+              }
+            }
           }
         },
         "zh-Hans" : {
@@ -84,73 +240,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "2048"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "2048"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048"
           }
         }
@@ -162,13 +318,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إضافة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hinzufügen"
           }
         },
@@ -186,19 +342,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "जोड़ें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Tambah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aggiungi"
           }
         },
@@ -210,19 +366,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "추가"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Adicionar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Добавить"
           }
         },
@@ -240,13 +396,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "المظهر"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Erscheinungsbild"
           }
         },
@@ -264,19 +420,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रूप"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Tampilan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aspetto"
           }
         },
@@ -288,19 +444,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모양"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Aparência"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Оформление"
           }
         },
@@ -317,73 +473,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast !"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Block Blast!"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Block Blast!"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast!"
           }
         }
@@ -394,73 +550,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Breakout"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Breakout"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout"
           }
         }
@@ -472,13 +628,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إلغاء"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abbrechen"
           }
         },
@@ -496,19 +652,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रद्द करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Batal"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Annulla"
           }
         },
@@ -520,19 +676,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "취소"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Cancelar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Отмена"
           }
         },
@@ -549,73 +705,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الشطرنج"
+            "state" : "machine_translated",
+            "value" : "شطرنج"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schach"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ajedrez"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Échecs"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शतरंज"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Catur"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Scacchi"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "チェス"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "체스"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Xadrez"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Шахматы"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "国际象棋"
           }
         }
@@ -627,13 +783,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "داكن"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dunkel"
           }
         },
@@ -651,19 +807,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गहरा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Gelap"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Scuro"
           }
         },
@@ -675,19 +831,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "다크"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Escuro"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Тёмное"
           }
         },
@@ -704,73 +860,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "البيانات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Daten"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Datos"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Données"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "डेटा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Data"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dati"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "データ"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "데이터"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Dados"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Данные"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "数据"
           }
         }
@@ -782,13 +938,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "التاريخ"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Datum"
           }
         },
@@ -806,19 +962,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "तारीख"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Tanggal"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Data"
           }
         },
@@ -830,19 +986,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "날짜"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Data"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Дата"
           }
         },
@@ -859,13 +1015,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "تم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fertig"
           }
         },
@@ -877,61 +1033,61 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Listo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Terminé"
+            "state" : "machine_translated",
+            "value" : "OK"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हो गया"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Selesai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fatto"
+            "state" : "machine_translated",
+            "value" : "Fine"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "完了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "완료"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Concluir"
+            "state" : "translated",
+            "value" : "OK"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Готово"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "完成"
           }
         }
@@ -942,73 +1098,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Drop 7"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Drop 7"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7"
           }
         }
@@ -1020,13 +1176,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "المفضلة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Favorit"
           }
         },
@@ -1044,19 +1200,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पसंदीदा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Favorit"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Preferito"
           }
         },
@@ -1068,19 +1224,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "즐겨찾기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Favorito"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Избранное"
           }
         },
@@ -1097,73 +1253,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Flappy Bird"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Flappy Bird"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird"
           }
         }
@@ -1175,13 +1331,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مرحبًا [%@](https://skip.dev)!"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hallo [%@](https://skip.dev)!"
           }
         },
@@ -1199,19 +1355,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नमस्ते [%@](https://skip.dev)!"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Halo [%@](https://skip.dev)!"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ciao [%@](https://skip.dev)!"
           }
         },
@@ -1223,19 +1379,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "안녕하세요 [%@](https://skip.dev)!"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Olá [%@](https://skip.dev)!"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Привет, [%@](https://skip.dev)!"
           }
         },
@@ -1253,13 +1409,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الرئيسية"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Start"
           }
         },
@@ -1277,19 +1433,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "होम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Beranda"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Home"
           }
         },
@@ -1301,19 +1457,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "홈"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Início"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Главная"
           }
         },
@@ -1331,13 +1487,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "فاتح"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hell"
           }
         },
@@ -1355,19 +1511,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हल्का"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Terang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Chiaro"
           }
         },
@@ -1379,19 +1535,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "라이트"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Claro"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Светлое"
           }
         },
@@ -1409,13 +1565,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الاسم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Name"
           }
         },
@@ -1433,19 +1589,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नाम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Nama"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nome"
           }
         },
@@ -1457,19 +1613,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "이름"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Имя"
           }
         },
@@ -1487,13 +1643,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ملاحظات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Notizen"
           }
         },
@@ -1511,19 +1667,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नोट्स"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Catatan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Note"
           }
         },
@@ -1535,19 +1691,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "메모"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Notas"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Заметки"
           }
         },
@@ -1565,13 +1721,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مدعوم بواسطة [Skip](https://skip.dev)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bereitgestellt von [Skip](https://skip.dev)"
           }
         },
@@ -1589,19 +1745,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "[Skip](https://skip.dev) द्वारा संचालित"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Didukung oleh [Skip](https://skip.dev)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Realizzato con [Skip](https://skip.dev)"
           }
         },
@@ -1613,19 +1769,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "[Skip](https://skip.dev) 제공"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Desenvolvido com [Skip](https://skip.dev)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Работает на [Skip](https://skip.dev)"
           }
         },
@@ -1642,14 +1798,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة الترتيب"
+            "state" : "machine_translated",
+            "value" : "إعادة ترتيب"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Anordnen"
+            "state" : "machine_translated",
+            "value" : "Neu anordnen"
           }
         },
         "en" : {
@@ -1660,61 +1816,61 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reordenar"
+            "state" : "machine_translated",
+            "value" : "Reorganizar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réorganiser"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पुनर्व्यवस्थित करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Atur Ulang"
+            "state" : "translated",
+            "value" : "Susun Ulang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Riordina"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "並べ替え"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "재정렬"
+            "state" : "machine_translated",
+            "value" : "재배열"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Reorganizar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Переставить"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重新排列"
           }
         }
@@ -1725,73 +1881,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रीसेट"
+            "state" : "machine_translated",
+            "value" : "रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "リセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置"
           }
         }
@@ -1802,73 +1958,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة في 2048؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer mejor puntuación de 2048?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser le record 2048 ?"
+            "state" : "machine_translated",
+            "value" : "Réinitialiser le record de 2048 ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048 का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi 2048?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di 2048?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048 のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "2048のハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde de 2048?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд 2048?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 2048 最高分？"
           }
         }
@@ -1879,73 +2035,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين الكل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Alles zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer todo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tout réinitialiser"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सभी रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Semua"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta tutto"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "すべてリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모두 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir tudo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить всё"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "全部重置"
           }
         }
@@ -1956,73 +2112,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين كل التقدم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gesamten Fortschritt zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer todo el progreso"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser toute la progression"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सभी प्रगति रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Semua Progres"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta tutti i progressi"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "すべての進行状況をリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모든 진행 상황 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir todo o progresso"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить весь прогресс"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置所有进度"
           }
         }
@@ -2033,73 +2189,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين كل التقدم؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gesamten Fortschritt zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer todo el progreso?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser toute la progression ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सभी प्रगति रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Semua Progres?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare tutti i progressi?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "すべての進行状況をリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "すべての進行状況をリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모든 진행 상황을 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir todo o progresso?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить весь прогресс?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置所有进度？"
           }
         }
@@ -2110,73 +2266,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة في Block Blast؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block-Blast-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer mejor puntuación de Block Blast?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record de Block Blast ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi Block Blast?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di Block Blast?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Block Blast のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "Block Blastのハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde de Block Blast?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд Block Blast?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 Block Blast 最高分？"
           }
         }
@@ -2187,73 +2343,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة في Breakout؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer mejor puntuación de Breakout?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record de Breakout ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi Breakout?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di Breakout?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Breakout のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "Breakoutのハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde de Breakout?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд Breakout?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 Breakout 最高分？"
           }
         }
@@ -2264,73 +2420,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين حفظ الشطرنج؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schach-Spielstand zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer partida de ajedrez?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Réinitialiser la partie d'échecs ?"
+            "state" : "machine_translated",
+            "value" : "Réinitialiser la partie d’échecs ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शतरंज सेव रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reset Simpanan Catur?"
+            "state" : "translated",
+            "value" : "Atur Ulang Simpanan Catur?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reimpostare la partita di Scacchi?"
+            "state" : "machine_translated",
+            "value" : "Reimpostare la partita di Scacchi salvata?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "チェスのセーブをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "チェスのセーブをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "체스 저장 게임을 초기화하시겠어요?"
+            "state" : "machine_translated",
+            "value" : "체스 저장 게임을 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir partida de Xadrez salva?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить сохранение шахмат?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置国际象棋存档？"
           }
         }
@@ -2341,73 +2497,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة تعيين الرقم القياسي لـ Drop 7؟"
+            "state" : "machine_translated",
+            "value" : "إعادة تعيين أعلى نتيجة في Drop 7؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Drop 7-Highscore zurücksetzen?"
+            "state" : "machine_translated",
+            "value" : "Drop 7-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¿Restablecer la mejor puntuación de Drop 7?"
+            "state" : "machine_translated",
+            "value" : "¿Restablecer mejor puntuación de Drop 7?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record de Drop 7 ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Drop 7 का उच्च स्कोर रीसेट करें?"
+            "state" : "machine_translated",
+            "value" : "Drop 7 का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reset Skor Tertinggi Drop 7?"
+            "state" : "translated",
+            "value" : "Atur Ulang Skor Tertinggi Drop 7?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di Drop 7?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Drop 7のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "Drop 7のハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Redefinir recorde do Drop 7?"
+            "state" : "translated",
+            "value" : "Redefinir recorde de Drop 7?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд Drop 7?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 Drop 7 最高分？"
           }
         }
@@ -2418,73 +2574,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة في Flappy Bird؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy-Bird-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer mejor puntuación de Flappy Bird?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record de Flappy Bird ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi Flappy Bird?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di Flappy Bird?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Flappy Bird のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "Flappy Birdのハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde de Flappy Bird?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд Flappy Bird?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 Flappy Bird 最高分？"
           }
         }
@@ -2495,73 +2651,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bestleistung zurücksetzen"
+            "state" : "machine_translated",
+            "value" : "Highscore zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer mejor puntuación"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सर्वोच्च स्कोर रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta record"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ハイスコアをリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "최고 점수 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置最高分"
           }
         }
@@ -2572,73 +2728,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين السجلات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Rekorde zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer récords"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser les records"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रिकॉर्ड्स रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Rekor"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta record"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "記録をリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기록 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recordes"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорды"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置记录"
           }
         }
@@ -2649,74 +2805,74 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين اللعبة المحفوظة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spielstand zurücksetzen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Restablecer partida guardada"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser la partie sauvegardée"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सहेजा गया खेल रीसेट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Reset Game Tersimpan"
+            "state" : "translated",
+            "value" : "Atur Ulang Permainan Tersimpan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimposta partita salvata"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "セーブをリセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "저장된 게임 초기화"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir jogo salvo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить сохранение"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "重置已保存的游戏"
+            "state" : "machine_translated",
+            "value" : "重置存档"
           }
         }
       }
@@ -2726,73 +2882,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين أعلى نتيجة في Sirtet؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet-Bestleistung zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer mejor puntuación de Sirtet?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser le record de Sirtet ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet का सर्वोच्च स्कोर रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Skor Tertinggi Sirtet?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare il record di Sirtet?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sirtet のハイスコアをリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "Sirtetのハイスコアをリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet 최고 점수를 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recorde de Sirtet?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорд Sirtet?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置 Sirtet 最高分？"
           }
         }
@@ -2803,73 +2959,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إعادة تعيين سجلات سودوكو؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sudoku-Rekorde zurücksetzen?"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¿Restablecer récords de Sudoku?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réinitialiser les records Sudoku ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सुडोकू रिकॉर्ड्स रीसेट करें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Atur Ulang Rekor Sudoku?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reimpostare i record Sudoku?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独の記録をリセットしますか？"
+            "state" : "machine_translated",
+            "value" : "数独の記録をリセットしますか?"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "스도쿠 기록을 초기화할까요?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Redefinir recordes de Sudoku?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сбросить рекорды судоку?"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "重置数独记录？"
           }
         }
@@ -2881,14 +3037,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "حفظ"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sichern"
+            "state" : "machine_translated",
+            "value" : "Speichern"
           }
         },
         "es" : {
@@ -2905,19 +3061,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सहेजें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Simpan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salva"
           }
         },
@@ -2929,19 +3085,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "저장"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Salvar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сохранить"
           }
         },
@@ -2959,13 +3115,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الإعدادات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Einstellungen"
           }
         },
@@ -2983,19 +3139,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सेटिंग्स"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Pengaturan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Impostazioni"
           }
         },
@@ -3007,19 +3163,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "설정"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ajustes"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Настройки"
           }
         },
@@ -3036,73 +3192,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sirtet"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sirtet"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet"
           }
         }
@@ -3113,73 +3269,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سودوكو"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sudoku"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sudoku"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sudoku"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सुडोकू"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sudoku"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sudoku"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "数独"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "스도쿠"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sudoku"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Судоку"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "数独"
           }
         }
@@ -3191,13 +3347,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "النظام"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "System"
           }
         },
@@ -3215,19 +3371,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सिस्टम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sistem"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sistema"
           }
         },
@@ -3239,19 +3395,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "시스템"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Sistema"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Системное"
           }
         },
@@ -3268,73 +3424,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سيؤدي ذلك إلى حذف لعبة الشطرنج المحفوظة نهائيًا."
+            "state" : "machine_translated",
+            "value" : "سيؤدي هذا إلى حذف لعبة الشطرنج المحفوظة نهائيًا."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Damit wird der gespeicherte Schachspielstand endgültig verworfen."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto descartará permanentemente la partida de ajedrez guardada."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La partie d'échecs sauvegardée sera définitivement supprimée."
+            "state" : "machine_translated",
+            "value" : "La partie d’échecs sauvegardée sera définitivement supprimée."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "इससे सहेजा गया शतरंज खेल स्थायी रूप से हट जाएगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ini akan menghapus permanen game Catur yang tersimpan."
+            "state" : "translated",
+            "value" : "Ini akan menghapus permainan Catur tersimpan secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La partita di Scacchi salvata verrà eliminata in modo permanente."
+            "state" : "machine_translated",
+            "value" : "La partita di Scacchi salvata verrà eliminata definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "保存されているチェスの対局が完全に削除されます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "저장된 체스 게임이 영구적으로 삭제됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isso descartará permanentemente a partida de Xadrez salva."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сохранённая партия в шахматы будет удалена без возможности восстановления."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久删除已保存的国际象棋对局。"
           }
         }
@@ -3345,73 +3501,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين جميع أعلى النتائج وتقدم اللعبة إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt alle Bestleistungen und den Spielfortschritt dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente todas las mejores puntuaciones y el progreso de los juegos a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Cela réinitialisera définitivement tous les meilleurs scores et la progression à zéro."
+            "state" : "machine_translated",
+            "value" : "Cela réinitialisera définitivement tous les records et la progression du jeu à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह सभी सर्वोच्च स्कोर और गेम प्रगति को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang semua skor tertinggi dan progres permainan ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tutti i record e i progressi di gioco verranno azzerati definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "すべてのハイスコアとゲームの進行状況がゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "すべてのハイスコアとゲームの進行状況が完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모든 최고 점수와 게임 진행 상황이 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente todos os recordes e o progresso dos jogos para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Все рекорды и прогресс игр будут безвозвратно сброшены."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把所有最高分和游戏进度重置为零。"
           }
         }
@@ -3422,73 +3578,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في 2048 إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine 2048-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de 2048 a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement votre record de 2048 à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके 2048 सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang skor tertinggi 2048 Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Il tuo record di 2048 verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "2048 のハイスコアがゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "2048のハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "2048 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seu recorde de 2048 para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваш рекорд в 2048 будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把你的 2048 最高分重置为零。"
           }
         }
@@ -3499,73 +3655,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في Block Blast إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine Block-Blast-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de Block Blast a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement votre record de Block Blast à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके Block Blast सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang skor tertinggi Block Blast Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Il tuo record di Block Blast verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Block Blast のハイスコアがゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "Block Blastのハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Block Blast 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seu recorde de Block Blast para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваш рекорд в Block Blast будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把你的 Block Blast 最高分重置为零。"
           }
         }
@@ -3576,73 +3732,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في Breakout إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine Breakout-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de Breakout a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement votre record de Breakout à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके Breakout सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang skor tertinggi Breakout Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Il tuo record di Breakout verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Breakout のハイスコアがゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "Breakoutのハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Breakout 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seu recorde de Breakout para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваш рекорд в Breakout будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把你的 Breakout 最高分重置为零。"
           }
         }
@@ -3653,74 +3809,74 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سيؤدي هذا إلى إعادة تعيين الرقم القياسي لـ Drop 7 إلى الصفر بشكل نهائي."
+            "state" : "machine_translated",
+            "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في Drop 7 إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Damit wird dein Drop 7-Highscore unwiderruflich auf null gesetzt."
+            "state" : "machine_translated",
+            "value" : "Dies setzt deine Drop 7-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de Drop 7 a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ton record de Drop 7 sera définitivement remis à zéro."
+            "state" : "machine_translated",
+            "value" : "Cela réinitialisera définitivement votre record de Drop 7 à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "इससे आपका Drop 7 उच्च स्कोर स्थायी रूप से शून्य हो जाएगा।"
+            "state" : "machine_translated",
+            "value" : "यह आपके Drop 7 सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ini akan secara permanen mereset skor tertinggi Drop 7-mu menjadi nol."
+            "state" : "translated",
+            "value" : "Ini akan mengatur ulang skor tertinggi Drop 7 Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Il tuo record di Drop 7 verrà azzerato in modo permanente."
+            "state" : "machine_translated",
+            "value" : "Il tuo record di Drop 7 verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Drop 7のハイスコアを永久に 0 にリセットします。"
+            "state" : "machine_translated",
+            "value" : "Drop 7のハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Drop 7 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Isso redefinirá permanentemente seu recorde do Drop 7 para zero."
+            "state" : "translated",
+            "value" : "Isto redefinirá permanentemente seu recorde de Drop 7 para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ваш рекорд в Drop 7 будет безвозвратно сброшен до нуля."
+            "state" : "machine_translated",
+            "value" : "Ваш рекорд в Drop 7 будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "这将永久把您的 Drop 7 最高分重置为零。"
+            "state" : "machine_translated",
+            "value" : "这将永久把你的 Drop 7 最高分重置为零。"
           }
         }
       }
@@ -3730,73 +3886,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في Flappy Bird إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine Flappy-Bird-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de Flappy Bird a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement votre record de Flappy Bird à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके Flappy Bird सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang skor tertinggi Flappy Bird Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Il tuo record di Flappy Bird verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Flappy Bird のハイスコアがゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "Flappy Birdのハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Flappy Bird 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seu recorde de Flappy Bird para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваш рекорд в Flappy Bird будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把你的 Flappy Bird 最高分重置为零。"
           }
         }
@@ -3807,73 +3963,73 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أعلى نتيجة لك في Sirtet إلى الصفر بشكل دائم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine Sirtet-Bestleistung dauerhaft auf null zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esto restablecerá permanentemente tu mejor puntuación de Sirtet a cero."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement votre record de Sirtet à zéro."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके Sirtet सर्वोच्च स्कोर को स्थायी रूप से शून्य पर रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Ini akan mengatur ulang skor tertinggi Sirtet Anda ke nol secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Il tuo record di Sirtet verrà azzerato definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sirtet のハイスコアがゼロに戻ります。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "Sirtetのハイスコアが完全に0にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sirtet 최고 점수가 영구적으로 0으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seu recorde de Sirtet para zero."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваш рекорд в Sirtet будет безвозвратно сброшен."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "这将永久把你的 Sirtet 最高分重置为零。"
           }
         }
@@ -3884,74 +4040,74 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سيؤدي هذا إلى إعادة تعيين أفضل أوقاتك في سودوكو وعدد الألغاز نهائيًا."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dies setzt deine Sudoku-Bestzeiten und Rätselzähler dauerhaft zurück."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Esto restablecerá permanentemente tus mejores tiempos y conteos de puzles de Sudoku."
+            "state" : "machine_translated",
+            "value" : "Esto restablecerá permanentemente tus mejores tiempos y los conteos de puzles de Sudoku."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cela réinitialisera définitivement vos meilleurs temps et le nombre de puzzles Sudoku résolus."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "यह आपके सुडोकू सर्वश्रेष्ठ समय और पहेली गणना को स्थायी रूप से रीसेट कर देगा।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ini akan menghapus semua waktu terbaik dan jumlah teka-teki Sudoku Anda secara permanen."
+            "state" : "translated",
+            "value" : "Ini akan mengatur ulang waktu terbaik dan jumlah teka-teki Sudoku Anda secara permanen."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "I tuoi migliori tempi e i conteggi dei puzzle Sudoku verranno reimpostati definitivamente."
+            "state" : "machine_translated",
+            "value" : "I tuoi migliori tempi e i conteggi dei puzzle Sudoku verranno azzerati definitivamente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "数独のベストタイムとパズル数がリセットされます。元に戻せません。"
+            "state" : "machine_translated",
+            "value" : "数独のベストタイムとパズル数が完全にリセットされます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "스도쿠 최고 기록과 퍼즐 수가 영구적으로 초기화됩니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Isto redefinirá permanentemente seus melhores tempos e contagens de quebra-cabeças do Sudoku."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ваши лучшие результаты и счётчики головоломок судоку будут безвозвратно сброшены."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "这将永久重置你的数独最佳时间和谜题数量。"
+            "state" : "machine_translated",
+            "value" : "这将永久把你的数独最佳用时和谜题数量重置为零。"
           }
         }
       }
@@ -3962,13 +4118,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "العنوان"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Titel"
           }
         },
@@ -3986,19 +4142,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शीर्षक"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Judul"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Titolo"
           }
         },
@@ -4010,19 +4166,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "제목"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Título"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Заголовок"
           }
         },
@@ -4040,13 +4196,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الإصدار %1$@ (%2$@)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Version %1$@ (%2$@)"
           }
         },
@@ -4070,19 +4226,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "संस्करण %1$@ (%2$@)"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Versi %1$@ (%2$@)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Versione %1$@ (%2$@)"
           }
         },
@@ -4094,19 +4250,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "버전 %1$@ (%2$@)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Versão %1$@ (%2$@)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Версия %1$@ (%2$@)"
           }
         },
@@ -4124,13 +4280,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مرحبًا"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Willkommen"
           }
         },
@@ -4148,19 +4304,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "स्वागत है"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Selamat Datang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Benvenuto"
           }
         },
@@ -4172,19 +4328,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "환영합니다"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Bem-vindo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Добро пожаловать"
           }
         },
@@ -4197,5 +4353,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }

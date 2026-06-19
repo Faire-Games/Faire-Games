@@ -2,26 +2,248 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-      "comment" : "Empty placeholder string"
+      "comment" : "Empty placeholder string",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        }
+      }
     },
     " " : {
-      "comment" : "Single-space placeholder used as spacing"
+      "comment" : "Single-space placeholder used as spacing",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : " "
+          }
+        }
+      }
     },
     "+%lld" : {
-      "comment" : "Material-advantage badge prefix shown above the captured-piece strip; %lld is the piece-value lead"
+      "comment" : "Material-advantage badge prefix shown above the captured-piece strip; %lld is the piece-value lead",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "+%lld"
+          }
+        }
+      }
     },
     "A fresh budget for every move." : {
       "comment" : "Chess timer strategy detail: per-move clock",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ميزانية وقت جديدة لكل نقلة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Frisches Zeitbudget für jeden Zug."
           }
         },
@@ -33,55 +255,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Un presupuesto nuevo para cada jugada."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Un budget de temps neuf à chaque coup."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हर चाल के लिए नया समय बजट।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Anggaran waktu baru untuk setiap langkah."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Un budget di tempo nuovo per ogni mossa."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "1手ごとに新しい持ち時間。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "수마다 새로운 시간 예산."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Um orçamento novo para cada jogada."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Свежий лимит на каждый ход."
           }
         },
@@ -98,13 +320,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "السماح بالتراجع من شريط السجل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Zurücknahme über den Verlaufsregler erlauben"
           }
         },
@@ -116,56 +338,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Permitir deshacer desde el control de historial"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Autoriser l'annulation depuis la barre d'historique"
+            "state" : "machine_translated",
+            "value" : "Autoriser l’annulation depuis le curseur d’historique"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "इतिहास स्लाइडर से अंडू की अनुमति दें"
+            "state" : "machine_translated",
+            "value" : "इतिहास स्लाइडर से पूर्ववत की अनुमति दें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Izinkan urungkan dari penggeser riwayat"
+            "state" : "machine_translated",
+            "value" : "Izinkan Urungkan dari Penggeser Riwayat"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Consenti annulla dal cursore della cronologia"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "履歴スライダーから手戻しを許可"
+            "state" : "machine_translated",
+            "value" : "履歴スライダーからの手戻しを許可"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기록 슬라이더에서 되돌리기 허용"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Permitir desfazer pelo controle de histórico"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Разрешить отмену через ползунок истории"
+            "state" : "machine_translated",
+            "value" : "Разрешить отмену с помощью ползунка истории"
           }
         },
         "zh-Hans" : {
@@ -181,13 +403,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الفيل"
+            "state" : "machine_translated",
+            "value" : "فيل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Läufer"
           }
         },
@@ -199,55 +421,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Alfil"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fou"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "बिशप"
+            "state" : "machine_translated",
+            "value" : "ऊँट"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gajah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Alfiere"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ビショップ"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "비숍"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bispo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Слон"
           }
         },
@@ -264,13 +486,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الأسود"
+            "state" : "machine_translated",
+            "value" : "أسود"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schwarz"
           }
         },
@@ -282,55 +504,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Negras"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Noirs"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "काला"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hitam"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nero"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "黒"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "흑"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pretas"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Чёрные"
           }
         },
@@ -347,13 +569,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إلغاء"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abbrechen"
           }
         },
@@ -365,55 +587,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cancelar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Annuler"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रद्द करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Batal"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Annulla"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "キャンセル"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "취소"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cancelar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Отмена"
           }
         },
@@ -430,13 +652,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "كش ملك."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schachmatt."
           }
         },
@@ -448,55 +670,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jaque mate."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Échec et mat."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "शह और मात।"
+            "state" : "machine_translated",
+            "value" : "शहमात।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Skakmat."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Scacco matto."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "チェックメイト。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "체크메이트."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Xeque-mate."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Мат."
           }
         },
@@ -513,13 +735,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "شطرنج"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schach"
           }
         },
@@ -531,55 +753,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ajedrez"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Échecs"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शतरंज"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Catur"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Scacchi"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "チェス"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "체스"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Xadrez"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Шахматы"
           }
         },
@@ -596,13 +818,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لعبة شطرنج (PGN)"
+            "state" : "machine_translated",
+            "value" : "‏مباراة شطرنج (PGN)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schachpartie (PGN)"
           }
         },
@@ -614,55 +836,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida de ajedrez (PGN)"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Partie d'échecs (PGN)"
+            "state" : "machine_translated",
+            "value" : "Partie d’échecs (PGN)"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "शतरंज खेल (PGN)"
+            "state" : "machine_translated",
+            "value" : "शतरंज गेम (PGN)"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partai Catur (PGN)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partita di scacchi (PGN)"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "チェス棋譜 (PGN)"
+            "state" : "machine_translated",
+            "value" : "チェスの対局 (PGN)"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "체스 기보 (PGN)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida de xadrez (PGN)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Партия в шахматы (PGN)"
           }
         },
@@ -679,13 +901,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لعبة شطرنج من Faire Games"
+            "state" : "machine_translated",
+            "value" : "‏مباراة شطرنج من Faire Games"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schachpartie aus Faire Games"
           }
         },
@@ -697,55 +919,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida de ajedrez de Faire Games"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Partie d'échecs de Faire Games"
+            "state" : "machine_translated",
+            "value" : "Partie d’échecs de Faire Games"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Faire Games से शतरंज खेल"
+            "state" : "machine_translated",
+            "value" : "Faire Games से शतरंज गेम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partai Catur dari Faire Games"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partita di scacchi da Faire Games"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Faire Games のチェス棋譜"
+            "state" : "machine_translated",
+            "value" : "Faire Games のチェス対局"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Faire Games 의 체스 기보"
+            "state" : "machine_translated",
+            "value" : "Faire Games의 체스 기보"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida de xadrez de Faire Games"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Партия в шахматы из Faire Games"
           }
         },
@@ -762,13 +984,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "وضعية الشطرنج (FEN)"
+            "state" : "machine_translated",
+            "value" : "‏وضعية شطرنج (FEN)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schachstellung (FEN)"
           }
         },
@@ -780,55 +1002,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posición de ajedrez (FEN)"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Position d'échecs (FEN)"
+            "state" : "machine_translated",
+            "value" : "Position d’échecs (FEN)"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शतरंज स्थिति (FEN)"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posisi Catur (FEN)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posizione di scacchi (FEN)"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "チェスの局面 (FEN)"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "체스 포지션 (FEN)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posição de xadrez (FEN)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Позиция в шахматах (FEN)"
           }
         },
@@ -845,13 +1067,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "وضعية شطرنج من Faire Games"
+            "state" : "machine_translated",
+            "value" : "‏وضعية شطرنج من Faire Games"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schachstellung aus Faire Games"
           }
         },
@@ -863,55 +1085,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posición de ajedrez de Faire Games"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Position d'échecs de Faire Games"
+            "state" : "machine_translated",
+            "value" : "Position d’échecs de Faire Games"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Faire Games से शतरंज स्थिति"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posisi Catur dari Faire Games"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posizione di scacchi da Faire Games"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Faire Games のチェス局面"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Faire Games 의 체스 포지션"
+            "state" : "machine_translated",
+            "value" : "Faire Games의 체스 포지션"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Posição de xadrez de Faire Games"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Позиция в шахматах из Faire Games"
           }
         },
@@ -929,14 +1151,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# الشطرنج\n\nالعب لعبة ودية ضد محرك SkipChessEngineAlphaBeta.\n\n## الإعداد\n\n- اختر جانبك (الأبيض أو الأسود)، ومستوى الصعوبة (سهل / متوسط / صعب مع تقديرات تقريبية لـ ELO)، وساعة اختيارية.\n- يملأ اللوح الشاشة ويُعرض من منظور اللاعب.\n\n## اللعب\n\n- انقر إحدى قطعك لتحديدها. انقر على مربع الوجهة للنقل.\n- يمكن تمكين نقاط النقلات القانونية في الإعدادات.\n- ترقية البيدق تفتح منتقيًا للوزير أو القلعة أو الفيل أو الفارس.\n\n## السجل\n\n- اسحب الشريط في الأسفل للتمرير عبر النقلات السابقة.\n- افتراضيًا، يعود الشريط عند الإفلات إلى الوضع الحي. شغّل \"السماح بالتراجع\" في الإعدادات لتأكيد الإلغاء.\n\n## قائمة الإيقاف\n\n- احفظ اللعبة لتبقى بعد إعادة تشغيل التطبيق.\n- شارك الوضعية بصيغة FEN أو اللعبة كاملة بصيغة PGN.\n- استسلم أو غادر اللعبة.\n"
+            "state" : "machine_translated",
+            "value" : "# الشطرنج\n\nالعب مباراة ودية ضد محرك SkipChessEngineAlphaBeta.\n\n## الإعداد\n\n- اختر لونك (أبيض أو أسود) ومستوى الصعوبة (سهل / متوسط / صعب مع تقديرات تقريبية لتصنيف ELO) وساعة اختيارية.\n- تملأ الرقعة الشاشة وتُعرض من منظور اللاعب.\n\n## اللعب\n\n- اضغط على إحدى قطعك لتحديدها، ثم اضغط على المربع الوجهة للنقل.\n- يمكن تفعيل نقاط النقلات القانونية من الإعدادات.\n- ترقية البيدق تفتح قائمة لاختيار وزير أو رخ أو فيل أو حصان.\n\n## السجل\n\n- اسحب الشريط في الأسفل لاستعراض النقلات السابقة.\n- افتراضيًا، يؤدي ترك الشريط إلى العودة إلى الوضعية الحالية. فعّل \"السماح بالتراجع\" في الإعدادات لتثبيت الرجوع.\n\n## قائمة الإيقاف المؤقت\n\n- احفظ المباراة لتبقى بعد إعادة تشغيل التطبيق.\n- شارك الوضعية كنص FEN أو المباراة الكاملة كـ PGN.\n- انسحب من المباراة أو اخرج منها.\n"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Schach\n\nSpiele eine freundliche Partie gegen die SkipChessEngineAlphaBeta-Engine.\n\n## Einrichten\n\n- Wähle deine Seite (Weiß oder Schwarz), die Schwierigkeit (Leicht / Mittel / Schwer mit ELO-Richtwerten) und optional eine Uhr.\n- Das Brett füllt den Bildschirm und wird aus Sicht des Spielers angezeigt.\n\n## Spielen\n\n- Tippe eine Figur an, um sie auszuwählen. Tippe das Zielfeld an, um zu ziehen.\n- Legale Züge können in den Einstellungen hervorgehoben werden.\n- Beim Bauernumwandeln öffnet sich eine Auswahl: Dame, Turm, Läufer oder Springer.\n\n## Verlauf\n\n- Ziehe den Regler unten, um durch frühere Züge zu scrubben.\n- Standardmäßig springt das Loslassen zurück zur aktuellen Stellung. Aktiviere „Zurücknahme erlauben\" in den Einstellungen, um den Schritt zurück zu übernehmen.\n\n## Pausenmenü\n\n- Speichere die Partie, damit sie einen Neustart der App übersteht.\n- Teile die Stellung als FEN oder die ganze Partie als PGN.\n- Gib auf oder verlasse die Partie.\n"
+            "state" : "machine_translated",
+            "value" : "# Schach\n\nSpiele eine freundliche Partie gegen die SkipChessEngineAlphaBeta-Engine.\n\n## Einrichten\n\n- Wähle deine Seite (Weiß oder Schwarz), die Schwierigkeit (Leicht / Mittel / Schwer mit ELO-Richtwerten) und optional eine Uhr.\n- Das Brett füllt den Bildschirm und wird aus Sicht des Spielers angezeigt.\n\n## Spielen\n\n- Tippe eine Figur an, um sie auszuwählen. Tippe das Zielfeld an, um zu ziehen.\n- Legale Züge können in den Einstellungen hervorgehoben werden.\n- Beim Bauernumwandeln öffnet sich eine Auswahl: Dame, Turm, Läufer oder Springer.\n\n## Verlauf\n\n- Ziehe den Regler unten, um durch frühere Züge zu scrubben.\n- Standardmäßig springt das Loslassen zurück zur aktuellen Stellung. Aktiviere „Zurücknahme erlauben“ in den Einstellungen, um den Schritt zurück zu übernehmen.\n\n## Pausenmenü\n\n- Speichere die Partie, damit sie einen Neustart der App übersteht.\n- Teile die Stellung als FEN oder die ganze Partie als PGN.\n- Gib auf oder verlasse die Partie.\n"
           }
         },
         "en" : {
@@ -947,56 +1169,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Ajedrez\n\nJuega una partida amistosa contra el motor SkipChessEngineAlphaBeta.\n\n## Configuración\n\n- Elige tu bando (blancas o negras), una dificultad (Fácil / Medio / Difícil con estimaciones de ELO) y un reloj opcional.\n- El tablero llena la pantalla y se muestra desde el punto de vista del jugador.\n\n## Cómo jugar\n\n- Toca una de tus piezas para seleccionarla. Toca una casilla destino para mover.\n- Los puntos de movimientos legales se activan en Ajustes.\n- Al coronar un peón se abre un selector para elegir Dama, Torre, Alfil o Caballo.\n\n## Historial\n\n- Arrastra el control de la parte inferior para retroceder por jugadas pasadas.\n- Por defecto, al soltar vuelve a la posición actual. Activa \"Permitir deshacer\" en Ajustes para confirmar el retroceso.\n\n## Menú de pausa\n\n- Guarda la partida para que sobreviva al reinicio de la app.\n- Comparte la posición como FEN o la partida completa como PGN.\n- Ríndete o sal de la partida.\n"
+            "state" : "machine_translated",
+            "value" : "# Ajedrez\n\nJuega una partida amistosa contra el motor SkipChessEngineAlphaBeta.\n\n## Preparación\n\n- Elige tu bando (Blancas o Negras), una dificultad (Fácil / Media / Difícil con estimaciones aproximadas de ELO) y un reloj opcional.\n- El tablero ocupa la pantalla y se muestra desde la perspectiva del jugador.\n\n## Jugar\n\n- Toca una de tus piezas para seleccionarla. Toca una casilla de destino para mover.\n- Los puntos de movimientos legales se pueden activar en Ajustes.\n- Al promocionar un peón se abre un selector para elegir una Dama, Torre, Alfil o Caballo.\n\n## Historial\n\n- Arrastra el control deslizante de la parte inferior para revisar movimientos anteriores.\n- De forma predeterminada, al soltar el control se vuelve a la posición actual. Activa «Permitir deshacer» en Ajustes para confirmar el retroceso.\n\n## Menú de pausa\n\n- Guarda la partida para que sobreviva a un reinicio de la app.\n- Comparte la posición como una cadena FEN o la partida completa como PGN.\n- Abandona o sal de la partida.\n"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Échecs\n\nFais une partie amicale contre le moteur SkipChessEngineAlphaBeta.\n\n## Configuration\n\n- Choisis ta couleur (Blancs ou Noirs), une difficulté (Facile / Moyen / Difficile avec estimations ELO) et une horloge optionnelle.\n- L'échiquier remplit l'écran et s'affiche du point de vue du joueur.\n\n## Comment jouer\n\n- Touche l'une de tes pièces pour la sélectionner. Touche une case d'arrivée pour déplacer.\n- Les indicateurs de coups légaux peuvent être activés dans les Réglages.\n- La promotion d'un pion ouvre un sélecteur : Dame, Tour, Fou ou Cavalier.\n\n## Historique\n\n- Fais glisser le curseur en bas pour parcourir les coups joués.\n- Par défaut, lâcher le curseur revient à la position actuelle. Active \"Autoriser l'annulation\" dans les Réglages pour valider le retour en arrière.\n\n## Menu Pause\n\n- Sauvegarde la partie pour qu'elle survive à un redémarrage de l'application.\n- Partage la position au format FEN ou la partie complète au format PGN.\n- Abandonne ou quitte la partie.\n"
+            "state" : "machine_translated",
+            "value" : "# Échecs\n\nFais une partie amicale contre le moteur SkipChessEngineAlphaBeta.\n\n## Configuration\n\n- Choisis ta couleur (Blancs ou Noirs), une difficulté (Facile / Moyen / Difficile avec estimations approximatives de l’ELO) et une horloge optionnelle.\n- L’échiquier remplit l’écran et s’affiche du point de vue du joueur.\n\n## Comment jouer\n\n- Touche l’une de tes pièces pour la sélectionner. Touche une case d’arrivée pour déplacer.\n- Les indicateurs de coups légaux peuvent être activés dans les Réglages.\n- La promotion d’un pion ouvre un sélecteur : Dame, Tour, Fou ou Cavalier.\n\n## Historique\n\n- Fais glisser le curseur en bas pour parcourir les coups joués.\n- Par défaut, lâcher le curseur revient à la position actuelle. Active « Autoriser l’annulation » dans les Réglages pour valider le retour en arrière.\n\n## Menu Pause\n\n- Sauvegarde la partie pour qu’elle survive à un redémarrage de l’application.\n- Partage la position au format FEN ou la partie complète au format PGN.\n- Abandonne ou quitte la partie.\n"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# शतरंज\n\nSkipChessEngineAlphaBeta इंजन के विरुद्ध मित्रवत खेल खेलें।\n\n## सेटअप\n\n- अपना पक्ष (सफेद या काला), कठिनाई (आसान / मध्यम / कठिन, अनुमानित ELO के साथ), और वैकल्पिक घड़ी चुनें।\n- बोर्ड पूरी स्क्रीन भरता है और खिलाड़ी के दृष्टिकोण से दिखाया जाता है।\n\n## खेलना\n\n- अपने मोहरे को चुनने के लिए उस पर टैप करें। चाल चलने के लिए लक्षित वर्ग पर टैप करें।\n- सेटिंग्स में वैध-चाल हाइलाइट चालू कर सकते हैं।\n- प्यादे की प्रोमोशन पर रानी / रूक / बिशप / नाइट चुनने का पिकर खुलता है।\n\n## इतिहास\n\n- पिछली चालों में जाने के लिए नीचे स्लाइडर खींचें।\n- डिफ़ॉल्ट रूप से, स्लाइडर छोड़ने पर मौजूदा स्थिति पर लौट आता है। सेटिंग्स में \"अंडू की अनुमति दें\" चालू करें ताकि रिवाइंड लागू हो।\n\n## पॉज़ मेनू\n\n- गेम सहेजें ताकि ऐप रीस्टार्ट के बाद भी जारी रहे।\n- स्थिति को FEN या पूरे गेम को PGN के रूप में शेयर करें।\n- हार मानें या गेम छोड़ें।\n"
+            "state" : "machine_translated",
+            "value" : "# शतरंज\n\nSkipChessEngineAlphaBeta इंजन के विरुद्ध एक मित्रवत खेल खेलें।\n\n## सेटअप\n\n- अपना पक्ष (सफेद या काला), एक कठिनाई (आसान / मध्यम / कठिन, अनुमानित ELO के साथ), और एक वैकल्पिक घड़ी चुनें।\n- बोर्ड पूरी स्क्रीन भरता है और खिलाड़ी के दृष्टिकोण से दिखाया जाता है।\n\n## खेलना\n\n- अपने किसी मोहरे को चुनने के लिए उस पर टैप करें। चाल चलने के लिए लक्षित वर्ग पर टैप करें।\n- वैध-चाल बिंदुओं को सेटिंग्स में चालू किया जा सकता है।\n- प्यादे की प्रोमोशन करने पर एक पिकर खुलता है जिसमें आप वज़ीर, हाथी, ऊँट या घोड़ा चुन सकते हैं।\n\n## इतिहास\n\n- पिछली चालों को देखने के लिए नीचे दिए गए स्लाइडर को खींचें।\n- डिफ़ॉल्ट रूप से, स्लाइडर छोड़ने पर वर्तमान स्थिति पर वापस आ जाता है। रिवाइंड को लागू करने के लिए सेटिंग्स में “पूर्ववत की अनुमति दें” चालू करें।\n\n## पॉज़ मेनू\n\n- खेल को सहेजें ताकि वह ऐप के पुनः शुरू होने पर भी बना रहे।\n- स्थिति को FEN स्ट्रिंग के रूप में या पूरे खेल को PGN के रूप में साझा करें।\n- खेल में हार मानें या उससे बाहर निकलें।\n"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Catur\n\nMainkan partai ramah melawan engine SkipChessEngineAlphaBeta.\n\n## Pengaturan\n\n- Pilih sisi kamu (Putih atau Hitam), tingkat kesulitan (Mudah / Sedang / Sulit dengan perkiraan ELO), dan jam opsional.\n- Papan memenuhi layar dan disajikan dari sudut pandang pemain.\n\n## Bermain\n\n- Ketuk bidakmu untuk memilih. Ketuk kotak tujuan untuk memindahkan.\n- Titik langkah sah bisa diaktifkan di Pengaturan.\n- Promosi pion membuka pemilih untuk Ratu, Benteng, Gajah, atau Kuda.\n\n## Riwayat\n\n- Geser slider di bawah untuk menjelajah langkah sebelumnya.\n- Secara default, melepas slider kembali ke posisi terkini. Aktifkan \"Izinkan Urungkan\" di Pengaturan untuk menerapkan undo.\n\n## Menu Jeda\n\n- Simpan partai agar tetap ada setelah app dijalankan ulang.\n- Bagikan posisi sebagai FEN atau seluruh partai sebagai PGN.\n- Menyerah atau keluar dari partai.\n"
+            "state" : "machine_translated",
+            "value" : "# Catur\n\nMainkan partai persahabatan melawan mesin SkipChessEngineAlphaBeta.\n\n## Persiapan\n\n- Pilih sisimu (Putih atau Hitam), tingkat kesulitan (Mudah / Sedang / Sulit dengan perkiraan kasar ELO), dan jam opsional.\n- Papan memenuhi layar dan ditampilkan dari sudut pandang pemain.\n\n## Bermain\n\n- Ketuk salah satu bidakmu untuk memilihnya. Ketuk petak tujuan untuk melangkah.\n- Titik langkah legal dapat diaktifkan di Pengaturan.\n- Mempromosikan pion membuka pemilih sehingga kamu bisa memilih Menteri, Benteng, Gajah, atau Kuda.\n\n## Riwayat\n\n- Seret penggeser di bagian bawah untuk menelusuri langkah-langkah sebelumnya.\n- Secara bawaan, melepaskan penggeser akan kembali ke posisi terkini. Aktifkan “Izinkan Urungkan” di Pengaturan untuk menerapkan pemunduran.\n\n## Menu Jeda\n\n- Simpan partai agar tetap ada setelah aplikasi dijalankan ulang.\n- Bagikan posisi sebagai untai FEN atau seluruh partai sebagai PGN.\n- Menyerah atau keluar dari partai.\n"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Scacchi\n\nGioca una partita amichevole contro il motore SkipChessEngineAlphaBeta.\n\n## Impostazioni\n\n- Scegli il tuo schieramento (Bianco o Nero), la difficoltà (Facile / Medio / Difficile con stime ELO) e un orologio opzionale.\n- La scacchiera riempie lo schermo ed è mostrata dal punto di vista del giocatore.\n\n## Come giocare\n\n- Tocca un tuo pezzo per selezionarlo. Tocca una casa di destinazione per muovere.\n- I puntini delle mosse legali si attivano nelle Impostazioni.\n- La promozione di un pedone apre un selettore: Donna, Torre, Alfiere o Cavallo.\n\n## Cronologia\n\n- Trascina lo slider in basso per scorrere le mosse precedenti.\n- Per default, rilasciando lo slider si torna alla posizione attuale. Attiva \"Consenti annulla\" nelle Impostazioni per applicare l'undo.\n\n## Menu pausa\n\n- Salva la partita così sopravvive a un riavvio dell'app.\n- Condividi la posizione come FEN o l'intera partita come PGN.\n- Abbandona o esci dalla partita.\n"
+            "state" : "machine_translated",
+            "value" : "# Scacchi\n\nGioca una partita amichevole contro il motore SkipChessEngineAlphaBeta.\n\n## Impostazioni\n\n- Scegli il tuo schieramento (Bianco o Nero), la difficoltà (Facile / Medio / Difficile con stime ELO approssimative) e un orologio opzionale.\n- La scacchiera riempie lo schermo ed è mostrata dal punto di vista del giocatore.\n\n## Come giocare\n\n- Tocca un tuo pezzo per selezionarlo. Tocca una casa di destinazione per muovere.\n- I puntini delle mosse legali si possono attivare nelle Impostazioni.\n- La promozione di un pedone apre un selettore: Donna, Torre, Alfiere o Cavallo.\n\n## Cronologia\n\n- Trascina il cursore in basso per scorrere le mosse precedenti.\n- Per default, rilasciando il cursore si torna alla posizione attuale. Attiva \"Consenti annulla\" nelle Impostazioni per applicare il ritorno indietro.\n\n## Menu pausa\n\n- Salva la partita così sopravvive a un riavvio dell'app.\n- Condividi la posizione come stringa FEN o l'intera partita come PGN.\n- Abbandona o esci dalla partita.\n"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# チェス\n\nSkipChessEngineAlphaBeta エンジンとフレンドリーに対局します。\n\n## セットアップ\n\n- 駒の色（白／黒）、難易度（やさしい／ふつう／むずかしい — おおまかな ELO 表示つき）、必要なら時計を選びます。\n- 盤面は画面いっぱいに表示され、プレイヤー視点で描画されます。\n\n## 遊び方\n\n- 自分の駒をタップして選択。移動先のマスをタップして指します。\n- 合法手のドット表示は設定でオンにできます。\n- ポーンの昇格時にはクイーン／ルーク／ビショップ／ナイトを選べます。\n\n## 履歴\n\n- 画面下のスライダーで過去の手を巻き戻せます。\n- 既定では指を離すと現在の局面に戻ります。設定の「手戻しを許可」をオンにすると、戻した位置が確定します。\n\n## 一時停止メニュー\n\n- ゲームを保存して、アプリ再起動後も続行できます。\n- 局面を FEN 文字列で共有、または棋譜全体を PGN で共有できます。\n- 投了したり、ゲームを終了できます。\n"
+            "state" : "machine_translated",
+            "value" : "# チェス\n\nSkipChessEngineAlphaBeta エンジンとの気軽な対局を楽しもう。\n\n## セットアップ\n\n- 自分の手番（白または黒）、難易度（やさしい／ふつう／むずかしい — おおまかな ELO 表示つき）、必要なら時計を選びます。\n- 盤面は画面いっぱいに表示され、プレイヤー視点で描画されます。\n\n## 遊び方\n\n- 自分の駒をタップして選択します。移動先のマスをタップして指します。\n- 合法手のドット表示は設定でオンにできます。\n- ポーンが昇格するときはクイーン・ルーク・ビショップ・ナイトから選べるピッカーが開きます。\n\n## 履歴\n\n- 画面下のスライダーをドラッグして過去の手を巻き戻せます。\n- 既定では、スライダーから指を離すと現在の局面に戻ります。設定で「手戻しを許可」をオンにすると、巻き戻した位置が確定します。\n\n## 一時停止メニュー\n\n- ゲームを保存すると、アプリを再起動しても続きから遊べます。\n- 局面を FEN 文字列として、または対局全体を PGN として共有できます。\n- 投了するか、ゲームを終了します。\n"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# 체스\n\nSkipChessEngineAlphaBeta 엔진과 가벼운 한 판을 두어 보세요.\n\n## 설정\n\n- 진영(백 또는 흑), 난이도(쉬움 / 보통 / 어려움 — 대략적인 ELO 표시), 필요하면 시계를 선택합니다.\n- 보드는 화면 전체를 채우며 플레이어 시점으로 보입니다.\n\n## 플레이\n\n- 내 기물을 탭하여 선택. 이동할 칸을 탭하여 둡니다.\n- 합법 수 강조 점은 설정에서 켤 수 있습니다.\n- 폰 승급 시 퀸 / 룩 / 비숍 / 나이트 중에서 선택하는 픽커가 열립니다.\n\n## 기록\n\n- 하단 슬라이더를 끌어 이전 수를 둘러볼 수 있습니다.\n- 기본값으로 손을 떼면 현재 포지션으로 돌아옵니다. 설정의 \"되돌리기 허용\"을 켜면 되돌린 지점이 확정됩니다.\n\n## 일시정지 메뉴\n\n- 게임을 저장해 앱 재실행 후에도 이어 할 수 있습니다.\n- FEN 문자열로 포지션을, PGN으로 전체 기보를 공유할 수 있습니다.\n- 기권하거나 게임을 종료할 수 있습니다.\n"
+            "state" : "machine_translated",
+            "value" : "# 체스\n\nSkipChessEngineAlphaBeta 엔진과 가벼운 한 판을 두어 보세요.\n\n## 설정\n\n- 진영(백 또는 흑), 난이도(쉬움 / 보통 / 어려움 — 대략적인 ELO 표시), 그리고 필요하면 시계를 선택합니다.\n- 보드는 화면 전체를 채우며 플레이어 시점으로 표시됩니다.\n\n## 플레이\n\n- 내 기물을 탭하여 선택합니다. 이동할 칸을 탭하여 둡니다.\n- 합법 수 강조 점은 설정에서 켤 수 있습니다.\n- 폰을 승급하면 퀸, 룩, 비숍, 나이트 중에서 선택하는 픽커가 열립니다.\n\n## 기록\n\n- 하단 슬라이더를 끌어 이전 수를 둘러볼 수 있습니다.\n- 기본적으로 슬라이더에서 손을 떼면 현재 포지션으로 돌아옵니다. 설정에서 “되돌리기 허용”을 켜면 되돌린 지점이 확정됩니다.\n\n## 일시정지 메뉴\n\n- 게임을 저장하면 앱을 재실행해도 이어서 둘 수 있습니다.\n- 포지션을 FEN 문자열로, 전체 기보를 PGN으로 공유할 수 있습니다.\n- 기권하거나 게임을 종료할 수 있습니다.\n"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Xadrez\n\nJogue uma partida amistosa contra o motor SkipChessEngineAlphaBeta.\n\n## Configuração\n\n- Escolha seu lado (Brancas ou Pretas), uma dificuldade (Fácil / Médio / Difícil com estimativas de ELO) e um relógio opcional.\n- O tabuleiro preenche a tela e aparece pelo ponto de vista do jogador.\n\n## Jogando\n\n- Toque em uma de suas peças para selecioná-la. Toque na casa de destino para mover.\n- Os pontos de jogadas legais podem ser ativados em Ajustes.\n- A promoção de um peão abre um seletor: Dama, Torre, Bispo ou Cavalo.\n\n## Histórico\n\n- Arraste o controle inferior para retroceder pelas jogadas anteriores.\n- Por padrão, soltar o controle volta à posição atual. Ative \"Permitir desfazer\" em Ajustes para confirmar o retorno.\n\n## Menu de pausa\n\n- Salve a partida para que sobreviva ao reinício do app.\n- Compartilhe a posição como FEN ou a partida toda como PGN.\n- Desista ou saia da partida.\n"
+            "state" : "machine_translated",
+            "value" : "# Xadrez\n\nJogue uma partida amistosa contra o motor SkipChessEngineAlphaBeta.\n\n## Configuração\n\n- Escolha seu lado (Brancas ou Pretas), uma dificuldade (Fácil / Médio / Difícil com estimativas aproximadas de ELO) e um relógio opcional.\n- O tabuleiro preenche a tela e é mostrado pelo ponto de vista do jogador.\n\n## Jogando\n\n- Toque em uma de suas peças para selecioná-la. Toque na casa de destino para mover.\n- Os pontos de jogadas legais podem ser ativados em Ajustes.\n- A promoção de um peão abre um seletor para escolher Dama, Torre, Bispo ou Cavalo.\n\n## Histórico\n\n- Arraste o controle na parte inferior para percorrer as jogadas anteriores.\n- Por padrão, soltar o controle volta à posição atual. Ative \"Permitir desfazer\" em Ajustes para confirmar o retorno.\n\n## Menu de pausa\n\n- Salve a partida para que ela sobreviva ao reinício do app.\n- Compartilhe a posição como uma string FEN ou a partida toda como PGN.\n- Desista ou saia da partida.\n"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "# Шахматы\n\nСыграйте дружескую партию против движка SkipChessEngineAlphaBeta.\n\n## Настройка\n\n- Выберите цвет (белые или чёрные), сложность (Лёгкий / Средний / Сложный с примерными ЭЛО) и при желании часы.\n- Доска занимает весь экран и показывается с точки зрения игрока.\n\n## Игра\n\n- Нажмите свою фигуру, чтобы выбрать. Нажмите целевое поле, чтобы сделать ход.\n- Точки допустимых ходов можно включить в настройках.\n- Превращение пешки открывает выбор: ферзь, ладья, слон или конь.\n\n## История\n\n- Перетащите ползунок внизу, чтобы перематывать ходы.\n- По умолчанию отпускание ползунка возвращает на актуальную позицию. Включите «Разрешить отмену» в настройках, чтобы откат был зафиксирован.\n\n## Меню паузы\n\n- Сохраните партию, чтобы она пережила перезапуск приложения.\n- Поделитесь позицией как FEN или всей партией как PGN.\n- Сдайтесь или выйдите из партии.\n"
+            "state" : "machine_translated",
+            "value" : "# Шахматы\n\nСыграйте дружескую партию против движка SkipChessEngineAlphaBeta.\n\n## Настройка\n\n- Выберите цвет (белые или чёрные), сложность (Лёгкий / Средний / Сложный с примерными оценками ЭЛО) и при желании часы.\n- Доска занимает весь экран и показывается с точки зрения игрока.\n\n## Игра\n\n- Нажмите свою фигуру, чтобы выбрать её. Нажмите целевое поле, чтобы сделать ход.\n- Точки допустимых ходов можно включить в настройках.\n- Превращение пешки открывает выбор фигуры: ферзь, ладья, слон или конь.\n\n## История\n\n- Перетащите ползунок внизу, чтобы перематывать сыгранные ходы.\n- По умолчанию отпускание ползунка возвращает к актуальной позиции. Включите «Разрешить отмену» в настройках, чтобы зафиксировать откат.\n\n## Меню паузы\n\n- Сохраните партию, чтобы она пережила перезапуск приложения.\n- Поделитесь позицией в виде строки FEN или всей партией в виде PGN.\n- Сдайтесь или выйдите из партии.\n"
           }
         },
         "zh-Hans" : {
@@ -1012,13 +1234,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "كلاسيكي"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Klassisch"
           }
         },
@@ -1030,56 +1252,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Clásico"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Classique"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "क्लासिक"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Klasik"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Classico"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "クラシック"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "클래식"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Clássico"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Классическая"
+            "state" : "machine_translated",
+            "value" : "Классика"
           }
         },
         "zh-Hans" : {
@@ -1095,13 +1317,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الساعة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Uhr"
           }
         },
@@ -1113,55 +1335,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reloj"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Horloge"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "घड़ी"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jam"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Orologio"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "時計"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "시계"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Relógio"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Часы"
           }
         },
@@ -1178,67 +1400,67 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إغلاق"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schließen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cerrar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fermer"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "बंद करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tutup"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Chiudi"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "閉じる"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "닫기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fechar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Закрыть"
           }
         },
@@ -1255,13 +1477,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "بحث عميق. قليل من النقلات الضائعة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tiefe Suche. Kaum verlorene Züge."
           }
         },
@@ -1273,55 +1495,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Búsqueda profunda. Pocas jugadas desperdiciadas."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Recherche profonde. Peu de coups gaspillés."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गहरी खोज। कम बर्बाद चालें।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pencarian dalam. Sedikit langkah yang sia-sia."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ricerca profonda. Poche mosse sprecate."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "深い探索。無駄手は少ない。"
+            "state" : "machine_translated",
+            "value" : "深い読み。無駄な手はほとんどありません。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "깊은 탐색. 낭비되는 수가 거의 없습니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Busca profunda. Poucas jogadas desperdiçadas."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Глубокий поиск. Почти нет лишних ходов."
           }
         },
@@ -1338,13 +1560,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الصعوبة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schwierigkeit"
           }
         },
@@ -1356,55 +1578,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dificultad"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difficulté"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "कठिनाई"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Kesulitan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difficoltà"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "難易度"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "난이도"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dificuldade"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сложность"
           }
         },
@@ -1421,13 +1643,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "تم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fertig"
           }
         },
@@ -1439,55 +1661,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Hecho"
+            "state" : "machine_translated",
+            "value" : "Listo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "OK"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हो गया"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Selesai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fine"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "完了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "완료"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "OK"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Готово"
           }
         },
@@ -1504,13 +1726,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "تعادل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Remis"
           }
         },
@@ -1522,55 +1744,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tablas"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nulle"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ड्रॉ"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Seri"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Patta"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "引き分け"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "무승부"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Empate"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ничья"
           }
         },
@@ -1587,14 +1809,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "تعادل بالاتفاق."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Einvernehmliches Remis."
+            "state" : "machine_translated",
+            "value" : "Remis durch Übereinkunft."
           }
         },
         "en" : {
@@ -1605,55 +1827,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tablas por acuerdo."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nulle par accord."
+            "state" : "machine_translated",
+            "value" : "Nulle par accord mutuel."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सहमति से ड्रॉ।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Seri dengan kesepakatan."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Patta per accordo."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "合意による引き分け。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "합의에 의한 무승부."
+            "state" : "machine_translated",
+            "value" : "합의 무승부."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Empate por acordo."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ничья по соглашению."
           }
         },
@@ -1670,13 +1892,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "سهل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Leicht"
           }
         },
@@ -1688,55 +1910,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fácil"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Facile"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "आसान"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mudah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Facile"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "やさしい"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "쉬움"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fácil"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Лёгкий"
           }
         },
@@ -1753,13 +1975,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إيلو ≈ %lld"
+            "state" : "machine_translated",
+            "value" : "‏ELO ≈ %lld"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
@@ -1771,55 +1993,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ELO ≈ %lld"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ЭЛО ≈ %lld"
           }
         },
@@ -1836,14 +2058,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "التغذية الراجعة"
+            "state" : "machine_translated",
+            "value" : "ردود الفعل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Rückmeldung"
+            "state" : "machine_translated",
+            "value" : "Feedback"
           }
         },
         "en" : {
@@ -1854,56 +2076,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibraciones"
+            "state" : "machine_translated",
+            "value" : "Respuesta háptica"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Retours"
+            "state" : "machine_translated",
+            "value" : "Retour haptique"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "फीडबैक"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Umpan Balik"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Feedback"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "フィードバック"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "피드백"
+            "state" : "machine_translated",
+            "value" : "햅틱 피드백"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Feedback"
+            "state" : "machine_translated",
+            "value" : "Feedback tátil"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Отклик"
+            "state" : "machine_translated",
+            "value" : "Тактильный отклик"
           }
         },
         "zh-Hans" : {
@@ -1919,14 +2141,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "قاعدة الخمسين نقلة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fünfzig-Züge-Regel."
+            "state" : "machine_translated",
+            "value" : "50-Züge-Regel."
           }
         },
         "en" : {
@@ -1937,55 +2159,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Regla de las cincuenta jugadas."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Règle des cinquante coups."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पचास-चाल नियम।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aturan lima puluh langkah."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Regola delle cinquanta mosse."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "50手ルール。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "50수 규칙."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Regra das cinquenta jogadas."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Правило пятидесяти ходов."
           }
         },
@@ -2002,13 +2224,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "غابة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Wald"
           }
         },
@@ -2020,56 +2242,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bosque"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Forêt"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "वन"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hutan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Foresta"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "フォレスト"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "포레스트"
+            "state" : "machine_translated",
+            "value" : "숲"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Floresta"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Лесная"
+            "state" : "machine_translated",
+            "value" : "Лес"
           }
         },
         "zh-Hans" : {
@@ -2085,13 +2307,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "خصم ودود. أخطاء عرضية."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Freundlicher Gegner. Gelegentliche Fehler."
           }
         },
@@ -2103,55 +2325,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Rival amistoso. Errores ocasionales."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Adversaire amical. Erreurs occasionnelles."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "मित्रवत प्रतिद्वंद्वी। कभी-कभी गलतियाँ।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lawan ramah. Sesekali salah."
+            "state" : "machine_translated",
+            "value" : "Lawan ramah. Sesekali melakukan kesalahan."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Avversario amichevole. Errori occasionali."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "優しい相手。たまに失敗します。"
+            "state" : "machine_translated",
+            "value" : "フレンドリーな相手。時々ミスをします。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "친절한 상대. 가끔 실수합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Adversário amigável. Erros ocasionais."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Доброжелательный соперник. Случайные ошибки."
           }
         },
@@ -2168,13 +2390,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "صعب"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Schwer"
           }
         },
@@ -2186,55 +2408,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difícil"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difficile"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "कठिन"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sulit"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difficile"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "むずかしい"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "어려움"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Difícil"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сложный"
           }
         },
@@ -2251,13 +2473,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إبراز النقلات القانونية"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Legale Züge hervorheben"
           }
         },
@@ -2269,55 +2491,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Resaltar movimientos legales"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mettre en évidence les coups légaux"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "वैध चालें हाइलाइट करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sorot Langkah Sah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Evidenzia mosse legali"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "合法手をハイライト"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "합법 수 강조"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Destacar jogadas legais"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Подсвечивать допустимые ходы"
           }
         },
@@ -2334,13 +2556,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "كيفية اللعب"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spielanleitung"
           }
         },
@@ -2352,55 +2574,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cómo jugar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Comment jouer"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "कैसे खेलें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cara Bermain"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Come si gioca"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "遊び方"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "방법"
+            "state" : "machine_translated",
+            "value" : "플레이 방법"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Como jogar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Как играть"
           }
         },
@@ -2417,14 +2639,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "مواد غير كافية."
+            "state" : "machine_translated",
+            "value" : "عتاد غير كافٍ."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nicht genug Material."
+            "state" : "machine_translated",
+            "value" : "Ungenügendes Material."
           }
         },
         "en" : {
@@ -2435,55 +2657,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Material insuficiente."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Matériel insuffisant."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "अपर्याप्त मोहरे।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Material tidak cukup."
+            "state" : "machine_translated",
+            "value" : "Materi tidak cukup."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Materiale insufficiente."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "駒不足。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기물 부족."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Material insuficiente."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Недостаточно материала."
           }
         },
@@ -2500,13 +2722,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الملك"
+            "state" : "machine_translated",
+            "value" : "ملك"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "König"
           }
         },
@@ -2518,55 +2740,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Rey"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Roi"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "राजा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Raja"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Re"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "キング"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "킹"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Rei"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Король"
           }
         },
@@ -2583,13 +2805,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الفارس"
+            "state" : "machine_translated",
+            "value" : "حصان"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Springer"
           }
         },
@@ -2601,55 +2823,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Caballo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cavalier"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "नाइट"
+            "state" : "machine_translated",
+            "value" : "घोड़ा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Kuda"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cavallo"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ナイト"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "나이트"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cavalo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Конь"
           }
         },
@@ -2666,13 +2888,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "متوسط"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mittel"
           }
         },
@@ -2684,55 +2906,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Medio"
+            "state" : "machine_translated",
+            "value" : "Media"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Moyen"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "मध्यम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sedang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Medio"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ふつう"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "보통"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Médio"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Средний"
           }
         },
@@ -2749,13 +2971,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "منتصف الليل"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mitternacht"
           }
         },
@@ -2767,56 +2989,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Medianoche"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Minuit"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "मिडनाइट"
+            "state" : "machine_translated",
+            "value" : "मध्यरात्रि"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tengah Malam"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mezzanotte"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ミッドナイト"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "미드나잇"
+            "state" : "machine_translated",
+            "value" : "자정"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Meia-noite"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Полночная"
+            "state" : "machine_translated",
+            "value" : "Полночь"
           }
         },
         "zh-Hans" : {
@@ -2832,13 +3054,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "النقلة %1$lld من %2$lld"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Zug %1$lld von %2$lld"
           }
         },
@@ -2850,55 +3072,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jugada %1$lld de %2$lld"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Coup %1$lld sur %2$lld"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "चाल %1$lld / %2$lld"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Langkah %1$lld dari %2$lld"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mossa %1$lld di %2$lld"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%2$lld 手中 %1$lld 手目"
+            "state" : "machine_translated",
+            "value" : "%2$lld手中 %1$lld手目"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%2$lld 수 중 %1$lld 수"
+            "state" : "machine_translated",
+            "value" : "%2$lld수 중 %1$lld수"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jogada %1$lld de %2$lld"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ход %1$lld из %2$lld"
           }
         },
@@ -2915,13 +3137,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "نيون"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Neon"
           }
         },
@@ -2933,56 +3155,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Neón"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Néon"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "नीयन"
+            "state" : "machine_translated",
+            "value" : "नियॉन"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Neon"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Neon"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ネオン"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "네온"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Néon"
+            "state" : "machine_translated",
+            "value" : "Neon"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Неоновая"
+            "state" : "machine_translated",
+            "value" : "Неон"
           }
         },
         "zh-Hans" : {
@@ -2998,13 +3220,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "لعبة جديدة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Neues Spiel"
           }
         },
@@ -3016,55 +3238,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Nueva partida"
+            "state" : "machine_translated",
+            "value" : "Partida nueva"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nouvelle partie"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नया गेम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partai Baru"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nuova partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "新しいゲーム"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "새 게임"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nova partida"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Новая игра"
           }
         },
@@ -3081,13 +3303,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "بدون ساعة. خذ كل الوقت الذي تريد."
+            "state" : "machine_translated",
+            "value" : "بدون ساعة. خذ كل الوقت الذي تريده."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Keine Uhr. Lass dir Zeit."
           }
         },
@@ -3099,55 +3321,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sin reloj. Tómate el tiempo que quieras."
+            "state" : "machine_translated",
+            "value" : "Sin reloj. Tómate todo el tiempo que quieras."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sans horloge. Prends tout ton temps."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "कोई घड़ी नहीं। जितना चाहें समय लें।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tanpa jam. Ambil waktu sesukamu."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Senza orologio. Prenditi tutto il tempo che vuoi."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "時計なし。好きなだけ考えられます。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "시계 없음. 원하는 만큼 생각하세요."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sem relógio. Pense à vontade."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Без часов. Думайте сколько угодно."
           }
         },
@@ -3164,13 +3386,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ساعة مشتركة واحدة للعبة كلها."
+            "state" : "machine_translated",
+            "value" : "ساعة مشتركة واحدة للمباراة بأكملها."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Eine gemeinsame Uhr für die ganze Partie."
           }
         },
@@ -3182,56 +3404,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Un reloj compartido para toda la partida."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Une horloge commune pour toute la partie."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पूरे खेल के लिए एक साझा घड़ी।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Satu jam bersama untuk seluruh partai."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Un solo orologio condiviso per tutta la partita."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "対局全体で1つの時計。"
+            "state" : "machine_translated",
+            "value" : "対局全体で共有する1つの時計。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "전체 게임에 시계 한 개."
+            "state" : "machine_translated",
+            "value" : "게임 전체에 적용되는 하나의 공용 시계."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Um relógio comum para toda a partida."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Один общий счётчик на всю партию."
+            "state" : "machine_translated",
+            "value" : "Одни общие часы на всю партию."
           }
         },
         "zh-Hans" : {
@@ -3247,67 +3469,67 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إيقاف مؤقت"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pause"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pause"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रोकें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jeda"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausa"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "一時停止"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "일시정지"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Пауза"
           }
         },
@@ -3324,13 +3546,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "متوقف مؤقتًا"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausiert"
           }
         },
@@ -3342,55 +3564,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausado"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "En pause"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रुका हुआ"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dijeda"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "In pausa"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "一時停止中"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "일시정지"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pausado"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Пауза"
           }
         },
@@ -3407,13 +3629,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "البيدق"
+            "state" : "machine_translated",
+            "value" : "بيدق"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bauer"
           }
         },
@@ -3425,55 +3647,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Peón"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pion"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "प्यादा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bidak"
+            "state" : "machine_translated",
+            "value" : "Pion"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pedone"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ポーン"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "폰"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Peão"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Пешка"
           }
         },
@@ -3490,13 +3712,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "لكل نقلة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pro Zug"
           }
         },
@@ -3508,55 +3730,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Por jugada"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Par coup"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "प्रति चाल"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Per Langkah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Per mossa"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "1手ごと"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "수당"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Por jogada"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "На ход"
           }
         },
@@ -3573,13 +3795,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "العب بـ"
+            "state" : "machine_translated",
+            "value" : "العب بلون"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spielen als"
           }
         },
@@ -3591,55 +3813,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jugar con"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jouer avec"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "खेलें"
+            "state" : "machine_translated",
+            "value" : "किस रूप में खेलें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bermain Sebagai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gioca con"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "プレイする側"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "플레이 색상"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jogar com"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Играть за"
           }
         },
@@ -3656,14 +3878,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ترقية البيدق إلى"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Bauern umwandeln zu"
+            "state" : "machine_translated",
+            "value" : "Bauer umwandeln in"
           }
         },
         "en" : {
@@ -3674,55 +3896,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Promover peón a"
+            "state" : "machine_translated",
+            "value" : "Promocionar peón a"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Promouvoir le pion en"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "प्यादे को बदलें"
+            "state" : "machine_translated",
+            "value" : "प्यादे को इसमें बदलें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Promosi Pion Menjadi"
+            "state" : "machine_translated",
+            "value" : "Promosikan Pion Menjadi"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Promuovi pedone a"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ポーンを昇格"
+            "state" : "machine_translated",
+            "value" : "ポーンの昇格先"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "폰 승급"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Promover peão para"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Превратить пешку в"
           }
         },
@@ -3739,13 +3961,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الوزير"
+            "state" : "machine_translated",
+            "value" : "وزير"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dame"
           }
         },
@@ -3757,55 +3979,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dama"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dame"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रानी"
+            "state" : "machine_translated",
+            "value" : "वज़ीर"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ratu"
+            "state" : "machine_translated",
+            "value" : "Menteri"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Donna"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "クイーン"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "퀸"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dama"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ферзь"
           }
         },
@@ -3822,13 +4044,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "خروج"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Beenden"
           }
         },
@@ -3840,56 +4062,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salir"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Quitter"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "बाहर"
+            "state" : "machine_translated",
+            "value" : "बाहर निकलें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Keluar"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esci"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "終了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "나가기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sair"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Выход"
+            "state" : "machine_translated",
+            "value" : "Выйти"
           }
         },
         "zh-Hans" : {
@@ -3905,13 +4127,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إنهاء اللعبة"
+            "state" : "machine_translated",
+            "value" : "الخروج من المباراة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spiel beenden"
           }
         },
@@ -3923,55 +4145,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Salir de la partida"
+            "state" : "machine_translated",
+            "value" : "Salir del juego"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Quitter la partie"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गेम छोड़ें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Keluar Partai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Esci dalla partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ゲームを終了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "게임 종료"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sair da partida"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Выйти из игры"
           }
         },
@@ -3988,14 +4210,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "إعادة"
+            "state" : "machine_translated",
+            "value" : "إعادة عرض"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Wiedergabe"
+            "state" : "machine_translated",
+            "value" : "Wiederholung"
           }
         },
         "en" : {
@@ -4006,56 +4228,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Repetición"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Relecture"
+            "state" : "machine_translated",
+            "value" : "Rejouer le coup"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रीप्ले"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Putar Ulang"
+            "state" : "machine_translated",
+            "value" : "Tayang Ulang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Replay"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "リプレイ"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "리플레이"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Repetição"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Просмотр"
+            "state" : "machine_translated",
+            "value" : "Повтор"
           }
         },
         "zh-Hans" : {
@@ -4071,13 +4293,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الاستسلام"
+            "state" : "machine_translated",
+            "value" : "الانسحاب"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aufgeben"
           }
         },
@@ -4089,55 +4311,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Rendirse"
+            "state" : "machine_translated",
+            "value" : "Abandonar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abandonner"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हार मानें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Menyerah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abbandona"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "投了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기권"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Desistir"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сдаться"
           }
         },
@@ -4154,13 +4376,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الاستسلام في اللعبة؟"
+            "state" : "machine_translated",
+            "value" : "الانسحاب من المباراة؟"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spiel aufgeben?"
           }
         },
@@ -4172,55 +4394,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "¿Rendir la partida?"
+            "state" : "machine_translated",
+            "value" : "¿Abandonar la partida?"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abandonner la partie ?"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "गेम हार मानें?"
+            "state" : "machine_translated",
+            "value" : "गेम में हार मानें?"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Menyerah?"
+            "state" : "machine_translated",
+            "value" : "Menyerah dari partai?"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abbandonare la partita?"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "投了しますか？"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기권하시겠습니까?"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Desistir da partida?"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сдаться?"
           }
         },
@@ -4237,13 +4459,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تم الاستسلام."
+            "state" : "machine_translated",
+            "value" : "استسلام."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aufgegeben."
           }
         },
@@ -4255,56 +4477,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Rendido."
+            "state" : "machine_translated",
+            "value" : "Abandono."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abandon."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हार मान ली।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Menyerah."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ha abbandonato."
+            "state" : "machine_translated",
+            "value" : "Abbandono."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "投了。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기권."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Desistiu."
+            "state" : "machine_translated",
+            "value" : "Abandono."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сдача."
+            "state" : "machine_translated",
+            "value" : "Сдался."
           }
         },
         "zh-Hans" : {
@@ -4320,13 +4542,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "متابعة"
+            "state" : "machine_translated",
+            "value" : "استئناف"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fortsetzen"
           }
         },
@@ -4338,55 +4560,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reanudar"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reprendre"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "फिर शुरू"
+            "state" : "machine_translated",
+            "value" : "जारी रखें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Lanjutkan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Riprendi"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "再開"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "계속"
+            "state" : "machine_translated",
+            "value" : "계속하기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Continuar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Продолжить"
           }
         },
@@ -4403,13 +4625,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "استئناف اللعبة"
+            "state" : "machine_translated",
+            "value" : "استئناف المباراة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spiel fortsetzen"
           }
         },
@@ -4421,55 +4643,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reanudar partida"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Reprendre la partie"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गेम फिर शुरू करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Lanjutkan Partai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Riprendi partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "続きから"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "이어 하기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Continuar partida"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Продолжить игру"
           }
         },
@@ -4486,13 +4708,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "القلعة"
+            "state" : "machine_translated",
+            "value" : "رخ"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Turm"
           }
         },
@@ -4504,55 +4726,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Torre"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tour"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "रूक"
+            "state" : "machine_translated",
+            "value" : "हाथी"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Benteng"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Torre"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ルーク"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "룩"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Torre"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ладья"
           }
         },
@@ -4569,13 +4791,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "حفظ اللعبة"
+            "state" : "machine_translated",
+            "value" : "حفظ المباراة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spiel speichern"
           }
         },
@@ -4587,56 +4809,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Guardar partida"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sauvegarder la partie"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गेम सहेजें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Simpan Partai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salva partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ゲームを保存"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "게임 저장"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salvar partida"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Сохранить игру"
+            "state" : "machine_translated",
+            "value" : "Сохранить партию"
           }
         },
         "zh-Hans" : {
@@ -4652,13 +4874,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الإعدادات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Einstellungen"
           }
         },
@@ -4670,55 +4892,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ajustes"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Réglages"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सेटिंग्स"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pengaturan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Impostazioni"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "設定"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "설정"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ajustes"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Настройки"
           }
         },
@@ -4735,13 +4957,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "مشاركة FEN"
+            "state" : "machine_translated",
+            "value" : "‏مشاركة FEN"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "FEN teilen"
           }
         },
@@ -4753,55 +4975,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Compartir FEN"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partager le FEN"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "FEN शेयर करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bagikan FEN"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Condividi FEN"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "FEN を共有"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "FEN 공유"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Compartilhar FEN"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Поделиться FEN"
           }
         },
@@ -4818,13 +5040,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "مشاركة اللعبة (PGN)"
+            "state" : "machine_translated",
+            "value" : "‏مشاركة المباراة (PGN)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partie teilen (PGN)"
           }
         },
@@ -4836,55 +5058,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Compartir partida (PGN)"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partager la partie (PGN)"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "गेम शेयर (PGN)"
+            "state" : "machine_translated",
+            "value" : "गेम शेयर करें (PGN)"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bagikan Partai (PGN)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Condividi partita (PGN)"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "棋譜を共有 (PGN)"
+            "state" : "machine_translated",
+            "value" : "対局を共有 (PGN)"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "기보 공유 (PGN)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Compartilhar partida (PGN)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Поделиться партией (PGN)"
           }
         },
@@ -4901,67 +5123,67 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إظهار أسهم آخر نقلة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pfeile des letzten Zugs anzeigen"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mostrar flechas de la última jugada"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Afficher les flèches du dernier coup"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "अंतिम चाल के तीर दिखाएं"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tampilkan Panah Langkah Terakhir"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mostra frecce ultima mossa"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "直前の手の矢印を表示"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "마지막 수 화살표 표시"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mostrar setas do último lance"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Показывать стрелки последнего хода"
           }
         },
@@ -4978,13 +5200,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "لعب صلب. يعاقب على الأخطاء الواضحة."
+            "state" : "machine_translated",
+            "value" : "لعب متين. يعاقب على الأخطاء الواضحة."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Solides Spiel. Bestraft offensichtliche Fehler."
           }
         },
@@ -4996,55 +5218,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Juego sólido. Castiga errores evidentes."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jeu solide. Punit les erreurs évidentes."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "मज़बूत खेल। साफ़ गलतियों को सज़ा देता है।"
+            "state" : "machine_translated",
+            "value" : "मज़बूत खेल। स्पष्ट गलतियों को दंडित करता है।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Permainan kokoh. Menghukum kesalahan jelas."
+            "state" : "machine_translated",
+            "value" : "Permainan kokoh. Menghukum kesalahan yang jelas."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gioco solido. Punisce gli errori evidenti."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "堅実な指し回し。明確な失着を見逃しません。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "탄탄한 실력. 명백한 실수를 응징합니다."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Jogo sólido. Pune erros evidentes."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Уверенная игра. Накажет очевидные ошибки."
           }
         },
@@ -5061,13 +5283,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تجميد."
+            "state" : "machine_translated",
+            "value" : "جمود."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Patt."
           }
         },
@@ -5079,55 +5301,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ahogado."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pat."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "स्टेलमेट।"
+            "state" : "machine_translated",
+            "value" : "गतिरोध।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Skak Pat."
+            "state" : "machine_translated",
+            "value" : "Remis (buntu)."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Stallo."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ステイルメイト。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "스테일메이트."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Afogado."
+            "state" : "machine_translated",
+            "value" : "Afogamento."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Пат."
           }
         },
@@ -5144,13 +5366,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "بدء اللعبة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Spiel starten"
           }
         },
@@ -5162,55 +5384,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Empezar partida"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Démarrer la partie"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "गेम शुरू करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Mulai Partai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Inizia partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ゲームを開始"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "게임 시작"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Iniciar partida"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Начать игру"
           }
         },
@@ -5227,13 +5449,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "غروب الشمس"
+            "state" : "machine_translated",
+            "value" : "الغروب"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sonnenuntergang"
           }
         },
@@ -5245,56 +5467,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Atardecer"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Coucher de soleil"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सूर्यास्त"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Senja"
+            "state" : "machine_translated",
+            "value" : "Matahari Terbenam"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tramonto"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "サンセット"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "선셋"
+            "state" : "machine_translated",
+            "value" : "노을"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pôr do sol"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Закатная"
+            "state" : "machine_translated",
+            "value" : "Закат"
           }
         },
         "zh-Hans" : {
@@ -5310,14 +5532,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "السمة"
+            "state" : "machine_translated",
+            "value" : "المظهر"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Thema"
+            "state" : "machine_translated",
+            "value" : "Erscheinungsbild"
           }
         },
         "en" : {
@@ -5328,55 +5550,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tema"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Thème"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "थीम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tema"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tema"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "テーマ"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "테마"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tema"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Тема"
           }
         },
@@ -5393,13 +5615,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "تكرار ثلاثي."
+            "state" : "machine_translated",
+            "value" : "تكرار الوضعية ثلاث مرات."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dreifache Stellungswiederholung."
           }
         },
@@ -5411,56 +5633,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Triple repetición."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Triple répétition."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "तीन गुना दोहराव।"
+            "state" : "machine_translated",
+            "value" : "तीन बार पुनरावृत्ति।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tiga kali pengulangan."
+            "state" : "machine_translated",
+            "value" : "Pengulangan tiga kali."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Triplice ripetizione."
+            "state" : "machine_translated",
+            "value" : "Tripla ripetizione."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "3回同形反復。"
+            "state" : "machine_translated",
+            "value" : "同一局面3回。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "3회 동형 반복."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tripla repetição."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Троекратное повторение."
+            "state" : "machine_translated",
+            "value" : "Троекратное повторение позиции."
           }
         },
         "zh-Hans" : {
@@ -5476,13 +5698,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ميزانية الوقت"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Zeitbudget"
           }
         },
@@ -5494,55 +5716,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tiempo disponible"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Budget de temps"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "समय बजट"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Anggaran Waktu"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Budget di tempo"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "持ち時間"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "시간 예산"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Tempo total"
+            "state" : "machine_translated",
+            "value" : "Tempo disponível"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Лимит времени"
           }
         },
@@ -5559,13 +5781,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "اللعبة كاملة"
+            "state" : "machine_translated",
+            "value" : "للمباراة كاملة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gesamtspiel"
           }
         },
@@ -5577,55 +5799,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida completa"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partie entière"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पूरा खेल"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Seluruh Partai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Intera partita"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "対局全体"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "전체 게임"
+            "state" : "machine_translated",
+            "value" : "게임 전체"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Partida toda"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Вся партия"
           }
         },
@@ -5642,13 +5864,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "بدون وقت"
+            "state" : "machine_translated",
+            "value" : "بدون توقيت"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ohne Zeit"
           }
         },
@@ -5660,55 +5882,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sin tiempo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sans chrono"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "बिना समय"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tanpa Waktu"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Senza tempo"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "時間制限なし"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "무제한"
+            "state" : "machine_translated",
+            "value" : "시간 제한 없음"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sem tempo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Без часов"
           }
         },
@@ -5725,14 +5947,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الاهتزازات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vibration"
+            "state" : "machine_translated",
+            "value" : "Vibrationen"
           }
         },
         "en" : {
@@ -5743,55 +5965,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Vibraciones"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Vibrations"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "वाइब्रेशन"
+            "state" : "machine_translated",
+            "value" : "कंपन"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Getaran"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Vibrazioni"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "バイブレーション"
+            "state" : "machine_translated",
+            "value" : "振動"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "진동"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Vibrações"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Вибрация"
           }
         },
@@ -5808,13 +6030,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "الأبيض"
+            "state" : "machine_translated",
+            "value" : "أبيض"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Weiß"
           }
         },
@@ -5826,55 +6048,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Blancas"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Blancs"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सफेद"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Putih"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bianco"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "白"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "백"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Brancas"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Белые"
           }
         },
@@ -5891,13 +6113,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "فاز بالوقت."
+            "state" : "machine_translated",
+            "value" : "فوز بانتهاء وقت الخصم."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Auf Zeit gewonnen."
           }
         },
@@ -5909,55 +6131,55 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ganó por tiempo."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gagné au temps."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "समय से जीते।"
+            "state" : "machine_translated",
+            "value" : "समय समाप्त होने पर जीते।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Menang karena waktu."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vinto a tempo."
+            "state" : "machine_translated",
+            "value" : "Vittoria a tempo."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "時間切れで勝利。"
+            "state" : "machine_translated",
+            "value" : "時間切れ勝ち。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "시간 승."
+            "state" : "machine_translated",
+            "value" : "시간승."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ganhou no tempo."
+            "state" : "machine_translated",
+            "value" : "Vitória por tempo."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Победа по времени."
           }
         },
@@ -5974,13 +6196,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "خسرت"
+            "state" : "machine_translated",
+            "value" : "لقد خسرت"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Du verlierst"
           }
         },
@@ -5992,56 +6214,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pierdes"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vous perdez"
+            "state" : "machine_translated",
+            "value" : "Tu as perdu"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "आप हार गए"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Kamu Kalah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hai perso"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "あなたの負け"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "패배"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Você perdeu"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы проиграли"
+            "state" : "machine_translated",
+            "value" : "Поражение"
           }
         },
         "zh-Hans" : {
@@ -6057,13 +6279,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "لقد فزت!"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Du gewinnst!"
           }
         },
@@ -6075,56 +6297,56 @@
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "¡Ganaste!"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vous gagnez !"
+            "state" : "machine_translated",
+            "value" : "Tu as gagné !"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "आप जीते!"
+            "state" : "machine_translated",
+            "value" : "आप जीत गए!"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Kamu Menang!"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hai vinto!"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "あなたの勝ち！"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "승리!"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Você venceu!"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вы выиграли!"
+            "state" : "machine_translated",
+            "value" : "Победа!"
           }
         },
         "zh-Hans" : {
@@ -6136,5 +6358,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }

@@ -6,15 +6,69 @@
       "extractionState" : "stale",
       "localizations" : {
         "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld عنصرًا"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عناصر"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عنصرًا"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "عنصر واحد"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld عنصر"
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "عنصران"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "لا عناصر"
+                }
+              }
+            }
           }
         },
         "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld Einträge"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Eintrag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Einträge"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Keine Einträge"
+                }
+              }
+            }
           }
         },
         "es" : {
@@ -30,21 +84,69 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld आइटम"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld आइटम"
+                }
+              }
+            }
           }
         },
         "id" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld item"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Item"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld Item"
+                }
+              }
+            }
           }
         },
         "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld elementi"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld elemento"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld elementi"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Nessun elemento"
+                }
+              }
+            }
           }
         },
         "ja" : {
@@ -54,21 +156,75 @@
           }
         },
         "ko" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld개 항목"
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld개 항목"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "항목 없음"
+                }
+              }
+            }
           }
         },
         "pt-BR" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld itens"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld itens"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld itens"
+                }
+              }
+            }
           }
         },
         "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld элементов"
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемента"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элементов"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемент"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "%lld элемента"
+                }
+              }
+            }
           }
         },
         "zh-Hans" : {
@@ -80,81 +236,81 @@
       }
     },
     "•" : {
+      "comment" : "Bullet glyph used in markdown bullet rendering — keep the • character",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "•"
           }
         }
-      },
-      "comment" : "Bullet glyph used in markdown bullet rendering — keep the • character"
+      }
     },
     "Add" : {
       "comment" : "Button in items list that will cause a new item to be added",
@@ -162,13 +318,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إضافة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hinzufügen"
           }
         },
@@ -186,19 +342,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "जोड़ें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tambah"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aggiungi"
           }
         },
@@ -210,19 +366,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "추가"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Adicionar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Добавить"
           }
         },
@@ -240,13 +396,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "المظهر"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Erscheinungsbild"
           }
         },
@@ -264,19 +420,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रूप"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tampilan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aspetto"
           }
         },
@@ -288,19 +444,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "모양"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Aparência"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Оформление"
           }
         },
@@ -318,13 +474,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "إلغاء"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Abbrechen"
           }
         },
@@ -342,19 +498,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "रद्द करें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Batal"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Annulla"
           }
         },
@@ -366,19 +522,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "취소"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Cancelar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Отмена"
           }
         },
@@ -396,13 +552,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "داكن"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Dunkel"
           }
         },
@@ -420,19 +576,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "गहरा"
+            "state" : "machine_translated",
+            "value" : "डार्क"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Gelap"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Scuro"
           }
         },
@@ -444,19 +600,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "다크"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Escuro"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Тёмное"
           }
         },
@@ -474,13 +630,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "التاريخ"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Datum"
           }
         },
@@ -498,19 +654,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "तारीख"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Tanggal"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Data"
           }
         },
@@ -522,19 +678,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "날짜"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Data"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Дата"
           }
         },
@@ -547,81 +703,81 @@
       }
     },
     "Done" : {
+      "comment" : "Toolbar button to dismiss the how-to-play instructions sheet",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "تم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Fertig"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Listo"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Terminé"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "हो गया"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Selesai"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Fatto"
+            "state" : "machine_translated",
+            "value" : "Fine"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "完了"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "완료"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Concluir"
+            "state" : "machine_translated",
+            "value" : "OK"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Готово"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "完成"
           }
         }
-      },
-      "comment" : "Toolbar button to dismiss the how-to-play instructions sheet"
+      }
     },
     "Favorite" : {
       "comment" : "Item editor title label for marking the item as a favorite",
@@ -629,14 +785,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "المفضلة"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Favorit"
+            "state" : "machine_translated",
+            "value" : "Als Favoriten markieren"
           }
         },
         "es" : {
@@ -653,19 +809,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "पसंदीदा"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Favorit"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Preferito"
           }
         },
@@ -677,19 +833,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "즐겨찾기"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Favorito"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Избранное"
           }
         },
@@ -707,13 +863,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مرحبًا [%@](https://skip.dev)!"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hallo [%@](https://skip.dev)!"
           }
         },
@@ -731,19 +887,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नमस्ते [%@](https://skip.dev)!"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Halo [%@](https://skip.dev)!"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ciao [%@](https://skip.dev)!"
           }
         },
@@ -755,19 +911,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "안녕하세요 [%@](https://skip.dev)!"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Olá [%@](https://skip.dev)!"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Привет, [%@](https://skip.dev)!"
           }
         },
@@ -785,13 +941,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الرئيسية"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Start"
           }
         },
@@ -809,19 +965,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "होम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Beranda"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Home"
           }
         },
@@ -833,19 +989,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "홈"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Início"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Главная"
           }
         },
@@ -863,13 +1019,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "فاتح"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Hell"
           }
         },
@@ -887,19 +1043,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "हल्का"
+            "state" : "machine_translated",
+            "value" : "लाइट"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Terang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Chiaro"
           }
         },
@@ -911,19 +1067,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "라이트"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Claro"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Светлое"
           }
         },
@@ -941,13 +1097,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الاسم"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Name"
           }
         },
@@ -965,19 +1121,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नाम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nama"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nome"
           }
         },
@@ -989,19 +1145,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "이름"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Nome"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Имя"
           }
         },
@@ -1019,13 +1175,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "ملاحظات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Notizen"
           }
         },
@@ -1043,19 +1199,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "नोट्स"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Catatan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Note"
           }
         },
@@ -1067,19 +1223,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "메모"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Notas"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Заметки"
           }
         },
@@ -1097,13 +1253,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مدعوم بواسطة [Skip](https://skip.dev)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bereitgestellt von [Skip](https://skip.dev)"
           }
         },
@@ -1121,19 +1277,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "[Skip](https://skip.dev) द्वारा संचालित"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Didukung oleh [Skip](https://skip.dev)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Realizzato con [Skip](https://skip.dev)"
           }
         },
@@ -1145,19 +1301,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "[Skip](https://skip.dev) 제공"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Desenvolvido com [Skip](https://skip.dev)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Работает на [Skip](https://skip.dev)"
           }
         },
@@ -1175,14 +1331,14 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "حفظ"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Sichern"
+            "state" : "machine_translated",
+            "value" : "Speichern"
           }
         },
         "es" : {
@@ -1199,19 +1355,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सहेजें"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Simpan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salva"
           }
         },
@@ -1223,19 +1379,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "저장"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Salvar"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Сохранить"
           }
         },
@@ -1253,13 +1409,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الإعدادات"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Einstellungen"
           }
         },
@@ -1277,19 +1433,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सेटिंग्स"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Pengaturan"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Impostazioni"
           }
         },
@@ -1301,19 +1457,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "설정"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Ajustes"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Настройки"
           }
         },
@@ -1331,13 +1487,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "النظام"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "System"
           }
         },
@@ -1355,19 +1511,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "सिस्टम"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sistem"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sistema"
           }
         },
@@ -1379,19 +1535,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "시스템"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Sistema"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Системное"
           }
         },
@@ -1409,13 +1565,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "العنوان"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Titel"
           }
         },
@@ -1433,19 +1589,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "शीर्षक"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Judul"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Titolo"
           }
         },
@@ -1457,19 +1613,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "제목"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Título"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Заголовок"
           }
         },
@@ -1487,13 +1643,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "الإصدار %1$@ (%2$@)"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Version %1$@ (%2$@)"
           }
         },
@@ -1517,19 +1673,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "संस्करण %1$@ (%2$@)"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Versi %1$@ (%2$@)"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Versione %1$@ (%2$@)"
           }
         },
@@ -1541,19 +1697,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "버전 %1$@ (%2$@)"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Versão %1$@ (%2$@)"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Версия %1$@ (%2$@)"
           }
         },
@@ -1571,13 +1727,13 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "مرحبًا"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Willkommen"
           }
         },
@@ -1595,19 +1751,19 @@
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "स्वागत है"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Selamat Datang"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Benvenuto"
           }
         },
@@ -1619,19 +1775,19 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "환영합니다"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Bem-vindo"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "machine_translated",
             "value" : "Добро пожаловать"
           }
         },
@@ -1644,5 +1800,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }
