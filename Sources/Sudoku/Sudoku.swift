@@ -359,6 +359,12 @@ struct SudokuSavedState: Codable {
     var historyNewNotes: [Int]
     var historyNewProvisional: [Bool]
     var historyCursor: Int
+    // Peer-note side effects per history entry. Optional so states saved by older
+    // builds (which lack these keys) still decode; restore synthesizes empty
+    // entries in that case to keep the arrays in lockstep with the rest.
+    var historyPeerIndices: [[Int]]?
+    var historyPeerOldNotes: [[Int]]?
+    var historyPeerNewNotes: [[Int]]?
 }
 
 // MARK: - Game Model
@@ -420,6 +426,16 @@ final class SudokuModel {
     var historyNewValues: [Int] = []
     var historyNewNotes: [Int] = []
     var historyNewProvisional: [Bool] = []
+    /// Per history entry, the peer cells whose notes changed as a *side effect* of
+    /// the edit — placing a digit (or a hint) strips that digit from the pencil
+    /// marks of every row/column/box peer. We record each affected peer's index and
+    /// its pre-/post-edit note bitmask so undo can restore those marks and redo can
+    /// re-clear them. The single edited cell is tracked by the scalar arrays above;
+    /// these capture everything else the edit touched. Kept in lockstep with the
+    /// other history arrays — one (possibly empty) sub-array per entry.
+    var historyPeerIndices: [[Int]] = []
+    var historyPeerOldNotes: [[Int]] = []
+    var historyPeerNewNotes: [[Int]] = []
     var historyCursor: Int = 0
 
     var canUndo: Bool { historyCursor > 0 }
@@ -478,6 +494,9 @@ final class SudokuModel {
         historyNewValues.removeAll()
         historyNewNotes.removeAll()
         historyNewProvisional.removeAll()
+        historyPeerIndices.removeAll()
+        historyPeerOldNotes.removeAll()
+        historyPeerNewNotes.removeAll()
         historyCursor = 0
     }
 
@@ -566,9 +585,15 @@ final class SudokuModel {
 
     /// Record a single-cell edit in the history, dropping any pending redo entries.
     /// Caller passes the pre-edit and post-edit (value, notes, provisional) state.
+    ///
+    /// When an edit also mutated *other* cells' notes (a digit placement clears that
+    /// digit from peer pencil marks), pass the full `notes` array as it was *before*
+    /// the edit via `notesBefore`. We diff it against the current `notes` and store
+    /// every changed peer so undo/redo can reverse/replay those side effects too.
     private func recordHistory(_ cellIndex: Int,
                                oldValue: Int, oldNotes: Int, oldProvisional: Bool,
-                               newValue: Int, newNotes: Int, newProvisional: Bool) {
+                               newValue: Int, newNotes: Int, newProvisional: Bool,
+                               notesBefore: [Int]? = nil) {
         // Drop any redo entries past the cursor — they're invalidated by the new edit.
         // Skip Lite's Array doesn't expose removeSubrange, so we use a removeLast loop.
         while historyIndices.count > historyCursor {
@@ -579,6 +604,25 @@ final class SudokuModel {
             historyNewValues.removeLast()
             historyNewNotes.removeLast()
             historyNewProvisional.removeLast()
+            historyPeerIndices.removeLast()
+            historyPeerOldNotes.removeLast()
+            historyPeerNewNotes.removeLast()
+        }
+        // Compute the peer-note side effects (cells other than the edited one whose
+        // notes changed). Empty when the edit had no peer effect (note toggles,
+        // value clears) so the peer arrays stay in lockstep with the rest.
+        var peerIdx: [Int] = []
+        var peerOld: [Int] = []
+        var peerNew: [Int] = []
+        if let before = notesBefore {
+            for j in 0..<81 {
+                if j == cellIndex { continue }
+                if notes[j] != before[j] {
+                    peerIdx.append(j)
+                    peerOld.append(before[j])
+                    peerNew.append(notes[j])
+                }
+            }
         }
         historyIndices.append(cellIndex)
         historyOldValues.append(oldValue)
@@ -587,6 +631,9 @@ final class SudokuModel {
         historyNewValues.append(newValue)
         historyNewNotes.append(newNotes)
         historyNewProvisional.append(newProvisional)
+        historyPeerIndices.append(peerIdx)
+        historyPeerOldNotes.append(peerOld)
+        historyPeerNewNotes.append(peerNew)
         historyCursor = historyIndices.count
     }
 
@@ -619,6 +666,9 @@ final class SudokuModel {
                           newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
             return true
         }
+        // Snapshot all notes before the placement so recordHistory can capture the
+        // peer marks this digit is about to strip (and restore them on undo).
+        let notesBefore = notes
         values[i] = digit
         clearNotes(i)
         isProvisional[i] = checkpointActive
@@ -629,7 +679,8 @@ final class SudokuModel {
         clearPeerNotes(of: i, digit: digit)
         recordHistory(i,
                       oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
-                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
+                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i],
+                      notesBefore: notesBefore)
         checkCompletion()
         return true
     }
@@ -641,6 +692,14 @@ final class SudokuModel {
         values[i] = historyOldValues[historyCursor]
         notes[i] = historyOldNotes[historyCursor]
         isProvisional[i] = historyOldProvisional[historyCursor]
+        // Restore any peer notes this edit had cleared as a side effect.
+        if historyCursor < historyPeerIndices.count {
+            let peers = historyPeerIndices[historyCursor]
+            let peerOld = historyPeerOldNotes[historyCursor]
+            for k in 0..<peers.count {
+                notes[peers[k]] = peerOld[k]
+            }
+        }
     }
 
     func redo() {
@@ -649,6 +708,14 @@ final class SudokuModel {
         values[i] = historyNewValues[historyCursor]
         notes[i] = historyNewNotes[historyCursor]
         isProvisional[i] = historyNewProvisional[historyCursor]
+        // Re-apply the peer-note side effects this edit had cleared.
+        if historyCursor < historyPeerIndices.count {
+            let peers = historyPeerIndices[historyCursor]
+            let peerNew = historyPeerNewNotes[historyCursor]
+            for k in 0..<peers.count {
+                notes[peers[k]] = peerNew[k]
+            }
+        }
         historyCursor += 1
     }
 
@@ -679,6 +746,8 @@ final class SudokuModel {
         let oldValue = values[i]
         let oldNotes = notes[i]
         let oldProvisional = isProvisional[i]
+        // Snapshot notes before the hint strips this digit from peer marks.
+        let notesBefore = notes
         values[i] = solution[i]
         notes[i] = 0
         // A hint placement is treated as committed even in checkpoint mode — the
@@ -691,7 +760,8 @@ final class SudokuModel {
         clearPeerNotes(of: i, digit: solution[i])
         recordHistory(i,
                       oldValue: oldValue, oldNotes: oldNotes, oldProvisional: oldProvisional,
-                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i])
+                      newValue: values[i], newNotes: notes[i], newProvisional: isProvisional[i],
+                      notesBefore: notesBefore)
         checkCompletion()
     }
 
@@ -710,6 +780,9 @@ final class SudokuModel {
             historyNewValues.removeLast()
             historyNewNotes.removeLast()
             historyNewProvisional.removeLast()
+            historyPeerIndices.removeLast()
+            historyPeerOldNotes.removeLast()
+            historyPeerNewNotes.removeLast()
         }
         checkpointValues = values
         checkpointNotes = notes
@@ -744,6 +817,9 @@ final class SudokuModel {
             historyNewValues.removeLast()
             historyNewNotes.removeLast()
             historyNewProvisional.removeLast()
+            historyPeerIndices.removeLast()
+            historyPeerOldNotes.removeLast()
+            historyPeerNewNotes.removeLast()
         }
         historyCursor = checkpointHistoryCursor
     }
@@ -849,7 +925,10 @@ final class SudokuModel {
             historyNewValues: historyNewValues,
             historyNewNotes: historyNewNotes,
             historyNewProvisional: historyNewProvisional,
-            historyCursor: historyCursor
+            historyCursor: historyCursor,
+            historyPeerIndices: historyPeerIndices,
+            historyPeerOldNotes: historyPeerOldNotes,
+            historyPeerNewNotes: historyPeerNewNotes
         )
     }
 
@@ -877,6 +956,29 @@ final class SudokuModel {
         historyNewNotes = state.historyNewNotes
         historyNewProvisional = state.historyNewProvisional
         historyCursor = state.historyCursor
+        // Restore peer-note side effects, keeping them in lockstep with the rest of
+        // the history. Older saves omit them (or could be malformed), so fall back to
+        // one empty sub-array per entry — undo/redo of those pre-upgrade moves simply
+        // won't replay peer-note changes, but the arrays stay length-consistent.
+        if let peerIdx = state.historyPeerIndices,
+           let peerOld = state.historyPeerOldNotes,
+           let peerNew = state.historyPeerNewNotes,
+           peerIdx.count == historyIndices.count,
+           peerOld.count == historyIndices.count,
+           peerNew.count == historyIndices.count {
+            historyPeerIndices = peerIdx
+            historyPeerOldNotes = peerOld
+            historyPeerNewNotes = peerNew
+        } else {
+            historyPeerIndices = []
+            historyPeerOldNotes = []
+            historyPeerNewNotes = []
+            for _ in 0..<historyIndices.count {
+                historyPeerIndices.append([])
+                historyPeerOldNotes.append([])
+                historyPeerNewNotes.append([])
+            }
+        }
         selectedIndex = nil
         notesMode = false
         isPaused = false

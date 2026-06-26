@@ -128,6 +128,44 @@ let logger: Logger = Logger(subsystem: "Sudoku", category: "Tests")
         #expect(!model.canRedo)
     }
 
+    /// Regression: placing a digit clears that digit from peer cells' pencil marks.
+    /// Undoing the placement must restore those peer notes (and redo must re-clear
+    /// them). Previously the history only tracked the single edited cell, so the
+    /// cleared peer notes were lost forever after an undo.
+    @MainActor
+    @Test func undoRestoresPeerNotesClearedByPlacement() throws {
+        let model = SudokuModel()
+        model.newGame(difficulty: SudokuDifficulty.easy)
+        // Start from a clean, fully-editable board so cells 0 and 1 — which share
+        // row 0 and are therefore peers — are guaranteed usable and empty.
+        model.values = Array(repeating: 0, count: 81)
+        model.isOriginal = Array(repeating: false, count: 81)
+        model.notes = Array(repeating: 0, count: 81)
+
+        // Pencil-mark a 5 into cell 1.
+        model.selectedIndex = 1
+        model.notesMode = true
+        model.placeDigit(5)
+        model.notesMode = false
+        #expect(model.hasNote(1, 5))
+
+        // Place a 5 into peer cell 0 — this clears the 5 note from cell 1.
+        model.selectedIndex = 0
+        model.placeDigit(5)
+        #expect(model.values[0] == 5)
+        #expect(!model.hasNote(1, 5))
+
+        // Undo the placement: cell 0 empties AND cell 1's note must come back.
+        model.undo()
+        #expect(model.values[0] == 0)
+        #expect(model.hasNote(1, 5), "peer note cleared by the placement must be restored on undo")
+
+        // Redo: the placement returns and the peer note is cleared again.
+        model.redo()
+        #expect(model.values[0] == 5)
+        #expect(!model.hasNote(1, 5))
+    }
+
     @MainActor
     @Test func giveUpMarksAutoFilledCells() throws {
         let model = SudokuModel()
