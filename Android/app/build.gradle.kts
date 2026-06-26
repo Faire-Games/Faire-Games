@@ -9,35 +9,35 @@ plugins {
 skip {
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>() {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jvm.get().toString())
-    }
-}
-
 android {
     namespace = group as String
     compileSdk = libs.versions.android.sdk.compile.get().toInt()
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jvm.get().toString())
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(libs.versions.jvm.get())
         targetCompatibility = JavaVersion.toVersion(libs.versions.jvm.get())
-    }
-    packaging {
-        jniLibs {
-            keepDebugSymbols.add("**/*.so")
-            pickFirsts.add("**/*.so")
-            // this option will compress JNI .so files
-            //useLegacyPackaging = true
-        }
     }
 
     defaultConfig {
         minSdk = libs.versions.android.sdk.min.get().toInt()
         targetSdk = libs.versions.android.sdk.compile.get().toInt()
         // skip.tools.skip-build-plugin will automatically use Skip.env properties for:
-        // applicationId = ANDROID_APPLICATION_ID ?? PRODUCT_BUNDLE_IDENTIFIER
+        // applicationId = PRODUCT_BUNDLE_IDENTIFIER
         // versionCode = CURRENT_PROJECT_VERSION
         // versionName = MARKETING_VERSION
+    }
+
+    // Needed when packaging the Swift runtime .so files in Skip Fuse mode;
+    // harmless in Skip Lite mode.
+    packaging {
+        jniLibs {
+            keepDebugSymbols.add("**/*.so")
+            pickFirsts.add("**/*.so")
+        }
     }
 
     buildFeatures {
@@ -57,7 +57,7 @@ android {
     }
 
     // default signing configuration tries to load from keystore.properties
-    // see: https://skip.dev/docs/deployment/#export-signing
+    // see: https://skip.tools/docs/deployment/#export-signing
     signingConfigs {
         val keystorePropertiesFile = file("keystore.properties")
         create("release") {

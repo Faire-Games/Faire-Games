@@ -970,13 +970,16 @@ final class SudokuModel {
             historyPeerOldNotes = peerOld
             historyPeerNewNotes = peerNew
         } else {
+            // Use explicitly-typed empty arrays: a bare `[]` here transpiles to an
+            // untyped Kotlin `arrayOf()` whose element type can't be inferred inside
+            // `append(...)`, so Skip Lite fails to compile it.
             historyPeerIndices = []
             historyPeerOldNotes = []
             historyPeerNewNotes = []
             for _ in 0..<historyIndices.count {
-                historyPeerIndices.append([])
-                historyPeerOldNotes.append([])
-                historyPeerNewNotes.append([])
+                historyPeerIndices.append([Int]())
+                historyPeerOldNotes.append([Int]())
+                historyPeerNewNotes.append([Int]())
             }
         }
         selectedIndex = nil
