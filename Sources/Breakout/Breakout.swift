@@ -64,6 +64,20 @@ private let basePaddleWidth: Double = 72.0
 private let widePaddleWidth: Double = 112.0
 private let paddleWidthLerpRate: Double = 6.0
 
+// Touch tracking: the paddle is positioned absolutely under the touch point
+// rather than dragged relative to where the gesture began. It rides this far
+// ABOVE the fingertip so the player can always see it, and eases toward the
+// touch position at paddleFollowRate so lifting and re-tapping somewhere new
+// glides the paddle across instead of teleporting it.
+//
+// paddleFollowRate is an exponential easing constant in units of 1/second (see
+// stepPaddle). The glide reaches ~95% of the way in roughly 3/rate seconds —
+// here ~0.14s — INDEPENDENT of frame rate, so it stays a smooth multi-frame
+// slide whether the game ticks at 60fps (iOS) or a lower, choppier rate
+// (Android). Higher = snappier/tighter tracking; lower = a longer, softer glide.
+private let paddleTouchYOffset: Double = 72.0
+private let paddleFollowRate: Double = 22.0
+
 // Power-ups
 private let powerUpDropChance: Double = 0.20
 private let powerUpFallSpeed: Double = 130.0
@@ -294,6 +308,13 @@ final class BreakoutModel {
     var prevPaddleX: Double = 200.0
     var prevPaddleY: Double = 525.0
 
+    /// Absolute destination for the paddle, set from the touch point. The paddle
+    /// eases toward this each tick (see `stepPaddle`) instead of snapping, so a
+    /// fresh tap somewhere new glides the paddle across rather than teleporting
+    /// it. Kept equal to the paddle's resting position until the first touch.
+    var paddleTargetX: Double = 200.0
+    var paddleTargetY: Double = 525.0
+
     /// Default resting Y for the paddle: 1/4 of the way up from the bottom,
     /// adjusted so the paddle's center (not edge) sits at that line.
     var paddleYBaseline: Double {
@@ -379,6 +400,8 @@ final class BreakoutModel {
         paddleY = height * (1.0 - paddleBottomFraction) - paddleHeight / 2.0
         prevPaddleX = paddleX
         prevPaddleY = paddleY
+        paddleTargetX = paddleX
+        paddleTargetY = paddleY
 
         // Keep a pre-launch ball glued to the paddle's new position. setup() runs
         // on every GeometryReader size change, and a later layout pass can hand us a
@@ -482,6 +505,10 @@ final class BreakoutModel {
         paddleY = paddleYBaseline
         prevPaddleX = paddleX
         prevPaddleY = paddleY
+        // Re-aim the touch target at the reset position so the paddle doesn't
+        // immediately glide away from the ball it's about to launch.
+        paddleTargetX = paddleX
+        paddleTargetY = paddleY
         ballX = paddleX
         ballY = paddleY - paddleHeight / 2.0 - ballRadius - 2.0
         ballDX = 0.0
@@ -666,12 +693,30 @@ final class BreakoutModel {
             saveHighScore()
             clearTransient()
         }
+        // NOTE: prevPaddleX/Y are snapshotted in stepPaddle() at the start of each
+        // tick (before the paddle eases toward its target), so the swept paddle/ball
+        // collision above already sees this frame's paddle motion — nothing to do here.
+    }
 
-        // Save current paddle position for next tick's swept-collision check.
-        // Done at the very end so the next tick's stepPrimaryBall() can read
-        // these as "where the paddle was at the start of THIS tick".
+    /// Ease the paddle toward its touch-driven target. Called once per tick, before
+    /// `update`, so all paddle motion happens inside the simulation step. The
+    /// pre-move position is captured into `prevPaddle*` for the swept paddle/ball
+    /// collision, and the eased motion (rather than a teleport) keeps that swept
+    /// range — and the "fast paddle adds speed" boost — well-behaved on a re-tap.
+    func stepPaddle(dt: Double) {
         prevPaddleX = paddleX
         prevPaddleY = paddleY
+        // Frame-rate-INDEPENDENT exponential easing. The old `min(dt * rate, 1)`
+        // form looks smooth at iOS's steady 60fps (dt ~ 16ms gives a ~0.4 step) but
+        // collapses into a jump on Android: there Breakout's heavier per-frame work
+        // makes dt larger and more variable, and once dt >= 1/rate the linear step
+        // saturates at 1.0 — so the single tick after a re-tap teleports the paddle
+        // straight to the target. `1 - exp(-rate * dt)` instead advances the SAME
+        // fraction per unit time no matter how big dt is, so the glide always spans
+        // the same ~0.14s of wall-clock (several frames) on both platforms.
+        let lerpStep = 1.0 - exp(-paddleFollowRate * dt)
+        paddleX = paddleX + (paddleTargetX - paddleX) * lerpStep
+        paddleY = paddleY + (paddleTargetY - paddleY) * lerpStep
     }
 
     /// Step the primary (scalar) ball. Returns true if the ball was lost this frame.
@@ -1219,6 +1264,10 @@ final class BreakoutModel {
 
     func restoreState(_ state: BreakoutSavedState) {
         paddleX = state.paddleX
+        prevPaddleX = paddleX
+        prevPaddleY = paddleY
+        paddleTargetX = paddleX
+        paddleTargetY = paddleY
         ballX = state.ballX
         ballY = state.ballY
         ballDX = state.ballDX
@@ -1291,8 +1340,6 @@ struct BreakoutGameView: View {
     @State private var showPauseMenu = false
     @State private var debugText: String = "waiting for touch"
     @State private var debugTouchCount: Int = 0
-    @State private var dragAnchorX: Double? = nil // paddle X at drag start
-    @State private var dragAnchorY: Double? = nil // paddle Y at drag start
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @Environment(BreakoutSettings.self) var settings: BreakoutSettings
@@ -1351,25 +1398,21 @@ struct BreakoutGameView: View {
                                     playHaptic(.pick)
                                 }
 
-                                // The drag controls both paddle axes: horizontal
-                                // across the play area, vertical between the top
-                                // cap (paddleYMin) and the bottom edge.
-                                if dragAnchorX == nil {
-                                    dragAnchorX = game.paddleX - value.startLocation.x
-                                }
-                                if dragAnchorY == nil {
-                                    dragAnchorY = game.paddleY - value.startLocation.y
-                                }
-
-                                let x = min(max((dragAnchorX ?? 0.0) + value.location.x, game.paddleWidth / 2.0), game.fieldWidth - game.paddleWidth / 2.0)
-                                game.paddleX = x
-
-                                let yRaw = (dragAnchorY ?? 0.0) + value.location.y
-                                game.paddleY = max(game.paddleYMin, min(game.paddleYMax, yRaw))
-                            }
-                            .onEnded { _ in
-                                dragAnchorX = nil
-                                dragAnchorY = nil
+                                // Absolute control: the paddle tracks the touch
+                                // point directly rather than moving relative to
+                                // where the gesture began. Horizontally it centers
+                                // on the finger; vertically it rides paddleTouchYOffset
+                                // ABOVE the fingertip so it's never hidden under it.
+                                // We set the TARGET only — stepPaddle() eases the
+                                // paddle there each tick, so lifting and tapping a
+                                // new spot glides the paddle across instead of
+                                // teleporting it. Both axes use the same clamps as
+                                // before (X within the walls, Y between paddleYMin
+                                // and the bottom edge).
+                                game.paddleTargetX = min(max(value.location.x, game.paddleWidth / 2.0),
+                                                         game.fieldWidth - game.paddleWidth / 2.0)
+                                game.paddleTargetY = max(game.paddleYMin,
+                                                         min(game.paddleYMax, value.location.y - paddleTouchYOffset))
                             }
                     )
                 }
@@ -2240,6 +2283,10 @@ struct BreakoutGameView: View {
         if dt > 0.1 { dt = 0.016 }
 
         if showPauseMenu { return }
+
+        // Ease the paddle toward the touch target before the physics step so the
+        // ball collides with the paddle at its actual (eased) position this frame.
+        game.stepPaddle(dt: dt)
 
         let wasBrickCount = aliveBrickCount()
         game.update(dt: dt)
