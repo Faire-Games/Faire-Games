@@ -378,6 +378,20 @@ final class BreakoutModel {
         prevPaddleX = paddleX
         prevPaddleY = paddleY
 
+        // Keep a pre-launch ball glued to the paddle's new position. setup() runs
+        // on every GeometryReader size change, and a later layout pass can hand us a
+        // different (often shorter) height once safe-area / nav-bar insets resolve.
+        // That moves the paddle; if the ball doesn't follow it can end up stranded
+        // BELOW the paddle and is lost the instant the turn starts. (A launched ball
+        // is mid-flight and must keep its own trajectory.)
+        if !isLaunched {
+            ballX = paddleX
+            ballY = paddleY - paddleHeight / 2.0 - ballRadius - 2.0
+            ballDX = 0.0
+            ballDY = 0.0
+            ballTrail.removeAll()
+        }
+
         // Calculate brick layout
         let totalSpacing = brickSpacing * Double(brickCols + 1)
         brickWidth = (width - totalSpacing) / Double(brickCols)

@@ -21,6 +21,26 @@ let logger: Logger = Logger(subsystem: "Breakout", category: "Tests")
         #expect(testData.testModuleName == "Breakout")
     }
 
+    /// Regression: the pre-launch ball must stay resting on top of the paddle
+    /// even when the playfield is re-laid-out at a different height (e.g. safe-area
+    /// or nav/tab-bar insets resolving on a later layout pass). Previously `setup()`
+    /// moved the paddle but left the ball behind, which could strand the ball BELOW
+    /// the paddle so the turn started with the ball immediately falling out of play.
+    @Test func ballStaysOnPaddleAfterResize() throws {
+        let model = BreakoutModel()
+        // First layout pass: a taller field (before insets are applied).
+        model.setup(width: 400.0, height: 800.0)
+        model.newGame()
+        #expect(!model.isLaunched)
+        #expect(model.ballY < model.paddleY, "ball should start above the paddle")
+
+        // A later layout pass hands back a shorter field, moving the paddle up.
+        model.setup(width: 400.0, height: 700.0)
+        #expect(model.ballY < model.paddleY,
+                "ball must remain on top of the paddle after a field resize, not below it")
+        #expect(model.ballX == model.paddleX, "ball should be centered on the paddle")
+    }
+
     @Test func saveAndRestoreState() throws {
         let model = BreakoutModel()
         model.newGame()
