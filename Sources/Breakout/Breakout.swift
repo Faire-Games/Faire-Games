@@ -26,6 +26,8 @@ public struct BreakoutContainerView: View {
             .toolbar(.hidden, for: .tabBar)
             #if SKIP
             .ignoresSafeArea(.container, edges: .top)
+            #else
+            .persistentSystemOverlays(.hidden) // hide the bottom home swipe bar
             #endif
             .colorScheme(.dark)
             #endif
