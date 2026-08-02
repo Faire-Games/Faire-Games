@@ -1,0 +1,17 @@
+[package]
+name = "sirtet"
+version = "0.1.0"
+edition = "2024"
+
+# A COMPOSITE Day piece: a reusable widget built PURELY from Day's core primitives — no native /
+# per-backend code and NO cargo features, so it works on every backend for free. Depend on it with a
+# plain `{ workspace = true }` (or git) line and call the builder from `use day::prelude::*` code.
+
+[dependencies]
+day-pieces = { path = "../../../day/crates/day-pieces" }
+day-core = { path = "../../../day/crates/day-core" }
+day-reactive = { path = "../../../day/crates/day-reactive" }
+
+gamekit = { path = "../../gamekit" }
+serde = { version = "1", features = ["derive"] }
+day-fluent = { path = "../../../day/crates/day-fluent" }

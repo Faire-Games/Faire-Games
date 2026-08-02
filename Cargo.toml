@@ -1,0 +1,47 @@
+[package]
+name = "day-games"
+version = "0.1.0"
+edition = "2024"
+# Generates typed resource constants (`res::images::…`, `res::assets::…`, `res::fonts::…`) from the
+# files under `resource/` on every build — see build.rs and src/lib.rs (§18.5).
+build = "build.rs"
+
+# Mobile-only app: iOS (uikit), Android (mdc), HarmonyOS (arkui). `mock` is the default so bare
+# `cargo`/rust-analyzer link; `day build`/`day launch` pass the real backend per target.
+[features]
+default = ["mock"]
+uikit = ["day/uikit"]
+mdc = ["day/mdc"]
+arkui = ["day/arkui"]
+mock = ["day/mock"]
+
+# rlib for the desktop bin; the mobile pipeline requests the iOS staticlib / Android cdylib
+# explicitly via `cargo rustc --crate-type` (a desktop cdylib blows past the windows-gnu PE
+# export cap).
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+day = { path = "../day/crates/day" }
+breakout = { path = "games/breakout" }
+sirtet = { path = "games/sirtet" }
+sudoku = { path = "games/sudoku" }
+twentyfortyeight = { path = "games/twentyfortyeight" }
+
+[build-dependencies]
+day-build = { path = "../day/crates/day-build" }
+
+[[bin]]
+name = "day-games"
+path = "src/main.rs"
+
+[workspace]
+resolver = "2"
+members = [
+    ".",
+    "games/breakout",
+    "games/sirtet",
+    "games/sudoku",
+    "games/twentyfortyeight",
+    "gamekit",
+]

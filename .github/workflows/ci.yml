@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 20 * * *" # daily (UTC)
+
+permissions:
+  contents: write # release-asset upload on tag builds
+  pages: write    # web-dom → GitHub Pages (deploy-web)
+  id-token: write # deploy-pages OIDC token (deploy-web)
+
+jobs:
+  app:
+    uses: daybrite/actions/.github/workflows/build-day-app.yml@main
+    secrets: inherit
+    with:
+      targets: windows-xaml, macos-appkit, linux-gtk, linux-qt, ios-uikit, android-mdc, harmony-arkui, web-dom
+      # main until the next day release: the flatpak/MSIX default-icon fallback (needed by apps
+      # without resource/icons/, like this one) is newer than the latest published CLI.
+      day-version: main
+      #scripts: scripts/weather.yaml
+      #launch-env: WEATHER_MOCK=1
+      #locales: en fr ar zh-CN
+      # Publish the web build to GitHub Pages on every push to main (empty tag-pattern → the
+      # default-branch mode). Native release assets still attach on vX.Y.Z tags, independently.
+      deploy-web: true

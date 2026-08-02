@@ -1,0 +1,35 @@
+name: games
+flow:
+  - wait_for: { id: home }
+  - screenshot: home
+  - navigate: { route: breakout }
+  - pause: { secs: 0.6 }
+  - tap: { id: bk-canvas }
+  - pause: { secs: 0.9 }
+  - screenshot: breakout-a
+  - pause: { secs: 0.7 }
+  - screenshot: breakout-b
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: sirtet }
+  - pause: { secs: 0.5 }
+  - tap: { id: st-canvas }
+  - tap: { id: st-canvas }
+  - pause: { secs: 0.4 }
+  - screenshot: sirtet-a
+  - pause: { secs: 1.0 }
+  - screenshot: sirtet-b
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: twentyfortyeight }
+  - pause: { secs: 0.6 }
+  - screenshot: g2048
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: sudoku }
+  - pause: { secs: 0.8 }
+  - tap: { id: su-cell-40 }
+  - tap: { id: su-key-5 }
+  - pause: { secs: 0.4 }
+  - screenshot: sudoku
+  - nav_back: {}

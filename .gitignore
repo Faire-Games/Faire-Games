@@ -1,0 +1,21 @@
+# Rust + day build outputs (day's per-target cargo dirs, dist, screenshots live under build/)
+target/
+build/
+Cargo.lock
+
+# Machine-local cargo overrides (the [patch] to a local day checkout)
+/.cargo/
+
+# Gradle local state (the android scaffold is source; its caches are not)
+.gradle/
+local.properties
+
+# Xcode local state (DayApp.xcodeproj itself is source — do NOT ignore it)
+xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
