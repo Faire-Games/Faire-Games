@@ -34,7 +34,10 @@ name = "dayapp"
 crate-type = ["rlib"]
 
 [dependencies]
-day = { path = "../day/crates/day" }
+# The day framework resolves from git (the crates aren't on crates.io yet), here and in every
+# game crate. Local development against a checkout goes through the gitignored
+# .cargo/config.toml [patch] that `day patch --local ../day` writes — CI has no such file.
+day = { git = "https://github.com/daybrite/day.git" }
 breakout = { path = "games/breakout" }
 gamekit = { path = "gamekit" }
 sirtet = { path = "games/sirtet" }
@@ -42,7 +45,7 @@ sudoku = { path = "games/sudoku" }
 twentyfortyeight = { path = "games/twentyfortyeight" }
 
 [build-dependencies]
-day-build = { path = "../day/crates/day-build" }
+day-build = { git = "https://github.com/daybrite/day.git" }
 
 
 [workspace]

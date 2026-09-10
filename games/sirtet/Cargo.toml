@@ -9,11 +9,11 @@ license = "Apache-2.0"
 # plain `{ workspace = true }` (or git) line and call the builder from `use day::prelude::*` code.
 
 [dependencies]
-day-pieces = { path = "../../../day/crates/day-pieces" }
-day-core = { path = "../../../day/crates/day-core" }
-day-reactive = { path = "../../../day/crates/day-reactive" }
+day-pieces = { git = "https://github.com/daybrite/day.git" }
+day-core = { git = "https://github.com/daybrite/day.git" }
+day-reactive = { git = "https://github.com/daybrite/day.git" }
 
-day-part-haptics = { path = "../../../day/parts/day-part-haptics" }
+day-part-haptics = { git = "https://github.com/daybrite/day.git" }
 gamekit = { path = "../../gamekit" }
 serde = { version = "1", features = ["derive"] }
-day-fluent = { path = "../../../day/crates/day-fluent" }
+day-fluent = { git = "https://github.com/daybrite/day.git" }
