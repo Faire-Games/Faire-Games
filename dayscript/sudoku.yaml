@@ -1,0 +1,75 @@
+# Sudoku walkthrough (https://daybrite.dev/docs/dayscript): the board, a placement, notes, a
+# checkpoint, the pause menu, the difficulty picker, settings, and the instructions sheet.
+#
+#     day launch -p macos-appkit --env DAY_GAMES_SEED=15 --script dayscript/sudoku.yaml
+#
+# The seed pins the puzzle: cells 40–42 (the middle of row five) are empty at Medium for seed
+# 15, which the placement steps below rely on (games/sudoku/src/model.rs asserts it).
+#
+name: sudoku
+flow:
+  - wait_for: { id: home }
+  # The instructions open by themselves the first time the game is played; a second open
+  # skips them, so the walkthrough works from any saved state (the sheet is exercised from
+  # the pause menu below).
+  - navigate: { route: sudoku }
+  - pause: { secs: 0.8 }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: sudoku }
+  # The clock runs once the board is up.
+  - pause: { secs: 2.2 }
+  - assert_visible: { id: su-board }
+  - screenshot: sudoku-board
+  # Select a cell and place a digit; the keypad's count drops.
+  - tap: { id: su-cell-40 }
+  - tap: { id: su-key-5 }
+  - pause: { secs: 0.3 }
+  # Pencil marks in a neighbor.
+  - tap: { id: su-notes }
+  - tap: { id: su-cell-41 }
+  - tap: { id: su-key-1 }
+  - tap: { id: su-key-2 }
+  - tap: { id: su-notes }
+  # A checkpoint session: its placements render amber, and the button splits.
+  - tap: { id: su-checkpoint }
+  - tap: { id: su-cell-42 }
+  - tap: { id: su-key-7 }
+  - pause: { secs: 0.3 }
+  - assert_visible: { id: su-commit }
+  - screenshot: sudoku-checkpoint
+  - tap: { id: su-revert }
+  # Undo, then the split Undo/Redo.
+  - tap: { id: su-undo }
+  - pause: { secs: 0.3 }
+  - assert_visible: { id: su-redo }
+  - tap: { id: su-redo }
+  # Pause: the board hides behind the cover and the menu comes up.
+  - tap: { id: su-pause }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: su-pause-menu }
+  - screenshot: sudoku-paused
+  - tap: { id: su-new-game }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: su-difficulty-picker }
+  - screenshot: sudoku-difficulty
+  - tap: { id: su-cancel }
+  - pause: { secs: 0.3 }
+  - tap: { id: su-settings }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: su-settings-card }
+  - screenshot: sudoku-settings
+  - tap: { id: su-done }
+  - pause: { secs: 0.3 }
+  - tap: { id: su-instructions }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: su-instructions-card }
+  - screenshot: sudoku-instructions
+  - tap: { id: su-help-done }
+  - pause: { secs: 0.3 }
+  - tap: { id: su-resume }
+  - pause: { secs: 0.3 }
+  - assert_visible: { id: su-keypad }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: tile-sudoku }

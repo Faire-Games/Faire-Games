@@ -7,6 +7,14 @@
 //! - **app backgrounding**: one process-wide set of lifecycle handlers
 //!   (`DidEnterBackground` / `WillResignActive` / `WillTerminate`, where the backend delivers
 //!   them — docs/lifecycle.md) saves every open game.
+//!
+//! [`on_background`] rides the same lifecycle handlers for a game that wants to react to
+//! leaving the foreground — a timed game pauses its clock — before its state is saved.
+//!
+//! [`chrome`] is the shell every game shares: the pause menu, the results cards, the
+//! settings and how-to-play sheets, the pause button, and the haptic gate.
+
+pub mod chrome;
 
 use std::cell::{Cell, RefCell};
 use std::collections::HashMap;
@@ -16,6 +24,41 @@ use day_reactive::Scope;
 use day_spec::Lifecycle;
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+
+thread_local! {
+    /// A fixed seed for scripted runs (see [`set_seed_override`]).
+    static SEED_OVERRIDE: Cell<Option<u64>> = const { Cell::new(None) };
+}
+
+/// Make every later [`seed`] return `seed` — what the app installs from `DAY_GAMES_SEED` so a
+/// dayscript walkthrough meets the same puzzle, brick layout, and piece order on every run
+/// and every target. One value for all games: they are independent, so sharing it costs
+/// nothing, and it keeps the answer independent of which game's preview drew first.
+pub fn set_seed_override(seed: u64) {
+    SEED_OVERRIDE.with(|s| s.set(Some(seed | 1)));
+}
+
+/// A fresh RNG seed per game start: the wall clock's nanoseconds where the platform has one,
+/// browser entropy on the web (wasm32 has no `SystemTime`, and asking aborts the app). Always
+/// odd, so an xorshift never seeds to zero.
+pub fn seed() -> u64 {
+    if let Some(fixed) = SEED_OVERRIDE.with(|s| s.get()) {
+        return fixed;
+    }
+    #[cfg(not(target_arch = "wasm32"))]
+    let raw = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos() as u64)
+        .unwrap_or(0x9E37_79B9_7F4A_7C15);
+    #[cfg(target_arch = "wasm32")]
+    let raw = {
+        let mut bytes = [0u8; 8];
+        // A failed fill leaves zeros; the `| 1` below still yields a valid (if fixed) seed.
+        let _ = getrandom::fill(&mut bytes);
+        u64::from_le_bytes(bytes)
+    };
+    raw | 1
+}
 
 fn pref_key(key: &str) -> String {
     format!("save.{key}")
@@ -53,26 +96,26 @@ pub fn clear(key: &str) {
 thread_local! {
     /// Save closures for the games currently open (usually zero or one).
     static LIVE: RefCell<HashMap<String, Rc<dyn Fn()>>> = RefCell::new(HashMap::new());
+    /// Background hooks for the games currently open, run before the saves.
+    static BACKGROUND: RefCell<HashMap<String, Rc<dyn Fn()>>> = RefCell::new(HashMap::new());
     static LIFECYCLE_HOOKED: Cell<bool> = const { Cell::new(false) };
 }
 
 fn save_all() {
-    // Clone the closures out so a save that touches the registry can't deadlock the borrow.
+    // Clone the closures out so a hook that touches the registry can't deadlock the borrow.
+    let hooks: Vec<Rc<dyn Fn()>> = BACKGROUND.with(|m| m.borrow().values().cloned().collect());
+    for f in hooks {
+        f();
+    }
     let snap: Vec<Rc<dyn Fn()>> = LIVE.with(|m| m.borrow().values().cloned().collect());
     for f in snap {
         f();
     }
 }
 
-/// Keep `snapshot` registered as `key`'s live state provider while the CURRENT scope (the
-/// game's page) is alive: the state is saved when the scope is disposed (the game exited) and
-/// whenever the app is backgrounded. Call once from the game's page builder.
-pub fn autosave<T: Serialize>(key: &'static str, snapshot: impl Fn() -> T + 'static) {
-    let saver: Rc<dyn Fn()> = Rc::new(move || save(key, &snapshot()));
-    LIVE.with(|m| m.borrow_mut().insert(key.to_string(), saver.clone()));
-
-    // One process-wide registration; `lifecycle_supported` skips phases this backend never
-    // delivers (docs/lifecycle.md) — scope-cleanup saving still covers those platforms.
+/// One process-wide lifecycle registration; `lifecycle_supported` skips phases this backend
+/// never delivers (docs/lifecycle.md) — scope-cleanup saving still covers those platforms.
+fn hook_lifecycle() {
     let first = LIFECYCLE_HOOKED.with(|h| !h.replace(true));
     if first {
         for phase in [
@@ -85,6 +128,29 @@ pub fn autosave<T: Serialize>(key: &'static str, snapshot: impl Fn() -> T + 'sta
             }
         }
     }
+}
+
+/// Run `f` whenever the app leaves the foreground while the CURRENT scope (the game's page) is
+/// alive — before that game's [`autosave`] snapshot is taken, so a clock it stops is saved
+/// stopped. Desktop backends deliver no such phase; the hook is simply never called there.
+pub fn on_background(key: &'static str, f: impl Fn() + 'static) {
+    let hook: Rc<dyn Fn()> = Rc::new(f);
+    BACKGROUND.with(|m| m.borrow_mut().insert(key.to_string(), hook));
+    hook_lifecycle();
+    Scope::current().on_cleanup(move || {
+        BACKGROUND.with(|m| {
+            m.borrow_mut().remove(key);
+        });
+    });
+}
+
+/// Keep `snapshot` registered as `key`'s live state provider while the CURRENT scope (the
+/// game's page) is alive: the state is saved when the scope is disposed (the game exited) and
+/// whenever the app is backgrounded. Call once from the game's page builder.
+pub fn autosave<T: Serialize>(key: &'static str, snapshot: impl Fn() -> T + 'static) {
+    let saver: Rc<dyn Fn()> = Rc::new(move || save(key, &snapshot()));
+    LIVE.with(|m| m.borrow_mut().insert(key.to_string(), saver.clone()));
+    hook_lifecycle();
 
     Scope::current().on_cleanup(move || {
         saver();

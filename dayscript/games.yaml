@@ -1,7 +1,23 @@
+# Gameplay sweep for screenshots. Run with `--env DAY_GAMES_SEED=15` so the Sudoku cells it
+# taps are empty (see dayscript/sudoku.yaml).
 name: games
 flow:
   - wait_for: { id: home }
   - screenshot: home
+  # Every game opens its rules by itself the first time it is played; opening each once
+  # first makes the sweep below the same from any saved state.
+  - navigate: { route: breakout }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
+  - navigate: { route: sirtet }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
+  - navigate: { route: twentyfortyeight }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
   - navigate: { route: breakout }
   - pause: { secs: 0.6 }
   - tap: { id: bk-canvas }
@@ -24,6 +40,21 @@ flow:
   - navigate: { route: twentyfortyeight }
   - pause: { secs: 0.6 }
   - screenshot: g2048
+  # New Game asks for the rules; Easy adds the undo button beside pause.
+  - tap: { id: tf-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: tf-new-game }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: tf-difficulty-picker }
+  - screenshot: g2048-difficulty
+  - tap: { id: tf-diff-easy }
+  - pause: { secs: 0.5 }
+  - assert_visible: { id: tf-undo }
+  - screenshot: g2048-easy
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: sudoku }
+  - pause: { secs: 0.8 }
   - nav_back: {}
   - pause: { secs: 0.6 }
   - navigate: { route: sudoku }

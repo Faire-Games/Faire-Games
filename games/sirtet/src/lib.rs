@@ -6,15 +6,33 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use day_fluent::tr;
+use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
+use gamekit::chrome::{self, Help};
 use serde::{Deserialize, Serialize};
 
-/// The prefs key this game's state persists under (gamekit; bump on schema change).
+/// What a step did that the page reacts to (haptics, cards).
+#[derive(Clone, Copy, PartialEq, Debug)]
+enum Happening {
+    /// A piece came to rest.
+    Locked,
+    /// This many lines cleared at once.
+    Cleared(usize),
+    GameOver,
+}
+
+/// The prefs keys this game persists under (gamekit; bump the game key on schema change).
 const SAVE_KEY: &str = "sirtet.v1";
+const RECORD_KEY: &str = "sirtet.best";
+const SETTINGS_KEY: &str = "sirtet.settings";
+/// The game's cover surface color (edge-to-edge behind the safe area).
+pub const SURFACE: Color = Color::hex(0x0A_0A_14);
 
 const COLS: usize = 10;
 const ROWS: usize = 20;
 const TOP_UI: f64 = 96.0; // reserved header height above the well
+/// How long a line clear's call-out stays up (it fades over the last third).
+const CLEAR_POPUP_LIFE: f64 = 1.0;
 
 /// 7 tetromino kinds × 4 rotations × 4 cells, as (row, col) offsets in a 4×4 box.
 const SHAPES: [[[(i32, i32); 4]; 4]; 7] = [
@@ -125,7 +143,11 @@ struct Game {
     grav_accum: f64,
     clearing: Vec<usize>, // rows flashing
     clear_timer: f64,
+    /// The last clear's size and how long its SINGLE/DOUBLE/TRIPLE/SIRTET! call-out has left.
+    clear_popup: Option<(usize, f64)>,
     game_over: bool,
+    /// What the last step did that the page reacts to.
+    happenings: Vec<Happening>,
     rng: Rng,
     // drag state
     drag_col0: i32,
@@ -135,11 +157,7 @@ struct Game {
 
 impl Game {
     fn new() -> Self {
-        let seed = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(0x2545_F491_4F6C_DD1D)
-            | 1;
+        let seed = gamekit::seed();
         let mut g = Game {
             field: Size::new(0.0, 0.0),
             grid: [-1; ROWS * COLS],
@@ -155,6 +173,8 @@ impl Game {
             grav_accum: 0.0,
             clearing: Vec::new(),
             clear_timer: 0.0,
+            clear_popup: None,
+            happenings: Vec::new(),
             game_over: false,
             rng: Rng(seed),
             drag_col0: 0,
@@ -216,6 +236,7 @@ impl Game {
             && !self.valid(self.kind, self.rot, self.prow + 1, self.pcol)
         {
             self.game_over = true;
+            self.happenings.push(Happening::GameOver);
         }
     }
 
@@ -233,8 +254,11 @@ impl Game {
             }
         }
         if full.is_empty() {
+            self.happenings.push(Happening::Locked);
             self.spawn();
         } else {
+            self.happenings.push(Happening::Cleared(full.len()));
+            self.clear_popup = Some((full.len(), CLEAR_POPUP_LIFE));
             self.clearing = full;
             self.clear_timer = 0.28;
         }
@@ -361,6 +385,12 @@ impl Game {
         if self.game_over {
             return;
         }
+        if let Some((_, life)) = self.clear_popup.as_mut() {
+            *life -= dt;
+            if *life <= 0.0 {
+                self.clear_popup = None;
+            }
+        }
         if !self.clearing.is_empty() {
             self.clear_timer -= dt;
             if self.clear_timer <= 0.0 {
@@ -445,7 +475,8 @@ impl Game {
         let title = TextStyle {
             size: 26.0,
             color: Color::WHITE,
-            anchor: TextAnchor::Leading,
+            anchor: TextAnchor::LEADING,
+            ..Default::default()
         };
         d.text(
             &tr("st_title").format(),
@@ -455,12 +486,13 @@ impl Game {
         let stat = TextStyle {
             size: 15.0,
             color: Color::rgba(1.0, 1.0, 1.0, 0.8),
-            anchor: TextAnchor::Leading,
+            anchor: TextAnchor::LEADING,
+            ..Default::default()
         };
         d.text(
             &tr("st_score").arg("n", self.score).format(),
             Point::new(ox, 54.0),
-            stat,
+            stat.clone(),
         );
         d.text(
             &tr("st_level_lines")
@@ -468,9 +500,73 @@ impl Game {
                 .arg("lines", self.lines)
                 .format(),
             Point::new(ox, 74.0),
-            stat,
+            stat.clone(),
         );
+        // High score and the next piece, trailing (clear of the pause button).
+        let bw = cs * COLS as f64;
+        d.text(
+            &tr("st_high").arg("n", self.best).format(),
+            Point::new(ox + bw - 52.0, 18.0),
+            TextStyle {
+                anchor: TextAnchor::TRAILING,
+                ..stat
+            },
+        );
+        let mini = (cs * 0.42).max(5.0);
+        let (nx, ny) = (ox + bw - 52.0 - 4.0 * mini, 42.0);
+        for &(r, c) in &SHAPES[self.next][0] {
+            let x = nx + c as f64 * mini;
+            let y = ny + r as f64 * mini;
+            d.fill(
+                Shape::RoundedRect(Rect::new(x + 0.5, y + 0.5, mini - 1.0, mini - 1.0), 2.0),
+                kind_color(self.next),
+            );
+        }
 
+        // The clear call-out: SINGLE / DOUBLE / TRIPLE / SIRTET!, gold for four, glowing
+        // blue, fading out over its last third above the bottom of the well.
+        if let Some((n, life)) = self.clear_popup {
+            let text = match n {
+                1 => tr("st_clear_single"),
+                2 => tr("st_clear_double"),
+                3 => tr("st_clear_triple"),
+                _ => tr("st_clear_sirtet"),
+            }
+            .format();
+            let a = (life / (CLEAR_POPUP_LIFE / 3.0)).clamp(0.0, 1.0);
+            let at = Point::new(sz.width / 2.0, sz.height - 100.0);
+            let font = CanvasFont {
+                family: None,
+                weight: Some(FontWeight::Black),
+                italic: false,
+            };
+            for (dx, dy) in [(-1.5, 0.0), (1.5, 0.0), (0.0, -1.5), (0.0, 1.5)] {
+                d.text(
+                    &text,
+                    Point::new(at.x + dx, at.y + dy),
+                    TextStyle {
+                        size: 30.0,
+                        color: Color::rgba(0.3, 0.5, 1.0, 0.55 * a),
+                        anchor: TextAnchor::CENTERED,
+                        font: font.clone(),
+                    },
+                );
+            }
+            d.text(
+                &text,
+                at,
+                TextStyle {
+                    size: 30.0,
+                    color: if n >= 4 {
+                        Color::rgba(1.0, 0.84, 0.25, a)
+                    } else {
+                        Color::rgba(1.0, 1.0, 1.0, a)
+                    },
+                    anchor: TextAnchor::CENTERED,
+                    font,
+                },
+            );
+        }
         if self.game_over {
             d.fill(
                 Shape::Rect(Rect::new(0.0, 0.0, sz.width, sz.height)),
@@ -482,16 +578,8 @@ impl Game {
                 TextStyle {
                     size: 32.0,
                     color: Color::WHITE,
-                    anchor: TextAnchor::Centered,
-                },
-            );
-            d.text(
-                &tr("st_play_again").format(),
-                Point::new(sz.width / 2.0, sz.height / 2.0 + 24.0),
-                TextStyle {
-                    size: 17.0,
-                    color: Color::rgba(1.0, 1.0, 1.0, 0.8),
-                    anchor: TextAnchor::Centered,
+                    anchor: TextAnchor::CENTERED,
+                    ..Default::default()
                 },
             );
         }
@@ -550,82 +638,447 @@ pub fn sirtet_preview() -> AnyPiece {
     .any()
 }
 
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+enum Overlay {
+    None,
+    Pause,
+    GameOver,
+    Settings,
+    Instructions,
+}
+
+struct Ui {
+    game: Rc<RefCell<Game>>,
+    repaint: Trigger,
+    overlay: Signal<Overlay>,
+    vibrations: Signal<bool>,
+}
+
+impl Ui {
+    fn haptic(&self, h: Haptic) {
+        chrome::haptic(self.vibrations.get_untracked(), h);
+    }
+    fn phrase(&self, pattern: chrome::Pattern) {
+        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    }
+    fn show(&self, kind: Overlay) {
+        self.overlay.set(kind);
+        self.repaint.notify();
+    }
+    fn pause(&self) {
+        if self.overlay.get_untracked() == Overlay::None && !self.game.borrow().game_over {
+            self.show(Overlay::Pause);
+        }
+    }
+    fn new_game(&self) {
+        self.game.borrow_mut().restart();
+        gamekit::clear(SAVE_KEY);
+        self.show(Overlay::None);
+        self.haptic(Haptic::Medium);
+    }
+}
+
 /// The Sirtet screen.
 pub fn sirtet_page() -> AnyPiece {
-    let game = Rc::new(RefCell::new(Game::new()));
+    let settings = gamekit::restore::<chrome::GameSettings>(SETTINGS_KEY).unwrap_or_default();
+    let mut game = Game::new();
     if let Some(s) = gamekit::restore::<SaveState>(SAVE_KEY) {
-        game.borrow_mut().apply_save(s);
+        game.apply_save(s);
     }
+    game.best = game
+        .best
+        .max(gamekit::restore::<i64>(RECORD_KEY).unwrap_or(0));
+    let ui = Rc::new(Ui {
+        game: Rc::new(RefCell::new(game)),
+        repaint: Trigger::new(),
+        overlay: Signal::new(Overlay::None),
+        vibrations: Signal::new(settings.vibrations),
+    });
     gamekit::autosave(SAVE_KEY, {
-        let game = game.clone();
+        let game = ui.game.clone();
         move || game.borrow().save_state()
     });
-    let repaint = Trigger::new();
+    Effect::new({
+        let ui = ui.clone();
+        move || {
+            gamekit::save(
+                SETTINGS_KEY,
+                &chrome::GameSettings {
+                    vibrations: ui.vibrations.get(),
+                    instructions_shown: true,
+                },
+            );
+        }
+    });
+    // The rules open by themselves on the first play; a restored game waits behind the pause
+    // menu (the player was not holding the piece when it left).
+    if !settings.instructions_shown {
+        ui.show(Overlay::Instructions);
+    } else if ui.game.borrow().score > 0 {
+        ui.show(Overlay::Pause);
+    }
+    gamekit::on_background(SAVE_KEY, {
+        let ui = ui.clone();
+        move || ui.pause()
+    });
 
     let cv = {
-        let game = game.clone();
+        let (du, tu, dr, ku) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
         canvas(move |d, sz| {
-            repaint.track();
-            game.borrow_mut().field = sz;
-            game.borrow().draw(d, sz);
+            du.repaint.track();
+            du.game.borrow_mut().field = sz;
+            du.game.borrow().draw(d, sz);
         })
-    }
-    .on_tap({
-        let game = game.clone();
-        move || {
-            let mut g = game.borrow_mut();
-            if g.game_over {
-                g.restart();
-            } else {
-                g.rotate();
+        .on_tap(move || {
+            if tu.overlay.get_untracked() != Overlay::None {
+                return;
             }
-            drop(g);
-            repaint.notify();
-        }
-    })
-    .on_drag({
-        let game = game.clone();
-        move |dr| {
-            let mut g = game.borrow_mut();
+            tu.game.borrow_mut().rotate();
+            tu.repaint.notify();
+            tu.haptic(Haptic::Light);
+        })
+        .on_drag(move |dg| {
+            if dr.overlay.get_untracked() != Overlay::None {
+                return;
+            }
+            let mut g = dr.game.borrow_mut();
             let cs = g.cell_size().max(1.0);
-            match dr.phase {
+            match dg.phase {
                 DragPhase::Began => {
                     g.drag_col0 = g.pcol;
-                    g.drag_x0 = dr.location.x;
-                    g.drag_y_last = dr.location.y;
+                    g.drag_x0 = dg.location.x;
+                    g.drag_y_last = dg.location.y;
                 }
                 _ => {
                     // Horizontal: snap to whole-column moves from the drag start.
-                    let want = g.drag_col0 + ((dr.location.x - g.drag_x0) / cs).round() as i32;
-                    let cur = g.pcol;
-                    let delta = want - cur;
+                    let want = g.drag_col0 + ((dg.location.x - g.drag_x0) / cs).round() as i32;
+                    let delta = want - g.pcol;
+                    let before = g.pcol;
                     if delta != 0 {
                         let dir = delta.signum();
                         for _ in 0..delta.abs() {
                             g.move_dxy(dir);
                         }
                     }
+                    let moved = g.pcol != before;
                     // Downward: soft-drop per cell of downward travel.
-                    while dr.location.y - g.drag_y_last > cs {
+                    let mut dropped = false;
+                    while dg.location.y - g.drag_y_last > cs {
                         g.drag_y_last += cs;
                         g.soft_drop();
+                        dropped = true;
                     }
+                    drop(g);
+                    // A detent per column, a lighter one per soft-dropped row.
+                    if moved || dropped {
+                        dr.haptic(Haptic::Selection);
+                    }
+                    dr.repaint.notify();
+                    return;
                 }
             }
             drop(g);
-            repaint.notify();
+            dr.repaint.notify();
+        })
+        .on_key(move |k| {
+            if ku.overlay.get_untracked() != Overlay::None {
+                return;
+            }
+            let mut g = ku.game.borrow_mut();
+            match k.key.as_str() {
+                "ArrowLeft" => g.move_dxy(-1),
+                "ArrowRight" => g.move_dxy(1),
+                "ArrowUp" => g.rotate(),
+                "ArrowDown" => g.soft_drop(),
+                _ => {}
+            }
+            drop(g);
+            ku.repaint.notify();
+        })
+        .id("st-canvas")
+        .grow()
+    };
+
+    // Mounted only while the game is live, so the display link goes idle behind a card.
+    let clock = {
+        let (cu, bu) = (ui.clone(), ui.clone());
+        when(
+            move || cu.overlay.get() == Overlay::None,
+            move || sirtet_clock(bu.clone()),
+        )
+    };
+    let pause = chrome::pause_button(tr("gk_pause"), "st-pause", {
+        let ui = ui.clone();
+        move || {
+            ui.pause();
+            ui.haptic(Haptic::Selection);
         }
     })
-    .id("st-canvas")
-    .grow();
-
-    let clock = frame_clock({
-        let game = game.clone();
-        move |dt| {
-            game.borrow_mut().step(dt.as_secs_f64());
-            repaint.notify();
-        }
+    .padding(Insets {
+        top: 0.0,
+        leading: 0.0,
+        bottom: 0.0,
+        trailing: 4.0,
     });
 
-    zstack((cv, clock)).any()
+    zstack((
+        cv.overlay_aligned(Alignment::TopTrailing, pause),
+        overlays(ui),
+        clock,
+    ))
+    .any()
+}
+
+/// The game's frame consumer: gravity, clears, and the haptics and card a tick earns.
+fn sirtet_clock(ui: Rc<Ui>) -> impl Piece {
+    frame_clock({
+        move |dt| {
+            let happenings = {
+                let mut g = ui.game.borrow_mut();
+                g.step(dt.as_secs_f64());
+                std::mem::take(&mut g.happenings)
+            };
+            for h in happenings {
+                match h {
+                    Happening::Locked => ui.haptic(Haptic::Medium),
+                    // One line ticks; two thud; three and four celebrate, four the most.
+                    Happening::Cleared(1) => ui.haptic(Haptic::Light),
+                    Happening::Cleared(2) => ui.phrase(chrome::THUD),
+                    Happening::Cleared(3) => ui.phrase(chrome::CELEBRATE),
+                    Happening::Cleared(_) => ui.phrase(chrome::BIG_CELEBRATE),
+                    Happening::GameOver => {
+                        let best = ui.game.borrow().best;
+                        gamekit::save(RECORD_KEY, &best);
+                        ui.phrase(chrome::GAME_OVER);
+                        ui.show(Overlay::GameOver);
+                    }
+                }
+            }
+            ui.repaint.notify();
+        }
+    })
+}
+
+fn overlays(ui: Rc<Ui>) -> impl Piece {
+    let scrim = {
+        let u = ui.clone();
+        when(move || u.overlay.get() != Overlay::None, chrome::scrim)
+    };
+    let (p, g, s, i) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+    let card = move |kind: Overlay, build: Rc<dyn Fn() -> AnyPiece>| {
+        let u = ui.clone();
+        when(move || u.overlay.get() == kind, move || build())
+    };
+    zstack((
+        scrim,
+        card(Overlay::Pause, Rc::new(move || pause_menu(p.clone()))),
+        card(
+            Overlay::GameOver,
+            Rc::new(move || game_over_card(g.clone())),
+        ),
+        card(Overlay::Settings, Rc::new(move || settings_card(s.clone()))),
+        card(
+            Overlay::Instructions,
+            Rc::new(move || instructions_card(i.clone())),
+        ),
+    ))
+}
+
+fn pause_menu(ui: Rc<Ui>) -> AnyPiece {
+    let (u1, u2, u3, u4) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+    chrome::card(
+        column((
+            chrome::card_title(tr("gk_paused"), Color::WHITE),
+            chrome::menu_button(tr("gk_resume"), chrome::GREEN, "st-resume", move || {
+                u1.show(Overlay::None)
+            }),
+            chrome::menu_button(tr("gk_new_game"), chrome::BLUE, "st-new-game", move || {
+                u2.new_game()
+            }),
+            chrome::menu_button(tr("gk_settings"), chrome::SLATE, "st-settings", move || {
+                u3.show(Overlay::Settings)
+            }),
+            chrome::menu_button(
+                tr("gk_instructions"),
+                chrome::INDIGO,
+                "st-instructions",
+                move || u4.show(Overlay::Instructions),
+            ),
+            chrome::menu_button(tr("gk_quit"), chrome::RED, "st-quit", || {
+                nav_back();
+            }),
+        ))
+        .spacing(14.0)
+        .align(HAlign::Center),
+    )
+    .id("st-pause-menu")
+    .any()
+}
+
+fn game_over_card(ui: Rc<Ui>) -> AnyPiece {
+    let (score, level, lines, best) = {
+        let g = ui.game.borrow();
+        (g.score, g.level(), g.lines, g.best)
+    };
+    let record = when(
+        move || score >= best && score > 0,
+        || {
+            label(tr("gk_new_high_score"))
+                .font(Font::Title3)
+                .bold()
+                .color(chrome::GOLD)
+        },
+    );
+    let u = ui;
+    chrome::card(
+        column((
+            chrome::card_title(tr("gk_game_over"), Color::WHITE),
+            chrome::stat(
+                tr("gk_score"),
+                score.to_string(),
+                Font::LargeTitle,
+                chrome::GOLD,
+                "st-final-score",
+            ),
+            row((
+                chrome::stat(
+                    tr("st_level"),
+                    level.to_string(),
+                    Font::Title3,
+                    Color::WHITE,
+                    "st-final-level",
+                ),
+                chrome::stat(
+                    tr("st_lines"),
+                    lines.to_string(),
+                    Font::Title3,
+                    Color::WHITE,
+                    "st-final-lines",
+                ),
+                chrome::stat(
+                    tr("gk_best"),
+                    best.to_string(),
+                    Font::Title3,
+                    Color::WHITE,
+                    "st-best",
+                ),
+            ))
+            .spacing(24.0),
+            record,
+            chrome::menu_button(
+                tr("gk_play_again"),
+                chrome::BLUE,
+                "st-play-again",
+                move || u.new_game(),
+            ),
+            chrome::menu_button(tr("gk_quit"), chrome::RED, "st-quit", || {
+                nav_back();
+            }),
+        ))
+        .spacing(14.0)
+        .align(HAlign::Center),
+    )
+    .id("st-game-over")
+    .any()
+}
+
+fn settings_card(ui: Rc<Ui>) -> AnyPiece {
+    let reset = {
+        let u = ui.clone();
+        button(tr("gk_reset_high_score"))
+            .tint(chrome::RED)
+            .action(move || {
+                let u = u.clone();
+                day_core::task(async move {
+                    let sure = Alert::new(tr("gk_reset_high_score_title"))
+                        .message(tr("gk_reset_high_score_message"))
+                        .destructive(tr("gk_reset_confirm"), true)
+                        .cancel(tr("gk_cancel"))
+                        .present()
+                        .await;
+                    if sure == Some(true) {
+                        u.game.borrow_mut().best = 0;
+                        gamekit::clear(RECORD_KEY);
+                        u.repaint.notify();
+                    }
+                });
+            })
+            .id("st-reset-high-score")
+    };
+    let done = ui.clone();
+    chrome::card(
+        column((
+            label(tr("gk_settings"))
+                .font(Font::Title2)
+                .bold()
+                .color(Color::WHITE),
+            chrome::section_heading(tr("nav_sirtet")),
+            chrome::setting_row(
+                tr("gk_vibrations"),
+                toggle(ui.vibrations).id("st-vibrations").any(),
+            ),
+            chrome::section_heading(tr("gk_data")),
+            reset,
+            button(tr("gk_done"))
+                .prominent()
+                .action(move || done.show(Overlay::Pause))
+                .id("st-done"),
+        ))
+        .spacing(12.0)
+        .align(HAlign::Center),
+    )
+    .id("st-settings-card")
+    .any()
+}
+
+fn instructions_card(ui: Rc<Ui>) -> AnyPiece {
+    let live = ui.game.borrow().score > 0 && !ui.game.borrow().game_over;
+    chrome::instructions_card(
+        tr("nav_sirtet"),
+        vec![
+            Help::Para(tr("st_help_intro")),
+            Help::Heading(tr("st_help_play")),
+            Help::Para(tr("st_help_play_1")),
+            Help::Para(tr("st_help_play_2")),
+            Help::Para(tr("st_help_play_3")),
+            Help::Heading(tr("st_help_lines")),
+            Help::Para(tr("st_help_lines_1")),
+            Help::Para(tr("st_help_lines_2")),
+            Help::Heading(tr("st_help_levels")),
+            Help::Para(tr("st_help_levels_1")),
+            Help::Heading(tr("gk_game_over_heading")),
+            Help::Para(tr("st_help_over_1")),
+        ],
+        "st-help-done",
+        move || ui.show(if live { Overlay::Pause } else { Overlay::None }),
+    )
+    .id("st-instructions-card")
+    .any()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_line_clear_raises_its_call_out_then_fades() {
+        let mut g = Game::new();
+        // Fill the bottom row but its last cell, then lock a vertical I piece into the gap.
+        for c in 0..COLS - 1 {
+            g.grid[(ROWS - 1) * COLS + c] = 0;
+        }
+        g.kind = 0; // I
+        g.rot = 1; // vertical: cells (0..4, 2) of the 4×4 box
+        g.pcol = (COLS - 1) as i32 - 2;
+        g.prow = (ROWS - 4) as i32;
+        assert!(
+            g.valid(g.kind, g.rot, g.prow, g.pcol),
+            "the piece fits the gap"
+        );
+        g.lock();
+        assert_eq!(g.clear_popup.map(|(n, _)| n), Some(1));
+        assert_eq!(g.clearing.len(), 1);
+        g.step(CLEAR_POPUP_LIFE + 0.1);
+        assert!(g.clear_popup.is_none(), "the call-out expires");
+    }
 }

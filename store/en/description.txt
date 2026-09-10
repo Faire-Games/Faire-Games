@@ -1,0 +1,19 @@
+Four games worth keeping on your phone, in one app that never asks you for anything.
+
+BREAKOUT
+Clear the bricks. Power-ups widen the paddle, slow the ball, or let it smash straight through. Levels get faster.
+
+FALLING BLOCKS
+The one you already know how to play. Lines clear, the level climbs, the pieces come quicker.
+
+SUDOKU
+Puzzles at several difficulties, with the number pad where your thumb already is.
+
+2048
+Slide the tiles, watch them merge, chase your best score. Reaching 2048 is not the end if you do not want it to be.
+
+WHAT IT DOES NOT DO
+
+No advertising. No purchases. No account. No network access at all — every game runs entirely on your device. Your progress is saved when you leave a game and restored when you come back, including if the phone puts the app to sleep mid-round.
+
+Open source, built with the Day framework: one Rust codebase drawing itself with each platform's real native widgets. github.com/daybrite/Day-Games

@@ -1,0 +1,12 @@
+# Store listing metadata that is NOT localized. The localized text lives in store/<locale>/.
+# bundle-id: omitted on purpose — `day store` falls back to Day.toml [app] id, which is
+# the source of truth. Set it here only to publish under an id the app does not build with.
+apple-category = "GAMES"
+copyright = "2026 Daybrite"
+contact-email = "hello@daybrite.dev"
+review-notes = """
+Four games in one app, all playable offline from the first launch. Tap a tile on the home screen to
+open a game full screen; the X closes it and saves your progress.
+
+No account, no network access, no advertising, and no purchases of any kind.
+"""

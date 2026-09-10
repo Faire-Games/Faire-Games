@@ -15,16 +15,19 @@ permissions:
 
 jobs:
   app:
-    uses: daybrite/actions/.github/workflows/build-day-app.yml@main
+    uses: daybrite/actions/.github/workflows/dayapp.yml@main
     secrets: inherit
     with:
+      # The eight targets Day.toml declares.
       targets: windows-xaml, macos-appkit, linux-gtk, linux-qt, ios-uikit, android-mdc, harmony-arkui, web-dom
       # main until the next day release: the flatpak/MSIX default-icon fallback (needed by apps
       # without resource/icons/, like this one) is newer than the latest published CLI.
       day-version: main
-      #scripts: scripts/weather.yaml
-      #launch-env: WEATHER_MOCK=1
-      #locales: en fr ar zh-CN
+      # Named rather than "auto": bk.yaml and games.yaml sweep gameplay for screenshots;
+      # smoke.yaml is the one that asserts navigation and the cover routes on every target.
+      scripts: dayscript/smoke.yaml
+      # Pins every game's RNG so a scripted run meets the same puzzle and layout everywhere.
+      launch-env: DAY_GAMES_SEED=15
       # Publish the web build to GitHub Pages on every push to main (empty tag-pattern → the
       # default-branch mode). Native release assets still attach on vX.Y.Z tags, independently.
       deploy-web: true

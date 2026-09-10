@@ -1,5 +1,5 @@
 //! Day Games — a [Day](https://daybrite.dev) app of small arcade/puzzle games, one crate each.
-//! `root()` is the whole UI, shared by every platform. Mobile-only (iOS / Android / HarmonyOS).
+//! `root()` is the whole UI, shared by every platform: the phones, the desktops, and the web.
 //!
 //! The home screen is a grid of game tiles whose previews are drawn by each game's crate with
 //! the SAME rendering code as gameplay. Tapping a tile presents the game in a fullscreen
@@ -10,10 +10,23 @@
 
 use day::prelude::*;
 
-/// Typed constants for the files under `resource/`, generated at build time by `day-build` (§18.5).
-pub mod res {
-    include!(concat!(env!("OUT_DIR"), "/day_resources.rs"));
+// Entry point for the mobile, macOS, and web hosts; a desktop binary enters through src/main.rs.
+day::day_start!(options: window(), root);
+
+/// Options for every window. The locale catalog and title go to `launch`, which installs them
+/// (https://daybrite.dev/docs/localization).
+pub fn window() -> day::WindowOptions {
+    day::WindowOptions {
+        locales: Some((res::locales::DEFAULT, res::locales::CATALOG)),
+        title_fn: Some(|| res::str::app_title().format()),
+        // Desktop only; phones fill the screen. Tall enough for the Sudoku board and keypad.
+        size: day::prelude::Size::new(720.0, 780.0),
+        ..Default::default()
+    }
 }
+
+// Typed names for everything under `resource/` (https://daybrite.dev/docs/resources).
+day::resources!();
 
 day::routes! {
     /// The app's games, typed: each variant's key is what deep links, dayscript, and
@@ -34,20 +47,22 @@ const TILE_SPAN: f64 = 132.0;
 /// Each game's own surface color — painted edge-to-edge behind the presented cover.
 fn game_background(section: Section) -> Color {
     match section {
-        Section::Breakout => Color::hex(0x0B_0B_1A),
-        Section::Sirtet => Color::hex(0x0A_0A_14),
+        Section::Breakout => breakout::SURFACE,
+        Section::Sirtet => sirtet::SURFACE,
         Section::Sudoku => sudoku::SURFACE,
-        Section::Game2048 => Color::hex(0xFA_F8_EF),
+        Section::Game2048 => twentyfortyeight::SURFACE,
     }
 }
 
-pub fn root() -> AnyPiece {
-    install_locales(
-        "en",
-        &[("en", include_str!("../resource/locales/en/app.ftl"))],
-    );
+pub fn root() -> impl Piece {
+    // `day launch --env DAY_GAMES_SEED=<n>` pins every game's RNG, so a dayscript walkthrough
+    // meets the same puzzle and layout on every run (dayscript/sudoku.yaml taps cells it knows
+    // are empty for seed 15). Unset, each game seeds itself from the clock.
+    if let Some(seed) = day::env("DAY_GAMES_SEED").and_then(|s| s.trim().parse::<u64>().ok()) {
+        gamekit::set_seed_override(seed);
+    }
     let open = Signal::new(None::<Section>);
-    zstack((home_page(open), game_cover(open))).any()
+    zstack((home_page(open), game_cover(open)))
 }
 
 /// One home tile: the game's own preview over a translucent card; tapping presents the game.
@@ -57,7 +72,7 @@ fn tile(
     title: LocalizedText,
     preview: AnyPiece,
     id: &'static str,
-) -> AnyPiece {
+) -> impl Piece + use<> {
     let a11y_title = title.format();
     column((
         preview.frame(TILE_SPAN, TILE_SPAN).corner_radius(16.0),
@@ -74,7 +89,7 @@ fn tile(
     .id(id)
 }
 
-fn home_page(open: Signal<Option<Section>>) -> AnyPiece {
+fn home_page(open: Signal<Option<Section>>) -> impl Piece {
     scroll(
         column((
             label(res::str::app_title())
@@ -124,12 +139,11 @@ fn home_page(open: Signal<Option<Section>>) -> AnyPiece {
     .grow()
     .background(HOME_BG)
     .id("home")
-    .any()
 }
 
 /// The fullscreen game surface: the game page shielded from system edge gestures and
 /// interactive dismissal, with a small X (top leading) as the one way out.
-fn game_cover(open: Signal<Option<Section>>) -> AnyPiece {
+fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
     cover(open, move |section: &Section| {
         let section = *section;
         let game = match section {
@@ -173,10 +187,4 @@ fn game_cover(open: Signal<Option<Section>>) -> AnyPiece {
             .any()
     })
     .background(|section| game_background(*section))
-    .any()
 }
-
-// Mobile entry points — each macro expands to nothing off its own platform.
-day::ios_main!("Day Games", root);
-day::android_main!(root);
-day::arkui_main!(root);

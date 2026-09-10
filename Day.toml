@@ -7,10 +7,31 @@ schema = 1
 
 [app]
 id = "dev.daybrite.games"
+# The deep-link scheme this app SHIPPED (docs/deep-links.md). Left explicit because the
+# default is the id\'s last segment, which is not what this app published.
+scheme = "daygames"
 title = "Day Games"
 build = 1
-targets = ["ios-uikit", "android-mdc", "harmony-arkui"]
+# The 8 shipping platform-toolkit pairs. `windows-xaml`, `linux-gtk`, and `linux-qt` build in CI
+# on their native hosts; on a macOS dev box the toolkits run locally as `macos-appkit`,
+# `macos-gtk`, `macos-qt`, `ios-uikit`, `android-mdc`, `harmony-arkui`, and `web-dom` (GTK/Qt are
+# portable, so `macos-gtk`/`macos-qt` stand in for `linux-gtk`/`linux-qt`). `day build -p <target>`
+# accepts any host-buildable target regardless of this list.
+targets = [
+  "windows-xaml",
+  "macos-appkit",
+  "linux-gtk",
+  "linux-qt",
+  "ios-uikit",
+  "android-mdc",
+  "harmony-arkui",
+  "web-dom",
+]
 
+# The desktop window's default size in points; phones fill the screen regardless. Tall enough
+# for the Sudoku board and its keypad; the minimum keeps a game's controls reachable.
 [window]
-width = 960
-height = 640
+width = 720
+height = 780
+min_width = 480
+min_height = 640

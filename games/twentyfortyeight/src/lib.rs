@@ -2,15 +2,21 @@
 //! Day's frame clock (§8.4). A composite Day piece: pure composition over `day_pieces`. Swipe to
 //! move; combine equal tiles to reach 2048.
 
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
 use day_fluent::tr;
+use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
+use gamekit::chrome::{self, Help};
 use serde::{Deserialize, Serialize};
 
-/// The prefs key this game's state persists under (gamekit; bump on schema change).
+/// The prefs keys this game persists under (gamekit; bump the game key on schema change).
 const SAVE_KEY: &str = "twentyfortyeight.v1";
+const RECORD_KEY: &str = "twentyfortyeight.best";
+const SETTINGS_KEY: &str = "twentyfortyeight.settings";
+/// The game's cover surface color (edge-to-edge behind the safe area).
+pub const SURFACE: Color = Color::hex(0xFA_F8_EF);
 
 const N: usize = 4;
 const GAP: f64 = 8.0;
@@ -30,6 +36,71 @@ impl Rng {
         x ^= x << 17;
         self.0 = x;
         x
+    }
+    fn unit(&mut self) -> f64 {
+        (self.next() >> 11) as f64 / (1u64 << 53) as f64
+    }
+}
+
+/// The three rule sets (Faire's): how often a 4 spawns, how many tiles spawn per move, and
+/// whether undo is on the table.
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Default, Serialize, Deserialize)]
+enum Difficulty {
+    Easy,
+    #[default]
+    Normal,
+    Hard,
+}
+
+const DIFFICULTIES: [Difficulty; 3] = [Difficulty::Easy, Difficulty::Normal, Difficulty::Hard];
+/// Undos a game grants where the difficulty allows them.
+const UNDOS: i32 = 3;
+
+impl Difficulty {
+    fn four_chance(self) -> f64 {
+        match self {
+            Difficulty::Easy => 0.0,
+            Difficulty::Normal => 0.1,
+            Difficulty::Hard => 0.2,
+        }
+    }
+    fn tiles_per_spawn(self) -> usize {
+        match self {
+            Difficulty::Hard => 2,
+            _ => 1,
+        }
+    }
+    fn undo_allowed(self) -> bool {
+        matches!(self, Difficulty::Easy)
+    }
+    fn accent(self) -> Color {
+        match self {
+            Difficulty::Easy => Color::rgb(0.35, 0.75, 0.45),
+            Difficulty::Normal => Color::rgb(0.30, 0.60, 0.95),
+            Difficulty::Hard => Color::rgb(0.90, 0.35, 0.30),
+        }
+    }
+    /// LITERAL `tr` keys, so `day lint` tracks their coverage.
+    fn label(self) -> day_fluent::LocalizedText {
+        match self {
+            Difficulty::Easy => tr("tf_easy"),
+            Difficulty::Normal => tr("tf_normal"),
+            Difficulty::Hard => tr("tf_hard"),
+        }
+    }
+    fn detail(self) -> day_fluent::LocalizedText {
+        match self {
+            Difficulty::Easy => tr("tf_detail_easy"),
+            Difficulty::Normal => tr("tf_detail_normal"),
+            Difficulty::Hard => tr("tf_detail_hard"),
+        }
+    }
+    fn id(self) -> &'static str {
+        match self {
+            Difficulty::Easy => "tf-diff-easy",
+            Difficulty::Normal => "tf-diff-normal",
+            Difficulty::Hard => "tf-diff-hard",
+        }
     }
 }
 
@@ -70,6 +141,15 @@ struct Pending {
     gained: i64,
 }
 
+/// What a move did that the page reacts to (haptics, cards).
+#[derive(Clone, Copy, PartialEq, Debug)]
+enum Happening {
+    /// A move landed; the largest tile it made (0 when nothing merged).
+    Moved(u32),
+    Won,
+    GameOver,
+}
+
 struct Game {
     field: Size,
     grid: [[u32; N]; N],
@@ -83,6 +163,11 @@ struct Game {
     /// `None` also when the drag's direction has no legal move.
     pending: Option<Pending>,
     pending_t: f64,
+    difficulty: Difficulty,
+    /// The board and score before the last committed move (Easy only), and the undos left.
+    undo: Option<([[u32; N]; N], i64)>,
+    undos_left: i32,
+    happenings: Vec<Happening>,
 }
 
 /// The durable subset of [`Game`] (gamekit save/restore): the board and scoring. Tweens are
@@ -93,6 +178,17 @@ struct SaveState {
     score: i64,
     best: i64,
     won: bool,
+    // Newer than the board fields: a save from before difficulties reads as Normal.
+    #[serde(default)]
+    difficulty: Difficulty,
+    #[serde(default)]
+    undo: Option<([[u32; N]; N], i64)>,
+    #[serde(default = "default_undos")]
+    undos_left: i32,
+}
+
+fn default_undos() -> i32 {
+    UNDOS
 }
 
 fn tile_color(v: u32) -> Color {
@@ -152,18 +248,15 @@ fn draw_tile(d: &mut Draw, x: f64, y: f64, cell: f64, value: u32, scale: f64) {
         TextStyle {
             size: fsize,
             color: tile_text_color(value),
-            anchor: TextAnchor::Centered,
+            anchor: TextAnchor::CENTERED,
+            ..Default::default()
         },
     );
 }
 
 impl Game {
     fn new() -> Self {
-        let seed = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|d| d.as_nanos() as u64)
-            .unwrap_or(0xD1B5_4A32_D192_ED03)
-            | 1;
+        let seed = gamekit::seed();
         let mut g = Game {
             field: Size::new(0.0, 0.0),
             grid: [[0; N]; N],
@@ -183,6 +276,10 @@ impl Game {
             rng: Rng(seed),
             pending: None,
             pending_t: 0.0,
+            difficulty: Difficulty::Normal,
+            undo: None,
+            undos_left: UNDOS,
+            happenings: Vec::new(),
         };
         g.spawn();
         g.spawn();
@@ -198,12 +295,33 @@ impl Game {
             return None;
         }
         let (r, c) = empties[(self.rng.next() as usize) % empties.len()];
-        self.grid[r][c] = if self.rng.next().is_multiple_of(10) {
+        self.grid[r][c] = if self.rng.unit() < self.difficulty.four_chance() {
             4
         } else {
             2
         };
         Some((r, c))
+    }
+
+    /// Take back the last committed move (Easy grants three per game).
+    fn undo(&mut self) -> bool {
+        if !self.difficulty.undo_allowed() || self.undos_left <= 0 || self.anim.phase != Phase::Idle
+        {
+            return false;
+        }
+        let Some((grid, score)) = self.undo.take() else {
+            return false;
+        };
+        self.clear_preview();
+        self.grid = grid;
+        self.score = score;
+        self.undos_left -= 1;
+        self.game_over = false;
+        true
+    }
+
+    fn can_undo(&self) -> bool {
+        self.difficulty.undo_allowed() && self.undos_left > 0 && self.undo.is_some()
     }
 
     /// The cells of one line in travel order (index 0 = the wall we slide toward).
@@ -330,6 +448,11 @@ impl Game {
 
     /// Land `p`: score it and run the slide animation from finger progress `from_t`.
     fn commit_pending(&mut self, p: Pending, from_t: f64) {
+        if self.difficulty.undo_allowed() && self.undos_left > 0 {
+            self.undo = Some((self.grid, self.score));
+        }
+        let biggest = p.pops.iter().map(|&(r, c)| p.next[r][c]).max().unwrap_or(0);
+        self.happenings.push(Happening::Moved(biggest));
         self.score += p.gained;
         if self.score > self.best {
             self.best = self.score;
@@ -362,7 +485,10 @@ impl Game {
         false
     }
 
-    fn restart(&mut self) {
+    fn restart(&mut self, difficulty: Difficulty) {
+        self.difficulty = difficulty;
+        self.undo = None;
+        self.undos_left = UNDOS;
         self.grid = [[0; N]; N];
         self.score = 0;
         self.won = false;
@@ -392,6 +518,9 @@ impl Game {
             score: self.score,
             best: self.best,
             won: self.won,
+            difficulty: self.difficulty,
+            undo: self.undo,
+            undos_left: self.undos_left,
         }
     }
 
@@ -401,6 +530,9 @@ impl Game {
         self.score = s.score;
         self.best = s.best.max(s.score);
         self.won = s.won;
+        self.difficulty = s.difficulty;
+        self.undo = s.undo;
+        self.undos_left = s.undos_left.clamp(0, UNDOS);
         self.anim.phase = Phase::Idle;
         self.game_over = false;
         if self.grid.iter().flatten().all(|&v| v == 0) {
@@ -409,7 +541,7 @@ impl Game {
         } else if !self.any_moves_left() {
             // A save that somehow captured a dead board starts fresh (best kept).
             let best = self.best;
-            self.restart();
+            self.restart(self.difficulty);
             self.best = best;
         }
     }
@@ -423,13 +555,20 @@ impl Game {
                     if self.anim.commit {
                         // Commit the merged grid and spawn a new tile.
                         self.grid = self.anim.next;
-                        let sp = self.spawn();
-                        self.anim.spawn = sp;
-                        if let Some(s) = sp {
-                            self.anim.pops.push(s);
+                        // Hard spawns two tiles a move; the first is the one that pops in
+                        // from nothing, the rest join the pop.
+                        for k in 0..self.difficulty.tiles_per_spawn() {
+                            let sp = self.spawn();
+                            if k == 0 {
+                                self.anim.spawn = sp;
+                            }
+                            if let Some(s) = sp {
+                                self.anim.pops.push(s);
+                            }
                         }
                         if !self.won && self.grid.iter().flatten().any(|&v| v >= 2048) {
                             self.won = true;
+                            self.happenings.push(Happening::Won);
                         }
                         self.anim.phase = Phase::Pop;
                         self.anim.t = 0.0;
@@ -447,6 +586,7 @@ impl Game {
                     self.anim.pops.clear();
                     if !self.any_moves_left() {
                         self.game_over = true;
+                        self.happenings.push(Happening::GameOver);
                     }
                 }
             }
@@ -500,23 +640,39 @@ impl Game {
             TextStyle {
                 size: 40.0,
                 color: Color::hex(0x77_6E_65),
-                anchor: TextAnchor::Leading,
+                anchor: TextAnchor::LEADING,
+                ..Default::default()
             },
         );
         let stat = TextStyle {
             size: 15.0,
             color: Color::hex(0x77_6E_65),
-            anchor: TextAnchor::Leading,
+            anchor: TextAnchor::LEADING,
+            ..Default::default()
         };
         d.text(
             &tr("tf_score").arg("n", self.score).format(),
             Point::new(ox, 74.0),
-            stat,
+            stat.clone(),
+        );
+        d.text(
+            &self.difficulty.label().format(),
+            Point::new(ox + size / 2.0, 74.0),
+            TextStyle {
+                anchor: TextAnchor {
+                    h: TextAlign::Center,
+                    v: TextVAlign::Top,
+                },
+                ..stat.clone()
+            },
         );
         d.text(
             &tr("tf_best").arg("n", self.best).format(),
-            Point::new(ox + size - 120.0, 74.0),
-            stat,
+            Point::new(ox + size, 74.0),
+            TextStyle {
+                anchor: TextAnchor::TRAILING,
+                ..stat
+            },
         );
 
         // Tiles.
@@ -581,16 +737,8 @@ impl Game {
                 TextStyle {
                     size: 30.0,
                     color: Color::hex(0x77_6E_65),
-                    anchor: TextAnchor::Centered,
-                },
-            );
-            d.text(
-                &tr("tf_try_again").format(),
-                Point::new(ox + size / 2.0, oy + size / 2.0 + 24.0),
-                TextStyle {
-                    size: 16.0,
-                    color: Color::hex(0x77_6E_65),
-                    anchor: TextAnchor::Centered,
+                    anchor: TextAnchor::CENTERED,
+                    ..Default::default()
                 },
             );
         } else if self.won {
@@ -600,7 +748,8 @@ impl Game {
                 TextStyle {
                     size: 16.0,
                     color: Color::hex(0xF6_5E_3B),
-                    anchor: TextAnchor::Centered,
+                    anchor: TextAnchor::CENTERED,
+                    ..Default::default()
                 },
             );
         }
@@ -649,38 +798,139 @@ pub fn twentyfortyeight_preview() -> AnyPiece {
     .any()
 }
 
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+enum Overlay {
+    None,
+    Pause,
+    Won,
+    GameOver,
+    Difficulty,
+    Settings,
+    Instructions,
+}
+
+struct Ui {
+    game: Rc<RefCell<Game>>,
+    repaint: Trigger,
+    overlay: Signal<Overlay>,
+    /// Where the difficulty picker's Cancel returns to.
+    return_to: Cell<Overlay>,
+    vibrations: Signal<bool>,
+}
+
+impl Ui {
+    fn haptic(&self, h: Haptic) {
+        chrome::haptic(self.vibrations.get_untracked(), h);
+    }
+    fn phrase(&self, pattern: chrome::Pattern) {
+        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    }
+    fn show(&self, kind: Overlay) {
+        self.overlay.set(kind);
+        self.repaint.notify();
+    }
+    fn pause(&self) {
+        if self.overlay.get_untracked() == Overlay::None && !self.game.borrow().game_over {
+            self.show(Overlay::Pause);
+        }
+    }
+    /// New Game asks for the rules first; the picker starts the game.
+    fn pick_difficulty(&self) {
+        self.return_to.set(self.overlay.get_untracked());
+        self.show(Overlay::Difficulty);
+    }
+    fn new_game(&self, difficulty: Difficulty) {
+        self.game.borrow_mut().restart(difficulty);
+        gamekit::clear(SAVE_KEY);
+        self.return_to.set(Overlay::None);
+        self.show(Overlay::None);
+        self.haptic(Haptic::Medium);
+    }
+    fn undo(&self) {
+        if self.game.borrow_mut().undo() {
+            self.repaint.notify();
+            self.phrase(chrome::LETDOWN);
+        } else {
+            self.haptic(Haptic::Warning);
+        }
+    }
+}
+
 /// The 2048 screen.
 pub fn twentyfortyeight_page() -> AnyPiece {
-    let game = Rc::new(RefCell::new(Game::new()));
+    let settings = gamekit::restore::<chrome::GameSettings>(SETTINGS_KEY).unwrap_or_default();
+    let mut game = Game::new();
     if let Some(s) = gamekit::restore::<SaveState>(SAVE_KEY) {
-        game.borrow_mut().apply_save(s);
+        game.apply_save(s);
     }
+    game.best = game
+        .best
+        .max(gamekit::restore::<i64>(RECORD_KEY).unwrap_or(0));
+    let ui = Rc::new(Ui {
+        game: Rc::new(RefCell::new(game)),
+        repaint: Trigger::new(),
+        overlay: Signal::new(Overlay::None),
+        return_to: Cell::new(Overlay::None),
+        vibrations: Signal::new(settings.vibrations),
+    });
     gamekit::autosave(SAVE_KEY, {
-        let game = game.clone();
+        let game = ui.game.clone();
         move || game.borrow().save_state()
     });
-    let repaint = Trigger::new();
+    Effect::new({
+        let ui = ui.clone();
+        move || {
+            gamekit::save(
+                SETTINGS_KEY,
+                &chrome::GameSettings {
+                    vibrations: ui.vibrations.get(),
+                    instructions_shown: true,
+                },
+            );
+        }
+    });
+    if !settings.instructions_shown {
+        ui.show(Overlay::Instructions);
+    }
+    gamekit::on_background(SAVE_KEY, {
+        let ui = ui.clone();
+        move || ui.pause()
+    });
 
     let cv = {
-        let game = game.clone();
+        let (du, dr, ku) = (ui.clone(), ui.clone(), ui.clone());
         canvas(move |d, sz| {
-            repaint.track();
-            game.borrow_mut().field = sz;
-            game.borrow().draw(d, sz);
+            du.repaint.track();
+            du.game.borrow_mut().field = sz;
+            du.game.borrow().draw(d, sz);
         })
-    }
-    .on_drag({
-        let game = game.clone();
-        move |dr| {
+        .on_drag(move |dg| {
+            if dr.overlay.get_untracked() != Overlay::None {
+                return;
+            }
             // The slide is PROVISIONAL while the finger is down: tiles track the drag
             // toward their post-move spots, slide back if the finger returns, and the move
             // commits only on release past the threshold.
-            let mut g = game.borrow_mut();
-            match dr.phase {
+            let mut g = dr.game.borrow_mut();
+            match dg.phase {
                 DragPhase::Began => g.clear_preview(),
-                DragPhase::Ended => g.release_preview(),
+                DragPhase::Ended => {
+                    // A swipe long enough to commit with nothing to move buzzes back.
+                    let mag = dg.translation.x.abs().max(dg.translation.y.abs());
+                    let stuck = g.pending.is_none()
+                        && g.anim.phase == Phase::Idle
+                        && !g.game_over
+                        && mag >= SLIDE_SPAN * COMMIT_FRACTION;
+                    g.release_preview();
+                    if stuck {
+                        drop(g);
+                        dr.haptic(Haptic::Warning);
+                        dr.repaint.notify();
+                        return;
+                    }
+                }
                 _ => {
-                    let (tx, ty) = (dr.translation.x, dr.translation.y);
+                    let (tx, ty) = (dg.translation.x, dg.translation.y);
                     let mag = tx.abs().max(ty.abs());
                     if mag < 6.0 {
                         // Too small to pick an axis — whatever was previewed eases to 0.
@@ -698,39 +948,431 @@ pub fn twentyfortyeight_page() -> AnyPiece {
                 }
             }
             drop(g);
-            repaint.notify();
-        }
-    })
-    .on_tap({
-        let game = game.clone();
-        move || {
-            let mut g = game.borrow_mut();
-            if g.game_over {
-                g.restart();
+            dr.repaint.notify();
+        })
+        .on_key(move |k| {
+            if ku.overlay.get_untracked() != Overlay::None {
+                return;
+            }
+            let dir = match k.key.as_str() {
+                "ArrowLeft" => 0,
+                "ArrowRight" => 1,
+                "ArrowUp" => 2,
+                "ArrowDown" => 3,
+                _ => return,
+            };
+            // A key press is a whole move: preview it fully, then release.
+            let mut g = ku.game.borrow_mut();
+            if g.anim.phase == Phase::Idle {
+                g.clear_preview();
+                g.preview(dir, 1.0);
+                g.release_preview();
             }
             drop(g);
-            repaint.notify();
-        }
-    })
-    .id("tf-canvas")
-    .grow();
+            ku.repaint.notify();
+        })
+        .id("tf-canvas")
+        .grow()
+    };
 
-    let clock = frame_clock({
-        let game = game.clone();
-        move |dt| {
-            // Turn-based: only repaint while an animation is in flight (idle frames do no work).
-            let mut g = game.borrow_mut();
-            let before = g.anim.phase;
-            g.step(dt.as_secs_f64());
-            let after = g.anim.phase;
-            drop(g);
-            if before != Phase::Idle || after != Phase::Idle {
-                repaint.notify();
-            }
+    // Mounted only while the game is live, so the display link goes idle behind a card.
+    let clock = {
+        let (cu, bu) = (ui.clone(), ui.clone());
+        when(
+            move || cu.overlay.get() == Overlay::None,
+            move || twentyfortyeight_clock(bu.clone()),
+        )
+    };
+    let pause = chrome::pause_button(tr("gk_pause"), "tf-pause", {
+        let ui = ui.clone();
+        move || {
+            ui.pause();
+            ui.haptic(Haptic::Selection);
         }
     });
+    // Easy's undo, beside the pause button, with its remaining count.
+    let undo = {
+        let (cu, du, tu) = (ui.clone(), ui.clone(), ui.clone());
+        when(
+            move || {
+                cu.repaint.track();
+                cu.game.borrow().difficulty.undo_allowed()
+            },
+            move || {
+                let (du, tu) = (du.clone(), tu.clone());
+                canvas(move |d, sz| {
+                    du.repaint.track();
+                    let g = du.game.borrow();
+                    let on = g.can_undo();
+                    let ink = Color::hex(0x77_6E_65).with_alpha(if on { 1.0 } else { 0.4 });
+                    d.fill(
+                        Shape::RoundedRect(Rect::new(0.0, 6.0, sz.width, sz.height - 12.0), 14.0),
+                        Color::hex(0xBB_AD_A0).with_alpha(if on { 0.35 } else { 0.18 }),
+                    );
+                    d.text(
+                        &tr("tf_undo").arg("n", g.undos_left as f64).format(),
+                        Point::new(sz.width / 2.0, sz.height / 2.0),
+                        TextStyle {
+                            size: 13.0,
+                            color: ink,
+                            anchor: TextAnchor::CENTERED,
+                            font: chrome::canvas_font(FontWeight::Bold),
+                        },
+                    );
+                })
+                .on_tap(move || tu.undo())
+                .a11y(|a| a.label(tr("tf_undo_a11y").format()).role(Role::Button))
+                .id("tf-undo")
+                .frame(92.0, 44.0)
+            },
+        )
+    };
+    let corner = row((undo, pause)).spacing(4.0).padding(Insets {
+        top: 0.0,
+        leading: 0.0,
+        bottom: 0.0,
+        trailing: 4.0,
+    });
 
-    zstack((cv, clock)).any()
+    zstack((
+        cv.overlay_aligned(Alignment::TopTrailing, corner),
+        overlays(ui),
+        clock,
+    ))
+    .any()
+}
+
+/// The game's frame consumer: the slide and pop tweens, and the haptics and cards a move earns.
+fn twentyfortyeight_clock(ui: Rc<Ui>) -> impl Piece {
+    frame_clock({
+        move |dt| {
+            let phase_before = ui.game.borrow().anim.phase;
+            let (happenings, best, phase) = {
+                let mut g = ui.game.borrow_mut();
+                g.step(dt.as_secs_f64());
+                (std::mem::take(&mut g.happenings), g.best, g.anim.phase)
+            };
+            for h in happenings {
+                match h {
+                    // A slide ticks; a merge lands harder the bigger the tile it makes.
+                    Happening::Moved(0) => ui.haptic(Haptic::Light),
+                    Happening::Moved(v) if v < 64 => ui.haptic(Haptic::Medium),
+                    Happening::Moved(v) if v < 512 => ui.haptic(Haptic::Heavy),
+                    Happening::Moved(_) => ui.phrase(chrome::THUD),
+                    Happening::Won => {
+                        gamekit::save(RECORD_KEY, &best);
+                        ui.phrase(chrome::BIG_CELEBRATE);
+                        ui.show(Overlay::Won);
+                    }
+                    Happening::GameOver => {
+                        gamekit::save(RECORD_KEY, &best);
+                        ui.phrase(chrome::GAME_OVER);
+                        ui.show(Overlay::GameOver);
+                    }
+                }
+            }
+            // Turn-based: only repaint while an animation is in flight (idle frames do no work).
+            if phase_before != Phase::Idle || phase != Phase::Idle {
+                ui.repaint.notify();
+            }
+        }
+    })
+}
+
+fn overlays(ui: Rc<Ui>) -> impl Piece {
+    let scrim = {
+        let u = ui.clone();
+        when(move || u.overlay.get() != Overlay::None, chrome::scrim)
+    };
+    let (p, w, g, d, s, i) = (
+        ui.clone(),
+        ui.clone(),
+        ui.clone(),
+        ui.clone(),
+        ui.clone(),
+        ui.clone(),
+    );
+    let card = move |kind: Overlay, build: Rc<dyn Fn() -> AnyPiece>| {
+        let u = ui.clone();
+        when(move || u.overlay.get() == kind, move || build())
+    };
+    zstack((
+        scrim,
+        card(Overlay::Pause, Rc::new(move || pause_menu(p.clone()))),
+        card(Overlay::Won, Rc::new(move || won_card(w.clone()))),
+        card(
+            Overlay::GameOver,
+            Rc::new(move || game_over_card(g.clone())),
+        ),
+        card(
+            Overlay::Difficulty,
+            Rc::new(move || difficulty_picker(d.clone())),
+        ),
+        card(Overlay::Settings, Rc::new(move || settings_card(s.clone()))),
+        card(
+            Overlay::Instructions,
+            Rc::new(move || instructions_card(i.clone())),
+        ),
+    ))
+}
+
+fn pause_menu(ui: Rc<Ui>) -> AnyPiece {
+    let (u1, u2, u3, u4) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+    chrome::card(
+        column((
+            chrome::card_title(tr("gk_paused"), Color::WHITE),
+            chrome::menu_button(tr("gk_resume"), chrome::GREEN, "tf-resume", move || {
+                u1.show(Overlay::None)
+            }),
+            chrome::menu_button(tr("gk_new_game"), chrome::BLUE, "tf-new-game", move || {
+                u2.pick_difficulty()
+            }),
+            chrome::menu_button(tr("gk_settings"), chrome::SLATE, "tf-settings", move || {
+                u3.show(Overlay::Settings)
+            }),
+            chrome::menu_button(
+                tr("gk_instructions"),
+                chrome::INDIGO,
+                "tf-instructions",
+                move || u4.show(Overlay::Instructions),
+            ),
+            chrome::menu_button(tr("gk_quit"), chrome::RED, "tf-quit", || {
+                nav_back();
+            }),
+        ))
+        .spacing(14.0)
+        .align(HAlign::Center),
+    )
+    .id("tf-pause-menu")
+    .any()
+}
+
+fn won_card(ui: Rc<Ui>) -> AnyPiece {
+    let score = ui.game.borrow().score;
+    let (u1, u2) = (ui.clone(), ui);
+    chrome::card(
+        column((
+            chrome::card_title(tr("tf_won_title"), chrome::GOLD),
+            label(tr("tf_won_message"))
+                .color(chrome::TEXT)
+                .align(TextAlign::Center)
+                .width(260.0),
+            chrome::stat(
+                tr("gk_score"),
+                score.to_string(),
+                Font::Title,
+                Color::WHITE,
+                "tf-won-score",
+            ),
+            chrome::menu_button(
+                tr("tf_keep_going"),
+                chrome::GREEN,
+                "tf-keep-going",
+                move || u1.show(Overlay::None),
+            ),
+            chrome::menu_button(tr("gk_new_game"), chrome::BLUE, "tf-new-game", move || {
+                u2.pick_difficulty()
+            }),
+        ))
+        .spacing(14.0)
+        .align(HAlign::Center),
+    )
+    .id("tf-won")
+    .any()
+}
+
+fn game_over_card(ui: Rc<Ui>) -> AnyPiece {
+    let (score, best) = {
+        let g = ui.game.borrow();
+        (g.score, g.best)
+    };
+    let record = when(
+        move || score >= best && score > 0,
+        || {
+            label(tr("gk_new_high_score"))
+                .font(Font::Title3)
+                .bold()
+                .color(chrome::GOLD)
+        },
+    );
+    let u = ui;
+    chrome::card(
+        column((
+            chrome::card_title(tr("gk_game_over"), Color::WHITE),
+            chrome::stat(
+                tr("gk_score"),
+                score.to_string(),
+                Font::LargeTitle,
+                chrome::GOLD,
+                "tf-final-score",
+            ),
+            chrome::stat(
+                tr("gk_best"),
+                best.to_string(),
+                Font::Title3,
+                Color::WHITE,
+                "tf-best",
+            ),
+            record,
+            chrome::menu_button(
+                tr("gk_play_again"),
+                chrome::BLUE,
+                "tf-play-again",
+                move || u.pick_difficulty(),
+            ),
+            chrome::menu_button(tr("gk_quit"), chrome::RED, "tf-quit", || {
+                nav_back();
+            }),
+        ))
+        .spacing(14.0)
+        .align(HAlign::Center),
+    )
+    .id("tf-game-over")
+    .any()
+}
+
+fn difficulty_picker(ui: Rc<Ui>) -> AnyPiece {
+    let current = ui.game.borrow().difficulty;
+    let mut cards = Vec::new();
+    for d in DIFFICULTIES {
+        let u = ui.clone();
+        let tint = d.accent();
+        let check = when(
+            move || d == current,
+            move || {
+                canvas(move |dr, sz| {
+                    chrome::draw_check_glyph(
+                        dr,
+                        Point::new(sz.width / 2.0, sz.height / 2.0),
+                        18.0,
+                        tint,
+                    );
+                })
+                .frame(24.0, 24.0)
+            },
+        );
+        cards.push(
+            row((
+                column((
+                    label(d.label())
+                        .font(Font::Title3)
+                        .bold()
+                        .color(Color::WHITE),
+                    label(d.detail())
+                        .font(Font::Caption)
+                        .color(chrome::TEXT_DIM),
+                ))
+                .spacing(4.0)
+                .align(HAlign::Leading)
+                .grow_w(),
+                check,
+            ))
+            .align(VAlign::Center)
+            .padding(14.0)
+            .background(tint.with_alpha(0.18))
+            .corner_radius(14.0)
+            .on_tap(move || u.new_game(d))
+            .a11y(move |a| a.label(d.label().format()).role(Role::Button))
+            .id(d.id())
+            .width(300.0)
+            .any(),
+        );
+    }
+    let u = ui;
+    chrome::card(
+        column((
+            label(tr("tf_choose_difficulty"))
+                .font(Font::Title2)
+                .bold()
+                .color(Color::WHITE),
+            column(PieceVec(cards)).spacing(12.0),
+            button(tr("gk_cancel"))
+                .action(move || {
+                    let back = u.return_to.replace(Overlay::None);
+                    u.show(back);
+                })
+                .id("tf-cancel"),
+        ))
+        .spacing(16.0)
+        .align(HAlign::Center),
+    )
+    .id("tf-difficulty-picker")
+    .any()
+}
+
+fn settings_card(ui: Rc<Ui>) -> AnyPiece {
+    let reset = {
+        let u = ui.clone();
+        button(tr("gk_reset_high_score"))
+            .tint(chrome::RED)
+            .action(move || {
+                let u = u.clone();
+                day_core::task(async move {
+                    let sure = Alert::new(tr("gk_reset_high_score_title"))
+                        .message(tr("gk_reset_high_score_message"))
+                        .destructive(tr("gk_reset_confirm"), true)
+                        .cancel(tr("gk_cancel"))
+                        .present()
+                        .await;
+                    if sure == Some(true) {
+                        u.game.borrow_mut().best = 0;
+                        gamekit::clear(RECORD_KEY);
+                        u.repaint.notify();
+                    }
+                });
+            })
+            .id("tf-reset-high-score")
+    };
+    let done = ui.clone();
+    chrome::card(
+        column((
+            label(tr("gk_settings"))
+                .font(Font::Title2)
+                .bold()
+                .color(Color::WHITE),
+            chrome::section_heading(tr("nav_2048")),
+            chrome::setting_row(
+                tr("gk_vibrations"),
+                toggle(ui.vibrations).id("tf-vibrations").any(),
+            ),
+            chrome::section_heading(tr("gk_data")),
+            reset,
+            button(tr("gk_done"))
+                .prominent()
+                .action(move || done.show(Overlay::Pause))
+                .id("tf-done"),
+        ))
+        .spacing(12.0)
+        .align(HAlign::Center),
+    )
+    .id("tf-settings-card")
+    .any()
+}
+
+fn instructions_card(ui: Rc<Ui>) -> AnyPiece {
+    let live = ui.game.borrow().score > 0 && !ui.game.borrow().game_over;
+    chrome::instructions_card(
+        tr("nav_2048"),
+        vec![
+            Help::Para(tr("tf_help_intro")),
+            Help::Heading(tr("tf_help_play")),
+            Help::Para(tr("tf_help_play_1")),
+            Help::Para(tr("tf_help_play_2")),
+            Help::Para(tr("tf_help_play_3")),
+            Help::Heading(tr("tf_help_goal")),
+            Help::Para(tr("tf_help_goal_1")),
+            Help::Heading(tr("gk_game_over_heading")),
+            Help::Para(tr("tf_help_over_1")),
+            Help::Heading(tr("tf_help_tips")),
+            Help::Para(tr("tf_help_tips_1")),
+            Help::Para(tr("tf_help_tips_2")),
+            Help::Para(tr("tf_help_tips_3")),
+        ],
+        "tf-help-done",
+        move || ui.show(if live { Overlay::Pause } else { Overlay::None }),
+    )
+    .id("tf-instructions-card")
+    .any()
 }
 
 #[cfg(test)]
@@ -751,6 +1393,52 @@ mod tests {
             g.step(0.02);
         }
         assert_eq!(g.anim.phase, Phase::Idle, "animation settled");
+    }
+
+    #[test]
+    fn easy_grants_three_undos_of_the_last_move() {
+        let grid = [[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        let mut g = game_with(grid);
+        g.restart(Difficulty::Easy);
+        g.grid = grid;
+        g.score = 0;
+        assert!(!g.can_undo(), "nothing to take back yet");
+        g.preview(0, 0.9);
+        g.release_preview();
+        settle(&mut g);
+        assert_eq!(g.grid[0][0], 4);
+        assert!(g.can_undo());
+        assert!(g.undo());
+        assert_eq!(g.grid, grid, "the move is taken back");
+        assert_eq!(g.score, 0);
+        assert_eq!(g.undos_left, UNDOS - 1);
+        assert!(!g.undo(), "one undo per move");
+        // Normal never grants one.
+        let mut n = game_with(grid);
+        n.preview(0, 0.9);
+        n.release_preview();
+        settle(&mut n);
+        assert!(!n.can_undo());
+    }
+
+    #[test]
+    fn hard_spawns_two_tiles_a_move_and_easy_only_twos() {
+        let grid = [[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+        let mut h = game_with(grid);
+        h.restart(Difficulty::Hard);
+        h.grid = grid;
+        h.preview(0, 0.9);
+        h.release_preview();
+        settle(&mut h);
+        let tiles = h.grid.iter().flatten().filter(|&&v| v != 0).count();
+        assert_eq!(tiles, 3, "the merged tile plus two spawns");
+        let mut e = Game::new();
+        e.restart(Difficulty::Easy);
+        for _ in 0..40 {
+            e.grid = [[0; N]; N];
+            e.spawn();
+            assert!(e.grid.iter().flatten().all(|&v| v == 0 || v == 2));
+        }
     }
 
     #[test]
