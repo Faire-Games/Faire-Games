@@ -23,11 +23,15 @@ jobs:
       # main until the next day release: the flatpak/MSIX default-icon fallback (needed by apps
       # without resource/icons/, like this one) is newer than the latest published CLI.
       day-version: main
-      # Named rather than "auto": bk.yaml and games.yaml sweep gameplay for screenshots;
-      # smoke.yaml is the one that asserts navigation and the cover routes on every target.
-      scripts: dayscript/smoke.yaml
+      # Named rather than "auto": smoke.yaml asserts navigation and the cover routes on every
+      # target, and games.yaml sweeps every game for the screenshots the website's gallery
+      # publishes (bk.yaml is a local Breakout sweep).
+      scripts: dayscript/smoke.yaml dayscript/games.yaml
       # Pins every game's RNG so a scripted run meets the same puzzle and layout everywhere.
       launch-env: DAY_GAMES_SEED=15
-      # Publish the web build to GitHub Pages on every push to main (empty tag-pattern → the
-      # default-branch mode). Native release assets still attach on vX.Y.Z tags, independently.
+      # website/site.toml makes the workflow build and deploy the full project site
+      # (https://daybrite.github.io/Day-Games/) from the daybrite/daysite template on every push
+      # to main, with the web build hosted at /Day-Games/webapp/. deploy-web stays on as the
+      # fallback: were website/ ever removed, the bare web app would return to the Pages root.
       deploy-web: true
+      daysite-version: main

@@ -3,7 +3,7 @@
 name: games
 flow:
   - wait_for: { id: home }
-  - screenshot: home
+  - screenshot: { name: home, title: Home, caption: "Four games, one tap each; every tile is drawn by the game it opens.", source: src/lib.rs }
   # Every game opens its rules by itself the first time it is played; opening each once
   # first makes the sweep below the same from any saved state.
   - navigate: { route: breakout }
@@ -22,7 +22,7 @@ flow:
   - pause: { secs: 0.6 }
   - tap: { id: bk-canvas }
   - pause: { secs: 0.9 }
-  - screenshot: breakout-a
+  - screenshot: { name: breakout-a, title: Breakout, caption: "The paddle glides under your finger or pointer; combos, power-ups, and armored bricks follow.", source: games/breakout/src/lib.rs }
   - pause: { secs: 0.7 }
   - screenshot: breakout-b
   - nav_back: {}
@@ -34,19 +34,19 @@ flow:
   - pause: { secs: 0.4 }
   - screenshot: sirtet-a
   - pause: { secs: 1.0 }
-  - screenshot: sirtet-b
+  - screenshot: { name: sirtet-b, title: Sirtet, caption: "Falling blocks with the next piece shown and a call-out for every clear.", source: games/sirtet/src/lib.rs }
   - nav_back: {}
   - pause: { secs: 0.6 }
   - navigate: { route: twentyfortyeight }
   - pause: { secs: 0.6 }
-  - screenshot: g2048
+  - screenshot: { name: g2048, title: "2048", caption: "Slide, merge, and chase your best score.", source: games/twentyfortyeight/src/lib.rs }
   # New Game asks for the rules; Easy adds the undo button beside pause.
   - tap: { id: tf-pause }
   - pause: { secs: 0.4 }
   - tap: { id: tf-new-game }
   - pause: { secs: 0.4 }
   - assert_visible: { id: tf-difficulty-picker }
-  - screenshot: g2048-difficulty
+  - screenshot: { name: g2048-difficulty, title: "2048 difficulty", caption: "Easy grants three undos; Hard spawns two tiles a move.", source: games/twentyfortyeight/src/lib.rs }
   - tap: { id: tf-diff-easy }
   - pause: { secs: 0.5 }
   - assert_visible: { id: tf-undo }
@@ -62,5 +62,5 @@ flow:
   - tap: { id: su-cell-40 }
   - tap: { id: su-key-5 }
   - pause: { secs: 0.4 }
-  - screenshot: sudoku
+  - screenshot: { name: sudoku, title: Sudoku, caption: "Pencil marks, a checkpoint you can commit or revert, and a best time per difficulty.", source: games/sudoku/src/lib.rs }
   - nav_back: {}

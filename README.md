@@ -36,8 +36,9 @@ missing. The launch prints where it put the checkout, so you can open the code a
 Every game has the same shell: a pause button, a menu to resume, start over, open the
 settings, or reread the rules, and a results card with your best score. The rules open by
 themselves the first time you play a game. Haptics follow a Vibrations switch in each game's
-settings, and on a desktop the arrow keys move the paddle, the piece, the tiles, or the Sudoku
-selection.
+settings. With a mouse or trackpad the Breakout paddle follows the pointer across the field
+and the cursor hides while it does; the arrow keys move the paddle, the piece, the tiles, or
+the Sudoku selection.
 
 The home screen is a grid of tiles whose previews are drawn by each game's own crate with the
 same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X

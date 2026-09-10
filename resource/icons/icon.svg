@@ -2,18 +2,73 @@
   <!-- The app-icon master (docs/icons.md). `day icon` renders every platform's icon set from
        this one file. Top-level ids mark semantic layers:
          day:background  — the full-bleed backdrop (Android adaptive background)
-         day:foreground* — the motif (Android adaptive foreground, safe-zone scaled)
-       Replace the placeholder art below; run `day icon` after every edit. -->
+         day:foreground  — the motif (Android adaptive foreground, safe-zone scaled)
+         day:monochrome  — the tinted/themed silhouette (hidden in plain viewers)
+       Outlined shapes only: `day icon` shapes no text. -->
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#3E4A5A"/>
-      <stop offset="1" stop-color="#1E2530"/>
+      <stop offset="0" stop-color="#232A52"/>
+      <stop offset="1" stop-color="#0B0C1C"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
   </defs>
   <rect id="day:background" width="1024" height="1024" fill="url(#bg)"/>
-  <g id="day:foreground" fill="none" stroke="#F5F7FA" stroke-width="56" stroke-linecap="round">
-    <circle cx="512" cy="512" r="220"/>
-    <line x1="512" y1="512" x2="512" y2="368"/>
-    <line x1="512" y1="512" x2="616" y2="574"/>
+  <rect id="day:foreground-glow" width="1024" height="1024" fill="url(#glow)"/>
+  <g id="day:foreground">
+    <rect x="152" y="152" width="320" height="320" rx="64" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="152" y="152" width="320" height="320" rx="64" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="4"/>
+    <rect x="552" y="152" width="320" height="320" rx="64" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="552" y="152" width="320" height="320" rx="64" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="4"/>
+    <rect x="152" y="552" width="320" height="320" rx="64" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="152" y="552" width="320" height="320" rx="64" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="4"/>
+    <rect x="552" y="552" width="320" height="320" rx="64" fill="#FFFFFF" fill-opacity="0.08"/>
+    <rect x="552" y="552" width="320" height="320" rx="64" fill="none" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="4"/>
+    <rect x="192" y="204" width="52" height="30" rx="8" fill="#E63946"/>
+    <rect x="254" y="204" width="52" height="30" rx="8" fill="#E63946"/>
+    <rect x="316" y="204" width="52" height="30" rx="8" fill="#E63946"/>
+    <rect x="378" y="204" width="52" height="30" rx="8" fill="#E63946"/>
+    <rect x="192" y="244" width="52" height="30" rx="8" fill="#F2802A"/>
+    <rect x="254" y="244" width="52" height="30" rx="8" fill="#F2802A"/>
+    <rect x="316" y="244" width="52" height="30" rx="8" fill="#F2802A"/>
+    <rect x="378" y="244" width="52" height="30" rx="8" fill="#F2802A"/>
+    <rect x="192" y="284" width="52" height="30" rx="8" fill="#F2C43D"/>
+    <rect x="316" y="284" width="52" height="30" rx="8" fill="#F2C43D"/>
+    <rect x="378" y="284" width="52" height="30" rx="8" fill="#F2C43D"/>
+    <circle cx="332" cy="357" r="17" fill="#FFFFFF"/>
+    <rect x="272" y="402" width="96" height="20" rx="10" fill="#B7C0D4"/>
+    <rect x="684" y="204" width="62" height="62" rx="12" fill="#9B5CD6"/>
+    <rect x="614" y="274" width="62" height="62" rx="12" fill="#9B5CD6"/>
+    <rect x="684" y="274" width="62" height="62" rx="12" fill="#9B5CD6"/>
+    <rect x="754" y="274" width="62" height="62" rx="12" fill="#9B5CD6"/>
+    <rect x="614" y="364" width="62" height="62" rx="12" fill="#3AC6E8"/>
+    <rect x="684" y="364" width="62" height="62" rx="12" fill="#3AC6E8"/>
+    <rect x="754" y="364" width="62" height="62" rx="12" fill="#3AC6E8"/>
+    <rect x="200" y="600" width="108" height="108" rx="14" fill="#EEE4DA"/>
+    <rect x="318" y="600" width="108" height="108" rx="14" fill="#F2B179"/>
+    <rect x="200" y="718" width="108" height="108" rx="14" fill="#F59563"/>
+    <rect x="318" y="718" width="108" height="108" rx="14" fill="#EDC850"/>
+    <rect x="602" y="602" width="220" height="220" rx="10" fill="#1B2A5A"/>
+    <rect x="673" y="602" width="4" height="220" rx="0" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="602" y="673" width="220" height="4" rx="0" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="746" y="602" width="4" height="220" rx="0" fill="#FFFFFF" fill-opacity="0.55"/>
+    <rect x="602" y="746" width="220" height="4" rx="0" fill="#FFFFFF" fill-opacity="0.55"/>
+    <circle cx="638" cy="638" r="14" fill="#7CC4FF"/>
+    <circle cx="784" cy="638" r="14" fill="#7CC4FF"/>
+    <circle cx="711" cy="711" r="14" fill="#7CC4FF"/>
+    <circle cx="638" cy="784" r="14" fill="#7CC4FF"/>
+    <circle cx="784" cy="784" r="14" fill="#7CC4FF"/>
+  </g>
+  <g id="day:monochrome" display="none" fill="#000000">
+    <rect x="172" y="172" width="280" height="280" rx="56" fill="#000000"/>
+    <rect x="572" y="172" width="280" height="280" rx="56" fill="#000000"/>
+    <rect x="172" y="572" width="280" height="280" rx="56" fill="#000000"/>
+    <rect x="572" y="572" width="280" height="280" rx="56" fill="#000000"/>
   </g>
 </svg>

@@ -12,6 +12,7 @@ use std::rc::Rc;
 use day_fluent::tr;
 use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
+use day_spec::Cursor;
 use gamekit::chrome::{self, Help};
 use serde::{Deserialize, Serialize};
 
@@ -473,9 +474,24 @@ impl Game {
     /// The touch point, in field coordinates: the paddle centers on it horizontally and rides
     /// `TOUCH_LIFT` above it, within the walls and the vertical travel band.
     fn set_target(&mut self, x: f64, y: f64) {
+        self.set_target_lifted(x, y, TOUCH_LIFT);
+    }
+
+    /// A pointer's position, in field coordinates: no lift, since a cursor hides nothing. The
+    /// paddle follows it only inside its travel band, so a pointer over the wall or the HUD
+    /// leaves the paddle where it is. Returns whether the pointer is in the band.
+    fn set_pointer_target(&mut self, x: f64, y: f64) -> bool {
+        let in_band = y >= self.paddle_y_min() && y <= self.field.height;
+        if in_band {
+            self.set_target_lifted(x, y, 0.0);
+        }
+        in_band
+    }
+
+    fn set_target_lifted(&mut self, x: f64, y: f64, lift: f64) {
         let half = self.paddle_w / 2.0;
         self.target_x = x.clamp(half, (self.field.width - half).max(half));
-        self.target_y = (y - TOUCH_LIFT).clamp(self.paddle_y_min(), self.paddle_y_max());
+        self.target_y = (y - lift).clamp(self.paddle_y_min(), self.paddle_y_max());
     }
 
     fn nudge_target(&mut self, dx: f64) {
@@ -490,6 +506,10 @@ impl Game {
         let k = 1.0 - (-FOLLOW_RATE * dt).exp();
         self.paddle_x += (self.target_x - self.paddle_x) * k;
         self.paddle_y += (self.target_y - self.paddle_y) * k;
+        // A ball waiting to launch rides on the paddle wherever it goes.
+        if !self.launched {
+            self.park_ball();
+        }
     }
 
     fn live(&self) -> bool {
@@ -1623,6 +1643,12 @@ struct Ui {
     seen_hud: Cell<(i64, i32, i32)>,
     overlay: Signal<Overlay>,
     vibrations: Signal<bool>,
+    /// A pointer is inside the paddle's travel band: the paddle follows it and the cursor
+    /// hides. Only pointer devices hover, so this stays false on a phone.
+    pointer_in_band: Signal<bool>,
+    /// A pointer has hovered this field at least once — so a press is a click, not a finger,
+    /// and the paddle sits under it rather than lifted above it.
+    pointer_seen: Cell<bool>,
 }
 
 impl Ui {
@@ -1690,6 +1716,8 @@ pub fn breakout_page() -> AnyPiece {
         seen_hud: Cell::new((-1, -1, -1)),
         overlay: Signal::new(Overlay::None),
         vibrations: Signal::new(settings.vibrations),
+        pointer_in_band: Signal::new(false),
+        pointer_seen: Cell::new(false),
     });
     gamekit::autosave(SAVE_KEY, {
         let game = ui.game.clone();
@@ -1768,7 +1796,14 @@ pub fn breakout_page() -> AnyPiece {
         .grow_w()
     };
     let field = {
-        let (du, dr, tu, ku) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+        let (du, dr, hu, cu, tu, ku) = (
+            ui.clone(),
+            ui.clone(),
+            ui.clone(),
+            ui.clone(),
+            ui.clone(),
+            ui.clone(),
+        );
         canvas(move |d, sz| {
             du.repaint.track();
             du.game
@@ -1777,6 +1812,31 @@ pub fn breakout_page() -> AnyPiece {
             d.transformed(Affine::translate(0.0, HUD_H), |d| {
                 du.game.borrow().draw_play(d)
             });
+        })
+        // A mouse, trackpad, or pen steers the paddle by moving over the field — no press
+        // needed — and the cursor hides while it is in the paddle's band. Touch never hovers
+        // (docs/canvas.md), so a finger keeps the drag below.
+        .on_hover(move |at| {
+            hu.pointer_seen.set(true);
+            let mut in_band = false;
+            if let Some(p) = at
+                && hu.overlay.get_untracked() == Overlay::None
+            {
+                let mut g = hu.game.borrow_mut();
+                if !g.game_over && !g.level_complete {
+                    in_band = g.set_pointer_target(p.x, p.y - HUD_H);
+                }
+            }
+            if hu.pointer_in_band.get_untracked() != in_band {
+                hu.pointer_in_band.set(in_band);
+            }
+        })
+        .cursor(move || {
+            if cu.pointer_in_band.get() {
+                Cursor::None
+            } else {
+                Cursor::Default
+            }
         })
         .on_drag(move |dg| {
             if dr.overlay.get_untracked() != Overlay::None {
@@ -1788,7 +1848,11 @@ pub fn breakout_page() -> AnyPiece {
             }
             let launched = g.launched;
             g.launch();
-            g.set_target(dg.location.x, dg.location.y - HUD_H);
+            if dr.pointer_seen.get() {
+                g.set_pointer_target(dg.location.x, dg.location.y - HUD_H);
+            } else {
+                g.set_target(dg.location.x, dg.location.y - HUD_H);
+            }
             drop(g);
             if !launched {
                 dr.haptic(Haptic::Light);
@@ -2171,6 +2235,20 @@ mod tests {
         }
         assert!((g.paddle_x - 350.0).abs() < 0.5);
         assert!(g.paddle_y >= g.paddle_y_min() && g.paddle_y <= g.paddle_y_max());
+        assert!(
+            (g.ball.x - g.paddle_x).abs() < 0.01,
+            "the parked ball rode along"
+        );
+    }
+
+    #[test]
+    fn a_pointer_steers_only_inside_the_paddle_band() {
+        let mut g = game_400x700();
+        assert!(!g.set_pointer_target(100.0, 50.0), "over the wall: ignored");
+        assert_eq!(g.target_x, 200.0);
+        assert!(g.set_pointer_target(100.0, 600.0));
+        assert_eq!(g.target_x, 100.0);
+        assert_eq!(g.target_y, 600.0, "no lift under a cursor");
     }
 
     #[test]

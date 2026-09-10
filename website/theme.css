@@ -1,0 +1,16 @@
+/* Day Games site overrides — inlined after the template's styles, so anything here wins.
+   Kept to a whisper on purpose: the template carries the design; this file holds the few things
+   that are Day Games' own. */
+
+/* The title in the icon's night blue with the wall's orange lifting out of it. */
+.rise h1 {
+  background: linear-gradient(105deg, #f2c43d, #d9641e 55%, #3a4fb0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scores and best times sit beside captions: tabular figures keep them from jittering. */
+.rise :is(code, .tabular) {
+  font-variant-numeric: tabular-nums;
+}

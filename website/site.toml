@@ -1,0 +1,16 @@
+# Day Games website (https://daybrite.github.io/Day-Games/) — built by the shared dayapp
+# workflow from the daybrite/daysite template. Everything content-ful (name, description,
+# screenshots, downloads) comes from Day.toml, store/, and the release pipeline; this file holds
+# only what is genuinely site-specific.
+
+host = "https://daybrite.github.io/Day-Games"
+locales = ["en"]
+
+# The orange of the Breakout wall and the 2048 tiles, deep enough to read as link text on white.
+accent-color = "#D9641E"
+
+# The hosted web build lives at /Day-Games/webapp/ (the hero's "Open the web app" button).
+webapp = "webapp"
+
+# The games play in the browser, so the live build is preselected in the platform picker.
+default-platform = "web"
