@@ -1,0 +1,24 @@
+[package]
+name = "charades"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+# Compiles every word list under words/ into the game (words/README.md).
+build = "build.rs"
+
+# A COMPOSITE Day piece: a reusable widget built PURELY from Day's core primitives and headless parts
+# — no native per-backend code and NO cargo features, so it works on every backend for free.
+
+[dependencies]
+day-pieces = { git = "https://github.com/daybrite/day.git" }
+day-core = { git = "https://github.com/daybrite/day.git" }
+day-reactive = { git = "https://github.com/daybrite/day.git" }
+day-geometry = { git = "https://github.com/daybrite/day.git" }
+day-fluent = { git = "https://github.com/daybrite/day.git" }
+day-part-haptics = { git = "https://github.com/daybrite/day.git" }
+# The nod and the tip back (docs/sensors.md).
+day-part-sensors = { git = "https://github.com/daybrite/day.git" }
+# A round is played hands-free for a minute or more, past most auto-lock settings (docs/wakelock.md).
+day-part-wakelock = { git = "https://github.com/daybrite/day.git" }
+gamekit = { path = "../../gamekit" }
+serde = { version = "1", features = ["derive"] }

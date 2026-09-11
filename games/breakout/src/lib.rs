@@ -13,7 +13,8 @@ use day_fluent::tr;
 use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
 use day_spec::Cursor;
-use gamekit::chrome::{self, Help};
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Help, Sfx, sfx};
 use serde::{Deserialize, Serialize};
 
 /// The prefs keys this game persists under (gamekit; bump the game key on schema change).
@@ -1097,14 +1098,20 @@ impl Game {
                 italic: false,
             },
         };
-        d.text(
-            &tr("bk_score").arg("n", self.score).format(),
-            Point::new(CLOSE_GUTTER, HUD_H / 2.0),
-            mono(Color::WHITE),
-        );
-        // Lives as dots, centered.
+        // Lives as dots, centered; the score and level narrow to fit the room either side of them.
         let lives = self.lives.max(0) as f64;
-        let start = w / 2.0 - (lives * 14.0 - 4.0) / 2.0;
+        let dots = (lives * 14.0 - 4.0).max(0.0);
+        let start = w / 2.0 - dots / 2.0;
+        let plain = mono(Color::WHITE).font;
+        let score = tr("bk_score").arg("n", self.score).format();
+        d.text(
+            &score,
+            Point::new(CLOSE_GUTTER, HUD_H / 2.0),
+            TextStyle {
+                size: chrome::fit_text(&score, 12.0, &plain, start - 12.0 - CLOSE_GUTTER),
+                ..mono(Color::WHITE)
+            },
+        );
         for i in 0..self.lives.max(0) {
             d.fill(
                 Shape::Ellipse(Rect::new(
@@ -1116,10 +1123,17 @@ impl Game {
                 Color::rgb(0.9, 0.3, 0.3),
             );
         }
+        let level = tr("bk_level").arg("n", self.level as i64).format();
         d.text(
-            &tr("bk_level").arg("n", self.level as i64).format(),
+            &level,
             Point::new(w - CLOSE_GUTTER, HUD_H / 2.0),
             TextStyle {
+                size: chrome::fit_text(
+                    &level,
+                    12.0,
+                    &plain,
+                    w / 2.0 - dots / 2.0 - 12.0 - CLOSE_GUTTER,
+                ),
                 anchor: TextAnchor {
                     h: TextAlign::Trailing,
                     v: TextVAlign::Middle,
@@ -1630,6 +1644,28 @@ enum Overlay {
     Instructions,
 }
 
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue).
+static BRICK_1: Cue = with("sounds/breakout/brick_1.wav", cues::MEDIUM_BEAT);
+static BRICK_2: Cue = with("sounds/breakout/brick_2.wav", chrome::THUD);
+static BRICK_4: Cue = with("sounds/breakout/brick_4.wav", chrome::CELEBRATE);
+const PADDLE: Sfx = sfx("sounds/breakout/paddle.wav");
+static POWER: Cue = with("sounds/breakout/power.wav", cues::SUCCESS_BEAT);
+static LIFE: Cue = with("sounds/breakout/life.wav", chrome::CELEBRATE);
+static SMASH: Cue = with("sounds/breakout/smash.wav", chrome::THUD);
+static LEVEL: Cue = with("sounds/breakout/level.wav", chrome::BIG_CELEBRATE);
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/breakout/brick_1.wav"),
+    sfx("sounds/breakout/brick_2.wav"),
+    sfx("sounds/breakout/brick_4.wav"),
+    sfx("sounds/breakout/paddle.wav"),
+    sfx("sounds/breakout/power.wav"),
+    sfx("sounds/breakout/life.wav"),
+    sfx("sounds/breakout/smash.wav"),
+    sfx("sounds/breakout/level.wav"),
+];
+
 struct Ui {
     game: Rc<RefCell<Game>>,
     /// The play layer: every frame while the game runs.
@@ -1642,6 +1678,7 @@ struct Ui {
     seen_wall: Cell<u32>,
     seen_hud: Cell<(i64, i32, i32)>,
     overlay: Signal<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
     /// A pointer is inside the paddle's travel band: the paddle follows it and the cursor
     /// hides. Only pointer devices hover, so this stays false on a phone.
@@ -1655,8 +1692,14 @@ impl Ui {
     fn haptic(&self, h: Haptic) {
         chrome::haptic(self.vibrations.get_untracked(), h);
     }
-    fn phrase(&self, pattern: chrome::Pattern) {
-        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
+        }
+    }
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
     }
     /// Re-record the layers whose inputs changed since the last look.
     fn sync_layers(&self) {
@@ -1693,7 +1736,7 @@ impl Ui {
         self.game.borrow_mut().new_game();
         gamekit::clear(SAVE_KEY);
         self.show(Overlay::None);
-        self.haptic(Haptic::Medium);
+        self.cue(&cues::START);
     }
 }
 
@@ -1715,6 +1758,7 @@ pub fn breakout_page() -> AnyPiece {
         seen_wall: Cell::new(0),
         seen_hud: Cell::new((-1, -1, -1)),
         overlay: Signal::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
         pointer_in_band: Signal::new(false),
         pointer_seen: Cell::new(false),
@@ -1723,12 +1767,14 @@ pub fn breakout_page() -> AnyPiece {
         let game = ui.game.clone();
         move || game.borrow().save_state()
     });
+    gamekit::sounds(SOUNDS);
     Effect::new({
         let ui = ui.clone();
         move || {
             gamekit::save(
                 SETTINGS_KEY,
                 &chrome::GameSettings {
+                    sounds: ui.sounds.get(),
                     vibrations: ui.vibrations.get(),
                     instructions_shown: true,
                 },
@@ -1896,7 +1942,7 @@ pub fn breakout_page() -> AnyPiece {
         let ui = ui.clone();
         move || {
             ui.pause();
-            ui.haptic(Haptic::Selection);
+            ui.cue(&cues::SELECT);
         }
     })
     .padding(Insets {
@@ -1933,31 +1979,35 @@ fn breakout_clock(ui: Rc<Ui>) -> impl Piece {
         };
         for h in happenings {
             match h {
-                Happening::Launched => ui.haptic(Haptic::Light),
+                Happening::Launched => ui.cue(&cues::PLUCK),
                 // A break in a combo lands harder the longer the run.
-                Happening::BrickBroken(combo) => match combo {
-                    1 => ui.haptic(Haptic::Medium),
-                    2 | 3 => ui.phrase(chrome::THUD),
-                    _ => ui.phrase(chrome::CELEBRATE),
-                },
-                // A flat bounce thuds; a sharp deflection is the lightest tick.
-                Happening::PaddleHit(deflection) => ui.haptic(if deflection < 0.15 {
-                    Haptic::Heavy
-                } else if deflection < 0.5 {
-                    Haptic::Medium
-                } else {
-                    Haptic::Light
+                Happening::BrickBroken(combo) => ui.cue(match combo {
+                    1 => &BRICK_1,
+                    2 | 3 => &BRICK_2,
+                    _ => &BRICK_4,
                 }),
-                Happening::Caught(Power::ExtraLife) => ui.phrase(chrome::CELEBRATE),
-                Happening::Caught(Power::Smash) => ui.phrase(chrome::THUD),
-                Happening::Caught(_) => ui.haptic(Haptic::Success),
-                Happening::LifeLost => ui.phrase(chrome::LETDOWN),
+                // A flat bounce thuds and rings loudest; a sharp deflection is the lightest tick.
+                Happening::PaddleHit(deflection) => {
+                    let (h, volume) = if deflection < 0.15 {
+                        (Haptic::Heavy, 1.0)
+                    } else if deflection < 0.5 {
+                        (Haptic::Medium, 0.75)
+                    } else {
+                        (Haptic::Light, 0.5)
+                    };
+                    ui.haptic(h);
+                    chrome::sound(ui.sounds.get_untracked(), &PADDLE, volume);
+                }
+                Happening::Caught(Power::ExtraLife) => ui.cue(&LIFE),
+                Happening::Caught(Power::Smash) => ui.cue(&SMASH),
+                Happening::Caught(_) => ui.cue(&POWER),
+                Happening::LifeLost => ui.cue(&cues::LETDOWN),
                 Happening::LevelComplete => {
-                    ui.phrase(chrome::BIG_CELEBRATE);
+                    ui.cue(&LEVEL);
                     ui.show(Overlay::LevelComplete);
                 }
                 Happening::GameOver => {
-                    ui.phrase(chrome::GAME_OVER);
+                    ui.cue(&cues::OVER_ARCADE);
                     ui.show(Overlay::GameOver);
                 }
             }
@@ -2052,7 +2102,7 @@ fn level_complete_card(ui: Rc<Ui>) -> AnyPiece {
                     u.game.borrow_mut().start_level(next);
                     gamekit::clear(SAVE_KEY);
                     u.show(Overlay::None);
-                    u.haptic(Haptic::Medium);
+                    u.cue(&cues::START);
                 },
             ),
         ))
@@ -2154,6 +2204,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                 .bold()
                 .color(Color::WHITE),
             chrome::section_heading(tr("nav_breakout")),
+            chrome::setting_row(tr("gk_sounds"), toggle(ui.sounds).id("bk-sounds").any()),
             chrome::setting_row(
                 tr("gk_vibrations"),
                 toggle(ui.vibrations).id("bk-vibrations").any(),

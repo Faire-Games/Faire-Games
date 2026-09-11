@@ -20,7 +20,8 @@ use day_fluent::tr;
 use day_geometry::Affine;
 use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
-use gamekit::chrome::{self, Help, Pattern};
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Help, Pattern, Sfx, sfx};
 use serde::{Deserialize, Serialize};
 
 mod model;
@@ -120,6 +121,72 @@ const DEAL: Pattern = &[
     (990, Haptic::Light),
     (1080, Haptic::Light),
     (1260, Haptic::Medium),
+];
+
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue).
+static SHUFFLE_CUE: Cue = with("sounds/solitaire/shuffle.wav", SHUFFLE);
+static DRAW: Cue = with("sounds/solitaire/draw.wav", cues::TICK_BEAT);
+static RECYCLE_CUE: Cue = with("sounds/solitaire/recycle.wav", RECYCLE);
+/// A card taken up by a drag.
+static PICKUP: Cue = with("sounds/solitaire/pickup.wav", cues::LIGHT_BEAT);
+/// A card taken up by a tap, to be put down by the next one.
+static PICK: Cue = with("sounds/solitaire/pickup.wav", cues::TICK_BEAT);
+static DROP: Cue = with("sounds/solitaire/drop.wav", cues::LIGHT_BEAT);
+/// Timed, like its tick, to the middle of the card's turn.
+static FLIP: Cue = Cue {
+    sound: Some(sfx("sounds/solitaire/flip.wav")),
+    sound_at: 150,
+    volume: 1.0,
+    haptic: REVEAL,
+};
+static EMPTIED_CUE: Cue = Cue {
+    sound: None,
+    sound_at: 0,
+    volume: 1.0,
+    haptic: EMPTIED,
+};
+static HOME_CUE: Cue = with("sounds/solitaire/home.wav", HOME);
+static SUIT: Cue = with("sounds/solitaire/suit.wav", chrome::CELEBRATE);
+static UNDO: Cue = with("sounds/solitaire/undo.wav", cues::LIGHT_BEAT);
+static WIN: Cue = with("sounds/solitaire/win.wav", chrome::BIG_CELEBRATE);
+/// The deal's card slides, one every other beat of its phrase, taken in turn.
+static DEALS: [Sfx; 4] = [
+    sfx("sounds/solitaire/deal_1.wav"),
+    sfx("sounds/solitaire/deal_2.wav"),
+    sfx("sounds/solitaire/deal_3.wav"),
+    sfx("sounds/solitaire/deal_4.wav"),
+];
+const DEAL_SLIDE_EVERY: u32 = 180;
+/// The finishing run's chips, taken in turn so a run of them never repeats one.
+static FINISHES: [Sfx; 3] = [
+    sfx("sounds/solitaire/finish_1.wav"),
+    sfx("sounds/solitaire/finish_2.wav"),
+    sfx("sounds/solitaire/finish_3.wav"),
+];
+/// A winning card landing on the felt, kept quiet under the fanfare.
+static BOUNCE: Sfx = sfx("sounds/solitaire/bounce.wav");
+const BOUNCE_VOLUME: f32 = 0.35;
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/solitaire/shuffle.wav"),
+    sfx("sounds/solitaire/deal_1.wav"),
+    sfx("sounds/solitaire/deal_2.wav"),
+    sfx("sounds/solitaire/deal_3.wav"),
+    sfx("sounds/solitaire/deal_4.wav"),
+    sfx("sounds/solitaire/draw.wav"),
+    sfx("sounds/solitaire/recycle.wav"),
+    sfx("sounds/solitaire/pickup.wav"),
+    sfx("sounds/solitaire/drop.wav"),
+    sfx("sounds/solitaire/flip.wav"),
+    sfx("sounds/solitaire/home.wav"),
+    sfx("sounds/solitaire/finish_1.wav"),
+    sfx("sounds/solitaire/finish_2.wav"),
+    sfx("sounds/solitaire/finish_3.wav"),
+    sfx("sounds/solitaire/suit.wav"),
+    sfx("sounds/solitaire/win.wav"),
+    sfx("sounds/solitaire/bounce.wav"),
+    sfx("sounds/solitaire/undo.wav"),
 ];
 
 fn ease_out(t: f64) -> f64 {
@@ -2370,6 +2437,8 @@ impl Play {
 /// This game's settings: gamekit's pair, plus the deal option.
 #[derive(Clone, Serialize, Deserialize, PartialEq, Debug)]
 struct Settings {
+    #[serde(default = "yes")]
+    sounds: bool,
     vibrations: bool,
     instructions_shown: bool,
     #[serde(default = "yes")]
@@ -2383,6 +2452,7 @@ fn yes() -> bool {
 impl Default for Settings {
     fn default() -> Self {
         Settings {
+            sounds: true,
             vibrations: true,
             instructions_shown: false,
             winnable: true,
@@ -2525,6 +2595,7 @@ struct Ui {
     overlay: Signal<Overlay>,
     /// Where the draw picker's Cancel returns to.
     return_to: Cell<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
     winnable: Signal<bool>,
     stats: RefCell<Stats>,
@@ -2536,14 +2607,45 @@ struct Ui {
     counted: Cell<bool>,
     /// The win just recorded was the fastest yet.
     new_best: Cell<bool>,
+    /// Cards the finishing run has sent home, so each takes the next chip.
+    finishes: Cell<usize>,
 }
 
 impl Ui {
     fn haptic(&self, h: Haptic) {
         chrome::haptic(self.vibrations.get_untracked(), h);
     }
-    fn phrase(&self, pattern: Pattern) {
-        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
+        }
+    }
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
+    }
+    /// The deal: its phrase, and a card slide every other beat of it.
+    fn dealt(&self) {
+        chrome::haptic_pattern(self.vibrations.get_untracked(), DEAL);
+        let end = DEAL.last().map_or(0, |beat| beat.0);
+        for (i, at) in (0..=end).step_by(DEAL_SLIDE_EVERY as usize).enumerate() {
+            chrome::sound_after(
+                self.sounds.get_untracked(),
+                &DEALS[i % DEALS.len()],
+                0.9,
+                at,
+            );
+        }
+    }
+    /// A card of the finishing run landing home.
+    fn finished_one(&self) {
+        let n = self.finishes.replace(self.finishes.get() + 1);
+        self.haptic(Haptic::Light);
+        chrome::sound(
+            self.sounds.get_untracked(),
+            &FINISHES[n % FINISHES.len()],
+            1.0,
+        );
     }
     fn refresh(&self) {
         self.table.notify();
@@ -2585,16 +2687,12 @@ impl Ui {
         gamekit::clear(SAVE_KEY);
         self.return_to.set(Overlay::None);
         self.show(Overlay::None);
-        self.phrase(SHUFFLE);
+        self.cue(&SHUFFLE_CUE);
     }
     fn undo(&self) {
         *self.hint.borrow_mut() = None;
         let undone = self.play.borrow_mut().undo();
-        self.haptic(if undone {
-            Haptic::Light
-        } else {
-            Haptic::Warning
-        });
+        self.cue(if undone { &UNDO } else { &cues::WARNING });
         self.refresh();
     }
     fn hint(&self) {
@@ -2606,27 +2704,27 @@ impl Ui {
             Solver::new(&p.model.table, p.model.mode, HINT_LIMITS)
         };
         *self.hint.borrow_mut() = Some(solver);
-        self.haptic(Haptic::Selection);
+        self.cue(&cues::HINT);
     }
-    /// The haptics for what a move did: the strongest moment leads, a card turning over and a
-    /// column coming clear follow it.
+    /// The sounds and haptics for what a move did: the strongest moment leads, a card turning
+    /// over and a column coming clear follow it.
     fn feel(&self, out: &Outcome) {
-        if out.suit_done {
-            self.phrase(chrome::CELEBRATE);
+        self.cue(if out.suit_done {
+            &SUIT
         } else if out.homed.is_some() {
-            self.phrase(HOME);
+            &HOME_CUE
         } else if out.recycled {
-            self.phrase(RECYCLE);
+            &RECYCLE_CUE
         } else if out.drew > 0 {
-            self.haptic(Haptic::Selection);
+            &DRAW
         } else {
-            self.haptic(Haptic::Light);
-        }
+            &DROP
+        });
         if out.revealed.is_some() {
-            self.phrase(REVEAL);
+            self.cue(&FLIP);
         }
         if out.emptied.is_some() {
-            self.phrase(EMPTIED);
+            self.cue(&EMPTIED_CUE);
         }
     }
     fn acted(&self, a: Action) {
@@ -2635,9 +2733,9 @@ impl Ui {
                 *self.hint.borrow_mut() = None;
                 self.feel(&out);
             }
-            Action::Undone => self.haptic(Haptic::Light),
-            Action::Picked => self.haptic(Haptic::Selection),
-            Action::Refused => self.haptic(Haptic::Warning),
+            Action::Undone => self.cue(&UNDO),
+            Action::Picked => self.cue(&PICK),
+            Action::Refused => self.cue(&cues::WARNING),
             Action::Nothing => {}
         }
         self.refresh();
@@ -2651,7 +2749,7 @@ impl Ui {
         self.new_best.set(faster);
         self.counted.set(true);
         self.save_stats();
-        self.phrase(chrome::BIG_CELEBRATE);
+        self.cue(&WIN);
     }
 }
 
@@ -2677,6 +2775,7 @@ pub fn solitaire_page() -> AnyPiece {
         hud: Trigger::new(),
         overlay: Signal::new(Overlay::None),
         return_to: Cell::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
         winnable: Signal::new(settings.winnable),
         stats: RefCell::new(stats),
@@ -2684,6 +2783,7 @@ pub fn solitaire_page() -> AnyPiece {
         hint: RefCell::new(None),
         counted: Cell::new(won),
         new_best: Cell::new(false),
+        finishes: Cell::new(0),
     });
     gamekit::autosave(SAVE_KEY, {
         let play = ui.play.clone();
@@ -2693,12 +2793,14 @@ pub fn solitaire_page() -> AnyPiece {
             p.fx.shuffle.is_none().then(|| p.model.save_state())
         }
     });
+    gamekit::sounds(SOUNDS);
     Effect::new({
         let ui = ui.clone();
         move || {
             gamekit::save(
                 SETTINGS_KEY,
                 &Settings {
+                    sounds: ui.sounds.get(),
                     vibrations: ui.vibrations.get(),
                     instructions_shown: true,
                     winnable: ui.winnable.get(),
@@ -2781,7 +2883,7 @@ pub fn solitaire_page() -> AnyPiece {
                         picked
                     };
                     if picked {
-                        gu.haptic(Haptic::Light);
+                        gu.cue(&PICKUP);
                     }
                 }
                 DragPhase::Ended => {
@@ -2791,7 +2893,7 @@ pub fn solitaire_page() -> AnyPiece {
                 _ => {
                     let over = gu.play.borrow_mut().hold_at(dg.location);
                     if over {
-                        gu.haptic(Haptic::Selection);
+                        gu.cue(&cues::TICK);
                     }
                 }
             }
@@ -2982,7 +3084,7 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
     );
     let pause = chrome::pause_button(tr("gk_pause"), "sol-pause", move || {
         ui.pause();
-        ui.haptic(Haptic::Selection);
+        ui.cue(&cues::SELECT);
     });
     row((
         spacer().width(48.0),
@@ -3020,17 +3122,18 @@ fn solitaire_clock(ui: Rc<Ui>) -> impl Piece {
         }
         let tick = ui.play.borrow_mut().step(dt);
         if tick.dealt {
-            ui.phrase(DEAL);
+            ui.dealt();
             ui.hud.notify();
         }
         if tick.finished_one {
-            ui.haptic(Haptic::Light);
+            ui.finished_one();
         }
         if tick.won {
             ui.won();
         }
         if tick.bumped {
             ui.haptic(Haptic::Light);
+            chrome::sound(ui.sounds.get_untracked(), &BOUNCE, BOUNCE_VOLUME);
         }
         if tick.hud {
             ui.hud.notify();
@@ -3044,7 +3147,7 @@ fn solitaire_clock(ui: Rc<Ui>) -> impl Piece {
         if tick.cascade_over {
             ui.show(Overlay::Win);
         } else if tick.stuck {
-            ui.phrase(chrome::LETDOWN);
+            ui.cue(&cues::LETDOWN);
             ui.show(Overlay::Stuck);
         }
     })
@@ -3351,6 +3454,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                 .bold()
                 .color(Color::WHITE),
             chrome::section_heading(tr("nav_solitaire")),
+            chrome::setting_row(tr("gk_sounds"), toggle(ui.sounds).id("sol-sounds").any()),
             chrome::setting_row(
                 tr("gk_vibrations"),
                 toggle(ui.vibrations).id("sol-vibrations").any(),

@@ -144,6 +144,14 @@ pub fn on_background(key: &'static str, f: impl Fn() + 'static) {
     });
 }
 
+/// Load the shell's shared clips and `clips` while the CURRENT scope (the game's page) is alive,
+/// and release every one of them when it closes. Call once from the game's page builder.
+pub fn sounds(clips: &'static [chrome::Sfx]) {
+    day_part_sound::preload(chrome::cues::SHARED);
+    day_part_sound::preload(clips);
+    Scope::current().on_cleanup(day_part_sound::unload_all);
+}
+
 /// Keep `snapshot` registered as `key`'s live state provider while the CURRENT scope (the
 /// game's page) is alive: the state is saved when the scope is disposed (the game exited) and
 /// whenever the app is backgrounded. Call once from the game's page builder.

@@ -1,1 +1,1 @@
-games,solitaire,klondike,cards,breakout,sudoku,2048,puzzle,blocks,arcade,offline,free,no ads
+solitaire,klondike,cards,breakout,sudoku,2048,puzzle,blocks,arcade,offline,no ads,charades,party

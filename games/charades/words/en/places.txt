@@ -1,0 +1,222 @@
+# title: Places
+# blurb: Countries, cities, landmarks, and the places in between.
+Acropolis
+Airport
+Alaska
+Alps
+Amazon rainforest
+Amsterdam
+Amusement park
+Angkor Wat
+Antarctica
+Aquarium
+Arctic
+Argentina
+Art museum
+Athens
+Australia
+Bakery
+Bangkok
+Bank
+Barber shop
+Barcelona
+Barn
+Beach
+Beijing
+Berlin
+Bermuda Triangle
+Big Ben
+Bookstore
+Bowling alley
+Brazil
+Buckingham Palace
+Buenos Aires
+Bus stop
+Cairo
+California
+Campground
+Canada
+Canyon
+Cape Town
+Car wash
+Castle
+Cave
+Chicago
+Chile
+China
+Christ the Redeemer
+Circus
+City hall
+Classroom
+Cliff
+Colosseum
+Coral reef
+Courtroom
+Cuba
+Dead Sea
+Denmark
+Desert
+Diner
+Dubai
+Dublin
+Easter Island
+Edinburgh
+Egypt
+Eiffel Tower
+Empire State Building
+Farm
+Finland
+Fire station
+Florida
+Forest
+France
+Galápagos Islands
+Gas station
+Germany
+Glacier
+Golden Gate Bridge
+Grand Canyon
+Great Barrier Reef
+Great Wall of China
+Greece
+Gym
+Hair salon
+Haunted house
+Havana
+Hawaii
+Himalayas
+Hollywood
+Hollywood sign
+Hong Kong
+Honolulu
+Hospital
+Hotel
+Ice cream parlor
+Ice rink
+Iceland
+Igloo
+India
+Ireland
+Island
+Istanbul
+Italy
+Jamaica
+Japan
+Jungle
+Kenya
+Lake
+Las Vegas
+Laundromat
+Leaning Tower of Pisa
+Library
+Lighthouse
+Lisbon
+Loch Ness
+London
+Los Angeles
+Louvre
+Machu Picchu
+Mars
+Meadow
+Mexico
+Mexico City
+Mississippi River
+Moon
+Morocco
+Moscow
+Mount Everest
+Mount Fuji
+Mount Kilimanjaro
+Mount Rushmore
+Mountain
+Movie theater
+Mumbai
+Museum
+Nairobi
+Netherlands
+New York City
+New Zealand
+Niagara Falls
+Nile River
+North Pole
+Norway
+Notre-Dame
+Oasis
+Ocean
+Office
+Outer space
+Palace
+Paris
+Park
+Parking lot
+Peru
+Pet shop
+Petra
+Pharmacy
+Philippines
+Pizzeria
+Playground
+Poland
+Police station
+Portugal
+Post office
+Prague
+Pyramids of Giza
+Rainforest
+Restaurant
+Rio de Janeiro
+River
+Rocky Mountains
+Rome
+Rooftop
+Sahara Desert
+San Francisco
+Sand dunes
+Savanna
+School
+Scotland
+Seoul
+Shopping mall
+Singapore
+Ski resort
+Skyscraper
+South Africa
+South Korea
+South Pole
+Space station
+Spain
+Stadium
+Statue of Liberty
+Stockholm
+Stonehenge
+Supermarket
+Swamp
+Sweden
+Swimming pool
+Switzerland
+Sydney
+Sydney Opera House
+Taj Mahal
+Texas
+Thailand
+Theater
+Times Square
+Tokyo
+Toronto
+Toy store
+Train station
+Tree house
+Tundra
+Turkey
+United States
+University
+Vancouver
+Venice
+Vienna
+Vietnam
+Volcano
+Water park
+Waterfall
+White House
+Yellowstone
+Zoo

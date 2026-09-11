@@ -6,9 +6,9 @@ use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
 use day_fluent::tr;
-use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
-use gamekit::chrome::{self, Help};
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Help, Sfx, sfx};
 use serde::{Deserialize, Serialize};
 
 /// The prefs keys this game persists under (gamekit; bump the game key on schema change).
@@ -601,8 +601,16 @@ impl Game {
         let size = (w - 32.0).min(h - 150.0).max(80.0);
         let cell = (size - (N as f64 + 1.0) * GAP) / N as f64;
         let ox = (w - size) / 2.0;
-        let oy = 120.0;
+        let oy = self.top() + 120.0;
         (ox, oy, size, cell)
+    }
+    /// How far the header and board sit below the top: half the height they leave free, so a
+    /// tall screen centers them rather than stacking them at the top. The block is the 120-point
+    /// header, the board, and the 30 points under it for "keep going".
+    fn top(&self) -> f64 {
+        let (w, h) = (self.field.width, self.field.height);
+        let size = (w - 32.0).min(h - 150.0).max(80.0);
+        ((h - 150.0 - size) / 2.0).max(0.0)
     }
     fn cell_xy(&self, r: usize, c: usize) -> (f64, f64) {
         let (ox, oy, _s, cell) = self.board();
@@ -633,31 +641,41 @@ impl Game {
             }
         }
 
-        // Header. The leading gutter keeps the title clear of the cover's close button.
+        // Header: the title over the score, difficulty and best, each narrowing to fit its third
+        // of the board's width. The leading gutter keeps the title clear of the cover's close
+        // button, and its width stays clear of the undo and pause buttons.
+        let t = self.top();
+        let ink = Color::hex(0x77_6E_65);
+        let plain = TextStyle::default().font;
+        let title = tr("tf_title").format();
+        let tx = ox.max(52.0);
         d.text(
-            &tr("tf_title").format(),
-            Point::new(ox.max(52.0), 34.0),
+            &title,
+            Point::new(tx, t + 12.0),
             TextStyle {
-                size: 40.0,
-                color: Color::hex(0x77_6E_65),
+                size: chrome::fit_text(&title, 40.0, &plain, (ox + size - tx) * 0.6),
+                color: ink,
                 anchor: TextAnchor::LEADING,
                 ..Default::default()
             },
         );
+        let score = tr("tf_score").arg("n", self.score).format();
+        let level = self.difficulty.label().format();
+        let best = tr("tf_best").arg("n", self.best).format();
+        let third = size / 3.0 - 8.0;
         let stat = TextStyle {
-            size: 15.0,
-            color: Color::hex(0x77_6E_65),
+            size: [&score, &level, &best]
+                .iter()
+                .map(|s| chrome::fit_text(s, 15.0, &plain, third))
+                .fold(15.0, f64::min),
+            color: ink,
             anchor: TextAnchor::LEADING,
             ..Default::default()
         };
+        d.text(&score, Point::new(ox, t + 78.0), stat.clone());
         d.text(
-            &tr("tf_score").arg("n", self.score).format(),
-            Point::new(ox, 74.0),
-            stat.clone(),
-        );
-        d.text(
-            &self.difficulty.label().format(),
-            Point::new(ox + size / 2.0, 74.0),
+            &level,
+            Point::new(ox + size / 2.0, t + 78.0),
             TextStyle {
                 anchor: TextAnchor {
                     h: TextAlign::Center,
@@ -667,8 +685,8 @@ impl Game {
             },
         );
         d.text(
-            &tr("tf_best").arg("n", self.best).format(),
-            Point::new(ox + size, 74.0),
+            &best,
+            Point::new(ox + size, t + 78.0),
             TextStyle {
                 anchor: TextAnchor::TRAILING,
                 ..stat
@@ -809,21 +827,43 @@ enum Overlay {
     Instructions,
 }
 
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue). A slide ticks; a merge
+// rings deeper and lands harder the bigger the tile it makes.
+static SLIDE: Cue = with("sounds/2048/slide.wav", cues::LIGHT_BEAT);
+static MERGE_S: Cue = with("sounds/shared/pluck.wav", cues::MEDIUM_BEAT);
+static MERGE_M: Cue = with("sounds/2048/merge_m.wav", cues::HEAVY_BEAT);
+static MERGE_L: Cue = with("sounds/2048/merge_l.wav", chrome::THUD);
+static UNDO: Cue = with("sounds/2048/undo.wav", chrome::LETDOWN);
+static WON: Cue = with("sounds/2048/won.wav", chrome::BIG_CELEBRATE);
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/2048/slide.wav"),
+    sfx("sounds/2048/merge_m.wav"),
+    sfx("sounds/2048/merge_l.wav"),
+    sfx("sounds/2048/undo.wav"),
+    sfx("sounds/2048/won.wav"),
+];
+
 struct Ui {
     game: Rc<RefCell<Game>>,
     repaint: Trigger,
     overlay: Signal<Overlay>,
     /// Where the difficulty picker's Cancel returns to.
     return_to: Cell<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
 }
 
 impl Ui {
-    fn haptic(&self, h: Haptic) {
-        chrome::haptic(self.vibrations.get_untracked(), h);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
+        }
     }
-    fn phrase(&self, pattern: chrome::Pattern) {
-        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
     }
     fn show(&self, kind: Overlay) {
         self.overlay.set(kind);
@@ -844,14 +884,14 @@ impl Ui {
         gamekit::clear(SAVE_KEY);
         self.return_to.set(Overlay::None);
         self.show(Overlay::None);
-        self.haptic(Haptic::Medium);
+        self.cue(&cues::START);
     }
     fn undo(&self) {
         if self.game.borrow_mut().undo() {
             self.repaint.notify();
-            self.phrase(chrome::LETDOWN);
+            self.cue(&UNDO);
         } else {
-            self.haptic(Haptic::Warning);
+            self.cue(&cues::WARNING);
         }
     }
 }
@@ -871,18 +911,21 @@ pub fn twentyfortyeight_page() -> AnyPiece {
         repaint: Trigger::new(),
         overlay: Signal::new(Overlay::None),
         return_to: Cell::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
     });
     gamekit::autosave(SAVE_KEY, {
         let game = ui.game.clone();
         move || game.borrow().save_state()
     });
+    gamekit::sounds(SOUNDS);
     Effect::new({
         let ui = ui.clone();
         move || {
             gamekit::save(
                 SETTINGS_KEY,
                 &chrome::GameSettings {
+                    sounds: ui.sounds.get(),
                     vibrations: ui.vibrations.get(),
                     instructions_shown: true,
                 },
@@ -924,7 +967,7 @@ pub fn twentyfortyeight_page() -> AnyPiece {
                     g.release_preview();
                     if stuck {
                         drop(g);
-                        dr.haptic(Haptic::Warning);
+                        dr.cue(&cues::WARNING);
                         dr.repaint.notify();
                         return;
                     }
@@ -987,7 +1030,7 @@ pub fn twentyfortyeight_page() -> AnyPiece {
         let ui = ui.clone();
         move || {
             ui.pause();
-            ui.haptic(Haptic::Selection);
+            ui.cue(&cues::SELECT);
         }
     });
     // Easy's undo, beside the pause button, with its remaining count.
@@ -1054,19 +1097,18 @@ fn twentyfortyeight_clock(ui: Rc<Ui>) -> impl Piece {
             };
             for h in happenings {
                 match h {
-                    // A slide ticks; a merge lands harder the bigger the tile it makes.
-                    Happening::Moved(0) => ui.haptic(Haptic::Light),
-                    Happening::Moved(v) if v < 64 => ui.haptic(Haptic::Medium),
-                    Happening::Moved(v) if v < 512 => ui.haptic(Haptic::Heavy),
-                    Happening::Moved(_) => ui.phrase(chrome::THUD),
+                    Happening::Moved(0) => ui.cue(&SLIDE),
+                    Happening::Moved(v) if v < 64 => ui.cue(&MERGE_S),
+                    Happening::Moved(v) if v < 512 => ui.cue(&MERGE_M),
+                    Happening::Moved(_) => ui.cue(&MERGE_L),
                     Happening::Won => {
                         gamekit::save(RECORD_KEY, &best);
-                        ui.phrase(chrome::BIG_CELEBRATE);
+                        ui.cue(&WON);
                         ui.show(Overlay::Won);
                     }
                     Happening::GameOver => {
                         gamekit::save(RECORD_KEY, &best);
-                        ui.phrase(chrome::GAME_OVER);
+                        ui.cue(&cues::OVER_PUZZLE);
                         ui.show(Overlay::GameOver);
                     }
                 }
@@ -1331,6 +1373,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                 .bold()
                 .color(Color::WHITE),
             chrome::section_heading(tr("nav_2048")),
+            chrome::setting_row(tr("gk_sounds"), toggle(ui.sounds).id("tf-sounds").any()),
             chrome::setting_row(
                 tr("gk_vibrations"),
                 toggle(ui.vibrations).id("tf-vibrations").any(),

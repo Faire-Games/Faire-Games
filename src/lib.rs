@@ -34,6 +34,7 @@ day::routes! {
     pub(crate) enum Section {
         BlockBlast => "blockblast",
         Breakout => "breakout",
+        Charades => "charades",
         Sirtet => "sirtet",
         Solitaire => "solitaire",
         Sudoku => "sudoku",
@@ -53,6 +54,7 @@ fn game_background(section: Section) -> Color {
     match section {
         Section::BlockBlast => blockblast::SURFACE,
         Section::Breakout => breakout::SURFACE,
+        Section::Charades => charades::SURFACE,
         Section::Sirtet => sirtet::SURFACE,
         Section::Solitaire => solitaire::SURFACE,
         Section::Sudoku => sudoku::SURFACE,
@@ -151,6 +153,13 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
                     solitaire::solitaire_preview(),
                     "tile-solitaire",
                 ),
+                tile(
+                    open,
+                    Section::Charades,
+                    res::str::nav_charades(),
+                    charades::charades_preview(),
+                    "tile-charades",
+                ),
             ))
             .spacing(16.0)
             .fit(RowFit::WrapColumns { run_spacing: 16.0 }),
@@ -172,6 +181,7 @@ fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
         let game = match section {
             Section::BlockBlast => blockblast::blockblast_page(),
             Section::Breakout => breakout::breakout_page(),
+            Section::Charades => charades::charades_page(),
             Section::Sirtet => sirtet::sirtet_page(),
             Section::Solitaire => solitaire::solitaire_page(),
             Section::Sudoku => sudoku::sudoku_page(),

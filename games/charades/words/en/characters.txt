@@ -1,0 +1,137 @@
+# title: Famous Characters
+# blurb: Heroes and villains from fairy tales, legends and classic books.
+Aladdin
+Ali Baba
+Alice in Wonderland
+Anne of Green Gables
+Artful Dodger
+Bagheera
+Baloo
+Big Bad Wolf
+Black Beauty
+Captain Ahab
+Captain Hook
+Captain Nemo
+Cheshire Cat
+Chicken Little
+Cinderella
+Count Dracula
+Cowardly Lion
+Cyrano de Bergerac
+D'Artagnan
+Don Quixote
+Dorothy
+Dr. Jekyll and Mr. Hyde
+Dr. Frankenstein
+Ebenezer Scrooge
+Elizabeth Bennet
+Esmeralda
+Fagin
+Fairy godmother
+Frankenstein's monster
+Frog prince
+Genie of the lamp
+Gingerbread man
+Goldilocks
+Gulliver
+Hamlet
+Hansel and Gretel
+Headless Horseman
+Heidi
+Huckleberry Finn
+Humpty Dumpty
+Ichabod Crane
+Jack and Jill
+Jack Frost
+Jane Eyre
+Jean Valjean
+Jo March
+John Henry
+Johnny Appleseed
+Juliet
+King Arthur
+King Lear
+Lady of the Lake
+Little Bo Peep
+Little Boy Blue
+Little Red Riding Hood
+Long John Silver
+Mad Hatter
+Merlin
+Moby Dick
+Mother Goose
+Mowgli
+Mr. Darcy
+Mulan
+Old King Cole
+Oliver Twist
+Paul Bunyan
+Peter Pan
+Peter Rabbit
+Phileas Fogg
+Pied Piper
+Pinocchio
+Pocahontas
+Prince Charming
+Puss in Boots
+Quasimodo
+Queen of Hearts
+Rapunzel
+Rip Van Winkle
+Robin Hood
+Robinson Crusoe
+Romeo
+Rumpelstiltskin
+Santa Claus
+Scarecrow
+Scheherazade
+Sherlock Holmes
+Shere Khan
+Sinbad the Sailor
+Sir Lancelot
+Sleeping Beauty
+Snow Queen
+Snow White
+Sugar Plum Fairy
+Tarzan
+The Beast
+The Easter Bunny
+The Invisible Man
+The Little Mermaid
+The Little Prince
+The Nutcracker
+The Phantom of the Opera
+The Three Bears
+The Three Little Pigs
+The Three Musketeers
+The Tooth Fairy
+The Ugly Duckling
+Thumbelina
+Tin Man
+Tinker Bell
+Tiny Tim
+Tom Sawyer
+Tom Thumb
+Tortoise and the Hare
+Uncle Sam
+White Rabbit
+Wicked stepmother
+Wicked Witch of the West
+Winnie-the-Pooh
+Zorro
+Three Blind Mice
+Steadfast Tin Soldier
+Friar Tuck
+Maid Marian
+Little John
+Captain Blackbeard
+Lady Macbeth
+Oberon
+Puck
+Geppetto
+Wendy Darling
+Dr. Watson
+Professor Moriarty
+Count of Monte Cristo
+Hercule Poirot
+Miss Marple

@@ -16,7 +16,8 @@ use day_fluent::tr;
 use day_geometry::Affine;
 use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
-use gamekit::chrome::{self, Help, Pattern};
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Help, Pattern, Sfx, sfx};
 
 mod model;
 use model::{CELLS, DIFFICULTIES, Difficulty, Model, N, Placement, TRAY};
@@ -140,6 +141,45 @@ const OUT_OF_MOVES: Pattern = &[
     (450, Haptic::Heavy),
     (620, Haptic::Heavy),
     (820, Haptic::Error),
+];
+
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue).
+const PLACE_SFX: Sfx = sfx("sounds/blockblast/place.wav");
+static LIFT: Cue = with("sounds/blockblast/lift.wav", cues::LIGHT_BEAT);
+static PLACE: Cue = with("sounds/blockblast/place.wav", cues::MEDIUM_BEAT);
+static PLACE_BIG: Cue = with("sounds/blockblast/place_big.wav", cues::HEAVY_BEAT);
+static CANCEL: Cue = with("sounds/blockblast/cancel.wav", cues::LIGHT_BEAT);
+/// A clear's call-out, by tier: a longer phrase for a bigger clear.
+static CLEARS: [Cue; 5] = [
+    with("sounds/blockblast/clear_1.wav", TIER1),
+    with("sounds/blockblast/clear_2.wav", TIER2),
+    with("sounds/blockblast/clear_3.wav", TIER3),
+    with("sounds/blockblast/clear_4.wav", TIER4),
+    with("sounds/blockblast/clear_5.wav", TIER5),
+];
+static PERFECT_CUE: Cue = with("sounds/blockblast/perfect.wav", PERFECT);
+static RECORD: Cue = with("sounds/blockblast/record.wav", chrome::CELEBRATE);
+/// Out of moves: the ending sounds with the gray sweep, as the haptic does.
+static OUT_OF_MOVES_CUE: Cue = Cue {
+    sound: Some(sfx("sounds/shared/over_puzzle.wav")),
+    sound_at: 450,
+    volume: 1.0,
+    haptic: OUT_OF_MOVES,
+};
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/blockblast/lift.wav"),
+    sfx("sounds/blockblast/place.wav"),
+    sfx("sounds/blockblast/place_big.wav"),
+    sfx("sounds/blockblast/cancel.wav"),
+    sfx("sounds/blockblast/clear_1.wav"),
+    sfx("sounds/blockblast/clear_2.wav"),
+    sfx("sounds/blockblast/clear_3.wav"),
+    sfx("sounds/blockblast/clear_4.wav"),
+    sfx("sounds/blockblast/clear_5.wav"),
+    sfx("sounds/blockblast/perfect.wav"),
+    sfx("sounds/blockblast/record.wav"),
 ];
 
 fn ease_out(t: f64) -> f64 {
@@ -305,7 +345,8 @@ fn layout(sz: Size) -> Layout {
     let cell = side / N as f64;
     let tray_h = side * tray_ratio;
     let spare = (avail_h - side - tray_h).max(0.0);
-    let by = pad + spare * 0.3;
+    // Even space above and below the board and tray.
+    let by = pad + spare * 0.5;
     Layout {
         bx: (sz.width - side) / 2.0,
         by,
@@ -1379,6 +1420,7 @@ struct Ui {
     overlay: Signal<Overlay>,
     /// Where the difficulty picker's Cancel returns to.
     return_to: Cell<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
     /// A mouse or trackpad has moved over the board: drag pieces from their middle.
     pointer_seen: Cell<bool>,
@@ -1389,11 +1431,14 @@ struct Ui {
 }
 
 impl Ui {
-    fn haptic(&self, h: Haptic) {
-        chrome::haptic(self.vibrations.get_untracked(), h);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
+        }
     }
-    fn phrase(&self, pattern: Pattern) {
-        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
     }
     fn show(&self, kind: Overlay) {
         self.overlay.set(kind);
@@ -1418,32 +1463,34 @@ impl Ui {
         self.return_to.set(Overlay::None);
         self.show(Overlay::None);
         self.hud.notify();
-        self.haptic(Haptic::Medium);
+        self.cue(&cues::START);
     }
     fn record(&self) {
         gamekit::save(RECORD_KEY, &self.play.borrow().model.best);
     }
-    /// The haptics for a drop.
+    /// The sound and haptics for a drop.
     fn landed(&self, release: Release) {
         match release {
             Release::Placed(p) => {
                 match p.tier() {
-                    0 if p.cells.len() >= 6 => self.haptic(Haptic::Heavy),
-                    0 => self.haptic(Haptic::Medium),
-                    1 => self.phrase(TIER1),
-                    2 => self.phrase(TIER2),
-                    3 => self.phrase(TIER3),
-                    4 => self.phrase(TIER4),
-                    5 => self.phrase(TIER5),
-                    _ => self.phrase(PERFECT),
+                    0 if p.cells.len() >= 6 => self.cue(&PLACE_BIG),
+                    0 => self.cue(&PLACE),
+                    tier => {
+                        // The clear's phrase rides on the knock of the piece landing.
+                        chrome::sound(self.sounds.get_untracked(), &PLACE_SFX, 0.8);
+                        self.cue(match tier {
+                            1..=5 => &CLEARS[tier as usize - 1],
+                            _ => &PERFECT_CUE,
+                        });
+                    }
                 }
                 if p.game_over {
                     self.record();
-                    self.phrase(OUT_OF_MOVES);
+                    self.cue(&OUT_OF_MOVES_CUE);
                 }
             }
-            Release::Returned => self.haptic(Haptic::Warning),
-            Release::Cancelled => self.haptic(Haptic::Light),
+            Release::Returned => self.cue(&cues::WARNING),
+            Release::Cancelled => self.cue(&CANCEL),
             Release::Nothing => {}
         }
     }
@@ -1453,7 +1500,7 @@ impl Ui {
         let best = self.play.borrow().model.best;
         let score = self.play.borrow().model.score;
         if score > 0 && score >= best && score > self.best_before.get() {
-            self.phrase(chrome::CELEBRATE);
+            self.cue(&RECORD);
         }
         self.show(Overlay::GameOver);
     }
@@ -1480,6 +1527,7 @@ pub fn blockblast_page() -> AnyPiece {
         hud: Trigger::new(),
         overlay: Signal::new(Overlay::None),
         return_to: Cell::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
         pointer_seen: Cell::new(false),
         over_shown: Cell::new(restored_over),
@@ -1489,12 +1537,14 @@ pub fn blockblast_page() -> AnyPiece {
         let play = ui.play.clone();
         move || play.borrow().model.save_state()
     });
+    gamekit::sounds(SOUNDS);
     Effect::new({
         let ui = ui.clone();
         move || {
             gamekit::save(
                 SETTINGS_KEY,
                 &chrome::GameSettings {
+                    sounds: ui.sounds.get(),
                     vibrations: ui.vibrations.get(),
                     instructions_shown: true,
                 },
@@ -1543,7 +1593,7 @@ pub fn blockblast_page() -> AnyPiece {
                 DragPhase::Began => {
                     let picked = dr.play.borrow_mut().pick(dg.location, pointer);
                     if picked {
-                        dr.haptic(Haptic::Light);
+                        dr.cue(&LIFT);
                     }
                 }
                 DragPhase::Ended => {
@@ -1553,7 +1603,7 @@ pub fn blockblast_page() -> AnyPiece {
                 _ => {
                     let snapped = dr.play.borrow_mut().hold_at(dg.location);
                     if snapped {
-                        dr.haptic(Haptic::Selection);
+                        dr.cue(&cues::TICK);
                     }
                 }
             }
@@ -1582,10 +1632,10 @@ pub fn blockblast_page() -> AnyPiece {
                 }
             };
             match outcome {
-                KeyOutcome::Lifted => ku.haptic(Haptic::Light),
-                KeyOutcome::Moved { fits: true } => ku.haptic(Haptic::Selection),
+                KeyOutcome::Lifted => ku.cue(&LIFT),
+                KeyOutcome::Moved { fits: true } => ku.cue(&cues::TICK),
                 KeyOutcome::Moved { fits: false } | KeyOutcome::Nothing => {}
-                KeyOutcome::Refused => ku.haptic(Haptic::Warning),
+                KeyOutcome::Refused => ku.cue(&cues::WARNING),
                 KeyOutcome::Released(r) => ku.landed(r),
             }
             ku.repaint.notify();
@@ -1657,17 +1707,13 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
     .align(HAlign::Trailing);
     let pause = chrome::pause_button(tr("gk_pause"), "bb-pause", move || {
         ui.pause();
-        ui.haptic(Haptic::Selection);
+        ui.cue(&cues::SELECT);
     });
     row((
         spacer().width(52.0),
         score,
-        label(tr("nav_blockblast"))
-            .font(Font::Headline)
-            .weight(FontWeight::Heavy)
-            .color(chrome::TEXT)
-            .align(TextAlign::Center)
-            .grow_w(),
+        // Narrows, then steps aside, on a phone too narrow for it beside two six-digit scores.
+        chrome::fitted_title(tr("nav_blockblast"), 17.0, FontWeight::Heavy, chrome::TEXT).grow_w(),
         best,
         pause,
     ))
@@ -1922,6 +1968,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                 .bold()
                 .color(Color::WHITE),
             chrome::section_heading(tr("nav_blockblast")),
+            chrome::setting_row(tr("gk_sounds"), toggle(ui.sounds).id("bb-sounds").any()),
             chrome::setting_row(
                 tr("gk_vibrations"),
                 toggle(ui.vibrations).id("bb-vibrations").any(),

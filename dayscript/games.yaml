@@ -26,6 +26,10 @@ flow:
   - pause: { secs: 0.6 }
   - nav_back: {}
   - pause: { secs: 0.5 }
+  - navigate: { route: charades }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
   # Block Blast from the keyboard, on a fresh Normal deal so the pieces are the seeded ones
   # (dayscript/blockblast.yaml explains the moves): three placements, then a fourth that
   # clears the top row, photographed while the preview is lit and mid-clear.
@@ -90,6 +94,23 @@ flow:
   - key: { id: sol-canvas, key: "9" }
   - pause: { secs: 1.0 }
   - screenshot: { name: solitaire, title: Solitaire, caption: "Klondike, one card at a time or three; with Winnable Deals Only on, a solver proves every deal before it reaches the table.", source: games/solitaire/src/lib.rs }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  # Charades: the decks, then a card from a round started by hand (dayscript/charades.yaml
+  # explains why tilting goes off first).
+  - navigate: { route: charades }
+  - pause: { secs: 0.6 }
+  - screenshot: { name: charades, title: Charades, caption: "Hold the phone to your forehead, let your friends give clues, and nod when you guess right.", source: games/charades/src/lib.rs }
+  - tap: { id: ch-settings }
+  - pause: { secs: 0.4 }
+  - toggle: { id: ch-tilt, value: false }
+  - tap: { id: ch-done }
+  - pause: { secs: 0.4 }
+  - tap: { id: ch-deck-animals }
+  - pause: { secs: 0.5 }
+  - tap: { id: ch-start }
+  - pause: { secs: 3.6 }
+  - screenshot: charades-card
   - nav_back: {}
   - pause: { secs: 0.6 }
   - navigate: { route: breakout }

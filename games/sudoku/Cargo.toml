@@ -16,7 +16,6 @@ day-spec = { git = "https://github.com/daybrite/day.git" }
 day-fluent = { git = "https://github.com/daybrite/day.git" }
 # Haptic feedback per move, behind the game's Vibrations setting (a no-op where the platform
 # has no engine).
-day-part-haptics = { git = "https://github.com/daybrite/day.git" }
 gamekit = { path = "../../gamekit" }
 serde = { version = "1", features = ["derive"] }
 

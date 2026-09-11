@@ -1,0 +1,143 @@
+# title: History
+# blurb: People who changed the world and are remembered for it.
+Abraham Lincoln
+Ada Lovelace
+Agatha Christie
+Alan Turing
+Albert Einstein
+Alexander Graham Bell
+Alexander the Great
+Amelia Earhart
+Anne Frank
+Annie Oakley
+Archimedes
+Aretha Franklin
+Aristotle
+Audrey Hepburn
+Babe Ruth
+Beatrix Potter
+Beethoven
+Benjamin Franklin
+Bob Marley
+Bob Ross
+Boudica
+Brothers Grimm
+Bruce Lee
+Buffalo Bill
+Captain Cook
+Catherine the Great
+Charlemagne
+Charles Darwin
+Charles Dickens
+Charlie Chaplin
+Christopher Columbus
+Claude Monet
+Cleopatra
+Confucius
+Davy Crockett
+Edgar Allan Poe
+Edmund Hillary
+Eleanor Roosevelt
+Elvis Presley
+Emily Dickinson
+Ernest Hemingway
+Ernest Shackleton
+Ferdinand Magellan
+Florence Nightingale
+Franklin D. Roosevelt
+Freddie Mercury
+Frederick Douglass
+Frida Kahlo
+Galileo
+Genghis Khan
+George Washington
+Hans Christian Andersen
+Harriet Tubman
+Harry Houdini
+Hatshepsut
+Helen Keller
+Henry Ford
+Hippocrates
+Homer
+Isaac Newton
+J. R. R. Tolkien
+Jackie Robinson
+Jacques Cousteau
+Jane Austen
+Jesse Owens
+Jim Henson
+Joan of Arc
+Johann Sebastian Bach
+Johannes Gutenberg
+John F. Kennedy
+John Glenn
+John Lennon
+Johnny Cash
+Julia Child
+Julius Caesar
+King Henry VIII
+King Tutankhamun
+Leif Erikson
+Leonardo da Vinci
+Lewis and Clark
+Louis Armstrong
+Louis Pasteur
+Louis XIV
+Lucille Ball
+Mahatma Gandhi
+Mansa Musa
+Marco Polo
+Marie Antoinette
+Marie Curie
+Marilyn Monroe
+Mark Twain
+Martin Luther King Jr.
+Maya Angelou
+Michelangelo
+Mister Rogers
+Mother Teresa
+Mozart
+Muhammad Ali
+Napoleon
+Neil Armstrong
+Nelson Mandela
+Nikola Tesla
+Pablo Picasso
+Pelé
+Peter the Great
+Plato
+Pythagoras
+Queen Elizabeth I
+Queen Nefertiti
+Queen Victoria
+Richard the Lionheart
+Roald Amundsen
+Roald Dahl
+Rosa Parks
+Sacagawea
+Sally Ride
+Shakespeare
+Simón Bolívar
+Sitting Bull
+Socrates
+Sojourner Truth
+Stephen Hawking
+Steve Jobs
+Susan B. Anthony
+Tchaikovsky
+Tenzing Norgay
+Theodore Roosevelt
+Thomas Edison
+Vincent van Gogh
+Vivaldi
+Walt Disney
+Walt Whitman
+William the Conqueror
+Wright brothers
+Yuri Gagarin
+Chopin
+C. S. Lewis
+Aesop
+Ray Charles
+Jim Thorpe
+Grace Hopper

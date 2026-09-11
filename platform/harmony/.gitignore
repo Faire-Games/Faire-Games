@@ -16,6 +16,11 @@ entry/src/main/resources/rawfile/day/
 # (docs/extending.md).
 entry/src/main/ets/daypieces/
 
+# Bridged crates' ArkTS arms + the generated DayBridges.ets aggregator, staged per-build by the
+# day CLI (docs/bridge.md). hvigor compiles ArkTS only from inside the module, so these land in
+# the project rather than under build/ — the same reason daypieces/ above is here.
+entry/src/main/ets/daybridge/
+
 # The framework's own ArkTS host — both abilities, both pages, and the native module's type
 # declarations — staged per-build from the day-arkui crate the app depends on
 # (docs/harmonyos.md): the HarmonyOS counterpart of the Java shim Gradle reads from day-android.

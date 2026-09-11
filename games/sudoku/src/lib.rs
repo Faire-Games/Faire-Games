@@ -13,10 +13,10 @@ use std::cell::{Cell, RefCell};
 use std::rc::Rc;
 
 use day_fluent::tr;
-use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
 use day_spec::{KeyEvent, LineCap, LineJoin, StrokeStyle};
-use gamekit::chrome;
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Sfx, sfx};
 
 mod model;
 use model::{DIFFICULTIES, Difficulty, Model, Records, Settings, fmt_time, idx};
@@ -132,6 +132,28 @@ enum Overlay {
     Instructions,
 }
 
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue).
+static PLACE: Cue = with("sounds/sudoku/place.wav", cues::MEDIUM_BEAT);
+/// A digit taken back out, by the keypad, a repeated digit, or the delete keys.
+static CLEAR: Cue = with("sounds/sudoku/clear.wav", cues::LIGHT_BEAT);
+static NOTES: Cue = with("sounds/sudoku/notes.wav", cues::TICK_BEAT);
+static HINT: Cue = with("sounds/shared/hint.wav", cues::MEDIUM_BEAT);
+static UNDO: Cue = with("sounds/sudoku/undo.wav", cues::LIGHT_BEAT);
+static REDO: Cue = with("sounds/sudoku/redo.wav", cues::LIGHT_BEAT);
+static CHECKPOINT: Cue = with("sounds/sudoku/checkpoint.wav", cues::TICK_BEAT);
+static SOLVED: Cue = with("sounds/sudoku/solved.wav", chrome::BIG_CELEBRATE);
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/sudoku/place.wav"),
+    sfx("sounds/sudoku/clear.wav"),
+    sfx("sounds/sudoku/notes.wav"),
+    sfx("sounds/sudoku/undo.wav"),
+    sfx("sounds/sudoku/redo.wav"),
+    sfx("sounds/sudoku/checkpoint.wav"),
+    sfx("sounds/sudoku/solved.wav"),
+];
+
 /// Everything the page's closures share: the model, the two invalidation triggers, the
 /// overlay state, and the settings signals.
 struct Ui {
@@ -143,6 +165,7 @@ struct Ui {
     overlay: Signal<Overlay>,
     /// Where Cancel/Done returns to: the pause menu, the solved card, or the board.
     return_to: Cell<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
     default_difficulty: Signal<usize>,
     /// Whether the page's backdrop holds the keyboard. It takes it as the page mounts, and
@@ -151,10 +174,15 @@ struct Ui {
 }
 
 impl Ui {
-    fn haptic(&self, h: Haptic) {
-        if self.vibrations.get_untracked() && day_part_haptics::is_supported() {
-            day_part_haptics::play(h);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
         }
+    }
+
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
     }
 
     /// Run an edit against the model, then react to what it did: a solve records the time,
@@ -169,7 +197,7 @@ impl Ui {
         if complete && !was_complete {
             gamekit::save(RECORDS_KEY, &records);
             self.show(Overlay::Solved);
-            chrome::haptic_pattern(self.vibrations.get_untracked(), chrome::BIG_CELEBRATE);
+            self.cue(&SOLVED);
         }
         self.board.notify();
     }
@@ -208,7 +236,7 @@ impl Ui {
         gamekit::save(SAVE_KEY, &self.game.borrow().save_state());
         self.return_to.set(Overlay::None);
         self.show(Overlay::None);
-        self.haptic(Haptic::Medium);
+        self.cue(&cues::START);
     }
 
     /// Enter `digit` into the selected cell: the keypad's action, and a typed digit's. A digit
@@ -218,11 +246,7 @@ impl Ui {
         let mut placed = false;
         self.edit(|g| placed = g.place(digit));
         if placed {
-            self.haptic(if clears {
-                Haptic::Light
-            } else {
-                Haptic::Medium
-            });
+            self.cue(if clears { &CLEAR } else { &PLACE });
         }
     }
 
@@ -230,7 +254,7 @@ impl Ui {
         let mut erased = false;
         self.edit(|g| erased = g.erase());
         if erased {
-            self.haptic(Haptic::Light);
+            self.cue(&CLEAR);
         }
     }
 
@@ -261,11 +285,16 @@ impl Ui {
             }
             _ => return,
         };
+        let before = self.game.borrow().selected;
         self.edit(|g| g.move_selection(dr, dc));
+        if self.game.borrow().selected != before {
+            self.cue(&cues::TICK);
+        }
     }
 
     fn settings(&self) -> Settings {
         Settings {
+            sounds: self.sounds.get_untracked(),
             vibrations: self.vibrations.get_untracked(),
             default_difficulty: Difficulty::from_index(self.default_difficulty.get_untracked()),
             instructions_shown: true,
@@ -592,16 +621,19 @@ pub fn sudoku_page() -> AnyPiece {
         clock: Trigger::new(),
         overlay: Signal::new(Overlay::None),
         return_to: Cell::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
         default_difficulty: Signal::new(settings.default_difficulty.index()),
         board_focus: Signal::new(true),
     });
+    gamekit::sounds(SOUNDS);
 
     // Settings persist as they change; the first run also records that the instructions
     // have been offered.
     Effect::new({
         let ui = ui.clone();
         move || {
+            ui.sounds.track();
             ui.vibrations.track();
             ui.default_difficulty.track();
             gamekit::save(SETTINGS_KEY, &ui.settings());
@@ -667,8 +699,10 @@ pub fn sudoku_page() -> AnyPiece {
         bottom: 16.0,
         trailing: 12.0,
     });
-    // The stack centers the column across the scroll's full width (mid-window on a desktop).
-    let page = scroll(zstack((content,)).align(Alignment::Top))
+    // The scroll gives its content at least the window's height, so the stack centers the column
+    // both ways: mid-window on a desktop, with even space above and below the board, and from
+    // the top once the column is taller than the window and scrolls.
+    let page = scroll(zstack((content,)).align(Alignment::Center))
         .grow()
         .id("su-page");
 
@@ -696,7 +730,7 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
     .on_tap(move || {
         if ui.overlay.get_untracked() == Overlay::None {
             ui.show(Overlay::Pause);
-            ui.haptic(Haptic::Selection);
+            ui.cue(&cues::SELECT);
         }
     })
     .a11y(|a| a.label(tr("gk_pause").format()).role(Role::Button))
@@ -878,7 +912,7 @@ fn cell_piece(ui: Rc<Ui>, r: usize, c: usize) -> AnyPiece {
         g.selected = Some(i);
         drop(g);
         tap_ui.board.notify();
-        tap_ui.haptic(Haptic::Selection);
+        tap_ui.cue(&cues::TICK);
     })
     .on_key(move |k| key_ui.key(k))
     .a11y(move |a| {
@@ -916,7 +950,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                         g.notes_mode = !g.notes_mode;
                     }
                 });
-                tu.haptic(Haptic::Selection);
+                tu.cue(&NOTES);
             },
             ui.clone(),
             "su-notes",
@@ -942,7 +976,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                 tu.edit(|g| {
                     g.hint();
                 });
-                tu.haptic(Haptic::Medium);
+                tu.cue(&HINT);
             },
             ui.clone(),
             "su-hint",
@@ -963,7 +997,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                     move || !u1.game.borrow().can_undo(),
                     move || {
                         u2.edit(|g| g.undo());
-                        u2.haptic(Haptic::Light);
+                        u2.cue(&UNDO);
                     },
                     "su-undo",
                     Glyph::Redo,
@@ -971,7 +1005,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                     move || !u3.game.borrow().can_redo(),
                     move || {
                         u4.edit(|g| g.redo());
-                        u4.haptic(Haptic::Light);
+                        u4.cue(&REDO);
                     },
                     "su-redo",
                     su.clone(),
@@ -987,7 +1021,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                 move || !u1.game.borrow().can_undo(),
                 move || {
                     u2.edit(|g| g.undo());
-                    u2.haptic(Haptic::Light);
+                    u2.cue(&UNDO);
                 },
                 au.clone(),
                 "su-undo",
@@ -1009,7 +1043,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                     move || u1.game.borrow().busy(),
                     move || {
                         u2.edit(|g| g.commit_checkpoint());
-                        u2.haptic(Haptic::Success);
+                        u2.cue(&cues::SUCCESS);
                     },
                     "su-commit",
                     Glyph::Cross,
@@ -1017,7 +1051,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                     move || u3.game.borrow().busy(),
                     move || {
                         u4.edit(|g| g.revert_checkpoint());
-                        chrome::haptic_pattern(u4.vibrations.get_untracked(), chrome::LETDOWN);
+                        u4.cue(&cues::LETDOWN);
                     },
                     "su-revert",
                     su.clone(),
@@ -1033,7 +1067,7 @@ fn control_pad(ui: Rc<Ui>) -> impl Piece {
                 move || u1.game.borrow().busy(),
                 move || {
                     u2.edit(|g| g.enter_checkpoint());
-                    u2.haptic(Haptic::Selection);
+                    u2.cue(&CHECKPOINT);
                 },
                 au.clone(),
                 "su-checkpoint",
@@ -1376,7 +1410,7 @@ fn pause_menu(ui: Rc<Ui>) -> AnyPiece {
                         if sure == Some(true) {
                             u.edit(|g| g.give_up());
                             u.show(Overlay::None);
-                            chrome::haptic_pattern(u.vibrations.get_untracked(), chrome::GAME_OVER);
+                            u.cue(&cues::OVER_PUZZLE);
                         }
                     });
                 })
@@ -1621,6 +1655,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                     .bold()
                     .color(Color::WHITE),
                 heading(tr("nav_sudoku")),
+                setting_row(tr("gk_sounds"), toggle(ui.sounds).id("su-sounds").any()),
                 setting_row(
                     tr("gk_vibrations"),
                     toggle(ui.vibrations).id("su-vibrations").any(),

@@ -1,0 +1,223 @@
+# title: Animals
+# blurb: From aardvarks to zebras.
+Aardvark
+Albatross
+Alligator
+Alpaca
+Anaconda
+Anteater
+Antelope
+Armadillo
+Baboon
+Badger
+Bald eagle
+Barracuda
+Basset hound
+Bat
+Beagle
+Bear
+Beaver
+Bee
+Beetle
+Beluga whale
+Bison
+Bloodhound
+Blue whale
+Boa constrictor
+Bulldog
+Bullfrog
+Bumblebee
+Butterfly
+Camel
+Canary
+Capybara
+Caribou
+Cat
+Caterpillar
+Catfish
+Centipede
+Chameleon
+Cheetah
+Chicken
+Chihuahua
+Chimpanzee
+Chinchilla
+Chipmunk
+Clownfish
+Cobra
+Cockatoo
+Cockroach
+Cow
+Coyote
+Crab
+Crane
+Cricket
+Crocodile
+Crow
+Dachshund
+Dalmatian
+Deer
+Dingo
+Dolphin
+Donkey
+Dragonfly
+Duck
+Eagle
+Eel
+Elephant
+Elk
+Emu
+Falcon
+Ferret
+Firefly
+Flamingo
+Fox
+Frog
+Gazelle
+Gecko
+Gerbil
+German shepherd
+Giant panda
+Gibbon
+Giraffe
+Goat
+Goldfish
+Goose
+Gorilla
+Grasshopper
+Great white shark
+Greyhound
+Grizzly bear
+Guinea pig
+Hammerhead shark
+Hamster
+Hare
+Hedgehog
+Hermit crab
+Heron
+Hippopotamus
+Horse
+Humpback whale
+Hummingbird
+Hyena
+Iguana
+Impala
+Jackal
+Jaguar
+Jellyfish
+Kangaroo
+Killer whale
+Kingfisher
+Kitten
+Koala
+Komodo dragon
+Ladybug
+Lemur
+Leopard
+Lion
+Lizard
+Llama
+Lobster
+Lynx
+Macaw
+Magpie
+Manatee
+Meerkat
+Mole
+Mongoose
+Monkey
+Moose
+Mosquito
+Moth
+Mountain goat
+Mouse
+Mule
+Narwhal
+Newt
+Octopus
+Opossum
+Orangutan
+Ostrich
+Otter
+Owl
+Ox
+Oyster
+Panther
+Parrot
+Peacock
+Pelican
+Penguin
+Pig
+Pigeon
+Piranha
+Platypus
+Poison dart frog
+Polar bear
+Pony
+Poodle
+Porcupine
+Praying mantis
+Puffin
+Puppy
+Python
+Rabbit
+Raccoon
+Rat
+Rattlesnake
+Raven
+Red panda
+Reindeer
+Rhinoceros
+Robin
+Rooster
+Salmon
+Scorpion
+Sea lion
+Sea turtle
+Sea urchin
+Seagull
+Seahorse
+Seal
+Sheep
+Shrimp
+Skunk
+Sloth
+Slug
+Snail
+Snake
+Snow leopard
+Sparrow
+Spider
+Squid
+Squirrel
+Starfish
+Stingray
+Stork
+Swan
+Swordfish
+Tadpole
+Tarantula
+Tasmanian devil
+Termite
+Tiger
+Toad
+Tortoise
+Toucan
+Tree frog
+Trout
+Tuna
+Turkey
+Turtle
+Vulture
+Walrus
+Warthog
+Wasp
+Weasel
+Whale shark
+Wolf
+Wolverine
+Wombat
+Woodpecker
+Worm
+Yak
+Zebra

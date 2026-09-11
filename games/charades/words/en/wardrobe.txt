@@ -1,0 +1,114 @@
+# title: Wardrobe
+# blurb: Things to wear, from head to toe.
+Apron
+Ballet shoes
+Bandana
+Baseball cap
+Bathrobe
+Beanie
+Belt
+Beret
+Bib
+Blazer
+Blouse
+Boots
+Bow tie
+Bowler hat
+Bracelet
+Bucket hat
+Cape
+Cardigan
+Clogs
+Cowboy boots
+Cowboy hat
+Crown
+Cufflinks
+Dress
+Earmuffs
+Earrings
+Fedora
+Flannel shirt
+Flip-flops
+Gloves
+Graduation cap
+Halloween costume
+Hard hat
+Helmet
+High heels
+Hiking boots
+Hoodie
+Jeans
+Jumpsuit
+Kilt
+Kimono
+Knee pads
+Leather jacket
+Leggings
+Life jacket
+Mittens
+Monocle
+Necklace
+Necktie
+Nightgown
+Onesie
+Overalls
+Pajamas
+Poncho
+Raincoat
+Ring
+Safety vest
+Sandals
+Sari
+Scarf
+Shorts
+Ski goggles
+Skirt
+Sleep mask
+Slippers
+Sneakers
+Snow boots
+Socks
+Sombrero
+Spacesuit
+Sports jersey
+Suit
+Sunglasses
+Suspenders
+Sweater
+Sweatpants
+Swim cap
+Swimsuit
+T-shirt
+Tank top
+Tiara
+Top hat
+Toga
+Tracksuit
+Trench coat
+Turtleneck
+Tutu
+Tuxedo
+Ugly sweater
+Uniform
+Veil
+Vest
+Wedding dress
+Wetsuit
+Wig
+Winter coat
+Wristwatch
+Mustache disguise
+Superhero costume
+Pirate hat
+Witch's hat
+Party dress
+Rain hat
+Earflap hat
+Sun hat
+Wool hat
+Flip-up sunglasses
+Tie clip
+Fingerless gloves
+Snorkel mask
+Clown shoes
+Diving fins

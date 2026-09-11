@@ -1,0 +1,186 @@
+# title: Around the House
+# blurb: The things you walk past every day.
+Air conditioner
+Alarm clock
+Armchair
+Attic
+Baby monitor
+Bar stool
+Basement
+Bath mat
+Bath towel
+Bathtub
+Bed
+Birdhouse
+Blanket
+Blender
+Bookshelf
+Bowl
+Broom
+Bucket
+Bunk bed
+Can opener
+Candle
+Carpet
+Ceiling fan
+Chair
+Chandelier
+Chest of drawers
+Chopsticks
+Clock
+Closet
+Clothes hanger
+Clothespin
+Coat rack
+Coffee maker
+Coffee table
+Colander
+Cookie jar
+Cooking pot
+Corkscrew
+Couch
+Crib
+Cup
+Cupboard
+Curtains
+Cushion
+Cutting board
+Desk
+Dish rack
+Dishwasher
+Doorbell
+Doorknob
+Doormat
+Drawer
+Dryer
+Dustpan
+Duvet
+Egg timer
+Extension cord
+Fan
+Feather duster
+Fire extinguisher
+Fireplace
+Flashlight
+Floor lamp
+Flowerpot
+Fork
+Freezer
+Front door
+Frying pan
+Garage
+Garden hose
+Glass
+Grater
+Hair dryer
+Hairbrush
+Hammock
+Hot water bottle
+Humidifier
+Ice cube tray
+Iron
+Ironing board
+Jar
+Juicer
+Kettle
+Key
+Kitchen sink
+Knife
+Ladder
+Ladle
+Lamp
+Laundry basket
+Lawn mower
+Light bulb
+Light switch
+Lock
+Lunchbox
+Mailbox
+Mattress
+Measuring cup
+Microwave
+Mirror
+Mixing bowl
+Mop
+Mousetrap
+Mug
+Nail clippers
+Napkin
+Nightlight
+Oven
+Oven mitt
+Paintbrush
+Paper clip
+Paper towel
+Peeler
+Pepper grinder
+Photo album
+Picture frame
+Piggy bank
+Pillow
+Place mat
+Plate
+Plunger
+Porch
+Pot holder
+Potted plant
+Pressure cooker
+Radiator
+Recliner
+Refrigerator
+Remote control
+Rocking chair
+Rolling pin
+Rubber gloves
+Rug
+Safety pin
+Salt shaker
+Scissors
+Screwdriver
+Sewing machine
+Shoe rack
+Shower curtain
+Slippers
+Smoke detector
+Soap
+Sofa bed
+Spatula
+Sponge
+Spoon
+Stairs
+Stapler
+Step stool
+Stove
+Sugar bowl
+Table
+Tablecloth
+Tape
+Tape measure
+Teapot
+Television
+Thermos
+Thermostat
+Tissue box
+Toaster
+Toilet
+Toilet paper
+Tongs
+Toolbox
+Toothbrush
+Toothpaste
+Towel rack
+Trash can
+Tray
+Tweezers
+Vacuum cleaner
+Vase
+Wardrobe
+Washing machine
+Water heater
+Wheelbarrow
+Whisk
+Wind chime
+Window
+Windowsill
+Wooden spoon
+Wrench

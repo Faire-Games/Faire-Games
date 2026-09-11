@@ -1,0 +1,152 @@
+# title: Movies
+# blurb: Famous films, old and new.
+A Christmas Carol
+Aladdin
+Alien
+Apollo 13
+Avatar
+Babe
+Back to the Future
+Bambi
+Batman
+Beauty and the Beast
+Beetlejuice
+Ben-Hur
+Big
+Black Panther
+Braveheart
+Casablanca
+Cars
+Charlie and the Chocolate Factory
+Chicken Run
+Cinderella
+Close Encounters
+Coco
+Dirty Dancing
+Dumbo
+E.T. the Extra-Terrestrial
+Elf
+Encanto
+Fantasia
+Finding Nemo
+Forrest Gump
+Frankenstein
+Free Willy
+Frozen
+Ghostbusters
+Gladiator
+Godzilla
+Gone with the Wind
+Grease
+Groundhog Day
+Happy Feet
+Harry Potter
+Home Alone
+Honey, I Shrunk the Kids
+Hook
+How to Train Your Dragon
+Ice Age
+Inception
+Indiana Jones
+Inside Out
+Iron Man
+It's a Wonderful Life
+Jaws
+Jumanji
+The Jungle Book
+Jurassic Park
+King Kong
+Kung Fu Panda
+Lady and the Tramp
+Lawrence of Arabia
+Madagascar
+Mamma Mia!
+March of the Penguins
+Mary Poppins
+Matilda
+Men in Black
+Meet the Parents
+Miracle on 34th Street
+Moana
+Monsters, Inc.
+Mrs. Doubtfire
+Mulan
+My Fair Lady
+Night at the Museum
+Oliver!
+Paddington
+Peter Pan
+Pinocchio
+Pirates of the Caribbean
+Planet of the Apes
+Pocahontas
+Psycho
+Ratatouille
+Rocky
+Romeo and Juliet
+Sherlock Holmes
+Shrek
+Singin' in the Rain
+Sleeping Beauty
+Snow White
+Space Jam
+Spider-Man
+Spirited Away
+Star Trek
+Star Wars
+Superman
+Tangled
+Tarzan
+The Addams Family
+The Avengers
+The Blues Brothers
+The Chronicles of Narnia
+The Goonies
+The Greatest Showman
+The Hunger Games
+The Incredibles
+The Karate Kid
+The Land Before Time
+The Lion King
+The Little Mermaid
+The Lord of the Rings
+The Mask
+The Matrix
+The Muppet Movie
+The Mummy
+The NeverEnding Story
+The Nutty Professor
+The Parent Trap
+The Phantom of the Opera
+The Pink Panther
+The Polar Express
+The Princess Bride
+The Secret Garden
+The Sound of Music
+The Terminator
+The Truman Show
+The Wizard of Oz
+Titanic
+Top Gun
+Toy Story
+Twister
+Up
+WALL-E
+West Side Story
+Wonder Woman
+Zootopia
+101 Dalmatians
+2001: A Space Odyssey
+Chitty Chitty Bang Bang
+Despicable Me
+Fantastic Mr. Fox
+Finding Dory
+Kiki's Delivery Service
+Lilo & Stitch
+My Neighbor Totoro
+Robin Hood
+Sister Act
+Stuart Little
+The Iron Giant
+The Wind in the Willows
+Who Framed Roger Rabbit

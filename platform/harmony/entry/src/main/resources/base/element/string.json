@@ -1,4 +1,5 @@
 { "string": [
   { "name": "module_desc", "value": "Day Games" },
-  { "name": "EntryAbility_label", "value": "Day Games" }
+  { "name": "EntryAbility_label", "value": "Day Games" },
+  { "name": "day_perm_reason_ohos_permission_accelerometer", "value": "Charades reads the phone's tilt to score a nod." }
 ] }

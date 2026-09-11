@@ -13,7 +13,6 @@ day-pieces = { git = "https://github.com/daybrite/day.git" }
 day-core = { git = "https://github.com/daybrite/day.git" }
 day-reactive = { git = "https://github.com/daybrite/day.git" }
 
-day-part-haptics = { git = "https://github.com/daybrite/day.git" }
 gamekit = { path = "../../gamekit" }
 serde = { version = "1", features = ["derive"] }
 day-fluent = { git = "https://github.com/daybrite/day.git" }

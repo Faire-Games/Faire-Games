@@ -38,4 +38,10 @@ flow:
   - nav_back:
   - pause: { secs: 0.6 }
 
+  - navigate: { route: charades }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: ch-deck-animals }
+  - nav_back:
+  - pause: { secs: 0.6 }
+
   - screenshot: smoke

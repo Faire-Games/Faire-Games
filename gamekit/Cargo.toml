@@ -13,10 +13,11 @@ day-reactive = { git = "https://github.com/daybrite/day.git" }
 day-spec = { git = "https://github.com/daybrite/day.git" }
 day-part-prefs = { git = "https://github.com/daybrite/day.git" }
 # The shared game chrome (`chrome`): composed from Day's core pieces, localized through
-# Fluent, with haptics behind each game's Vibrations setting.
+# Fluent, with sounds and haptics behind each game's Sounds and Vibrations settings.
 day-pieces = { git = "https://github.com/daybrite/day.git" }
 day-fluent = { git = "https://github.com/daybrite/day.git" }
 day-part-haptics = { git = "https://github.com/daybrite/day.git" }
+day-part-sound = { git = "https://github.com/daybrite/day.git" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

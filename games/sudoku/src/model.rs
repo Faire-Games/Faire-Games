@@ -122,6 +122,9 @@ pub struct Records {
 /// The player's Sudoku settings (persisted on their own).
 #[derive(Clone, Serialize, Deserialize, PartialEq, Debug)]
 pub struct Settings {
+    /// On by default, and on for a record saved before sounds existed.
+    #[serde(default = "gamekit::chrome::on")]
+    pub sounds: bool,
     pub vibrations: bool,
     /// The difficulty a fresh puzzle takes; the picker updates it.
     pub default_difficulty: Difficulty,
@@ -132,6 +135,7 @@ pub struct Settings {
 impl Default for Settings {
     fn default() -> Self {
         Settings {
+            sounds: true,
             vibrations: true,
             default_difficulty: Difficulty::Medium,
             instructions_shown: false,

@@ -1,0 +1,156 @@
+# title: Jobs
+# blurb: Who does what, from astronaut to zookeeper.
+Accountant
+Actor
+Air traffic controller
+Animator
+Archaeologist
+Architect
+Astronaut
+Astronomer
+Auctioneer
+Babysitter
+Baker
+Bank teller
+Barber
+Barista
+Beekeeper
+Blacksmith
+Bodyguard
+Bricklayer
+Bus driver
+Butcher
+Butler
+Carpenter
+Cashier
+Chef
+Chemist
+Chimney sweep
+Choreographer
+Circus acrobat
+Clown
+Coach
+Comedian
+Construction worker
+Cowboy
+Crossing guard
+Cruise ship captain
+Dance teacher
+Dental hygienist
+Dentist
+Detective
+Dietitian
+DJ
+Doctor
+Dog groomer
+Dog walker
+Electrician
+Engineer
+Explorer
+Farmer
+Fashion designer
+Firefighter
+Flight attendant
+Florist
+Garbage collector
+Gardener
+Geologist
+Glassblower
+Graphic designer
+Hairdresser
+Ice cream truck driver
+Ice sculptor
+Illustrator
+Interpreter
+Inventor
+Janitor
+Jeweler
+Journalist
+Judge
+Lab technician
+Lawyer
+Librarian
+Lifeguard
+Lighthouse keeper
+Locksmith
+Lumberjack
+Magician
+Mail carrier
+Marine biologist
+Mayor
+Mechanic
+Midwife
+Miner
+Movie director
+Musician
+Nanny
+News anchor
+Nurse
+Opera singer
+Optometrist
+Orchestra conductor
+Painter
+Paramedic
+Park ranger
+Pastry chef
+Personal trainer
+Pharmacist
+Photographer
+Physical therapist
+Pilot
+Pizza delivery driver
+Plumber
+Poet
+Police officer
+Politician
+Potter
+Principal
+Professor
+Psychologist
+Puppeteer
+Radio host
+Rancher
+Real estate agent
+Receptionist
+Referee
+Rodeo clown
+Sailor
+Salesperson
+Scientist
+Scuba instructor
+Sculptor
+Secretary
+Security guard
+Shepherd
+Singer
+Snowplow driver
+Software developer
+Soldier
+Street performer
+Street vendor
+Stunt double
+Submarine captain
+Surgeon
+Tailor
+Tattoo artist
+Taxi driver
+Teacher
+Tightrope walker
+Tour guide
+Toy maker
+Train conductor
+Translator
+Truck driver
+Tutor
+Umpire
+Veterinarian
+Video game designer
+Waiter
+Weather forecaster
+Web designer
+Wedding planner
+Welder
+Window cleaner
+Writer
+Yoga instructor
+Zookeeper

@@ -1,0 +1,205 @@
+# title: Food & Drink
+# blurb: Everything from breakfast to dessert.
+Apple
+Apple juice
+Apple pie
+Avocado
+Bacon
+Bagel
+Baked beans
+Baklava
+Banana
+Banana split
+Bangers and mash
+Barbecue ribs
+Birthday cake
+Blueberry muffin
+Bratwurst
+Bread
+Broccoli
+Brownie
+Bubble tea
+Burrito
+Butter
+Cabbage
+Caesar salad
+Candy cane
+Cappuccino
+Caramel apple
+Carrot
+Cauliflower
+Celery
+Cereal
+Cheese
+Cheeseburger
+Cheesecake
+Cherry
+Chicken nuggets
+Chicken soup
+Chili
+Chocolate
+Chocolate chip cookie
+Churros
+Cinnamon roll
+Clam chowder
+Coconut
+Coffee
+Corn dog
+Corn on the cob
+Cotton candy
+Crab cakes
+Cranberry sauce
+Crêpe
+Croissant
+Cucumber
+Cupcake
+Curry
+Dim sum
+Doughnut
+Dumpling
+Egg roll
+Eggplant
+Enchilada
+Espresso
+Falafel
+Fish and chips
+Fondue
+Fortune cookie
+French fries
+French toast
+Fried chicken
+Fried egg
+Fried rice
+Fruit salad
+Fruitcake
+Garlic
+Gazpacho
+Gelato
+Gingerbread man
+Goulash
+Grapes
+Gravy
+Guacamole
+Gummy bears
+Hamburger
+Hash browns
+Honey
+Hot chocolate
+Hot cross bun
+Hot dog
+Hot sauce
+Hummus
+Ice cream
+Ice cream sundae
+Iced tea
+Jam
+Jelly beans
+Kebab
+Ketchup
+Kimchi
+Kiwi
+Lasagna
+Latte
+Lemon
+Lemonade
+Lettuce
+Lime
+Lollipop
+Macaroni and cheese
+Mango
+Maple syrup
+Marshmallow
+Mashed potatoes
+Meatballs
+Meatloaf
+Milk
+Milkshake
+Miso soup
+Muffin
+Mushroom
+Mustard
+Naan
+Nachos
+Noodles
+Oatmeal
+Olive
+Omelet
+Onion rings
+Orange
+Orange juice
+Pad thai
+Paella
+Pancakes
+Pasta
+Peach
+Peanut butter
+Peanut butter and jelly
+Pear
+Peas
+Pepperoni pizza
+Pickle
+Pie
+Pierogi
+Pineapple
+Pita bread
+Pizza
+Popcorn
+Popcorn chicken
+Popsicle
+Pork chop
+Porridge
+Pot roast
+Potato chips
+Poutine
+Pretzel
+Pumpkin pie
+Quesadilla
+Radish
+Ramen
+Raspberry
+Ravioli
+Rice
+Risotto
+Roast turkey
+Root beer
+Salad
+Salsa
+Samosa
+Sandwich
+Sashimi
+Sauerkraut
+Sausage
+Scone
+Scrambled eggs
+Shepherd's pie
+Shortbread
+Shrimp cocktail
+Smoothie
+S'mores
+Soda
+Soup
+Spaghetti
+Spinach
+Spring roll
+Steak
+Strawberry
+Sushi
+Sweet potato
+Taco
+Tamale
+Tea
+Tikka masala
+Tiramisu
+Toast
+Tofu
+Tomato
+Tomato soup
+Tortilla chips
+Trifle
+Waffle
+Water
+Watermelon
+Whipped cream
+Yogurt
+Yorkshire pudding
+Zucchini

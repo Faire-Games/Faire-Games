@@ -6,9 +6,9 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use day_fluent::tr;
-use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
-use gamekit::chrome::{self, Help};
+use gamekit::chrome::cues::{self, with};
+use gamekit::chrome::{self, Cue, Feedback, Help, Sfx, sfx};
 use serde::{Deserialize, Serialize};
 
 /// What a step did that the page reacts to (haptics, cards).
@@ -418,7 +418,13 @@ impl Game {
     fn well_origin(&self) -> (f64, f64) {
         let cs = self.cell_size();
         let bw = cs * COLS as f64;
-        ((self.field.width - bw) / 2.0, TOP_UI)
+        ((self.field.width - bw) / 2.0, TOP_UI + self.top())
+    }
+    /// How far the header and well sit below the top: half the height they leave free, so a
+    /// tall, narrow screen centers them rather than stacking them at the top.
+    fn top(&self) -> f64 {
+        let well = self.cell_size() * ROWS as f64;
+        ((self.field.height - TOP_UI - well) / 2.0).max(0.0)
     }
 
     fn draw(&self, d: &mut Draw, sz: Size) {
@@ -472,48 +478,54 @@ impl Game {
         }
 
         // Header. The leading gutter keeps the title clear of the cover's close button.
-        let title = TextStyle {
-            size: 26.0,
-            color: Color::WHITE,
-            anchor: TextAnchor::LEADING,
-            ..Default::default()
-        };
+        // Each line narrows to fit its share of the well's width rather than running into its
+        // neighbor: the title takes the leading half of the top line, the high score the rest.
+        let t = oy - TOP_UI;
+        let bw = cs * COLS as f64;
+        let plain = TextStyle::default().font;
+        let name = tr("st_title").format();
+        let tx = ox.max(56.0);
+        let half = (ox + bw - tx) * 0.5;
         d.text(
-            &tr("st_title").format(),
-            Point::new(ox.max(56.0), 18.0),
-            title,
+            &name,
+            Point::new(tx, t + 18.0),
+            TextStyle {
+                size: chrome::fit_text(&name, 26.0, &plain, half),
+                color: Color::WHITE,
+                anchor: TextAnchor::LEADING,
+                ..Default::default()
+            },
         );
+        let score = tr("st_score").arg("n", self.score).format();
+        let lines = tr("st_level_lines")
+            .arg("level", self.level())
+            .arg("lines", self.lines)
+            .format();
         let stat = TextStyle {
-            size: 15.0,
+            size: [&score, &lines]
+                .iter()
+                .map(|s| chrome::fit_text(s, 15.0, &plain, bw * 0.6))
+                .fold(15.0, f64::min),
             color: Color::rgba(1.0, 1.0, 1.0, 0.8),
             anchor: TextAnchor::LEADING,
             ..Default::default()
         };
-        d.text(
-            &tr("st_score").arg("n", self.score).format(),
-            Point::new(ox, 54.0),
-            stat.clone(),
-        );
-        d.text(
-            &tr("st_level_lines")
-                .arg("level", self.level())
-                .arg("lines", self.lines)
-                .format(),
-            Point::new(ox, 74.0),
-            stat.clone(),
-        );
+        d.text(&score, Point::new(ox, t + 54.0), stat.clone());
+        d.text(&lines, Point::new(ox, t + 74.0), stat.clone());
         // High score and the next piece, trailing (clear of the pause button).
-        let bw = cs * COLS as f64;
+        let high = tr("st_high").arg("n", self.best).format();
+        let high_room = (ox + bw - 52.0) - (tx + half) - 8.0;
         d.text(
-            &tr("st_high").arg("n", self.best).format(),
-            Point::new(ox + bw - 52.0, 18.0),
+            &high,
+            Point::new(ox + bw - 52.0, t + 18.0),
             TextStyle {
+                size: chrome::fit_text(&high, 15.0, &plain, high_room),
                 anchor: TextAnchor::TRAILING,
                 ..stat
             },
         );
         let mini = (cs * 0.42).max(5.0);
-        let (nx, ny) = (ox + bw - 52.0 - 4.0 * mini, 42.0);
+        let (nx, ny) = (ox + bw - 52.0 - 4.0 * mini, t + 42.0);
         for &(r, c) in &SHAPES[self.next][0] {
             let x = nx + c as f64 * mini;
             let y = ny + r as f64 * mini;
@@ -534,7 +546,7 @@ impl Game {
             }
             .format();
             let a = (life / (CLEAR_POPUP_LIFE / 3.0)).clamp(0.0, 1.0);
-            let at = Point::new(sz.width / 2.0, sz.height - 100.0);
+            let at = Point::new(sz.width / 2.0, oy + cs * ROWS as f64 - 100.0);
             let font = CanvasFont {
                 family: None,
                 weight: Some(FontWeight::Black),
@@ -647,19 +659,44 @@ enum Overlay {
     Instructions,
 }
 
+// Sounds, each with the haptic it plays beside (gamekit::chrome::Cue).
+static ROTATE: Cue = with("sounds/sirtet/rotate.wav", cues::LIGHT_BEAT);
+static LOCK: Cue = with("sounds/sirtet/lock.wav", cues::MEDIUM_BEAT);
+/// One line ticks; two thud; three and four celebrate, four the most.
+static CLEARS: [Cue; 4] = [
+    with("sounds/sirtet/clear_1.wav", cues::LIGHT_BEAT),
+    with("sounds/sirtet/clear_2.wav", chrome::THUD),
+    with("sounds/sirtet/clear_3.wav", chrome::CELEBRATE),
+    with("sounds/sirtet/clear_4.wav", chrome::BIG_CELEBRATE),
+];
+
+/// Every clip this game plays besides the shared ones (gamekit preloads both).
+pub const SOUNDS: &[Sfx] = &[
+    sfx("sounds/sirtet/rotate.wav"),
+    sfx("sounds/sirtet/lock.wav"),
+    sfx("sounds/sirtet/clear_1.wav"),
+    sfx("sounds/sirtet/clear_2.wav"),
+    sfx("sounds/sirtet/clear_3.wav"),
+    sfx("sounds/sirtet/clear_4.wav"),
+];
+
 struct Ui {
     game: Rc<RefCell<Game>>,
     repaint: Trigger,
     overlay: Signal<Overlay>,
+    sounds: Signal<bool>,
     vibrations: Signal<bool>,
 }
 
 impl Ui {
-    fn haptic(&self, h: Haptic) {
-        chrome::haptic(self.vibrations.get_untracked(), h);
+    fn feedback(&self) -> Feedback {
+        Feedback {
+            sounds: self.sounds.get_untracked(),
+            vibrations: self.vibrations.get_untracked(),
+        }
     }
-    fn phrase(&self, pattern: chrome::Pattern) {
-        chrome::haptic_pattern(self.vibrations.get_untracked(), pattern);
+    fn cue(&self, c: &Cue) {
+        chrome::cue(self.feedback(), c);
     }
     fn show(&self, kind: Overlay) {
         self.overlay.set(kind);
@@ -674,7 +711,7 @@ impl Ui {
         self.game.borrow_mut().restart();
         gamekit::clear(SAVE_KEY);
         self.show(Overlay::None);
-        self.haptic(Haptic::Medium);
+        self.cue(&cues::START);
     }
 }
 
@@ -692,18 +729,21 @@ pub fn sirtet_page() -> AnyPiece {
         game: Rc::new(RefCell::new(game)),
         repaint: Trigger::new(),
         overlay: Signal::new(Overlay::None),
+        sounds: Signal::new(settings.sounds),
         vibrations: Signal::new(settings.vibrations),
     });
     gamekit::autosave(SAVE_KEY, {
         let game = ui.game.clone();
         move || game.borrow().save_state()
     });
+    gamekit::sounds(SOUNDS);
     Effect::new({
         let ui = ui.clone();
         move || {
             gamekit::save(
                 SETTINGS_KEY,
                 &chrome::GameSettings {
+                    sounds: ui.sounds.get(),
                     vibrations: ui.vibrations.get(),
                     instructions_shown: true,
                 },
@@ -735,7 +775,7 @@ pub fn sirtet_page() -> AnyPiece {
             }
             tu.game.borrow_mut().rotate();
             tu.repaint.notify();
-            tu.haptic(Haptic::Light);
+            tu.cue(&ROTATE);
         })
         .on_drag(move |dg| {
             if dr.overlay.get_untracked() != Overlay::None {
@@ -771,7 +811,7 @@ pub fn sirtet_page() -> AnyPiece {
                     drop(g);
                     // A detent per column, a lighter one per soft-dropped row.
                     if moved || dropped {
-                        dr.haptic(Haptic::Selection);
+                        dr.cue(&cues::TICK);
                     }
                     dr.repaint.notify();
                     return;
@@ -785,6 +825,7 @@ pub fn sirtet_page() -> AnyPiece {
                 return;
             }
             let mut g = ku.game.borrow_mut();
+            let before = (g.rot, g.prow, g.pcol);
             match k.key.as_str() {
                 "ArrowLeft" => g.move_dxy(-1),
                 "ArrowRight" => g.move_dxy(1),
@@ -792,7 +833,14 @@ pub fn sirtet_page() -> AnyPiece {
                 "ArrowDown" => g.soft_drop(),
                 _ => {}
             }
+            let after = (g.rot, g.prow, g.pcol);
             drop(g);
+            // The same sounds as the touch controls, for a key that moved the piece.
+            if after.0 != before.0 {
+                ku.cue(&ROTATE);
+            } else if after != before {
+                ku.cue(&cues::TICK);
+            }
             ku.repaint.notify();
         })
         .id("st-canvas")
@@ -811,7 +859,7 @@ pub fn sirtet_page() -> AnyPiece {
         let ui = ui.clone();
         move || {
             ui.pause();
-            ui.haptic(Haptic::Selection);
+            ui.cue(&cues::SELECT);
         }
     })
     .padding(Insets {
@@ -840,16 +888,12 @@ fn sirtet_clock(ui: Rc<Ui>) -> impl Piece {
             };
             for h in happenings {
                 match h {
-                    Happening::Locked => ui.haptic(Haptic::Medium),
-                    // One line ticks; two thud; three and four celebrate, four the most.
-                    Happening::Cleared(1) => ui.haptic(Haptic::Light),
-                    Happening::Cleared(2) => ui.phrase(chrome::THUD),
-                    Happening::Cleared(3) => ui.phrase(chrome::CELEBRATE),
-                    Happening::Cleared(_) => ui.phrase(chrome::BIG_CELEBRATE),
+                    Happening::Locked => ui.cue(&LOCK),
+                    Happening::Cleared(n) => ui.cue(&CLEARS[n.clamp(1, 4) - 1]),
                     Happening::GameOver => {
                         let best = ui.game.borrow().best;
                         gamekit::save(RECORD_KEY, &best);
-                        ui.phrase(chrome::GAME_OVER);
+                        ui.cue(&cues::OVER_ARCADE);
                         ui.show(Overlay::GameOver);
                     }
                 }
@@ -1013,6 +1057,7 @@ fn settings_card(ui: Rc<Ui>) -> AnyPiece {
                 .bold()
                 .color(Color::WHITE),
             chrome::section_heading(tr("nav_sirtet")),
+            chrome::setting_row(tr("gk_sounds"), toggle(ui.sounds).id("st-sounds").any()),
             chrome::setting_row(
                 tr("gk_vibrations"),
                 toggle(ui.vibrations).id("st-vibrations").any(),

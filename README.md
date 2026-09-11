@@ -1,6 +1,6 @@
 # Day Games
 
-Solitaire, Block Blast, Breakout, falling blocks, Sudoku, and 2048 in one app. Built with
+Solitaire, Block Blast, Breakout, falling blocks, Sudoku, 2048, and Charades in one app. Built with
 [Day](https://daybrite.dev) in one Rust codebase and rendered with the platform's own widgets on
 iPhone, Android, HarmonyOS, macOS, Windows, Linux, and the web. Every game runs entirely on the
 device, and your progress is saved when you leave a game and restored when you come back.
@@ -40,15 +40,22 @@ missing. The launch prints where it put the checkout, so you can open the code a
   commit or revert, hints where the difficulty allows them, and a best time per difficulty.
 - **2048.** Slide the tiles, watch them merge, and chase your best score. Reaching 2048 is not
   the end unless you want it to be.
+- **Charades.** The party game for a phone on your forehead: your friends give clues, you nod
+  when you guess right and tip your head back to pass, and the phone reads the tilt. Decks run
+  from animals and movies to sayings and things to act out, no word repeats until its deck is
+  played through, and the screen stays on for the whole round. Without a motion sensor, rounds
+  use Correct and Pass buttons. The word lists live in `games/charades/words/`, one folder per
+  language; its README explains the format and how another language gets its own lists.
 
 Every game has the same shell: a pause button, a menu to resume, start over, open the
 settings, or reread the rules, and a results card with your best score. The rules open by
-themselves the first time you play a game. Haptics follow a Vibrations switch in each game's
-settings. With a mouse or trackpad the Breakout paddle follows the pointer across the field
+themselves the first time you play a game. Each game plays sound effects timed to its haptics,
+and its settings have a Sounds switch and a Vibrations switch. With a mouse or trackpad the Breakout paddle follows the pointer across the field
 and the cursor hides while it does; the arrow keys move the paddle, the piece, the tiles, or
 the Sudoku selection. In Block Blast, 1 to 3 pick up a piece, the arrows move it, and the same
 number drops it. In Solitaire, 1 to 7 pick a column and another of those digits moves it there,
-8 picks the waste, 9 sends a card home, and 0 turns the stock.
+8 picks the waste, 9 sends a card home, and 0 turns the stock. In Charades, ↓ or Return scores
+a card and ↑ passes it.
 
 The home screen is a grid of tiles that fills the window's width and adds a column whenever
 the window has room for another tile. Each preview is drawn by the game's own crate with the same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X

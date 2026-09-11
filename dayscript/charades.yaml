@@ -1,0 +1,53 @@
+# Charades from the keyboard: a deck, a round answered with the arrow keys and the buttons, the
+# pause menu's End Round, and the results. Answer by Tilting goes off first, so a phone or an
+# emulator with a motion sensor waits for Start rather than for the phone to go up. Run with
+# `--env DAY_GAMES_SEED=15`.
+name: charades
+flow:
+  - wait_for: { id: home }
+  # The rules open by themselves the first time the game is played.
+  - navigate: { route: charades }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
+  - navigate: { route: charades }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: ch-deck-animals }
+  - screenshot: charades-decks
+  - tap: { id: ch-settings }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: ch-settings-card }
+  - toggle: { id: ch-tilt, value: false }
+  - pause: { secs: 0.3 }
+  - screenshot: charades-settings
+  - tap: { id: ch-done }
+  - pause: { secs: 0.4 }
+  - tap: { id: ch-deck-animals }
+  - pause: { secs: 0.5 }
+  - assert_visible: { id: ch-start }
+  - screenshot: charades-ready
+  - tap: { id: ch-start }
+  - pause: { secs: 1.0 }
+  - screenshot: charades-countdown
+  - pause: { secs: 2.6 }
+  - assert_visible: { id: ch-correct }
+  - screenshot: charades-card
+  - key: { id: ch-canvas, key: "ArrowDown" }
+  - pause: { secs: 0.2 }
+  - screenshot: charades-correct
+  - pause: { secs: 0.8 }
+  - tap: { id: ch-pass }
+  - pause: { secs: 0.9 }
+  - tap: { id: ch-correct }
+  - pause: { secs: 0.9 }
+  - tap: { id: ch-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: ch-end-round }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: ch-again }
+  - assert_text: { id: ch-score, text: "2" }
+  - screenshot: charades-results
+  - tap: { id: ch-to-decks }
+  - pause: { secs: 0.5 }
+  - assert_visible: { id: ch-deck-animals }
+  - nav_back: {}
