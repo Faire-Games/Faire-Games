@@ -1,0 +1,95 @@
+# Block Blast walkthrough (https://daybrite.dev/docs/dayscript): a fresh Normal game played from
+# the keyboard, the pause menu, the difficulty picker, settings, and the rules sheet.
+#
+#     day launch -p macos-appkit --env DAY_GAMES_SEED=15 --script dayscript/blockblast.yaml
+#
+# The seed pins the deal, so four keyboard placements score 60, 100 and 110 and then clear the
+# top row for 250 (games/blockblast/src/lib.rs pins every piece, start cell and score).
+name: blockblast
+flow:
+  - wait_for: { id: home }
+  - assert_visible: { id: tile-blockblast }
+  # The rules open by themselves the first time the game is played; a second open skips them,
+  # so the walkthrough works from any saved state (the sheet is exercised from the pause menu).
+  - navigate: { route: blockblast }
+  - pause: { secs: 0.8 }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - navigate: { route: blockblast }
+  - pause: { secs: 0.8 }
+  - assert_visible: { id: bb-canvas }
+  # A new Normal game, so the seeded deal is the one the unit test knows.
+  - tap: { id: bb-pause }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: bb-pause-menu }
+  - screenshot: blockblast-paused
+  - tap: { id: bb-new-game }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: bb-difficulty-picker }
+  - screenshot: blockblast-difficulty
+  - tap: { id: bb-diff-normal }
+  - pause: { secs: 0.8 }
+  - assert_text: { id: bb-score, text: "0" }
+  # A digit lifts that tray piece onto the middle of the board, the arrows move it, and the
+  # same digit drops it. First the 3×2 block into the top-left corner.
+  - key: { id: bb-canvas, key: "3" }
+  - pause: { secs: 0.3 }
+  - screenshot: blockblast-lifted
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowLeft" }
+  - key: { id: bb-canvas, key: "ArrowLeft" }
+  - key: { id: bb-canvas, key: "3" }
+  - pause: { secs: 1.0 }
+  - assert_text: { id: bb-score, text: "60" }
+  # The Z beside it, then the dot; the empty tray deals three new pieces.
+  - key: { id: bb-canvas, key: "1" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - key: { id: bb-canvas, key: "1" }
+  - pause: { secs: 0.4 }
+  - key: { id: bb-canvas, key: "2" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - key: { id: bb-canvas, key: "2" }
+  - pause: { secs: 0.6 }
+  # The new second piece completes the top row: the preview lights it, the drop clears it.
+  - key: { id: bb-canvas, key: "2" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowUp" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - key: { id: bb-canvas, key: "ArrowRight" }
+  - pause: { secs: 0.2 }
+  - screenshot: blockblast-preview
+  - key: { id: bb-canvas, key: "2" }
+  - pause: { secs: 0.35 }
+  - screenshot: blockblast-clear
+  - pause: { secs: 1.4 }
+  - assert_text: { id: bb-score, text: "250" }
+  # Settings and the rules sheet from the pause menu; Done returns to it while a game is live.
+  - tap: { id: bb-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: bb-settings }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: bb-settings-card }
+  - tap: { id: bb-done }
+  - pause: { secs: 0.3 }
+  - tap: { id: bb-instructions }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: bb-instructions-card }
+  - screenshot: blockblast-rules
+  - tap: { id: bb-help-done }
+  - pause: { secs: 0.3 }
+  - assert_visible: { id: bb-pause-menu }
+  - tap: { id: bb-resume }
+  - pause: { secs: 0.3 }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: tile-blockblast }

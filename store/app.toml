@@ -5,8 +5,8 @@ apple-category = "GAMES"
 copyright = "2026 Daybrite"
 contact-email = "hello@daybrite.dev"
 review-notes = """
-Four games in one app, all playable offline from the first launch. Tap a tile on the home screen to
-open a game full screen; the X closes it and saves your progress.
+Every game in the app plays offline from the first launch. Tap a tile on the home screen to open
+a game full screen; the X closes it and saves your progress.
 
 No account, no network access, no advertising, and no purchases of any kind.
 """

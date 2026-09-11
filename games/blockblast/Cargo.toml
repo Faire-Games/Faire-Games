@@ -1,0 +1,20 @@
+[package]
+name = "blockblast"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+
+# A COMPOSITE Day piece: a reusable widget built PURELY from Day's core primitives — no native /
+# per-backend code and NO cargo features, so it works on every backend for free. Depend on it with a
+# plain `{ workspace = true }` (or git) line and call the builder from `use day::prelude::*` code.
+
+[dependencies]
+day-pieces = { git = "https://github.com/daybrite/day.git" }
+day-core = { git = "https://github.com/daybrite/day.git" }
+day-reactive = { git = "https://github.com/daybrite/day.git" }
+day-geometry = { git = "https://github.com/daybrite/day.git" }
+
+day-part-haptics = { git = "https://github.com/daybrite/day.git" }
+gamekit = { path = "../../gamekit" }
+serde = { version = "1", features = ["derive"] }
+day-fluent = { git = "https://github.com/daybrite/day.git" }

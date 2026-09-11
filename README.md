@@ -1,6 +1,6 @@
 # Day Games
 
-Four games in one app: Breakout, falling blocks, Sudoku, and 2048. Built with
+Block Blast, Breakout, falling blocks, Sudoku, and 2048 in one app. Built with
 [Day](https://daybrite.dev) in one Rust codebase and rendered with the platform's own widgets on
 iPhone, Android, HarmonyOS, macOS, Windows, Linux, and the web. Every game runs entirely on the
 device, and your progress is saved when you leave a game and restored when you come back.
@@ -22,6 +22,10 @@ missing. The launch prints where it put the checkout, so you can open the code a
 
 ## The games
 
+- **Block Blast.** Drag pieces from a tray of three onto an 8×8 board and fill rows and columns
+  to clear them. A preview lights up the lines a drop would clear, clears on consecutive
+  placements build a combo worth up to four times the points, emptying the board pays a
+  5,000-point bonus, and three difficulties decide how reliably the tray deals pieces that fit.
 - **Breakout.** Clear the bricks with a paddle that glides under your finger and can smash the
   ball up or down. Quick successive breaks multiply the score, armored bricks arrive on later
   levels, and five power-ups drop from marked bricks: a wider paddle, a slower ball, a ball
@@ -38,10 +42,11 @@ settings, or reread the rules, and a results card with your best score. The rule
 themselves the first time you play a game. Haptics follow a Vibrations switch in each game's
 settings. With a mouse or trackpad the Breakout paddle follows the pointer across the field
 and the cursor hides while it does; the arrow keys move the paddle, the piece, the tiles, or
-the Sudoku selection.
+the Sudoku selection. In Block Blast, 1 to 3 pick up a piece, the arrows move it, and the same
+number drops it.
 
-The home screen is a grid of tiles whose previews are drawn by each game's own crate with the
-same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X
+The home screen is a grid of tiles that fills the window's width and adds a column whenever
+the window has room for another tile. Each preview is drawn by the game's own crate with the same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X
 to exit. On the phones the games defer the system's edge gestures and disable interactive
 dismissal, so an edge swipe mid-game stays in the game.
 
@@ -66,9 +71,10 @@ day build  -p windows-xaml       # build only (Windows builds on a Windows host)
 To build from plain cargo, pass the backend feature yourself, for example
 `cargo build --features appkit`; a bare `cargo build` enables no backend and will not link.
 
-Four [dayscripts](https://daybrite.dev/docs/dayscript) drive the app: `smoke.yaml` opens each
-game, `sudoku.yaml` walks every Sudoku surface, and `bk.yaml` and `games.yaml` sweep gameplay
-for screenshots:
+[Dayscripts](https://daybrite.dev/docs/dayscript) drive the app: `smoke.yaml` opens each
+game, `sudoku.yaml` walks every Sudoku surface, `blockblast.yaml` places Block Blast pieces
+from the keyboard and walks its menus, and `bk.yaml` and `games.yaml` sweep gameplay for
+screenshots:
 
 ```sh
 day launch -p ios-uikit --script dayscript/games.yaml
@@ -78,8 +84,9 @@ day launch -p ios-uikit --script dayscript/games.yaml
 
 - `src/lib.rs` is `root()`: the home grid and the fullscreen cover each game opens in, with typed
   routes so deep links and dayscript can open a game by name.
-- `games/breakout`, `games/sirtet`, `games/sudoku`, and `games/twentyfortyeight` are one crate
-  per game: canvas or grid-layout UI, physics on the frame clock, and a serde save state.
+- `games/blockblast`, `games/breakout`, `games/sirtet`, `games/sudoku`, and
+  `games/twentyfortyeight` are one crate per game: canvas or grid-layout UI, physics on the
+  frame clock, and a serde save state.
 - `gamekit/` is the shared persistence layer: each game's state is saved when its cover closes
   or the app is backgrounded, and restored the next time it opens. A game that keeps a clock
   can also hook the backgrounding itself, which is how Sudoku pauses.

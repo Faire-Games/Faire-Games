@@ -7,6 +7,7 @@ nav_breakout = Breakout
 nav_sirtet = Sirtet
 nav_sudoku = Sudoku
 nav_2048 = 2048
+nav_blockblast = Block Blast
 
 close_game = Close game
 
@@ -104,6 +105,48 @@ tf_help_tips = Tips
 tf_help_tips_1 = • Pick a corner and keep your largest tile parked there.
 tf_help_tips_2 = • Build merges in a single direction so smaller tiles line up underneath your big one.
 tf_help_tips_3 = • On Easy, **undo** is available. Use it to recover from a mistake.
+
+# Block Blast
+bb_board_a11y = Block Blast board and piece tray
+bb_no_moves = No piece in the tray fits on the board.
+bb_combo = Combo ×{ $n }
+bb_lines = { $n } Lines
+bb_msg_nice = Nice!
+bb_msg_good = Good!
+bb_msg_sweet = Sweet!
+bb_msg_great = Great!
+bb_msg_smooth = Smooth!
+bb_msg_slick = Slick!
+bb_msg_awesome = Awesome!
+bb_msg_excellent = Excellent!
+bb_msg_fantastic = Fantastic!
+bb_msg_amazing = Amazing!
+bb_msg_incredible = Incredible!
+bb_msg_spectacular = Spectacular!
+bb_msg_unbelievable = UNBELIEVABLE!
+bb_msg_legendary = LEGENDARY!
+bb_msg_unstoppable = UNSTOPPABLE!
+bb_msg_perfect = PERFECT CLEAR!
+bb_msg_flawless = FLAWLESS!
+bb_easy = Easy
+bb_normal = Normal
+bb_hard = Hard
+bb_detail_easy = Every set of three pieces can be placed.
+bb_detail_normal = Pieces usually fit. A balanced challenge.
+bb_detail_hard = Random pieces. The board can run out of room.
+bb_choose_difficulty = Choose Difficulty
+bb_help_intro = Place pieces on the 8×8 board. Fill a whole **row** or **column** and it clears.
+bb_help_play = How to play
+bb_help_play_1 = • **Drag** a piece from the tray onto the board. It rides above your finger, a shadow shows where it will land, and the lines it would complete light up.
+bb_help_play_2 = • Pieces never rotate. When all three are placed, three new ones arrive.
+bb_help_play_3 = • On a keyboard, press **1**, **2**, or **3** to pick up a piece, move it with the arrow keys, and press the same number again to drop it.
+bb_help_score = Scoring
+bb_help_score_1 = • Each block you place is worth 10 points. Cleared lines score 100 × the square of how many clear at once, so four lines together pay 1,600.
+bb_help_score_2 = • Clear on consecutive placements to build a **combo** that multiplies a clear's points, up to ×4. A combo survives two placements without a clear; the third ends it.
+bb_help_score_3 = • Empty the whole board for a **5,000-point** bonus.
+bb_help_difficulty = Difficulty
+bb_help_difficulty_1 = • On **Easy**, every set of three pieces can be placed. **Normal** usually deals a set that fits, and **Hard** deals at random.
+bb_help_over_1 = The game ends when no piece in the tray fits anywhere on the board. A piece that fits nowhere is dimmed in the tray.
 
 # Sudoku
 su_title = SUDOKU

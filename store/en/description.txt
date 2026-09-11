@@ -1,4 +1,7 @@
-Four games worth keeping on your phone, in one app that never asks you for anything.
+Games worth keeping on your phone, in one app that never asks you for anything.
+
+BLOCK BLAST
+Drag pieces onto the board and fill rows and columns to clear them. Clear on back-to-back moves for a combo, or empty the whole board for a 5,000-point bonus.
 
 BREAKOUT
 Clear the bricks. Power-ups widen the paddle, slow the ball, or let it smash straight through. Levels get faster.

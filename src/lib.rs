@@ -1,8 +1,8 @@
 //! Day Games — a [Day](https://daybrite.dev) app of small arcade/puzzle games, one crate each.
 //! `root()` is the whole UI, shared by every platform: the phones, the desktops, and the web.
 //!
-//! The home screen is a grid of game tiles whose previews are drawn by each game's crate with
-//! the SAME rendering code as gameplay. Tapping a tile presents the game in a fullscreen
+//! The home screen is a wrapping grid of game tiles stretched to the window's width, whose
+//! previews are drawn by each game's crate with the SAME rendering code as gameplay. Tapping a tile presents the game in a fullscreen
 //! `cover` (docs/cover.md) with an X in the top-leading corner to exit; the games defer the
 //! system's edge gestures and disable interactive dismissal so an edge swipe mid-game doesn't
 //! leave the game. Each game saves its state through `gamekit` when the cover closes or the
@@ -32,6 +32,7 @@ day::routes! {
     /// The app's games, typed: each variant's key is what deep links, dayscript, and
     /// `current_route()` speak.
     pub(crate) enum Section {
+        BlockBlast => "blockblast",
         Breakout => "breakout",
         Sirtet => "sirtet",
         Sudoku => "sudoku",
@@ -42,11 +43,14 @@ day::routes! {
 /// Home-screen palette: a deep night background with translucent tile cards (the
 /// Faire-Games look).
 const HOME_BG: Color = Color::hex(0x10_10_24);
-const TILE_SPAN: f64 = 132.0;
+/// The narrowest a tile's preview gets. The home grid stretches its columns across the window,
+/// so previews grow from here; this floor still fits two tiles to a line on a 360pt phone.
+const TILE_MIN: f64 = 126.0;
 
 /// Each game's own surface color — painted edge-to-edge behind the presented cover.
 fn game_background(section: Section) -> Color {
     match section {
+        Section::BlockBlast => blockblast::SURFACE,
         Section::Breakout => breakout::SURFACE,
         Section::Sirtet => sirtet::SURFACE,
         Section::Sudoku => sudoku::SURFACE,
@@ -75,18 +79,22 @@ fn tile(
 ) -> impl Piece + use<> {
     let a11y_title = title.format();
     column((
-        preview.frame(TILE_SPAN, TILE_SPAN).corner_radius(16.0),
+        // Square at whatever width the tile's column gets.
+        preview.grow_w().aspect_ratio(1.0).corner_radius(16.0),
         label(title)
             .weight(FontWeight::Semibold)
             .color(Color::WHITE),
     ))
     .spacing(10.0)
+    .min_width(TILE_MIN)
     .padding(12.0)
     .background(Color::rgba(1.0, 1.0, 1.0, 0.08))
     .corner_radius(20.0)
     .on_tap(move || open.set(Some(section)))
     .a11y(move |a| a.label(a11y_title))
     .id(id)
+    // Last, so the home grid sees a growing cell and stretches its columns to the width.
+    .grow_w()
 }
 
 fn home_page(open: Signal<Option<Section>>) -> impl Piece {
@@ -96,41 +104,47 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
                 .font(Font::Title)
                 .bold()
                 .color(Color::WHITE),
-            grid((
-                grid_row((
-                    tile(
-                        open,
-                        Section::Breakout,
-                        res::str::nav_breakout(),
-                        breakout::breakout_preview(),
-                        "tile-breakout",
-                    ),
-                    tile(
-                        open,
-                        Section::Sirtet,
-                        res::str::nav_sirtet(),
-                        sirtet::sirtet_preview(),
-                        "tile-sirtet",
-                    ),
-                )),
-                grid_row((
-                    tile(
-                        open,
-                        Section::Game2048,
-                        res::str::nav_2048(),
-                        twentyfortyeight::twentyfortyeight_preview(),
-                        "tile-twentyfortyeight",
-                    ),
-                    tile(
-                        open,
-                        Section::Sudoku,
-                        res::str::nav_sudoku(),
-                        sudoku::sudoku_preview(),
-                        "tile-sudoku",
-                    ),
-                )),
+            // As many columns as the narrowest tile allows, stretched to the window's width and
+            // re-flowed as it resizes, so a new game is one more tile and never a layout change.
+            row((
+                tile(
+                    open,
+                    Section::Breakout,
+                    res::str::nav_breakout(),
+                    breakout::breakout_preview(),
+                    "tile-breakout",
+                ),
+                tile(
+                    open,
+                    Section::Sirtet,
+                    res::str::nav_sirtet(),
+                    sirtet::sirtet_preview(),
+                    "tile-sirtet",
+                ),
+                tile(
+                    open,
+                    Section::Game2048,
+                    res::str::nav_2048(),
+                    twentyfortyeight::twentyfortyeight_preview(),
+                    "tile-twentyfortyeight",
+                ),
+                tile(
+                    open,
+                    Section::Sudoku,
+                    res::str::nav_sudoku(),
+                    sudoku::sudoku_preview(),
+                    "tile-sudoku",
+                ),
+                tile(
+                    open,
+                    Section::BlockBlast,
+                    res::str::nav_blockblast(),
+                    blockblast::blockblast_preview(),
+                    "tile-blockblast",
+                ),
             ))
-            .spacing(16.0),
+            .spacing(16.0)
+            .fit(RowFit::WrapColumns { run_spacing: 16.0 }),
         ))
         .spacing(20.0)
         .align(HAlign::Leading)
@@ -147,6 +161,7 @@ fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
     cover(open, move |section: &Section| {
         let section = *section;
         let game = match section {
+            Section::BlockBlast => blockblast::blockblast_page(),
             Section::Breakout => breakout::breakout_page(),
             Section::Sirtet => sirtet::sirtet_page(),
             Section::Sudoku => sudoku::sudoku_page(),

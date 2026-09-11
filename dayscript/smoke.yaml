@@ -26,4 +26,10 @@ flow:
   - nav_back:
   - pause: { secs: 0.6 }
 
+  - navigate: { route: blockblast }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: bb-canvas }
+  - nav_back:
+  - pause: { secs: 0.6 }
+
   - screenshot: smoke

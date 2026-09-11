@@ -1,1 +1,1 @@
-First public release. Breakout, falling blocks, Sudoku and 2048, each saving and restoring your game automatically.
+First public release. Block Blast, Breakout, falling blocks, Sudoku and 2048, each saving and restoring your game automatically.
