@@ -35,6 +35,7 @@ day::routes! {
         BlockBlast => "blockblast",
         Breakout => "breakout",
         Sirtet => "sirtet",
+        Solitaire => "solitaire",
         Sudoku => "sudoku",
         Game2048 => "twentyfortyeight",
     }
@@ -53,6 +54,7 @@ fn game_background(section: Section) -> Color {
         Section::BlockBlast => blockblast::SURFACE,
         Section::Breakout => breakout::SURFACE,
         Section::Sirtet => sirtet::SURFACE,
+        Section::Solitaire => solitaire::SURFACE,
         Section::Sudoku => sudoku::SURFACE,
         Section::Game2048 => twentyfortyeight::SURFACE,
     }
@@ -142,6 +144,13 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
                     blockblast::blockblast_preview(),
                     "tile-blockblast",
                 ),
+                tile(
+                    open,
+                    Section::Solitaire,
+                    res::str::nav_solitaire(),
+                    solitaire::solitaire_preview(),
+                    "tile-solitaire",
+                ),
             ))
             .spacing(16.0)
             .fit(RowFit::WrapColumns { run_spacing: 16.0 }),
@@ -164,6 +173,7 @@ fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
             Section::BlockBlast => blockblast::blockblast_page(),
             Section::Breakout => breakout::breakout_page(),
             Section::Sirtet => sirtet::sirtet_page(),
+            Section::Solitaire => solitaire::solitaire_page(),
             Section::Sudoku => sudoku::sudoku_page(),
             Section::Game2048 => twentyfortyeight::twentyfortyeight_page(),
         };

@@ -1,6 +1,6 @@
 # Day Games
 
-Block Blast, Breakout, falling blocks, Sudoku, and 2048 in one app. Built with
+Solitaire, Block Blast, Breakout, falling blocks, Sudoku, and 2048 in one app. Built with
 [Day](https://daybrite.dev) in one Rust codebase and rendered with the platform's own widgets on
 iPhone, Android, HarmonyOS, macOS, Windows, Linux, and the web. Every game runs entirely on the
 device, and your progress is saved when you leave a game and restored when you come back.
@@ -22,6 +22,10 @@ missing. The launch prints where it put the checkout, so you can open the code a
 
 ## The games
 
+- **Solitaire.** Klondike, turning the stock one card at a time or three. With Winnable Deals
+  Only on, a solver plays every deal through to a win before it reaches the table, and Hint
+  shows a move on a winning line. Drag or tap cards; once every card is face up, the rest fly
+  home by themselves, and a win sends the whole deck bouncing off the table.
 - **Block Blast.** Drag pieces from a tray of three onto an 8×8 board and fill rows and columns
   to clear them. A preview lights up the lines a drop would clear, clears on consecutive
   placements build a combo worth up to four times the points, emptying the board pays a
@@ -43,7 +47,8 @@ themselves the first time you play a game. Haptics follow a Vibrations switch in
 settings. With a mouse or trackpad the Breakout paddle follows the pointer across the field
 and the cursor hides while it does; the arrow keys move the paddle, the piece, the tiles, or
 the Sudoku selection. In Block Blast, 1 to 3 pick up a piece, the arrows move it, and the same
-number drops it.
+number drops it. In Solitaire, 1 to 7 pick a column and another of those digits moves it there,
+8 picks the waste, 9 sends a card home, and 0 turns the stock.
 
 The home screen is a grid of tiles that fills the window's width and adds a column whenever
 the window has room for another tile. Each preview is drawn by the game's own crate with the same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X
@@ -73,8 +78,8 @@ To build from plain cargo, pass the backend feature yourself, for example
 
 [Dayscripts](https://daybrite.dev/docs/dayscript) drive the app: `smoke.yaml` opens each
 game, `sudoku.yaml` walks every Sudoku surface, `blockblast.yaml` places Block Blast pieces
-from the keyboard and walks its menus, and `bk.yaml` and `games.yaml` sweep gameplay for
-screenshots:
+from the keyboard and walks its menus, `solitaire.yaml` plays a proven-winnable deal from the
+keyboard, and `bk.yaml` and `games.yaml` sweep gameplay for screenshots:
 
 ```sh
 day launch -p ios-uikit --script dayscript/games.yaml
@@ -84,7 +89,7 @@ day launch -p ios-uikit --script dayscript/games.yaml
 
 - `src/lib.rs` is `root()`: the home grid and the fullscreen cover each game opens in, with typed
   routes so deep links and dayscript can open a game by name.
-- `games/blockblast`, `games/breakout`, `games/sirtet`, `games/sudoku`, and
+- `games/blockblast`, `games/breakout`, `games/sirtet`, `games/solitaire`, `games/sudoku`, and
   `games/twentyfortyeight` are one crate per game: canvas or grid-layout UI, physics on the
   frame clock, and a serde save state.
 - `gamekit/` is the shared persistence layer: each game's state is saved when its cover closes

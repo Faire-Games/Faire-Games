@@ -22,6 +22,10 @@ flow:
   - pause: { secs: 0.6 }
   - nav_back: {}
   - pause: { secs: 0.5 }
+  - navigate: { route: solitaire }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
   # Block Blast from the keyboard, on a fresh Normal deal so the pieces are the seeded ones
   # (dayscript/blockblast.yaml explains the moves): three placements, then a fourth that
   # clears the top row, photographed while the preview is lit and mid-clear.
@@ -67,6 +71,25 @@ flow:
   - key: { id: bb-canvas, key: "2" }
   - pause: { secs: 0.35 }
   - screenshot: { name: blockblast, title: Block Blast, caption: "Drag pieces onto the board; full rows and columns clear, and back-to-back clears build a combo.", source: games/blockblast/src/lib.rs }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  # Solitaire: a fresh Turn One deal, proven winnable before it is dealt, and 9 sending its aces
+  # home (dayscript/solitaire.yaml explains the keys).
+  - navigate: { route: solitaire }
+  - pause: { secs: 0.8 }
+  - tap: { id: sol-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: sol-new-game }
+  - pause: { secs: 0.4 }
+  - tap: { id: sol-draw-1 }
+  - pause: { secs: 3.0 }
+  - key: { id: sol-canvas, key: "9" }
+  - pause: { secs: 0.12 }
+  - screenshot: solitaire-flight
+  - pause: { secs: 1.0 }
+  - key: { id: sol-canvas, key: "9" }
+  - pause: { secs: 1.0 }
+  - screenshot: { name: solitaire, title: Solitaire, caption: "Klondike, one card at a time or three; with Winnable Deals Only on, a solver proves every deal before it reaches the table.", source: games/solitaire/src/lib.rs }
   - nav_back: {}
   - pause: { secs: 0.6 }
   - navigate: { route: breakout }

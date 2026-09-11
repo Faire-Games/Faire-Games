@@ -8,6 +8,7 @@ nav_sirtet = Sirtet
 nav_sudoku = Sudoku
 nav_2048 = 2048
 nav_blockblast = Block Blast
+nav_solitaire = Solitaire
 
 close_game = Close game
 
@@ -147,6 +148,50 @@ bb_help_score_3 = • Empty the whole board for a **5,000-point** bonus.
 bb_help_difficulty = Difficulty
 bb_help_difficulty_1 = • On **Easy**, every set of three pieces can be placed. **Normal** usually deals a set that fits, and **Hard** deals at random.
 bb_help_over_1 = The game ends when no piece in the tray fits anywhere on the board. A piece that fits nowhere is dimmed in the tray.
+
+# Solitaire
+sol_table_a11y = Solitaire table
+sol_time = Time
+sol_moves = Moves
+sol_hint = Hint
+sol_undo = Undo
+sol_draw_one = Turn One
+sol_draw_three = Turn Three
+sol_detail_one = Turn one card at a time from the stock.
+sol_detail_three = Turn three at a time; only the top one plays.
+sol_choose = Choose a Game
+sol_shuffling = Shuffling…
+sol_finding = Finding a deal you can win
+sol_suit_done = Suit Complete!
+sol_you_win = YOU WIN!
+sol_new_best_time = New Best Time!
+sol_best_time = Best Time
+sol_record = Won { $won } of { $played } · Streak { $streak }
+sol_stuck_title = NO MORE MOVES
+sol_stuck_message = Nothing left on the table can be played. Undo a few moves or deal again.
+sol_no_line = No Way to Win from Here
+sol_try_undo = Undo a few moves and try another line.
+sol_winnable = Winnable Deals Only
+sol_winnable_detail = A solver plays each deal through to a win before you see it.
+sol_statistics = Statistics
+sol_stats_one = Turn One: won { $won } of { $played }
+sol_stats_three = Turn Three: won { $won } of { $played }
+sol_reset_stats = Reset Statistics
+sol_reset_stats_title = Reset Statistics?
+sol_reset_stats_message = This will permanently reset every Solitaire win, streak and best time.
+sol_help_intro = Build four foundations up from **ace to king**, one suit each.
+sol_help_play = How to play
+sol_help_play_1 = • On the table, build columns **down in alternating colors**: a red 6 goes on a black 7. A card moves together with everything on top of it.
+sol_help_play_2 = • Only a **king** can start an empty column. Moving the cards off a face-down card turns it over.
+sol_help_play_3 = • Tap the stock to turn cards onto the waste. When it runs out, tap it again to turn the waste back over.
+sol_help_play_4 = • **Drag** cards where you want them, or **tap** a card to send it to its best spot. Once every card is face up, the rest fly home by themselves.
+sol_help_score = Scoring
+sol_help_score_1 = • A card to a foundation scores 10, a card from the waste to the table 5, and a card turned face up 5. Taking a card back down off a foundation costs 15.
+sol_help_score_2 = • Turning the waste back over costs 100 in Turn One and 20 in Turn Three. A win adds a bonus for speed.
+sol_help_winnable = Winnable deals
+sol_help_winnable_1 = • With **Winnable Deals Only** on in Settings, a solver has played every deal through to a win before it reaches you. **Hint** shows a move on a winning line, and says so when there is no way left to win.
+sol_help_keys = Keyboard
+sol_help_keys_1 = • Press **1** to **7** to pick a column, then another of them to move it there, or the same one again to send it to its best spot. **8** picks the waste, **9** sends a card home, and **0** turns the stock. The arrow keys move the pick and change how many cards it takes.
 
 # Sudoku
 su_title = SUDOKU
