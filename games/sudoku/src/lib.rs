@@ -4,8 +4,10 @@
 //! (docs/grid.md): 9 `grid_row`s of 9 interactive cell canvases; the keypad and action
 //! buttons are canvases too, so the dark game surface reads the same on every toolkit; the
 //! pause, solved, difficulty, settings, and instructions surfaces are in-page overlays with
-//! native buttons. Desktop keyboards move the selection with the arrows and clear a cell with
-//! Delete. All user-facing strings resolve through Fluent (`tr`, resource/locales/*/app.ftl).
+//! native buttons. A hardware keyboard types a digit into the selected cell, clears it with 0
+//! (and with Delete or Backspace where no menu bar owns them), and moves the selection with the
+//! arrows; every canvas on the page hears the same keys. All user-facing strings resolve
+//! through Fluent (`tr`, resource/locales/*/app.ftl).
 
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
@@ -13,7 +15,7 @@ use std::rc::Rc;
 use day_fluent::tr;
 use day_part_haptics::Haptic;
 use day_pieces::prelude::*;
-use day_spec::{LineCap, LineJoin, StrokeStyle};
+use day_spec::{KeyEvent, LineCap, LineJoin, StrokeStyle};
 use gamekit::chrome;
 
 mod model;
@@ -143,6 +145,9 @@ struct Ui {
     return_to: Cell<Overlay>,
     vibrations: Signal<bool>,
     default_difficulty: Signal<usize>,
+    /// Whether the page's backdrop holds the keyboard. It takes it as the page mounts, and
+    /// `show` hands it back whenever the board is uncovered, since a card's buttons can take it.
+    board_focus: Signal<bool>,
 }
 
 impl Ui {
@@ -170,7 +175,7 @@ impl Ui {
     }
 
     /// Present `kind` (or clear with `Overlay::None`). The clock stops while any surface
-    /// covers the board of a live game.
+    /// covers the board of a live game, and uncovering it hands the keyboard back to the page.
     fn show(&self, kind: Overlay) {
         {
             let mut g = self.game.borrow_mut();
@@ -180,6 +185,9 @@ impl Ui {
         }
         self.overlay.set(kind);
         self.board.notify();
+        if kind == Overlay::None {
+            self.board_focus.set(true);
+        }
     }
 
     /// Present a secondary surface (the picker, settings, instructions) and remember what to
@@ -201,6 +209,59 @@ impl Ui {
         self.return_to.set(Overlay::None);
         self.show(Overlay::None);
         self.haptic(Haptic::Medium);
+    }
+
+    /// Enter `digit` into the selected cell: the keypad's action, and a typed digit's. A digit
+    /// the cell already holds clears it, with the lighter tick.
+    fn enter(&self, digit: u8) {
+        let clears = self.game.borrow().clears_with(digit);
+        let mut placed = false;
+        self.edit(|g| placed = g.place(digit));
+        if placed {
+            self.haptic(if clears {
+                Haptic::Light
+            } else {
+                Haptic::Medium
+            });
+        }
+    }
+
+    fn erase(&self) {
+        let mut erased = false;
+        self.edit(|g| erased = g.erase());
+        if erased {
+            self.haptic(Haptic::Light);
+        }
+    }
+
+    /// A hardware key, heard by whichever of the page's canvases has focus (docs/menus.md): a
+    /// digit fills the selected cell, 0 and the delete keys clear it, and the arrows move the
+    /// selection. Menu-bar platforms keep Delete and Backspace for their menus, so 0 is the
+    /// clear key every keyboard delivers.
+    fn key(&self, k: &KeyEvent) {
+        if self.overlay.get_untracked() != Overlay::None {
+            return;
+        }
+        if let Some(digit) = k.digit() {
+            if digit == 0 {
+                self.erase();
+            } else {
+                self.enter(digit);
+            }
+            return;
+        }
+        let (dr, dc) = match k.key.as_str() {
+            "ArrowLeft" => (0, -1),
+            "ArrowRight" => (0, 1),
+            "ArrowUp" => (-1, 0),
+            "ArrowDown" => (1, 0),
+            "Delete" | "Backspace" => {
+                self.erase();
+                return;
+            }
+            _ => return,
+        };
+        self.edit(|g| g.move_selection(dr, dc));
     }
 
     fn settings(&self) -> Settings {
@@ -533,6 +594,7 @@ pub fn sudoku_page() -> AnyPiece {
         return_to: Cell::new(Overlay::None),
         vibrations: Signal::new(settings.vibrations),
         default_difficulty: Signal::new(settings.default_difficulty.index()),
+        board_focus: Signal::new(true),
     });
 
     // Settings persist as they change; the first run also records that the instructions
@@ -573,6 +635,9 @@ pub fn sudoku_page() -> AnyPiece {
         }
     });
 
+    // The keyboard's home: the backdrop takes focus as the page mounts and again whenever a
+    // card closes, and every canvas a press can land on hears the same keys, so a click
+    // anywhere on the page keeps them coming.
     let backdrop = canvas(|d, sz| {
         d.fill(
             Shape::Rect(Rect::new(0.0, 0.0, sz.width, sz.height)),
@@ -583,6 +648,9 @@ pub fn sudoku_page() -> AnyPiece {
             ),
         );
     })
+    .on_key(keys(&ui))
+    .focused(ui.board_focus)
+    .id("su-backdrop")
     .grow();
 
     let content = column((
@@ -607,6 +675,12 @@ pub fn sudoku_page() -> AnyPiece {
     zstack((backdrop, page, overlays(ui), ticker)).any()
 }
 
+/// The page's key handler, for every canvas a press can focus (docs/menus.md).
+fn keys(ui: &Rc<Ui>) -> impl Fn(&KeyEvent) + 'static {
+    let ui = ui.clone();
+    move |k| ui.key(k)
+}
+
 /// Title and pause button; the leading gutter clears the cover's close button.
 fn hud(ui: Rc<Ui>) -> impl Piece {
     let pause = canvas(|d, sz| {
@@ -618,6 +692,7 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
             Color::rgba(1.0, 1.0, 1.0, 0.7),
         );
     })
+    .on_key(keys(&ui))
     .on_tap(move || {
         if ui.overlay.get_untracked() == Overlay::None {
             ui.show(Overlay::Pause);
@@ -734,6 +809,7 @@ fn board_grid(ui: Rc<Ui>) -> impl Piece {
             2.0,
         );
     })
+    .on_key(keys(&ui))
     .frame(BOARD, BOARD);
     let pause_cover = {
         let u = ui.clone();
@@ -804,22 +880,7 @@ fn cell_piece(ui: Rc<Ui>, r: usize, c: usize) -> AnyPiece {
         tap_ui.board.notify();
         tap_ui.haptic(Haptic::Selection);
     })
-    .on_key(move |k| {
-        let (dr, dc) = match k.key.as_str() {
-            "ArrowLeft" => (0, -1),
-            "ArrowRight" => (0, 1),
-            "ArrowUp" => (-1, 0),
-            "ArrowDown" => (1, 0),
-            "Delete" | "Backspace" => {
-                key_ui.edit(|g| {
-                    g.erase();
-                });
-                return;
-            }
-            _ => return,
-        };
-        key_ui.edit(|g| g.move_selection(dr, dc));
-    })
+    .on_key(move |k| key_ui.key(k))
     .a11y(move |a| {
         a.label(
             tr("su_cell_a11y")
@@ -1003,7 +1064,7 @@ fn number_pad(ui: Rc<Ui>) -> impl Piece {
 }
 
 fn number_key(ui: Rc<Ui>, digit: u8) -> AnyPiece {
-    let (du, tu) = (ui.clone(), ui);
+    let (du, tu, ku) = (ui.clone(), ui.clone(), ui);
     canvas(move |d, sz| {
         du.board.track();
         let g = du.game.borrow();
@@ -1071,18 +1132,8 @@ fn number_key(ui: Rc<Ui>, digit: u8) -> AnyPiece {
             },
         );
     })
-    .on_tap(move || {
-        let clears = tu.game.borrow().clears_with(digit);
-        let mut placed = false;
-        tu.edit(|g| placed = g.place(digit));
-        if placed {
-            tu.haptic(if clears {
-                Haptic::Light
-            } else {
-                Haptic::Medium
-            });
-        }
-    })
+    .on_tap(move || tu.enter(digit))
+    .on_key(move |k| ku.key(k))
     .a11y(move |a| {
         a.label(tr("su_key_a11y").arg("n", digit as f64).format())
             .role(Role::Button)
@@ -1104,7 +1155,7 @@ fn action_button(
     id: &'static str,
 ) -> AnyPiece {
     let a11y_title = title();
-    let du = ui;
+    let (du, ku) = (ui.clone(), ui);
     canvas(move |d, sz| {
         du.board.track();
         let (w, h) = (sz.width, sz.height);
@@ -1136,6 +1187,7 @@ fn action_button(
         );
     })
     .on_tap(action)
+    .on_key(move |k| ku.key(k))
     .a11y(move |a| a.label(a11y_title.clone()).role(Role::Button))
     .id(id)
     .frame(ACTION_W, ACTION_H)
@@ -1163,7 +1215,7 @@ fn split_button(
                 action: Box<dyn Fn()>,
                 id: &'static str,
                 top: bool| {
-        let du = ui.clone();
+        let (du, ku) = (ui.clone(), ui.clone());
         let a11y_title = title.format();
         canvas(move |d, sz| {
             du.board.track();
@@ -1199,6 +1251,7 @@ fn split_button(
             );
         })
         .on_tap(action)
+        .on_key(move |k| ku.key(k))
         .a11y(move |a| a.label(a11y_title.clone()).role(Role::Button))
         .id(id)
         .frame(ACTION_W, ACTION_H / 2.0)
@@ -1621,6 +1674,7 @@ fn instructions_card(ui: Rc<Ui>) -> AnyPiece {
         para(tr("su_help_play_2")),
         para(tr("su_help_play_3")),
         para(tr("su_help_play_4")),
+        para(tr("su_help_play_5")),
         heading(tr("su_help_checkpoint")),
         para(tr("su_help_checkpoint_1")),
         para(tr("su_help_checkpoint_2")),

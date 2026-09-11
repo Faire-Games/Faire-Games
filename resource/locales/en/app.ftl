@@ -152,6 +152,7 @@ su_help_play_1 = • **Tap a cell** to select it.
 su_help_play_2 = • **Tap a digit** in the keypad to fill the selected cell.
 su_help_play_3 = • When the selected cell already contains a digit, that digit's key sinks in. Tap it again to clear the cell.
 su_help_play_4 = • Use **notes mode** (the pencil) to mark candidate digits in a cell while you work out which numbers are still possible.
+su_help_play_5 = • On a keyboard, type a digit to fill the selected cell, or **0** to clear it. The arrow keys move the selection.
 su_help_checkpoint = Checkpoint
 su_help_checkpoint_1 = • Tap **Checkpoint** to start a tentative session. Every digit you place after that point is shown in a distinctive color so you can tell experiment from confirmed work.
 su_help_checkpoint_2 = • The Checkpoint button then splits into **Commit** (keep the placements and clear the highlight) and **Revert** (remove every checkpoint placement and return to where the session started).

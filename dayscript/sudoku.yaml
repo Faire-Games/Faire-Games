@@ -44,6 +44,16 @@ flow:
   - pause: { secs: 0.3 }
   - assert_visible: { id: su-redo }
   - tap: { id: su-redo }
+  # A hardware keyboard. The page holds the keyboard from the start, so a typed digit reaches
+  # the selected cell: after an undo there is a redo on offer, and the placement clears it.
+  - assert_focused: { id: su-backdrop }
+  - tap: { id: su-cell-42 }
+  - tap: { id: su-undo }
+  - pause: { secs: 0.3 }
+  - assert_visible: { id: su-redo }
+  - key: { key: "3" }
+  - pause: { secs: 0.3 }
+  - assert_missing: { id: su-redo }
   # Pause: the board hides behind the cover and the menu comes up.
   - tap: { id: su-pause }
   - pause: { secs: 0.4 }
