@@ -21,6 +21,9 @@ Slide the tiles, watch them merge, chase your best score. Reaching 2048 is not t
 CHARADES
 Hold the phone to your forehead while your friends give clues, nod when you guess right, and tip your head back to pass. Decks run from animals and movies to sayings and things to act out, and the screen stays on for the whole round.
 
+MINES
+The classic sweeper. Your first tap is always safe, holding a square plants a flag, and a number with all its flags opens the rest around it. Three board sizes, each shaped to fit your screen.
+
 WHAT IT DOES NOT DO
 
 No advertising. No purchases. No account. No network access at all — every game runs entirely on your device. Your progress is saved when you leave a game and restored when you come back, including if the phone puts the app to sleep mid-round.

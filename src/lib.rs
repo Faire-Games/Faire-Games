@@ -35,6 +35,7 @@ day::routes! {
         BlockBlast => "blockblast",
         Breakout => "breakout",
         Charades => "charades",
+        Mines => "mines",
         Sirtet => "sirtet",
         Solitaire => "solitaire",
         Sudoku => "sudoku",
@@ -55,6 +56,7 @@ fn game_background(section: Section) -> Color {
         Section::BlockBlast => blockblast::SURFACE,
         Section::Breakout => breakout::SURFACE,
         Section::Charades => charades::SURFACE,
+        Section::Mines => mines::SURFACE,
         Section::Sirtet => sirtet::SURFACE,
         Section::Solitaire => solitaire::SURFACE,
         Section::Sudoku => sudoku::SURFACE,
@@ -160,6 +162,13 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
                     charades::charades_preview(),
                     "tile-charades",
                 ),
+                tile(
+                    open,
+                    Section::Mines,
+                    res::str::nav_mines(),
+                    mines::mines_preview(),
+                    "tile-mines",
+                ),
             ))
             .spacing(16.0)
             .fit(RowFit::WrapColumns { run_spacing: 16.0 }),
@@ -182,6 +191,7 @@ fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
             Section::BlockBlast => blockblast::blockblast_page(),
             Section::Breakout => breakout::breakout_page(),
             Section::Charades => charades::charades_page(),
+            Section::Mines => mines::mines_page(),
             Section::Sirtet => sirtet::sirtet_page(),
             Section::Solitaire => solitaire::solitaire_page(),
             Section::Sudoku => sudoku::sudoku_page(),

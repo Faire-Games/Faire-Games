@@ -30,6 +30,10 @@ flow:
   - pause: { secs: 0.6 }
   - nav_back: {}
   - pause: { secs: 0.5 }
+  - navigate: { route: mines }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
   # Block Blast from the keyboard, on a fresh Normal deal so the pieces are the seeded ones
   # (dayscript/blockblast.yaml explains the moves): three placements, then a fourth that
   # clears the top row, photographed while the preview is lit and mid-clear.
@@ -111,6 +115,23 @@ flow:
   - tap: { id: ch-start }
   - pause: { secs: 3.6 }
   - screenshot: charades-card
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+  # Mines: a fresh Easy board with a flag planted beside the opening. A flagged square holds the
+  # cascade, so the flag is still there once the clearing runs into it.
+  - navigate: { route: mines }
+  - pause: { secs: 0.6 }
+  - tap: { id: mi-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-new-game }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-diff-easy }
+  - pause: { secs: 0.6 }
+  - key: { id: mi-board, key: "f" }
+  - key: { id: mi-board, key: "ArrowDown" }
+  - key: { id: mi-board, key: " " }
+  - pause: { secs: 0.6 }
+  - screenshot: { name: mines, title: Mines, caption: "The classic sweeper: your first tap is always safe, hold a square to flag it, and the board turns with the window.", source: games/mines/src/lib.rs }
   - nav_back: {}
   - pause: { secs: 0.6 }
   - navigate: { route: breakout }

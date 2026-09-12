@@ -40,6 +40,10 @@ missing. The launch prints where it put the checkout, so you can open the code a
   commit or revert, hints where the difficulty allows them, and a best time per difficulty.
 - **2048.** Slide the tiles, watch them merge, and chase your best score. Reaching 2048 is not
   the end unless you want it to be.
+- **Mines.** The sweeper you know, with the sharp edges filed off: your first tap is always safe
+  and opens a clearing, holding a square plants a flag (or turn on Flag Mode and tap), and tapping
+  a number that already has its flags opens the rest around it. Three board sizes, each turning
+  with the window so the squares stay big enough to hit on a phone, and a best time for each.
 - **Charades.** The party game for a phone on your forehead: your friends give clues, you nod
   when you guess right and tip your head back to pass, and the phone reads the tilt. Decks run
   from animals and movies to sayings and things to act out, no word repeats until its deck is
@@ -55,7 +59,8 @@ and the cursor hides while it does; the arrow keys move the paddle, the piece, t
 the Sudoku selection. In Block Blast, 1 to 3 pick up a piece, the arrows move it, and the same
 number drops it. In Solitaire, 1 to 7 pick a column and another of those digits moves it there,
 8 picks the waste, 9 sends a card home, and 0 turns the stock. In Charades, ↓ or Return scores
-a card and ↑ passes it.
+a card and ↑ passes it. In Mines, the arrows move the pointer, Space or Return uncovers, and F
+plants a flag.
 
 The home screen is a grid of tiles that fills the window's width and adds a column whenever
 the window has room for another tile. Each preview is drawn by the game's own crate with the same code that renders gameplay. Tapping a tile presents the game in a fullscreen cover with an X

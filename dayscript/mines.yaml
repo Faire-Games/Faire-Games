@@ -1,0 +1,66 @@
+# Mines from the keyboard: a fresh Easy board, F flags the square under the pointer, Space
+# uncovers (the first tap is always safe), then Flag Mode, a bigger board, and settings.
+# Run with `--env DAY_GAMES_SEED=15`.
+name: mines
+flow:
+  - wait_for: { id: home }
+  # The rules open by themselves the first time the game is played.
+  - navigate: { route: mines }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
+  - navigate: { route: mines }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: mi-board }
+  # Opening restores the game you left, so deal a fresh Easy board to play from here.
+  - tap: { id: mi-pause }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: mi-pause-menu }
+  - tap: { id: mi-new-game }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: mi-picker }
+  - screenshot: mines-picker
+  - tap: { id: mi-diff-easy }
+  - pause: { secs: 0.6 }
+  - assert_text: { id: mi-mines-left, text: "10" }
+  - screenshot: mines-fresh
+  # A flag takes one off the counter and lifting it puts it back. Flagging is allowed before the
+  # first tap, so this holds wherever the pointer happens to be.
+  - key: { id: mi-board, key: "f" }
+  - pause: { secs: 0.4 }
+  - assert_text: { id: mi-mines-left, text: "9" }
+  - screenshot: mines-flagged
+  - key: { id: mi-board, key: "f" }
+  - pause: { secs: 0.4 }
+  - assert_text: { id: mi-mines-left, text: "10" }
+  # The first tap is always safe, and it opens a clearing.
+  - key: { id: mi-board, key: " " }
+  - pause: { secs: 0.6 }
+  - screenshot: mines-opened
+  - tap: { id: mi-flag-mode }
+  - pause: { secs: 0.4 }
+  - screenshot: mines-flag-mode
+  - tap: { id: mi-flag-mode }
+  - pause: { secs: 0.3 }
+  # A bigger board, with its long side still down the window.
+  - tap: { id: mi-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-new-game }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-diff-medium }
+  - pause: { secs: 0.6 }
+  - assert_text: { id: mi-mines-left, text: "25" }
+  - key: { id: mi-board, key: " " }
+  - pause: { secs: 0.8 }
+  - screenshot: mines-medium
+  - tap: { id: mi-pause }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-settings }
+  - pause: { secs: 0.4 }
+  - assert_visible: { id: mi-settings-card }
+  - screenshot: mines-settings
+  - tap: { id: mi-done }
+  - pause: { secs: 0.4 }
+  - tap: { id: mi-resume }
+  - pause: { secs: 0.5 }
+  - nav_back: {}

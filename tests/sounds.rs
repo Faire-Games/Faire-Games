@@ -12,6 +12,7 @@ const GAMES: &[(&str, &[Sfx])] = &[
     ("blockblast", blockblast::SOUNDS),
     ("breakout", breakout::SOUNDS),
     ("charades", charades::SOUNDS),
+    ("mines", mines::SOUNDS),
     ("sirtet", sirtet::SOUNDS),
     ("solitaire", solitaire::SOUNDS),
     ("sudoku", sudoku::SOUNDS),

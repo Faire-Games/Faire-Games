@@ -41,6 +41,7 @@ day = { git = "https://github.com/daybrite/day.git" }
 blockblast = { path = "games/blockblast" }
 breakout = { path = "games/breakout" }
 charades = { path = "games/charades" }
+mines = { path = "games/mines" }
 gamekit = { path = "gamekit" }
 sirtet = { path = "games/sirtet" }
 solitaire = { path = "games/solitaire" }
@@ -63,6 +64,7 @@ members = [
     "games/blockblast",
     "games/breakout",
     "games/charades",
+    "games/mines",
     "games/sirtet",
     "games/solitaire",
     "games/sudoku",
