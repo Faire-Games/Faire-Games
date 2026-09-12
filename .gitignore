@@ -14,6 +14,12 @@ local.properties
 xcuserdata/
 DerivedData/
 
+# Per-checkout Xcode settings: each platform/<p>/DayApp.xcconfig ends with an optional
+# `#include? "DayApp.local.xcconfig"`, so a developer can set their signing team (and anything
+# else this machine needs) without committing it. Absent on a fresh clone and in CI, which is
+# why the include is optional.
+platform/*/DayApp.local.xcconfig
+
 # macOS
 .DS_Store
 
