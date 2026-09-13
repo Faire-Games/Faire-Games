@@ -35,4 +35,8 @@ platform/*/DayApp.local.xcconfig
 # synthesized data files. Only website/site.toml and website/theme.css are source.
 website/.daysite/
 website/appindex.json
+website/channels.json
 website/gallery-manifest.json
+# The same pair again under each extra build channel's own directory (website/main/).
+website/*/appindex.json
+website/*/gallery-manifest.json

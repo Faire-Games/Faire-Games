@@ -14,3 +14,7 @@ webapp = "webapp"
 
 # The games play in the browser, so the live build is preselected in the platform picker.
 default-platform = "web"
+
+# A 2x2 tile grid sitting over its own day:foreground-glow layer, so tilt
+# gives the two of them real depth against each other.
+icon-effect = "tilt"
