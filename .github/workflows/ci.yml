@@ -6,7 +6,7 @@ on:
     tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
   workflow_dispatch:
   schedule:
-    - cron: "0 20 * * *" # daily (UTC)
+    - cron: "30 20 * * *" # daily (UTC)
 
 permissions:
   contents: write # release-asset upload on tag builds
