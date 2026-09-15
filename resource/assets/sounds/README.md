@@ -104,7 +104,7 @@ ffmpeg -i in.ogg -af "$trim,volume=<target − peak>dB" -ac 1 -ar 44100 -c:a pcm
 | solitaire/undo | Interface Sounds | back_001 |
 | mines/reveal | Impact Sounds | impactGeneric_light_000 |
 | mines/flag | Impact Sounds | impactWood_light_002 |
-| mines/unflag | Interface Sounds | minimize_002 |
+| mines/unflag | Impact Sounds | impactSoft_medium_002 |
 | mines/chord | Impact Sounds | impactGeneric_light_004 |
 | mines/boom | Impact Sounds | impactPunch_heavy_002 |
 | mines/win | Music Jingles | Sax jingles/jingles_SAX12 |

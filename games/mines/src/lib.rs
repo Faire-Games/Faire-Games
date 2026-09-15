@@ -200,12 +200,101 @@ impl Fx {
 }
 
 /// A finger or pointer on the board: the square it went down on, how long it has been there, and
-/// whether it has already done something (a hold that flagged) or wandered off (a scroll).
+/// whether it has already done something (a hold, a release or a tap that acted) or wandered off
+/// (a scroll).
 struct Press {
     cell: usize,
     age: f64,
     moved: bool,
     handled: bool,
+}
+
+/// Claim a press for the move its release makes, at the end of its drag: only a press that
+/// neither slid nor already acted. The press stays behind, marked, for [`claim_at_tap`].
+///
+/// A press that never moves reaches the board as a tap, as a zero-length drag, or as both, in
+/// either order (docs/canvas.md "Interaction"): Android reports the drag's end and then the tap.
+/// A tap in Flag Mode toggles, so answering both planted a flag and lifted it in the same touch.
+fn claim_at_release(press: &mut Option<Press>) -> bool {
+    match press.as_mut() {
+        Some(p) if !p.handled && !p.moved => {
+            p.handled = true;
+            true
+        }
+        _ => false,
+    }
+}
+
+/// Claim a press for a tap report. With no press (a backend that reports only taps) the tap
+/// acts; a press its release or a hold already acted on is spent, and cleared.
+fn claim_at_tap(press: &mut Option<Press>) -> bool {
+    let Some(p) = press.as_mut() else {
+        return true;
+    };
+    if p.handled {
+        *press = None;
+        return false;
+    }
+    p.handled = true;
+    true
+}
+
+#[cfg(test)]
+mod press_tests {
+    use super::*;
+
+    fn down() -> Option<Press> {
+        Some(Press {
+            cell: 4,
+            age: 0.0,
+            moved: false,
+            handled: false,
+        })
+    }
+
+    /// Android's order: the drag ends, then the tap arrives. One move, not a flag and its undo.
+    #[test]
+    fn a_release_then_a_tap_is_one_move() {
+        let mut press = down();
+        assert!(claim_at_release(&mut press));
+        assert!(!claim_at_tap(&mut press));
+        assert!(press.is_none());
+    }
+
+    #[test]
+    fn a_tap_then_a_release_is_one_move() {
+        let mut press = down();
+        assert!(claim_at_tap(&mut press));
+        assert!(!claim_at_release(&mut press));
+    }
+
+    #[test]
+    fn a_tap_or_a_release_alone_still_moves() {
+        assert!(claim_at_tap(&mut None));
+        assert!(claim_at_release(&mut down()));
+    }
+
+    /// The frame clock marks a held press when it flags; neither report may act on it again.
+    #[test]
+    fn a_hold_leaves_nothing_for_the_release_or_the_tap() {
+        let mut press = down();
+        if let Some(p) = press.as_mut() {
+            p.handled = true;
+        }
+        assert!(!claim_at_release(&mut press));
+        assert!(!claim_at_tap(&mut press));
+    }
+
+    /// A slide is no tap at its release, but a platform that still calls it a tap is believed.
+    #[test]
+    fn a_slide_acts_only_if_the_platform_reports_a_tap() {
+        let mut press = down();
+        if let Some(p) = press.as_mut() {
+            p.moved = true;
+        }
+        assert!(!claim_at_release(&mut press));
+        assert!(claim_at_tap(&mut press));
+    }
 }
 
 /// Where the board sits in the canvas: square size and the board's top-left, centered both ways.
@@ -593,9 +682,8 @@ fn board_canvas(ui: Rc<Ui>) -> impl Piece {
         if tu.overlay.get_untracked() != Overlay::None {
             return;
         }
-        // A hold already acted on this press; the tap that ends it is not a second move.
-        if tu.press.borrow().as_ref().is_some_and(|p| p.handled) {
-            *tu.press.borrow_mut() = None;
+        // The drag's end or a hold may already have acted on this press.
+        if !claim_at_tap(&mut tu.press.borrow_mut()) {
             return;
         }
         let hit = {
@@ -626,13 +714,7 @@ fn board_canvas(ui: Rc<Ui>) -> impl Piece {
                 gu.repaint.notify();
             }
             DragPhase::Ended => {
-                let acted = {
-                    let mut press = gu.press.borrow_mut();
-                    match press.take() {
-                        Some(p) => !p.handled && !p.moved,
-                        None => false,
-                    }
-                };
+                let acted = claim_at_release(&mut gu.press.borrow_mut());
                 if acted {
                     let hit = {
                         let b = gu.board.borrow();
