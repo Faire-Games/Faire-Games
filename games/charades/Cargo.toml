@@ -1,6 +1,6 @@
 [package]
 name = "charades"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 license = "Apache-2.0"
 # Compiles every word list under words/ into the game (words/README.md).
