@@ -46,7 +46,8 @@ struct Ui {
     sounds: Signal<bool>,
     vibrations: Signal<bool>,
     focus: Signal<bool>,
-    // A single quarter-turn animation; input waits until it has landed.
+    // A single quarter-turn animation. Cosmetic only: a new rotation restarts it instead of
+    // waiting for it, so a starved frame clock cannot swallow a press (see `act`).
     spinning: Cell<Option<(usize, u8)>>,
     age: Cell<f64>,
     win_age: Cell<f64>,
@@ -87,7 +88,15 @@ impl Ui {
         self.repaint.notify();
     }
     fn act(&self, i: usize, lock: bool) {
-        if !self.active() || self.spinning.get().is_some() {
+        // The game's own state gates a move; the spin animation deliberately does not. It used
+        // to, and since `tick` advances that animation by FRAME deltas, a sparse frame clock left
+        // `spinning` set for longer than the 0.2 s a scripted press waits: macos-appkit lost 4 of
+        // 33 rotations in CI while gtk, qt and xaml took all 33. Rotating mid-spin just restarts
+        // the animation from the tile's new orientation. A doubled report cannot double-rotate
+        // here because the board wires `on_tap` alone — a still press that some backend also
+        // reports as a zero-length drag has no second handler to reach (docs/canvas.md
+        // "Interaction"; Day-Sketch's toggling tap is the case that needs a real guard).
+        if !self.active() {
             return;
         }
         if lock {
@@ -142,8 +151,9 @@ impl Ui {
             return;
         }
         if self.spinning.get().is_some() {
-            self.age.set(self.age.get() + dt);
-            if self.age.get() >= 0.16 {
+            let (age, landed) = advance_spin(self.age.get(), dt);
+            self.age.set(age);
+            if landed {
                 self.spinning.set(None);
             }
             self.repaint.notify();
@@ -324,7 +334,10 @@ pub fn pipes_page() -> AnyPiece {
         move || c.overlay.get() == Overlay::None,
         move || {
             let u = t.clone();
-            frame_clock(move |dt| u.tick(dt.as_secs_f64().min(0.05)))
+            // No second clamp here: day-core already caps a frame delta at 0.1 s
+            // (day-core/src/frame.rs), and clamping again to 0.05 made every timer below count
+            // frames rather than seconds.
+            frame_clock(move |dt| u.tick(dt.as_secs_f64()))
         },
     );
     zstack((content, overlays(ui), clock))
@@ -373,6 +386,17 @@ fn board_canvas(ui: Rc<Ui>) -> AnyPiece {
     .grow()
     .any()
 }
+/// How long a quarter-turn animation draws for.
+const SPIN: f64 = 0.16;
+/// Advance a running spin by one frame's `dt`: the new age, and whether it has landed.
+///
+/// Pure, so the frame arithmetic can be tested. What matters is how many FRAMES this needs, not
+/// how many seconds: day-core hands a consumer at most 0.1 s per frame (day-core/src/frame.rs),
+/// so elapsed wall-clock time beyond that is not recoverable here.
+fn advance_spin(age: f64, dt: f64) -> (f64, bool) {
+    let age = age + dt;
+    (age, age >= SPIN)
+}
 fn layout(size: Size, n: usize) -> (f64, f64, f64) {
     let side = (size.width.min(size.height) - 16.0).clamp(0.0, 560.0);
     (
@@ -415,7 +439,7 @@ fn draw_board(
         let (mask, angle) = match spin {
             Some((j, old)) if i == j => (
                 old,
-                std::f64::consts::FRAC_PI_2 * (age / 0.16).clamp(0.0, 1.0),
+                std::f64::consts::FRAC_PI_2 * (age / SPIN).clamp(0.0, 1.0),
             ),
             _ => (g.tiles[i], 0.0),
         };
@@ -698,4 +722,31 @@ pub fn pipes_preview() -> AnyPiece {
     })
     .grow()
     .any()
+}
+
+#[cfg(test)]
+mod spin_tests {
+    use super::*;
+
+    /// The arithmetic that dropped input in CI. `tick` advances the spin by frame deltas, so the
+    /// animation's 0.16 s is really a frame COUNT; the app used to clamp each delta to 0.05 s,
+    /// making it four frames — more than a starved clock delivers inside the 0.2 s a scripted
+    /// press waits. Unclamped, day-core's own 0.1 s cap is the most one frame can carry.
+    #[test]
+    fn a_spin_lands_in_two_frames_rather_than_four() {
+        let frames = |dt: f64| {
+            let mut age = 0.0;
+            for n in 1..=100 {
+                let (next, landed) = advance_spin(age, dt);
+                age = next;
+                if landed {
+                    return n;
+                }
+            }
+            panic!("a spin never landed at dt={dt}");
+        };
+        assert_eq!(frames(0.05), 4); // the old app-level clamp
+        assert_eq!(frames(0.1), 2); // day-core's cap, the most one frame can carry
+        assert_eq!(frames(1.0 / 60.0), 10); // an unstarved clock
+    }
 }
