@@ -42,6 +42,7 @@ blockblast = { path = "games/blockblast" }
 breakout = { path = "games/breakout" }
 charades = { path = "games/charades" }
 mines = { path = "games/mines" }
+reversi = { path = "games/reversi" }
 gamekit = { path = "gamekit" }
 sirtet = { path = "games/sirtet" }
 solitaire = { path = "games/solitaire" }
@@ -65,6 +66,7 @@ members = [
     "games/breakout",
     "games/charades",
     "games/mines",
+    "games/reversi",
     "games/sirtet",
     "games/solitaire",
     "games/sudoku",

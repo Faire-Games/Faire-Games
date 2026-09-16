@@ -34,6 +34,10 @@ flow:
   - pause: { secs: 0.6 }
   - nav_back: {}
   - pause: { secs: 0.5 }
+  - navigate: { route: reversi }
+  - pause: { secs: 0.6 }
+  - nav_back: {}
+  - pause: { secs: 0.5 }
   # Block Blast from the keyboard, on a fresh Normal deal so the pieces are the seeded ones
   # (dayscript/blockblast.yaml explains the moves): three placements, then a fourth that
   # clears the top row, photographed while the preview is lit and mid-clear.
@@ -179,4 +183,10 @@ flow:
   - tap: { id: su-key-5 }
   - pause: { secs: 0.4 }
   - screenshot: { name: sudoku, title: Sudoku, caption: "Pencil marks, a checkpoint you can commit or revert, and a best time per difficulty.", source: games/sudoku/src/lib.rs }
+  - nav_back: {}
+
+  - navigate: { route: reversi }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: rv-board }
+  - screenshot: reversi
   - nav_back: {}

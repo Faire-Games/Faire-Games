@@ -326,3 +326,34 @@ mi_help_play_3 = • **Hold a square** to plant a flag where you think a mine is
 mi_help_play_4 = • Tap a number that already has all its flags and the rest of its neighbors open at once. It's quick, and it's wrong if a flag is.
 mi_help_keys = Keyboard
 mi_help_keys_1 = • The arrow keys move the pointer, **Space** or **Return** uncovers, and **F** plants or lifts a flag.
+
+# Reversi
+nav_reversi = Reversi
+rv_black = Black
+rv_white = White
+rv_black_turn = Black to move
+rv_white_turn = White to move
+rv_thinking = White is thinking…
+rv_passed = No move for the other side — pass. { $turn }
+rv_black_wins = Black wins!
+rv_white_wins = White wins!
+rv_draw = A draw!
+rv_final_score = Black { $black } · White { $white }
+rv_board_hint = Dots mark legal moves. The gold dot marks the last move.
+rv_board_a11y = Reversi board. Use arrow keys to select a square and Enter to place a disc.
+rv_mode = Opponent
+rv_solo = Computer
+rv_two_players = Two players
+rv_difficulty = Computer difficulty
+rv_easy = Easy
+rv_medium = Medium
+rv_hard = Hard
+rv_start = Start game
+rv_help_rules = Black moves first. Place a disc on a dotted square to trap a line of opposing discs between it and one of yours. Every trapped disc flips to your color, horizontally, vertically, or diagonally.
+rv_help_pass = If you have no legal move, your turn passes automatically. When neither side can move, the game ends—even if squares remain empty. The side with more discs wins.
+rv_help_solo = Play as Black against the computer, or choose Two players in New Game to share the board. Easy plays random legal moves; Medium and Hard look ahead. Corners cannot be flipped: try to claim them!
+rv_help_keys = Tap a dotted square to play. With a keyboard, move the gold outline with the arrow keys and press Space or Enter to place a disc. Press P or Escape to pause. Games save when you leave; pause also freezes the computer and animations.
+
+rv_selection = { $column }{ $row }: { $state }
+rv_legal = Legal move
+rv_empty = Empty

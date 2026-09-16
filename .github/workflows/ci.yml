@@ -26,7 +26,7 @@ jobs:
       # Named rather than "auto": smoke.yaml asserts navigation and the cover routes on every
       # target, and games.yaml sweeps every game for the screenshots the website's gallery
       # publishes (bk.yaml is a local Breakout sweep).
-      scripts: dayscript/smoke.yaml dayscript/games.yaml
+      scripts: dayscript/smoke.yaml dayscript/games.yaml dayscript/reversi.yaml
       # Pins every game's RNG so a scripted run meets the same puzzle and layout everywhere.
       launch-env: DAY_GAMES_SEED=15
       # website/site.toml makes the workflow build and deploy the full project site

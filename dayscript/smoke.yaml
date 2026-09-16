@@ -50,4 +50,10 @@ flow:
   - nav_back:
   - pause: { secs: 0.6 }
 
+  - navigate: { route: reversi }
+  - pause: { secs: 0.6 }
+  - assert_visible: { id: rv-board }
+  - nav_back: {}
+  - pause: { secs: 0.6 }
+
   - screenshot: smoke

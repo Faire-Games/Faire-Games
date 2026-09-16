@@ -1,0 +1,68 @@
+# Deterministic rules, keyboard input, pass-and-play, pause gating, restore and solo play.
+name: reversi
+flow:
+  - wait_for: { id: home }
+  - navigate: { route: reversi }
+  - pause: { secs: 0.5 }
+  - nav_back: {}
+  - pause: { secs: 0.4 }
+  - navigate: { route: reversi }
+  - pause: { secs: 0.5 }
+  - tap: { id: rv-pause }
+  - tap: { id: rv-new-game }
+  - select: { id: rv-mode, index: 1 }
+  - tap: { id: rv-start }
+  - assert_text: { id: rv-black-score, text: "2" }
+  - assert_text: { id: rv-white-score, text: "2" }
+  - screenshot: reversi-opening
+  # Cursor starts at D3: legal opening captures D4.
+  - key: { id: rv-board, key: Enter }
+  - pause: { secs: 0.5 }
+  - assert_text: { id: rv-black-score, text: "4" }
+  - assert_text: { id: rv-white-score, text: "1" }
+  # White replies at C3, capturing D4 back.
+  - key: { id: rv-board, key: ArrowLeft }
+  - key: { id: rv-board, key: Enter }
+  - pause: { secs: 0.5 }
+  - assert_text: { id: rv-black-score, text: "3" }
+  - assert_text: { id: rv-white-score, text: "3" }
+  - screenshot: reversi-two-players
+  # C4 is legal for Black; pausing must block this otherwise valid move.
+  - key: { id: rv-board, key: ArrowDown }
+  - tap: { id: rv-pause }
+  - key: { id: rv-board, key: Enter }
+  - assert_text: { id: rv-black-score, text: "3" }
+  - tap: { id: rv-settings }
+  - assert_visible: { id: rv-sounds }
+  - screenshot: reversi-settings
+  - tap: { id: rv-done }
+  - tap: { id: rv-resume }
+  - nav_back: {}
+  - pause: { secs: 0.4 }
+  - navigate: { route: reversi }
+  - pause: { secs: 0.5 }
+  - assert_text: { id: rv-black-score, text: "3" }
+  - assert_text: { id: rv-white-score, text: "3" }
+  - tap: { id: rv-pause }
+  - tap: { id: rv-new-game }
+  - select: { id: rv-mode, index: 0 }
+  - select: { id: rv-difficulty, index: 2 }
+  - tap: { id: rv-start }
+  - key: { id: rv-board, key: Enter }
+  - tap: { id: rv-pause }
+  - pause: { secs: 1.0 }
+  - assert_text: { id: rv-black-score, text: "4" }
+  - assert_text: { id: rv-white-score, text: "1" }
+  - tap: { id: rv-resume }
+  - pause: { secs: 1.8 }
+  - assert_text: { id: rv-status, key: rv_black_turn }
+  - assert_text: { id: rv-black-score, text: "3" }
+  - assert_text: { id: rv-white-score, text: "3" }
+  - screenshot: reversi-computer
+  - tap: { id: rv-pause }
+  - tap: { id: rv-instructions }
+  - assert_visible: { id: rv-help-done }
+  - screenshot: reversi-rules
+  - tap: { id: rv-help-done }
+  - tap: { id: rv-resume }
+  - nav_back: {}
