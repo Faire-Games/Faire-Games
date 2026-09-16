@@ -23,10 +23,6 @@ const RECORD_KEY: &str = "breakout.best";
 const SETTINGS_KEY: &str = "breakout.settings";
 
 // --- tuning (Faire's constants) ---------------------------------------------------------
-/// The HUD strip above the play field.
-const HUD_H: f64 = 44.0;
-/// Leading gutter for the HUD, clear of the cover's close button.
-const CLOSE_GUTTER: f64 = 52.0;
 const PADDLE_H: f64 = 14.0;
 /// The paddle rests this fraction of the field height above the bottom.
 const PADDLE_BOTTOM_FRACTION: f64 = 0.25;
@@ -1041,11 +1037,8 @@ impl Game {
     /// rasterizer a few dozen ops rather than the whole wall.
     fn draw(&self, d: &mut Draw, sz: Size) {
         self.draw_backdrop(d, sz);
-        self.draw_hud(d, sz.width);
-        d.transformed(Affine::translate(0.0, HUD_H), |d| {
-            self.draw_wall(d);
-            self.draw_play(d);
-        });
+        self.draw_wall(d);
+        self.draw_play(d);
     }
 
     fn draw_backdrop(&self, d: &mut Draw, sz: Size) {
@@ -1060,7 +1053,7 @@ impl Game {
         );
         // A soft glow above the paddle gives the field depth.
         let glow = 280.0;
-        let (gx, gy) = (w / 2.0, HUD_H + (h - HUD_H) * 0.55);
+        let (gx, gy) = (w / 2.0, h * 0.55);
         d.fill(
             Shape::Ellipse(Rect::new(gx - glow, gy - glow, 2.0 * glow, 2.0 * glow)),
             RadialGradient::new(
@@ -1081,66 +1074,6 @@ impl Game {
                 self.draw_brick(d, i, brick);
             }
         }
-    }
-
-    fn draw_hud(&self, d: &mut Draw, w: f64) {
-        d.fill(Shape::Rect(Rect::new(0.0, 0.0, w, HUD_H)), HUD_BG);
-        let mono = |color: Color| TextStyle {
-            size: 12.0,
-            color,
-            anchor: TextAnchor {
-                h: TextAlign::Leading,
-                v: TextVAlign::Middle,
-            },
-            font: CanvasFont {
-                family: None,
-                weight: Some(FontWeight::Bold),
-                italic: false,
-            },
-        };
-        // Lives as dots, centered; the score and level narrow to fit the room either side of them.
-        let lives = self.lives.max(0) as f64;
-        let dots = (lives * 14.0 - 4.0).max(0.0);
-        let start = w / 2.0 - dots / 2.0;
-        let plain = mono(Color::WHITE).font;
-        let score = tr("bk_score").arg("n", self.score).format();
-        d.text(
-            &score,
-            Point::new(CLOSE_GUTTER, HUD_H / 2.0),
-            TextStyle {
-                size: chrome::fit_text(&score, 12.0, &plain, start - 12.0 - CLOSE_GUTTER),
-                ..mono(Color::WHITE)
-            },
-        );
-        for i in 0..self.lives.max(0) {
-            d.fill(
-                Shape::Ellipse(Rect::new(
-                    start + i as f64 * 14.0,
-                    HUD_H / 2.0 - 5.0,
-                    10.0,
-                    10.0,
-                )),
-                Color::rgb(0.9, 0.3, 0.3),
-            );
-        }
-        let level = tr("bk_level").arg("n", self.level as i64).format();
-        d.text(
-            &level,
-            Point::new(w - CLOSE_GUTTER, HUD_H / 2.0),
-            TextStyle {
-                size: chrome::fit_text(
-                    &level,
-                    12.0,
-                    &plain,
-                    w / 2.0 - dots / 2.0 - 12.0 - CLOSE_GUTTER,
-                ),
-                anchor: TextAnchor {
-                    h: TextAlign::Trailing,
-                    v: TextVAlign::Middle,
-                },
-                ..mono(Color::rgba(1.0, 1.0, 1.0, 0.7))
-            },
-        );
     }
 
     /// The play layer: everything that moves, in field coordinates.
@@ -1594,7 +1527,7 @@ pub fn breakout_preview() -> AnyPiece {
         let full = Size::new(280.0, 320.0);
         let mut g = Game::new();
         g.rng = Rng(0x5EED_0001);
-        g.setup(full.width, full.height - HUD_H);
+        g.setup(full.width, full.height);
         g.level = 2;
         g.build_level();
         // Bite a notch out of the wall and drop the two lowest rows, so the tile reads as a
@@ -1809,12 +1742,11 @@ pub fn breakout_page() -> AnyPiece {
     // Four layers, each re-recorded on its own trigger (see `Game::draw`). Every layer
     // fills the same frame, and every one calls `setup` so the first of them to be laid
     // out sizes the field for the rest.
+    // Full bleed behind everything, including the header: it sizes nothing, so it never argues
+    // with the play box about how big the field is.
     let backdrop = {
         let du = ui.clone();
         canvas(move |d, sz| {
-            du.game
-                .borrow_mut()
-                .setup(sz.width, (sz.height - HUD_H).max(10.0));
             du.game.borrow().draw_backdrop(d, sz);
         })
         .grow()
@@ -1823,23 +1755,10 @@ pub fn breakout_page() -> AnyPiece {
         let du = ui.clone();
         canvas(move |d, sz| {
             du.wall.track();
-            du.game
-                .borrow_mut()
-                .setup(sz.width, (sz.height - HUD_H).max(10.0));
-            d.transformed(Affine::translate(0.0, HUD_H), |d| {
-                du.game.borrow().draw_wall(d)
-            });
+            du.game.borrow_mut().setup(sz.width, sz.height.max(10.0));
+            du.game.borrow().draw_wall(d);
         })
         .grow()
-    };
-    let hud = {
-        let du = ui.clone();
-        canvas(move |d, sz| {
-            du.hud.track();
-            du.game.borrow().draw_hud(d, sz.width);
-        })
-        .height(HUD_H)
-        .grow_w()
     };
     let field = {
         let (du, dr, hu, cu, tu, ku) = (
@@ -1852,12 +1771,8 @@ pub fn breakout_page() -> AnyPiece {
         );
         canvas(move |d, sz| {
             du.repaint.track();
-            du.game
-                .borrow_mut()
-                .setup(sz.width, (sz.height - HUD_H).max(10.0));
-            d.transformed(Affine::translate(0.0, HUD_H), |d| {
-                du.game.borrow().draw_play(d)
-            });
+            du.game.borrow_mut().setup(sz.width, sz.height.max(10.0));
+            du.game.borrow().draw_play(d);
         })
         // A mouse, trackpad, or pen steers the paddle by moving over the field — no press
         // needed — and the cursor hides while it is in the paddle's band. Touch never hovers
@@ -1870,7 +1785,7 @@ pub fn breakout_page() -> AnyPiece {
             {
                 let mut g = hu.game.borrow_mut();
                 if !g.game_over && !g.level_complete {
-                    in_band = g.set_pointer_target(p.x, p.y - HUD_H);
+                    in_band = g.set_pointer_target(p.x, p.y);
                 }
             }
             if hu.pointer_in_band.get_untracked() != in_band {
@@ -1895,9 +1810,9 @@ pub fn breakout_page() -> AnyPiece {
             let launched = g.launched;
             g.launch();
             if dr.pointer_seen.get() {
-                g.set_pointer_target(dg.location.x, dg.location.y - HUD_H);
+                g.set_pointer_target(dg.location.x, dg.location.y);
             } else {
-                g.set_target(dg.location.x, dg.location.y - HUD_H);
+                g.set_target(dg.location.x, dg.location.y);
             }
             drop(g);
             if !launched {
@@ -1938,32 +1853,77 @@ pub fn breakout_page() -> AnyPiece {
         )
     };
 
-    let pause = chrome::pause_button(tr("gk_pause"), "bk-pause", {
-        let ui = ui.clone();
-        move || {
-            ui.pause();
-            ui.cue(&cues::SELECT);
-        }
-    })
-    .padding(Insets {
-        top: 0.0,
-        leading: 0.0,
-        bottom: 0.0,
-        trailing: 4.0,
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_breakout"), "bk-pause", move || {
+        pu.pause();
+        pu.cue(&cues::SELECT);
     });
-
+    // The wall and the field share the frame's play box, one over the other.
+    let play = zstack((wall, field)).grow().any();
     zstack((
         backdrop,
-        wall,
-        field,
-        // The HUD strip sits on top so a particle never crosses the numbers, aligned to the
-        // top of the stack (the full-size layers are unaffected by the alignment).
-        hud.overlay_aligned(Alignment::TopTrailing, pause),
+        chrome::game_frame(header, Some(info_bar(ui.clone())), play, None),
         overlays(ui),
         clock,
     ))
-    .align(Alignment::Top)
     .any()
+}
+
+/// The readouts under the header: the score, the lives left, and the level. Lives stay dots —
+/// three of them read faster than the numeral three.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
+    let (su, vu, lu) = (ui.clone(), ui.clone(), ui.clone());
+    let score = chrome::info_stat(
+        tr("gk_score"),
+        move || {
+            su.hud.track();
+            su.game.borrow().score.to_string()
+        },
+        Color::WHITE,
+        "bk-score",
+    )
+    .min_width(88.0)
+    .any();
+    let lives = column((
+        label(tr("bk_lives"))
+            .font(Font::Caption)
+            .color(chrome::TEXT_DIM),
+        canvas(move |d, sz| {
+            vu.hud.track();
+            let n = vu.game.borrow().lives.max(0);
+            let width = (n as f64 * 14.0 - 4.0).max(0.0);
+            let start = sz.width / 2.0 - width / 2.0;
+            for i in 0..n {
+                d.fill(
+                    Shape::Ellipse(Rect::new(
+                        start + i as f64 * 14.0,
+                        sz.height / 2.0 - 5.0,
+                        10.0,
+                        10.0,
+                    )),
+                    Color::rgb(0.9, 0.3, 0.3),
+                );
+            }
+        })
+        .a11y(|a| a.label(tr("bk_lives").format()))
+        .id("bk-lives")
+        .frame(62.0, 22.0),
+    ))
+    .spacing(2.0)
+    .align(HAlign::Center)
+    .any();
+    let level = chrome::info_stat(
+        tr("bk_level_caption"),
+        move || {
+            lu.hud.track();
+            lu.game.borrow().level.to_string()
+        },
+        Color::rgba(1.0, 1.0, 1.0, 0.7),
+        "bk-level",
+    )
+    .min_width(56.0)
+    .any();
+    chrome::info_row(vec![score, lives, level])
 }
 
 /// The game's frame consumer: paddle easing, the physics step, then the haptics and cards

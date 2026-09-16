@@ -260,60 +260,58 @@ pub fn reversi_page() -> AnyPiece {
         ui.push(Overlay::Help);
     }
     let (p, s, b, w) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
-    let header = row((
-        spacer().width(44.0),
-        chrome::fitted_title(tr("nav_reversi"), 22.0, FontWeight::Heavy, chrome::TEXT).grow_w(),
-        chrome::pause_button(tr("gk_pause"), "rv-pause", move || p.pause()),
-    ))
-    .padding(8.0);
-    let scores = row((
-        chrome::stat(
-            tr("rv_black"),
-            move || {
-                b.repaint.track();
-                b.game.borrow().board.count(true).to_string()
-            },
-            Font::Title2,
-            Color::WHITE,
-            "rv-black-score",
-        )
-        .width(72.0),
-        spacer().width(36.0),
-        chrome::stat(
-            tr("rv_white"),
-            move || {
-                w.repaint.track();
-                w.game.borrow().board.count(false).to_string()
-            },
-            Font::Title2,
-            Color::WHITE,
-            "rv-white-score",
-        )
-        .width(72.0),
-    ))
-    .align(VAlign::Center)
-    .min_width(180.0);
-    let selected = ui.clone();
-    let content = column((
-        header,
-        scores,
+    let header = chrome::game_header(tr("nav_reversi"), "rv-pause", move || p.pause());
+    let info = column((
+        chrome::info_row(vec![
+            chrome::info_stat(
+                tr("rv_black"),
+                move || {
+                    b.repaint.track();
+                    b.game.borrow().board.count(true).to_string()
+                },
+                Color::WHITE,
+                "rv-black-score",
+            )
+            .min_width(72.0)
+            .any(),
+            chrome::info_stat(
+                tr("rv_white"),
+                move || {
+                    w.repaint.track();
+                    w.game.borrow().board.count(false).to_string()
+                },
+                Color::WHITE,
+                "rv-white-score",
+            )
+            .min_width(72.0)
+            .any(),
+        ]),
         label(move || s.status())
             .color(chrome::TEXT)
             .align(TextAlign::Center)
-            .id("rv-status")
-            .padding(8.0),
-        board_canvas(ui.clone()),
+            .id("rv-status"),
+    ))
+    .spacing(6.0)
+    .align(HAlign::Center)
+    .any();
+    let selected = ui.clone();
+    // Below the board: what the keyboard cursor is on, and how the board reads.
+    let footer = column((
         label(move || selected.selection_text())
             .font(Font::Caption)
             .color(chrome::TEXT)
+            .align(TextAlign::Center)
             .id("rv-selection"),
         label(tr("rv_board_hint"))
             .font(Font::Caption)
             .color(chrome::TEXT_DIM)
-            .padding(12.0),
+            .align(TextAlign::Center),
     ))
+    .spacing(4.0)
     .align(HAlign::Center)
-    .grow();
+    .padding(12.0)
+    .any();
+    let content = chrome::game_frame(header, Some(info), board_canvas(ui.clone()), Some(footer));
     let (c, t) = (ui.clone(), ui.clone());
     let clock = when(
         move || c.overlay.get() == Overlay::None,

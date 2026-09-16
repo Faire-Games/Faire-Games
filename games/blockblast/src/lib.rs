@@ -1654,77 +1654,47 @@ pub fn blockblast_page() -> AnyPiece {
         )
     };
 
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_blockblast"), "bb-pause", move || {
+        pu.pause();
+        pu.cue(&cues::SELECT);
+    });
     zstack((
         backdrop,
-        column((hud(ui.clone()), board)).spacing(0.0).grow(),
+        chrome::game_frame(header, Some(info_bar(ui.clone())), board.any(), None),
         overlays(ui),
         clock,
     ))
     .any()
 }
 
-/// Score, title, best and the pause button; the leading gutter clears the cover's close button.
-fn hud(ui: Rc<Ui>) -> impl Piece {
+/// The readouts under the header: the score, and the best it is chasing.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
     let (su, bu) = (ui.clone(), ui.clone());
-    let score = column((
-        label(tr("gk_score"))
-            .font(Font::Caption)
-            .weight(FontWeight::Bold)
-            .color(chrome::TEXT_DIM),
-        label(move || {
+    let score = chrome::info_stat(
+        tr("gk_score"),
+        move || {
             su.hud.track();
             (su.play.borrow().fx.shown_score.round() as i64).to_string()
-        })
-        .font(Font::Title2)
-        .bold()
-        .tabular()
-        .color(Color::WHITE)
-        .id("bb-score")
-        // Room for a six-digit score from the first layout, so a growing value never truncates.
-        .min_width(88.0),
-    ))
-    .spacing(0.0)
-    .align(HAlign::Leading);
-    let best = column((
-        label(tr("gk_best"))
-            .font(Font::Caption)
-            .weight(FontWeight::Bold)
-            .color(chrome::TEXT_DIM),
-        label(move || {
+        },
+        Color::WHITE,
+        "bb-score",
+    )
+    // Room for a six-digit score from the first layout, so a growing value never truncates.
+    .min_width(88.0)
+    .any();
+    let best = chrome::info_stat(
+        tr("gk_best"),
+        move || {
             bu.hud.track();
             (bu.play.borrow().fx.shown_best.round() as i64).to_string()
-        })
-        .font(Font::Title2)
-        .bold()
-        .tabular()
-        .color(chrome::GOLD)
-        .align(TextAlign::Trailing)
-        .id("bb-best")
-        // Room for a six-digit best from the first layout, so a growing value never truncates.
-        .min_width(88.0),
-    ))
-    .spacing(0.0)
-    .align(HAlign::Trailing);
-    let pause = chrome::pause_button(tr("gk_pause"), "bb-pause", move || {
-        ui.pause();
-        ui.cue(&cues::SELECT);
-    });
-    row((
-        spacer().width(52.0),
-        score,
-        // Narrows, then steps aside, on a phone too narrow for it beside two six-digit scores.
-        chrome::fitted_title(tr("nav_blockblast"), 17.0, FontWeight::Heavy, chrome::TEXT).grow_w(),
-        best,
-        pause,
-    ))
-    .spacing(8.0)
-    .align(VAlign::Center)
-    .padding(Insets {
-        top: 4.0,
-        leading: 0.0,
-        bottom: 0.0,
-        trailing: 6.0,
-    })
+        },
+        chrome::GOLD,
+        "bb-best",
+    )
+    .min_width(88.0)
+    .any();
+    chrome::info_row(vec![score, best])
 }
 
 /// The frame consumer: every tween and effect, the HUD count-up, and the results card once the

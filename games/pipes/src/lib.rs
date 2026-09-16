@@ -1,5 +1,5 @@
 //! Pipes: rotate a scrambled network, lock settled tiles, and connect every branch.
-use day_fluent::{LocalizedText, tr};
+use day_fluent::tr;
 use day_pieces::prelude::*;
 use gamekit::chrome::{self, Feedback, Help, Sfx, cues, sfx};
 use serde::{Deserialize, Serialize};
@@ -252,14 +252,11 @@ pub fn pipes_page() -> AnyPiece {
         ui.push(Overlay::Help);
     }
     let (p, m, c, s, l) = (ui.clone(), ui.clone(), ui.clone(), ui.clone(), ui.clone());
-    let header = row((
-        spacer().width(44.0),
-        chrome::fitted_title(tr("nav_pipes"), 22.0, FontWeight::Heavy, chrome::TEXT).grow_w(),
-        chrome::pause_button(tr("gk_pause"), "pp-pause", move || p.pause()),
-    ))
-    .padding(8.0);
-    let stats = row((
-        pipe_stat(
+    let header = chrome::game_header(tr("nav_pipes"), "pp-pause", move || p.pause());
+    let stats = chrome::info_row(vec![
+        // Wide enough for the counters these two reach, so a growing number never shifts the
+        // row under the header.
+        chrome::info_stat(
             tr("pp_moves"),
             move || {
                 m.repaint.track();
@@ -267,8 +264,10 @@ pub fn pipes_page() -> AnyPiece {
             },
             Color::WHITE,
             "pp-moves",
-        ),
-        pipe_stat(
+        )
+        .min_width(96.0)
+        .any(),
+        chrome::info_stat(
             tr("pp_connected"),
             move || {
                 c.repaint.track();
@@ -277,8 +276,10 @@ pub fn pipes_page() -> AnyPiece {
             },
             WATER,
             "pp-connected",
-        ),
-    ));
+        )
+        .min_width(96.0)
+        .any(),
+    ]);
     let controls = row((
         label(tr("pp_lock_mode")).color(chrome::TEXT),
         toggle(ui.lock_mode).id("pp-lock-mode"),
@@ -286,8 +287,7 @@ pub fn pipes_page() -> AnyPiece {
     .spacing(10.0)
     .padding(8.0)
     .width(200.0);
-    let content = column((
-        header,
+    let info = column((
         stats,
         label(move || {
             s.repaint.track();
@@ -300,19 +300,25 @@ pub fn pipes_page() -> AnyPiece {
         })
         .color(chrome::TEXT)
         .align(TextAlign::Center)
-        .id("pp-status")
-        .padding(8.0),
-        board_canvas(ui.clone()),
+        .id("pp-status"),
+    ))
+    .spacing(6.0)
+    .align(HAlign::Center)
+    .any();
+    // Below the board: what the keyboard cursor is on, and the lock-mode switch.
+    let footer = column((
         label(move || l.selection())
             .font(Font::Caption)
             .color(chrome::TEXT)
             .align(TextAlign::Center)
-            .id("pp-selection")
-            .padding(6.0),
+            .id("pp-selection"),
         controls,
     ))
+    .spacing(4.0)
     .align(HAlign::Center)
-    .grow();
+    .padding(8.0)
+    .any();
+    let content = chrome::game_frame(header, Some(info), board_canvas(ui.clone()), Some(footer));
     let (c, t) = (ui.clone(), ui.clone());
     let clock = when(
         move || c.overlay.get() == Overlay::None,
@@ -324,28 +330,6 @@ pub fn pipes_page() -> AnyPiece {
     zstack((content, overlays(ui), clock))
         .background(SURFACE)
         .any()
-}
-// Reserve the value's width so multi-digit tabular counters do not clip on web.
-fn pipe_stat<M>(
-    caption: LocalizedText,
-    value: impl IntoText<M>,
-    color: Color,
-    id: &'static str,
-) -> AnyPiece {
-    column((
-        label(caption).font(Font::Caption).color(chrome::TEXT_DIM),
-        label(value)
-            .font(Font::Title2)
-            .bold()
-            .tabular()
-            .color(color)
-            .align(TextAlign::Center)
-            .id(id)
-            .width(120.0),
-    ))
-    .spacing(2.0)
-    .align(HAlign::Center)
-    .any()
 }
 fn board_canvas(ui: Rc<Ui>) -> AnyPiece {
     let (d, t, k) = (ui.clone(), ui.clone(), ui.clone());
@@ -656,15 +640,17 @@ fn overlay_card(ui: Rc<Ui>, kind: Overlay) -> AnyPiece {
             items.push(chrome::card_title(tr("pp_solved"), chrome::GOLD));
             let g = ui.game.borrow();
             let index = SIZES.iter().position(|&n| n == g.size).unwrap();
-            items.push(pipe_stat(
+            items.push(chrome::stat(
                 tr("pp_moves"),
                 g.moves.to_string(),
+                Font::Title2,
                 Color::WHITE,
                 "pp-final-moves",
             ));
-            items.push(pipe_stat(
+            items.push(chrome::stat(
                 tr("pp_best"),
                 ui.records.borrow().best[index].map_or_else(|| "—".into(), |m| m.to_string()),
+                Font::Title2,
                 WATER,
                 "pp-best",
             ));

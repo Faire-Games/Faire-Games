@@ -123,4 +123,11 @@ day launch -p ios-uikit --script dayscript/games.yaml
 
 `day lint` checks routes, element ids, and locale coverage.
 
+For Android cover hit testing, launch on a 360×640dp emulator with
+`day launch -p android-mdc --android-device SERIAL --env DAY_GAMES_SEED=15 --keep-alive`,
+then run `python3 scripts/android-cover-touch-test.py SERIAL` with `adb` on PATH.
+This uses native screen taps to check that passive game headers cannot activate the hidden
+home grid, while pause, close, and the home tiles still respond. Ordinary dayscript taps
+address a node directly and cannot detect this form of touch-through.
+
 Day Games is open source under the Apache-2.0 license.

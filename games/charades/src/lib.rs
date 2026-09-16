@@ -510,18 +510,9 @@ fn deck_screen(ui: Rc<Ui>) -> AnyPiece {
         tiles.push(deck_tile(ui.clone(), deck));
     }
     let (iu, su) = (ui.clone(), ui.clone());
-    // The title keeps its own line, clear of the cover's close button, and the two buttons get a
-    // row of their own under the intro: sharing one row, a phone gave the title a third of its
-    // width.
-    let header = row((
-        spacer().width(44.0),
-        label(tr("nav_charades"))
-            .font(Font::Title)
-            .bold()
-            .color(Color::WHITE)
-            .grow_w(),
-    ))
-    .align(VAlign::Center);
+    // Nothing to pause while a deck is being chosen, so the header keeps the pause button's room
+    // and the title lands where it does on the round screen.
+    let header = chrome::game_header_plain(tr("nav_charades"));
     let tools = row((
         button(tr("gk_instructions"))
             .bordered()
@@ -535,24 +526,29 @@ fn deck_screen(ui: Rc<Ui>) -> AnyPiece {
             .id("ch-settings"),
     ))
     .spacing(8.0);
-    scroll(
-        column((
-            header,
-            label(tr("ch_pick_deck")).color(chrome::TEXT),
-            tools,
-            row(PieceVec(tiles))
-                .spacing(12.0)
-                .fit(RowFit::WrapColumns { run_spacing: 12.0 }),
-        ))
-        .spacing(16.0)
-        .align(HAlign::Leading)
-        .padding(Insets {
-            top: 12.0,
-            leading: 16.0,
-            bottom: 24.0,
-            trailing: 16.0,
-        }),
-    )
+    // The header stays out of the scroll, so the close button sits where every other game keeps
+    // it however far down the decks are scrolled.
+    column((
+        header,
+        scroll(
+            column((
+                label(tr("ch_pick_deck")).color(chrome::TEXT),
+                tools,
+                row(PieceVec(tiles))
+                    .spacing(12.0)
+                    .fit(RowFit::WrapColumns { run_spacing: 12.0 }),
+            ))
+            .spacing(16.0)
+            .align(HAlign::Leading)
+            .padding(Insets {
+                top: 12.0,
+                leading: 16.0,
+                bottom: 24.0,
+                trailing: 16.0,
+            }),
+        )
+        .grow(),
+    ))
     .grow()
     .background(SURFACE)
     .id("ch-decks")
@@ -672,39 +668,22 @@ fn game_screen(ui: Rc<Ui>) -> AnyPiece {
             },
         )
     };
-    let pause = {
-        let (c, u) = (ui.clone(), ui.clone());
-        when(
-            move || matches!(c.phase.get(), Phase::Countdown | Phase::Play),
-            move || {
-                let u = u.clone();
-                chrome::pause_button(tr("gk_pause"), "ch-pause", move || u.pause())
-            },
-        )
-    };
-    zstack((
-        card,
-        column((spacer(), ready, answers))
-            .spacing(12.0)
-            .align(HAlign::Center)
-            .padding(Insets {
-                top: 0.0,
-                leading: 24.0,
-                bottom: 28.0,
-                trailing: 24.0,
-            }),
-    ))
-    .overlay_aligned(
-        Alignment::TopTrailing,
-        pause.padding(Insets {
-            top: 4.0,
-            leading: 0.0,
-            bottom: 0.0,
-            trailing: 6.0,
-        }),
-    )
-    .background(SURFACE)
-    .any()
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_charades"), "ch-pause", move || pu.pause());
+    // Under the card: whichever of the two button rows this phase shows.
+    let footer = column((ready, answers))
+        .spacing(12.0)
+        .align(HAlign::Center)
+        .padding(Insets {
+            top: 0.0,
+            leading: 24.0,
+            bottom: 28.0,
+            trailing: 24.0,
+        })
+        .any();
+    chrome::game_frame(header, None, card.any(), Some(footer))
+        .background(SURFACE)
+        .any()
 }
 
 /// The frame consumer: motion into gestures, the countdown, the round's clock, and the flashes.

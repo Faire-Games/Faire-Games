@@ -98,6 +98,9 @@ thread_local! {
     static LIVE: RefCell<HashMap<String, Rc<dyn Fn()>>> = RefCell::new(HashMap::new());
     /// Background hooks for the games currently open, run before the saves.
     static BACKGROUND: RefCell<HashMap<String, Rc<dyn Fn()>>> = RefCell::new(HashMap::new());
+    /// What the close button in a game's header does, registered by the shell ([`on_close`]).
+    /// One at a time: the shell shows one game at a time.
+    static CLOSE: RefCell<Option<Rc<dyn Fn()>>> = const { RefCell::new(None) };
     static LIFECYCLE_HOOKED: Cell<bool> = const { Cell::new(false) };
 }
 
@@ -142,6 +145,28 @@ pub fn on_background(key: &'static str, f: impl Fn() + 'static) {
             m.borrow_mut().remove(key);
         });
     });
+}
+
+/// Register what leaving a game does, for as long as the CURRENT scope (the shell's game cover)
+/// is alive. Leaving belongs to the shell — it owns the cover — while the button that asks for it
+/// sits in the game's own header row ([`chrome::game_header`]), which is what keeps the close
+/// button aligned with the title and the pause button on every game.
+pub fn on_close(f: impl Fn() + 'static) {
+    let hook: Rc<dyn Fn()> = Rc::new(f);
+    CLOSE.with(|c| *c.borrow_mut() = Some(hook));
+    Scope::current().on_cleanup(|| {
+        CLOSE.with(|c| *c.borrow_mut() = None);
+    });
+}
+
+/// Leave the open game, through whatever the shell registered with [`on_close`]. Inert when
+/// nothing did: a game built outside the shell has no cover to close.
+pub fn close() {
+    // Cloned out of the cell first: the hook drops the cover, which clears this very registry.
+    let hook = CLOSE.with(|c| c.borrow().clone());
+    if let Some(f) = hook {
+        f();
+    }
 }
 
 /// Load the shell's shared clips and `clips` while the CURRENT scope (the game's page) is alive,

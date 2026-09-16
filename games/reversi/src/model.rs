@@ -262,7 +262,7 @@ mod tests {
     #[test]
     fn forced_pass_and_early_finish() {
         let mut b = Board {
-            black: u64::MAX & !((1 << 0) | (1 << 1) | (1 << 3) | (1 << 4)),
+            black: !(1 | (1 << 1) | (1 << 3) | (1 << 4)),
             white: (1 << 1) | (1 << 4),
             turn: true,
         };

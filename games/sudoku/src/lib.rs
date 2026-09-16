@@ -685,20 +685,28 @@ pub fn sudoku_page() -> AnyPiece {
     .id("su-backdrop")
     .grow();
 
-    let content = column((
-        hud(ui.clone()),
-        status_bar(ui.clone()),
-        board_grid(ui.clone()),
-        control_pad(ui.clone()),
-    ))
-    .spacing(12.0)
-    .align(HAlign::Center)
-    .padding(Insets {
-        top: 8.0,
-        leading: 12.0,
-        bottom: 16.0,
-        trailing: 12.0,
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_sudoku"), "su-pause", move || {
+        if pu.overlay.get_untracked() == Overlay::None {
+            pu.show(Overlay::Pause);
+            pu.cue(&cues::SELECT);
+        }
     });
+    let content = chrome::game_frame(
+        header,
+        Some(status_bar(ui.clone()).any()),
+        board_grid(ui.clone()).any(),
+        Some(
+            control_pad(ui.clone())
+                .padding(Insets {
+                    top: 0.0,
+                    leading: 12.0,
+                    bottom: 16.0,
+                    trailing: 12.0,
+                })
+                .any(),
+        ),
+    );
     // The scroll gives its content at least the window's height, so the stack centers the column
     // both ways: mid-window on a desktop, with even space above and below the board, and from
     // the top once the column is taller than the window and scrolls.
@@ -716,70 +724,19 @@ fn keys(ui: &Rc<Ui>) -> impl Fn(&KeyEvent) + 'static {
 }
 
 /// Title and pause button; the leading gutter clears the cover's close button.
-fn hud(ui: Rc<Ui>) -> impl Piece {
-    let pause = canvas(|d, sz| {
-        draw_glyph(
-            d,
-            Glyph::Pause,
-            Point::new(sz.width / 2.0, sz.height / 2.0),
-            24.0,
-            Color::rgba(1.0, 1.0, 1.0, 0.7),
-        );
-    })
-    .on_key(keys(&ui))
-    .on_tap(move || {
-        if ui.overlay.get_untracked() == Overlay::None {
-            ui.show(Overlay::Pause);
-            ui.cue(&cues::SELECT);
-        }
-    })
-    .a11y(|a| a.label(tr("gk_pause").format()).role(Role::Button))
-    .id("su-pause")
-    .frame(44.0, 44.0);
-    row((
-        spacer().width(52.0),
-        label(tr("su_title"))
-            .font(Font::Headline)
-            .weight(FontWeight::Heavy)
-            .color(TEXT)
-            .align(TextAlign::Center)
-            .grow_w(),
-        pause,
-    ))
-    .align(VAlign::Center)
-    .width(BOARD)
-}
-
 /// Difficulty • time (or "Game Over" once the puzzle is revealed), as two pills.
 fn status_bar(ui: Rc<Ui>) -> impl Piece {
+    // The same readout every game wears under its header, with room for "00:00" from the first
+    // layout so a ticking value never truncates.
     fn pill(
         title: day_fluent::LocalizedText,
         value: impl Fn() -> String + 'static,
         tint: impl Fn() -> Color + 'static,
         id: &'static str,
-    ) -> impl Piece {
-        column((
-            label(title).font(Font::Caption2).color(TEXT_DIM),
-            label(value)
-                .font(Font::Callout)
-                .bold()
-                .tabular()
-                .color(tint)
-                .id(id)
-                // Room for "00:00" from the first layout, so a ticking value never truncates.
-                .min_width(72.0),
-        ))
-        .spacing(2.0)
-        .align(HAlign::Center)
-        .padding(Insets {
-            top: 6.0,
-            leading: 12.0,
-            bottom: 6.0,
-            trailing: 12.0,
-        })
-        .background(Color::rgba(1.0, 1.0, 1.0, 0.05))
-        .corner_radius(10.0)
-        .grow_w()
+    ) -> AnyPiece {
+        chrome::info_stat(title, value, tint, id)
+            .min_width(96.0)
+            .any()
     }
     let (u1, u2, u3, u4) = (ui.clone(), ui.clone(), ui.clone(), ui);
     let difficulty = pill(
@@ -816,7 +773,7 @@ fn status_bar(ui: Rc<Ui>) -> impl Piece {
         },
         "su-time",
     );
-    row((difficulty, time)).spacing(8.0).width(BOARD)
+    chrome::info_row(vec![difficulty, time])
 }
 
 /// The 9×9 board: Day's eager grid of interactive cell canvases, with the pause cover over it.

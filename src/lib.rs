@@ -205,6 +205,10 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
 fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
     cover(open, move |section: &Section| {
         let section = *section;
+        // The header draws in ink that contrasts with the game's own surface: white on the dark
+        // boards, near-black on 2048's cream one. Set BEFORE the page is built — a title's ink is
+        // resolved as its piece is made, not when it draws.
+        gamekit::chrome::set_surface(game_background(section));
         let game = match section {
             Section::BlockBlast => blockblast::blockblast_page(),
             Section::Breakout => breakout::breakout_page(),
@@ -217,38 +221,13 @@ fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
             Section::Sudoku => sudoku::sudoku_page(),
             Section::Game2048 => twentyfortyeight::twentyfortyeight_page(),
         };
-        // The gesture, a11y, and id go on the canvas itself (the native view that hit-tests);
-        // the 44pt frame is the minimum comfortable touch target.
-        let close = canvas(|d, sz| {
-            // Draw the circle a bit inside the 44pt hit target.
-            let r = sz.width.min(sz.height) * 0.40;
-            let (cx, cy) = (sz.width / 2.0, sz.height / 2.0);
-            d.fill(
-                Shape::Ellipse(Rect::new(cx - r, cy - r, 2.0 * r, 2.0 * r)),
-                Color::rgba(0.5, 0.5, 0.55, 0.35),
-            );
-            let a = r * 0.42;
-            let x_col = Color::rgba(1.0, 1.0, 1.0, 0.92);
-            d.stroke(
-                Shape::Line(Point::new(cx - a, cy - a), Point::new(cx + a, cy + a)),
-                x_col,
-                2.5,
-            );
-            d.stroke(
-                Shape::Line(Point::new(cx - a, cy + a), Point::new(cx + a, cy - a)),
-                x_col,
-                2.5,
-            );
-        })
-        .on_tap(move || open.set(None))
-        .a11y(|a| a.label(res::str::close_game().format()))
-        .id("close-game")
-        .frame(44.0, 44.0)
-        .padding(8.0);
+        // Leaving is the shell's to do, and the button that asks for it sits in the game's own
+        // header row (gamekit::chrome::game_header), where it lines up with the title and the
+        // pause button. Registered per open cover, and cleared with it.
+        gamekit::on_close(move || open.set(None));
         game.grow()
             .defers_system_gestures(Edges::ALL)
             .interactive_dismiss_disabled()
-            .overlay_aligned(Alignment::TopLeading, close)
             .any()
     })
     .background(|section| game_background(*section))

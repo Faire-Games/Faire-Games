@@ -2926,11 +2926,20 @@ pub fn solitaire_page() -> AnyPiece {
         )
     };
 
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_solitaire"), "sol-pause", move || {
+        pu.pause();
+        pu.cue(&cues::SELECT);
+    });
+    let table = zstack((resting, moving)).grow().any();
     zstack((
         felt,
-        column((hud(ui.clone()), zstack((resting, moving)).grow()))
-            .spacing(0.0)
-            .grow(),
+        chrome::game_frame(
+            header,
+            Some(info_bar(ui.clone())),
+            table,
+            Some(tools(ui.clone())),
+        ),
         overlays(ui),
         clock,
     ))
@@ -3014,26 +3023,15 @@ fn tool_button(
 
 /// Score, time and moves, then hint, undo and pause; the leading gutter clears the cover's close
 /// button.
-fn hud(ui: Rc<Ui>) -> impl Piece {
+/// The readouts under the header: score, clock, moves.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
     let stat = |caption: day_fluent::LocalizedText,
                 value: Box<dyn Fn() -> String>,
                 id: &'static str,
                 width: f64| {
-        column((
-            label(caption)
-                .font(Font::Caption)
-                .weight(FontWeight::Bold)
-                .color(chrome::TEXT_DIM),
-            label(value)
-                .font(Font::Title3)
-                .bold()
-                .tabular()
-                .color(Color::WHITE)
-                .id(id)
-                .min_width(width),
-        ))
-        .spacing(0.0)
-        .align(HAlign::Leading)
+        chrome::info_stat(caption, value, Color::WHITE, id)
+            .min_width(width)
+            .any()
     };
     let (su, tu, mu) = (ui.clone(), ui.clone(), ui.clone());
     let score = stat(
@@ -3063,6 +3061,11 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
         "sol-moves",
         40.0,
     );
+    chrome::info_row(vec![score, time, moves])
+}
+
+/// Under the table: the two tools a game reaches for, a hint and an undo.
+fn tools(ui: Rc<Ui>) -> AnyPiece {
     let hint = tool_button(
         ui.clone(),
         draw_hint_glyph,
@@ -3082,28 +3085,11 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
         },
         |u| u.undo(),
     );
-    let pause = chrome::pause_button(tr("gk_pause"), "sol-pause", move || {
-        ui.pause();
-        ui.cue(&cues::SELECT);
-    });
-    row((
-        spacer().width(48.0),
-        score,
-        time,
-        moves,
-        spacer(),
-        hint,
-        undo,
-        pause,
-    ))
-    .spacing(6.0)
-    .align(VAlign::Center)
-    .padding(Insets {
-        top: 4.0,
-        leading: 0.0,
-        bottom: 0.0,
-        trailing: 6.0,
-    })
+    row((hint, undo))
+        .spacing(12.0)
+        .align(VAlign::Center)
+        .padding(8.0)
+        .any()
 }
 
 /// The frame consumer: the deal and hint searches, every tween and effect, the HUD, and the

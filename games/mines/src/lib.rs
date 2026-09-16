@@ -662,12 +662,14 @@ pub fn mines_page() -> AnyPiece {
             move || mines_clock(bu.clone()),
         )
     };
-    zstack((
-        column((hud(ui.clone()), board)).spacing(0.0).grow(),
-        overlays(ui),
-        clock,
-    ))
-    .any()
+    let pu = ui.clone();
+    let content = chrome::game_frame(
+        chrome::game_header(tr("nav_mines"), "mi-pause", move || pu.pause()),
+        Some(info_bar(ui.clone())),
+        board.any(),
+        Some(flag_toggle(ui.clone())),
+    );
+    zstack((content, overlays(ui), clock)).any()
 }
 
 fn board_canvas(ui: Rc<Ui>) -> impl Piece {
@@ -1055,8 +1057,9 @@ fn draw_mine(d: &mut Draw, c: Point, cell: f64) {
 // The HUD
 // ---------------------------------------------------------------------------
 
-fn hud(ui: Rc<Ui>) -> impl Piece {
-    let (mu, tu, fu, pu) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+/// The readouts under the header: mines left, and the clock.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
+    let (mu, tu) = (ui.clone(), ui.clone());
     let mines = counter(
         tr("mi_mines_left"),
         move || {
@@ -1075,6 +1078,12 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
         Color::WHITE,
         "mi-time",
     );
+    chrome::info_row(vec![mines, time])
+}
+
+/// Under the board: Flag Mode, the one control a game of Mines keeps reaching for.
+fn flag_toggle(ui: Rc<Ui>) -> AnyPiece {
+    let fu = ui.clone();
     let flag = {
         let on = ui.flag_mode;
         canvas(move |d, sz| {
@@ -1108,24 +1117,11 @@ fn hud(ui: Rc<Ui>) -> impl Piece {
         .id("mi-flag-mode")
         .frame(44.0, 44.0)
     };
-    let pause = chrome::pause_button(tr("gk_pause"), "mi-pause", move || pu.pause());
-    row((
-        // Clear of the cover's close button.
-        spacer().width(44.0),
-        mines,
-        chrome::fitted_title(tr("nav_mines"), 17.0, FontWeight::Heavy, chrome::TEXT).grow_w(),
-        time,
-        flag,
-        pause,
-    ))
-    .spacing(8.0)
-    .align(VAlign::Center)
-    .padding(Insets {
-        top: 4.0,
-        leading: 0.0,
-        bottom: 4.0,
-        trailing: 6.0,
-    })
+    row((label(tr("mi_flag_mode")).color(chrome::TEXT), flag))
+        .spacing(10.0)
+        .align(VAlign::Center)
+        .padding(8.0)
+        .any()
 }
 
 fn counter(

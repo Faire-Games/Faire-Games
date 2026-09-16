@@ -10,7 +10,7 @@ nav_2048 = 2048
 nav_blockblast = Block Blast
 nav_solitaire = Solitaire
 
-close_game = Close game
+gk_close = Close game
 
 # Shared game chrome (gamekit::chrome)
 gk_pause = Pause
@@ -37,9 +37,8 @@ gk_reset_confirm = Reset
 gk_game_over_heading = Game over
 
 # Breakout
-bk_score = SCORE: { $n }
-bk_level = LV { $n }
 bk_level_caption = Level
+bk_lives = Lives
 bk_tap_to_launch = TAP TO LAUNCH
 bk_drag_to_move = DRAG TO MOVE PADDLE
 bk_level_clear = LEVEL { $n } CLEAR!
@@ -55,12 +54,10 @@ bk_help_lives = Lives and game over
 bk_help_lives_1 = You start with three lives. Lose all of them and the game ends. Clearing every brick advances you to the next, faster level, where some bricks take more than one hit.
 
 # Sirtet
-st_title = SIRTET
-st_score = SCORE { $n }
-st_level_lines = LV { $level }   LINES { $lines }
-st_high = HIGH { $n }
 st_level = Level
 st_lines = Lines
+st_next = Next
+st_next_a11y = Next piece
 st_game_over = Game Over
 st_clear_single = SINGLE
 st_clear_double = DOUBLE
@@ -79,12 +76,10 @@ st_help_levels_1 = The game speeds up as you clear lines. Higher levels drop pie
 st_help_over_1 = The game ends when a new piece can no longer enter the well.
 
 # 2048
-tf_title = 2048
-tf_score = SCORE { $n }
-tf_best = BEST { $n }
 tf_game_over = Game Over
 tf_keep_going = Keep Going
 tf_won_title = 2048!
+tf_difficulty = Difficulty
 tf_easy = Easy
 tf_normal = Normal
 tf_hard = Hard
@@ -195,7 +190,6 @@ sol_help_keys = Keyboard
 sol_help_keys_1 = • Press **1** to **7** to pick a column, then another of them to move it there, or the same one again to send it to its best spot. **8** picks the waste, **9** sends a card home, and **0** turns the stock. The arrow keys move the pick and change how many cards it takes.
 
 # Sudoku
-su_title = SUDOKU
 su_difficulty = Difficulty
 su_time = Time
 su_easy = Easy

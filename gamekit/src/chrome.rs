@@ -7,6 +7,7 @@ use day_fluent::LocalizedText;
 use day_part_haptics::Haptic;
 use day_part_sound::{AssetName, Play};
 use day_pieces::prelude::*;
+use day_reactive::Scope;
 use day_spec::{LineCap, LineJoin, StrokeStyle};
 use serde::{Deserialize, Serialize};
 
@@ -16,6 +17,36 @@ pub const CARD: Color = Color::rgb(0.08, 0.08, 0.18);
 pub const SCRIM: Color = Color::rgba(0.0, 0.0, 0.0, 0.72);
 pub const TEXT: Color = Color::rgba(1.0, 1.0, 1.0, 0.85);
 pub const TEXT_DIM: Color = Color::rgba(1.0, 1.0, 1.0, 0.55);
+
+thread_local! {
+    /// The surface a game's header and readouts are drawn on, set per open cover by the shell.
+    static SURFACE_INK: std::cell::Cell<Option<Color>> = const { std::cell::Cell::new(None) };
+}
+
+/// Tell the chrome which surface the header sits on, for as long as the CURRENT scope (the
+/// shell's game cover) is alive. Nine of the ten games are dark, so white ink went unquestioned
+/// until 2048's cream board swallowed its own title and pause button.
+pub fn set_surface(surface: Color) {
+    SURFACE_INK.with(|s| s.set(Some(surface)));
+    Scope::current().on_cleanup(|| {
+        SURFACE_INK.with(|s| s.set(None));
+    });
+}
+
+/// Ink for the current game's surface at `alpha`: white on a dark board, near-black on a light
+/// one. [`TEXT`] and [`TEXT_DIM`] stay white — cards and sheets bring their own dark surface with
+/// them, whatever the game behind them looks like.
+pub fn ink_at(alpha: f64) -> Color {
+    // Rec. 709 luma: 2048's cream lands near 0.96, every other game's surface below 0.1.
+    let light = SURFACE_INK
+        .with(|s| s.get())
+        .is_some_and(|c| 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b > 0.5);
+    if light {
+        Color::rgba(0.0, 0.0, 0.0, alpha)
+    } else {
+        Color::rgba(1.0, 1.0, 1.0, alpha)
+    }
+}
 pub const GOLD: Color = Color::rgb(1.0, 0.84, 0.25);
 // Menu button tints (Faire's pause menu).
 pub const GREEN: Color = Color::rgb(0.30, 0.70, 0.40);
@@ -27,6 +58,13 @@ pub const RED: Color = Color::rgb(0.85, 0.30, 0.30);
 
 /// One fixed width for every menu button, so a stack of them lines up.
 pub const MENU_W: f64 = 180.0;
+
+/// The side of the close and pause buttons: the minimum comfortable touch target.
+pub const BUTTON: f64 = 44.0;
+/// The size a game's name is drawn at in its header row.
+pub const TITLE: f64 = 22.0;
+/// The margin the header and the rows under it keep from the edges of the page.
+pub const EDGE: f64 = 8.0;
 
 /// The settings every game keeps: sounds and haptics on or off, and whether the how-to-play sheet
 /// has opened by itself yet. Persisted per game under its own key.
@@ -354,7 +392,7 @@ pub fn pause_button(
             d,
             Point::new(sz.width / 2.0, sz.height / 2.0),
             24.0,
-            Color::rgba(1.0, 1.0, 1.0, 0.7),
+            ink_at(0.7),
         );
     })
     .on_tap(action)
@@ -362,6 +400,130 @@ pub fn pause_button(
     .id(id)
     .frame(44.0, 44.0)
     .any()
+}
+
+/// The 44-point close button (a circled cross) that opens a game's header row: the one way out
+/// of a game. Tapping it runs what the shell registered with [`crate::on_close`].
+pub fn close_button() -> AnyPiece {
+    canvas(|d, sz| {
+        // The circle sits a little inside the 44pt touch target, as it did when the shell drew
+        // this on top of the game.
+        let r = sz.width.min(sz.height) * 0.40;
+        let c = Point::new(sz.width / 2.0, sz.height / 2.0);
+        d.fill(
+            Shape::Ellipse(Rect::new(c.x - r, c.y - r, 2.0 * r, 2.0 * r)),
+            Color::rgba(0.5, 0.5, 0.55, 0.35),
+        );
+        draw_cross_glyph(d, c, r * 1.2, ink_at(0.92));
+    })
+    .on_tap(crate::close)
+    .a11y(|a| {
+        a.label(day_fluent::tr("gk_close").format())
+            .role(Role::Button)
+    })
+    // The id every dayscript taps to leave a game.
+    .id("close-game")
+    .frame(BUTTON, BUTTON)
+    .any()
+}
+
+/// The top row every game wears: the close button, the game's name, the pause button. One row,
+/// so the three line up with each other on every game and every screen — the close button is
+/// part of the layout rather than something laid over it, and no game leaves a gap of its own
+/// guessing at its width.
+pub fn game_header(
+    title: LocalizedText,
+    pause_id: &'static str,
+    on_pause: impl Fn() + 'static,
+) -> AnyPiece {
+    row((
+        close_button(),
+        fitted_title(title, TITLE, FontWeight::Heavy, ink_at(0.85)).grow_w(),
+        pause_button(day_fluent::tr("gk_pause"), pause_id, on_pause),
+    ))
+    .align(VAlign::Center)
+    .padding(EDGE)
+    .any()
+}
+
+/// The header for a screen with nothing to pause — a game's deck picker, say. The pause button's
+/// room is kept, so the title sits exactly where it does on the screens that have one.
+pub fn game_header_plain(title: LocalizedText) -> AnyPiece {
+    row((
+        close_button(),
+        fitted_title(title, TITLE, FontWeight::Heavy, ink_at(0.85)).grow_w(),
+        spacer().width(BUTTON),
+    ))
+    .align(VAlign::Center)
+    .padding(EDGE)
+    .any()
+}
+
+/// One readout for a game's info row: a dim caption over its value, in the size and weight every
+/// game uses for these. `stat` is its bigger cousin, for the numbers on a results card.
+pub fn info_stat<M, C>(
+    caption: LocalizedText,
+    value: impl IntoText<M>,
+    // A constant, or a source that recolors the value as the game changes: Sudoku's clock turns
+    // once the puzzle is given up, and its difficulty carries that difficulty's accent.
+    color: impl IntoReactive<Color, C>,
+    id: &'static str,
+) -> AnyPiece {
+    column((
+        label(caption).font(Font::Caption).color(ink_at(0.55)),
+        label(value)
+            .font(Font::Title3)
+            .bold()
+            .tabular()
+            .color(color)
+            .id(id),
+    ))
+    .spacing(2.0)
+    .align(HAlign::Center)
+    .any()
+}
+
+/// The row of readouts directly under the header: the score, the clock, whatever the game
+/// counts. Built from [`info_stat`]s, evenly spaced and centered.
+pub fn info_row(stats: Vec<AnyPiece>) -> AnyPiece {
+    row(PieceVec(stats))
+        .spacing(28.0)
+        .align(VAlign::Center)
+        .padding(Insets {
+            top: 0.0,
+            leading: EDGE,
+            bottom: 4.0,
+            trailing: EDGE,
+        })
+        .any()
+}
+
+/// The shape of a game page: the header row, the readouts under it, the play area centered in
+/// what is left, and whatever controls belong at the foot of the page.
+///
+/// Pass `None` for a game with no readouts or no footer; the row simply is not there. A play
+/// area that grows fills the middle, and one with a size of its own is centered in it, which is
+/// what puts a board in the middle of the space between the readouts and the controls.
+pub fn game_frame(
+    header: AnyPiece,
+    info: Option<AnyPiece>,
+    play: AnyPiece,
+    footer: Option<AnyPiece>,
+) -> AnyPiece {
+    // The play area is the only child that takes what the header and the rows around it leave.
+    // A spacer either side of it would centre it, but spacers are the cells layout hands the
+    // slack to FIRST, which leaves a play area that grows sitting at its smallest. A growing
+    // stack centres instead: one that fills takes the whole box, one with a size of its own sits
+    // in the middle of it.
+    let mut kids: Vec<AnyPiece> = vec![header];
+    if let Some(info) = info {
+        kids.push(info);
+    }
+    kids.push(zstack(PieceVec(vec![play])).grow().any());
+    if let Some(footer) = footer {
+        kids.push(footer);
+    }
+    column(PieceVec(kids)).align(HAlign::Center).grow().any()
 }
 
 /// The dimming layer under a card. Absorbs taps so the game underneath never hears them.

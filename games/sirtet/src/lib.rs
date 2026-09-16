@@ -30,7 +30,9 @@ pub const SURFACE: Color = Color::hex(0x0A_0A_14);
 
 const COLS: usize = 10;
 const ROWS: usize = 20;
-const TOP_UI: f64 = 96.0; // reserved header height above the well
+/// The well takes the whole canvas: the header and the readouts are pieces above it now
+/// (gamekit::chrome::game_frame), so nothing is reserved inside the drawing.
+const TOP_UI: f64 = 0.0;
 /// How long a line clear's call-out stays up (it fades over the last third).
 const CLEAR_POPUP_LIFE: f64 = 1.0;
 
@@ -477,63 +479,8 @@ impl Game {
             }
         }
 
-        // Header. The leading gutter keeps the title clear of the cover's close button.
-        // Each line narrows to fit its share of the well's width rather than running into its
-        // neighbor: the title takes the leading half of the top line, the high score the rest.
-        let t = oy - TOP_UI;
-        let bw = cs * COLS as f64;
-        let plain = TextStyle::default().font;
-        let name = tr("st_title").format();
-        let tx = ox.max(56.0);
-        let half = (ox + bw - tx) * 0.5;
-        d.text(
-            &name,
-            Point::new(tx, t + 18.0),
-            TextStyle {
-                size: chrome::fit_text(&name, 26.0, &plain, half),
-                color: Color::WHITE,
-                anchor: TextAnchor::LEADING,
-                ..Default::default()
-            },
-        );
-        let score = tr("st_score").arg("n", self.score).format();
-        let lines = tr("st_level_lines")
-            .arg("level", self.level())
-            .arg("lines", self.lines)
-            .format();
-        let stat = TextStyle {
-            size: [&score, &lines]
-                .iter()
-                .map(|s| chrome::fit_text(s, 15.0, &plain, bw * 0.6))
-                .fold(15.0, f64::min),
-            color: Color::rgba(1.0, 1.0, 1.0, 0.8),
-            anchor: TextAnchor::LEADING,
-            ..Default::default()
-        };
-        d.text(&score, Point::new(ox, t + 54.0), stat.clone());
-        d.text(&lines, Point::new(ox, t + 74.0), stat.clone());
-        // High score and the next piece, trailing (clear of the pause button).
-        let high = tr("st_high").arg("n", self.best).format();
-        let high_room = (ox + bw - 52.0) - (tx + half) - 8.0;
-        d.text(
-            &high,
-            Point::new(ox + bw - 52.0, t + 18.0),
-            TextStyle {
-                size: chrome::fit_text(&high, 15.0, &plain, high_room),
-                anchor: TextAnchor::TRAILING,
-                ..stat
-            },
-        );
-        let mini = (cs * 0.42).max(5.0);
-        let (nx, ny) = (ox + bw - 52.0 - 4.0 * mini, t + 42.0);
-        for &(r, c) in &SHAPES[self.next][0] {
-            let x = nx + c as f64 * mini;
-            let y = ny + r as f64 * mini;
-            d.fill(
-                Shape::RoundedRect(Rect::new(x + 0.5, y + 0.5, mini - 1.0, mini - 1.0), 2.0),
-                kind_color(self.next),
-            );
-        }
+        // The score, the level and the lines are read from the row under the header now, and the
+        // next piece from the preview beside them (see `info_bar`), so the well has the canvas.
 
         // The clear call-out: SINGLE / DOUBLE / TRIPLE / SIRTET!, gold for four, glowing
         // blue, fading out over its last third above the bottom of the well.
@@ -855,26 +802,84 @@ pub fn sirtet_page() -> AnyPiece {
             move || sirtet_clock(bu.clone()),
         )
     };
-    let pause = chrome::pause_button(tr("gk_pause"), "st-pause", {
-        let ui = ui.clone();
-        move || {
-            ui.pause();
-            ui.cue(&cues::SELECT);
-        }
-    })
-    .padding(Insets {
-        top: 0.0,
-        leading: 0.0,
-        bottom: 0.0,
-        trailing: 4.0,
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_sirtet"), "st-pause", move || {
+        pu.pause();
+        pu.cue(&cues::SELECT);
     });
-
     zstack((
-        cv.overlay_aligned(Alignment::TopTrailing, pause),
+        chrome::game_frame(header, Some(info_bar(ui.clone())), cv.any(), None),
         overlays(ui),
         clock,
     ))
     .any()
+}
+
+/// The readouts under the header: score, level, lines, the best so far, and the piece coming
+/// next — the preview stays drawn, since a shape is not something a label can say.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
+    let (su, lu, nu, pu) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
+    let score = chrome::info_stat(
+        tr("gk_score"),
+        move || {
+            su.repaint.track();
+            su.game.borrow().score.to_string()
+        },
+        Color::WHITE,
+        "st-score",
+    )
+    .min_width(72.0)
+    .any();
+    let level = chrome::info_stat(
+        tr("st_level"),
+        move || {
+            lu.repaint.track();
+            lu.game.borrow().level().to_string()
+        },
+        Color::WHITE,
+        "st-level",
+    )
+    .any();
+    let lines = chrome::info_stat(
+        tr("st_lines"),
+        move || {
+            nu.repaint.track();
+            nu.game.borrow().lines.to_string()
+        },
+        Color::WHITE,
+        "st-lines",
+    )
+    .any();
+    // The preview is the fourth readout, captioned like the three beside it so it sits on the
+    // same baseline and takes an equal share of the row instead of hanging off its end.
+    let next = column((
+        label(tr("st_next"))
+            .font(Font::Caption)
+            .color(chrome::TEXT_DIM),
+        canvas(move |d, sz| {
+            pu.repaint.track();
+            let kind = pu.game.borrow().next;
+            let mini = (sz.height / 3.0).min(sz.width / 5.0);
+            let (nx, ny) = (sz.width / 2.0 - 2.0 * mini, sz.height / 2.0 - mini);
+            for &(r, c) in &SHAPES[kind][0] {
+                let x = nx + c as f64 * mini;
+                let y = ny + r as f64 * mini;
+                d.fill(
+                    Shape::RoundedRect(Rect::new(x + 0.5, y + 0.5, mini - 1.0, mini - 1.0), 2.0),
+                    kind_color(kind),
+                );
+            }
+        })
+        .a11y(|a| a.label(tr("st_next_a11y").format()))
+        .id("st-next")
+        .frame(64.0, 28.0),
+    ))
+    .spacing(2.0)
+    .align(HAlign::Center)
+    .any();
+    // Four readouts is what fits a phone's width; the best score has the pause and game-over
+    // cards to itself.
+    chrome::info_row(vec![score, level, lines, next])
 }
 
 /// The game's frame consumer: gravity, clears, and the haptics and card a tick earns.

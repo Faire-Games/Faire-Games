@@ -598,19 +598,18 @@ impl Game {
         // returns (origin_x, origin_y, board_size, cell_size)
         let w = self.field.width;
         let h = self.field.height;
-        let size = (w - 32.0).min(h - 150.0).max(80.0);
+        let size = (w - 32.0).min(h).max(80.0);
         let cell = (size - (N as f64 + 1.0) * GAP) / N as f64;
         let ox = (w - size) / 2.0;
-        let oy = self.top() + 120.0;
+        let oy = self.top();
         (ox, oy, size, cell)
     }
-    /// How far the header and board sit below the top: half the height they leave free, so a
-    /// tall screen centers them rather than stacking them at the top. The block is the 120-point
-    /// header, the board, and the 30 points under it for "keep going".
+    /// How far the board sits below the top of its canvas: half the height it leaves free. The
+    /// header and the readouts are pieces above this canvas now, so nothing is reserved here.
     fn top(&self) -> f64 {
         let (w, h) = (self.field.width, self.field.height);
-        let size = (w - 32.0).min(h - 150.0).max(80.0);
-        ((h - 150.0 - size) / 2.0).max(0.0)
+        let size = (w - 32.0).min(h).max(80.0);
+        ((h - size) / 2.0).max(0.0)
     }
     fn cell_xy(&self, r: usize, c: usize) -> (f64, f64) {
         let (ox, oy, _s, cell) = self.board();
@@ -641,57 +640,8 @@ impl Game {
             }
         }
 
-        // Header: the title over the score, difficulty and best, each narrowing to fit its third
-        // of the board's width. The leading gutter keeps the title clear of the cover's close
-        // button, and its width stays clear of the undo and pause buttons.
-        let t = self.top();
-        let ink = Color::hex(0x77_6E_65);
-        let plain = TextStyle::default().font;
-        let title = tr("tf_title").format();
-        let tx = ox.max(52.0);
-        d.text(
-            &title,
-            Point::new(tx, t + 12.0),
-            TextStyle {
-                size: chrome::fit_text(&title, 40.0, &plain, (ox + size - tx) * 0.6),
-                color: ink,
-                anchor: TextAnchor::LEADING,
-                ..Default::default()
-            },
-        );
-        let score = tr("tf_score").arg("n", self.score).format();
-        let level = self.difficulty.label().format();
-        let best = tr("tf_best").arg("n", self.best).format();
-        let third = size / 3.0 - 8.0;
-        let stat = TextStyle {
-            size: [&score, &level, &best]
-                .iter()
-                .map(|s| chrome::fit_text(s, 15.0, &plain, third))
-                .fold(15.0, f64::min),
-            color: ink,
-            anchor: TextAnchor::LEADING,
-            ..Default::default()
-        };
-        d.text(&score, Point::new(ox, t + 78.0), stat.clone());
-        d.text(
-            &level,
-            Point::new(ox + size / 2.0, t + 78.0),
-            TextStyle {
-                anchor: TextAnchor {
-                    h: TextAlign::Center,
-                    v: TextVAlign::Top,
-                },
-                ..stat.clone()
-            },
-        );
-        d.text(
-            &best,
-            Point::new(ox + size, t + 78.0),
-            TextStyle {
-                anchor: TextAnchor::TRAILING,
-                ..stat
-            },
-        );
+        // The name, the score, the difficulty and the best are read from the header and the row
+        // under it now (see `info_bar`), so the board has the canvas to itself.
 
         // Tiles.
         match self.anim.phase {
@@ -1026,13 +976,6 @@ pub fn twentyfortyeight_page() -> AnyPiece {
             move || twentyfortyeight_clock(bu.clone()),
         )
     };
-    let pause = chrome::pause_button(tr("gk_pause"), "tf-pause", {
-        let ui = ui.clone();
-        move || {
-            ui.pause();
-            ui.cue(&cues::SELECT);
-        }
-    });
     // Easy's undo, beside the pause button, with its remaining count.
     let undo = {
         let (cu, du, tu) = (ui.clone(), ui.clone(), ui.clone());
@@ -1070,19 +1013,60 @@ pub fn twentyfortyeight_page() -> AnyPiece {
             },
         )
     };
-    let corner = row((undo, pause)).spacing(4.0).padding(Insets {
-        top: 0.0,
-        leading: 0.0,
-        bottom: 0.0,
-        trailing: 4.0,
+    let pu = ui.clone();
+    let header = chrome::game_header(tr("nav_2048"), "tf-pause", move || {
+        pu.pause();
+        pu.cue(&cues::SELECT);
     });
-
+    // Undo belongs under the board with the rest of the controls; Easy is the only difficulty
+    // that offers it, so the row is empty on the others.
+    let footer = row((undo,)).align(VAlign::Center).padding(8.0).any();
     zstack((
-        cv.overlay_aligned(Alignment::TopTrailing, corner),
+        chrome::game_frame(header, Some(info_bar(ui.clone())), cv.any(), Some(footer)),
         overlays(ui),
         clock,
     ))
     .any()
+}
+
+/// The readouts under the header: the score, the difficulty being played, and the best so far.
+fn info_bar(ui: Rc<Ui>) -> AnyPiece {
+    let (su, du, bu) = (ui.clone(), ui.clone(), ui.clone());
+    let ink = Color::hex(0x77_6E_65);
+    let score = chrome::info_stat(
+        tr("gk_score"),
+        move || {
+            su.repaint.track();
+            su.game.borrow().score.to_string()
+        },
+        ink,
+        "tf-score",
+    )
+    .min_width(80.0)
+    .any();
+    let difficulty = chrome::info_stat(
+        tr("tf_difficulty"),
+        move || {
+            du.repaint.track();
+            du.game.borrow().difficulty.label().format()
+        },
+        ink,
+        "tf-difficulty",
+    )
+    .min_width(80.0)
+    .any();
+    let best = chrome::info_stat(
+        tr("gk_best"),
+        move || {
+            bu.repaint.track();
+            bu.game.borrow().best.to_string()
+        },
+        ink,
+        "tf-best",
+    )
+    .min_width(80.0)
+    .any();
+    chrome::info_row(vec![score, difficulty, best])
 }
 
 /// The game's frame consumer: the slide and pop tweens, and the haptics and cards a move earns.
