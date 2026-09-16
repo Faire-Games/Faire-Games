@@ -1,0 +1,190 @@
+# Generated puzzle seed 15. The final section replays a complete known solution.
+# Run with --env DAY_GAMES_SEED=15. No network or external fixture is needed.
+name: pipes
+flow:
+  - wait_for: { id: home }
+  - navigate: { route: pipes }
+  - pause: { secs: 0.4 }
+  - nav_back: {}
+  - pause: { secs: 0.4 }
+  - navigate: { route: pipes }
+  - pause: { secs: 0.4 }
+  - tap: { id: pp-pause }
+  - tap: { id: pp-new-game }
+  - select: { id: pp-size, index: 0 }
+  - tap: { id: pp-start }
+  - assert_text: { id: pp-moves, text: "0" }
+  - screenshot: pipes-opening
+  - key: { id: pp-board, key: l }
+  - key: { id: pp-board, key: Enter }
+  - assert_text: { id: pp-moves, text: "0" }
+  - screenshot: pipes-locked
+  - nav_back: {}
+  - pause: { secs: 0.4 }
+  - navigate: { route: pipes }
+  - pause: { secs: 0.4 }
+  # The lock survived closing and restoring the game.
+  - key: { id: pp-board, key: Enter }
+  - assert_text: { id: pp-moves, text: "0" }
+  - key: { id: pp-board, key: l }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.3 }
+  - assert_text: { id: pp-moves, text: "1" }
+  - tap: { id: pp-pause }
+  - key: { id: pp-board, key: Enter }
+  - assert_text: { id: pp-moves, text: "1" }
+  - tap: { id: pp-settings }
+  - assert_visible: { id: pp-sounds }
+  - screenshot: pipes-settings
+  - tap: { id: pp-done }
+  - tap: { id: pp-instructions }
+  - assert_visible: { id: pp-help-done }
+  - screenshot: pipes-rules
+  - tap: { id: pp-help-done }
+  - tap: { id: pp-resume }
+  - nav_back: {}
+  - pause: { secs: 0.4 }
+  - navigate: { route: pipes }
+  - pause: { secs: 0.4 }
+  - assert_text: { id: pp-moves, text: "1" }
+  - tap: { id: pp-pause }
+  - tap: { id: pp-restart }
+  - assert_text: { id: pp-moves, text: "0" }
+  # Rotate each tile into its known solution, then advance to the next row.
+  # Row 1, column 1.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 1, column 2.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 1, column 3.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 1, column 4.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 1, column 5.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  - key: { id: pp-board, key: ArrowDown }
+  # Row 2, column 1.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 2, column 2.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 2, column 3.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 2, column 4.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 2, column 5.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  - key: { id: pp-board, key: ArrowDown }
+  # Row 3, column 1.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 3, column 2.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 3, column 3.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 3, column 4.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 3, column 5.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  - key: { id: pp-board, key: ArrowDown }
+  # Row 4, column 1.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 4, column 2.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 4, column 3.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 4, column 4.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 4, column 5.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  - key: { id: pp-board, key: ArrowDown }
+  # Row 5, column 1.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 5, column 2.
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 5, column 3.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 5, column 4.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: ArrowRight }
+  # Row 5, column 5.
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - key: { id: pp-board, key: Enter }
+  - pause: { secs: 0.2 }
+  - assert_text: { id: pp-connected, text: "25 / 25" }
+  - assert_text: { id: pp-moves, text: "33" }
+  - pause: { secs: 2.0 }
+  - assert_visible: { id: pp-result }
+  - assert_text: { id: pp-final-moves, text: "33" }
+  - screenshot: pipes-complete
+  - tap: { id: pp-play-again }
+  - select: { id: pp-size, index: 1 }
+  - tap: { id: pp-start }
+  - assert_text: { id: pp-moves, text: "0" }
+  - screenshot: pipes-medium
+  - tap: { id: pp-pause }
+  - tap: { id: pp-new-game }
+  - select: { id: pp-size, index: 2 }
+  - tap: { id: pp-start }
+  - assert_text: { id: pp-moves, text: "0" }
+  - screenshot: pipes-large
+  - nav_back: {}

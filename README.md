@@ -1,6 +1,6 @@
 # Day Games
 
-Solitaire, Block Blast, Breakout, falling blocks, Sudoku, 2048, Mines, Charades, and Reversi in one app. Built with
+Solitaire, Block Blast, Breakout, falling blocks, Sudoku, 2048, Mines, Charades, Reversi, and Pipes in one app. Built with
 [Day](https://daybrite.dev) in one Rust codebase and rendered with the platform's own widgets on
 iPhone, Android, HarmonyOS, macOS, Windows, Linux, and the web. Every game runs entirely on the
 device, and your progress is saved when you leave a game and restored when you come back.
@@ -44,6 +44,10 @@ missing. The launch prints where it put the checkout, so you can open the code a
   and opens a clearing, holding a square plants a flag (or turn on Flag Mode and tap), and tapping
   a number that already has its flags opens the rest around it. Three board sizes, each turning
   with the window so the squares stay big enough to hit on a phone, and a best time for each.
+- **Pipes.** Rotate tiles to connect every branch to the gold source. Choose a 5×5, 7×7,
+  or 9×9 generated puzzle; lock tiles to protect them, and watch a wave of light cross the
+  completed network. Every puzzle is solvable. Saves include rotations and locks, and each
+  board size keeps its fewest-rotation record. Arrows select, Space/Enter rotates, and L locks.
 - **Reversi.** Trap and flip opposing discs on an 8×8 board. Play Black against three
   computer difficulties or share the board in pass-and-play. Legal moves are marked, flips
   animate, and a side with no move passes automatically. Use arrows and Space/Enter on a
@@ -95,6 +99,7 @@ To build from plain cargo, pass the backend feature yourself, for example
 [Dayscripts](https://daybrite.dev/docs/dayscript) drive the app: `smoke.yaml` opens each
 game, `sudoku.yaml` walks every Sudoku surface, `blockblast.yaml` places Block Blast pieces
 from the keyboard and walks its menus, `reversi.yaml` checks captures, solo play, menus, and save restoration;
+`pipes.yaml` checks locks, saves, all board sizes, and a complete seeded solution;
 `solitaire.yaml` plays a proven-winnable deal from the
 keyboard, and `bk.yaml` and `games.yaml` sweep gameplay for screenshots:
 
@@ -106,7 +111,7 @@ day launch -p ios-uikit --script dayscript/games.yaml
 
 - `src/lib.rs` is `root()`: the home grid and the fullscreen cover each game opens in, with typed
   routes so deep links and dayscript can open a game by name.
-- `games/blockblast`, `games/breakout`, `games/sirtet`, `games/solitaire`, `games/sudoku`, `games/reversi`, and
+- `games/blockblast`, `games/breakout`, `games/sirtet`, `games/solitaire`, `games/sudoku`, `games/reversi`, `games/pipes`, and
   `games/twentyfortyeight` are one crate per game: canvas or grid-layout UI, physics on the
   frame clock, and a serde save state.
 - `gamekit/` is the shared persistence layer: each game's state is saved when its cover closes
