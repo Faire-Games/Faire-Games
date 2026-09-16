@@ -69,8 +69,8 @@ def main():
         swipe(100, 570)  # return the home scroll to its top from any saved offset
     swipe(475, 200)  # bring 2048 underneath the cover's header coordinate
 
-    # Positive control: this screen coordinate MUST hit 2048 before a cover is shown.
-    # Otherwise a test could pass simply because there was nothing clickable underneath.
+    # Positive control: this screen coordinate must hit 2048 before a cover is shown.
+    # Otherwise a test could pass only because there was nothing clickable underneath.
     tap(75, 30)
     drive({"assert_route": {"route": "twentyfortyeight"}}, {"nav_back": {}},
           {"pause": {"secs": 0.4}})

@@ -1,4 +1,4 @@
-//! Breakout — a real-time brick-breaker drawn on an immediate-mode canvas and driven by Day's
+//! Breakout: a real-time brick-breaker drawn on an immediate-mode canvas and driven by Day's
 //! frame clock (§8.4), following Faire-Games' Breakout feature for feature: an eased,
 //! finger-tracking paddle that can smash the ball up or down, multi-hit armored bricks, five
 //! power-ups with timer badges, combos with score popups, particle bursts, a ball trail and a
@@ -86,7 +86,7 @@ const HUD_BG: Color = Color::rgb(0.04, 0.04, 0.12);
 /// The game's cover surface color (edge-to-edge behind the safe area).
 pub const SURFACE: Color = HUD_BG;
 
-/// A tiny xorshift RNG — no `rand` dependency, deterministic per seed.
+/// A tiny xorshift RNG: no `rand` dependency, deterministic per seed.
 struct Rng(u64);
 impl Rng {
     fn next(&mut self) -> u64 {
@@ -946,7 +946,7 @@ impl Game {
         }
     }
 
-    /// Where the primary ball will next meet a side wall, ignoring bricks — the guide marker.
+    /// Where the primary ball will next meet a side wall, ignoring bricks: the guide marker.
     fn update_prediction(&mut self) {
         let b = self.ball;
         self.predicted = None;
@@ -1030,10 +1030,10 @@ impl Game {
 
     // --- drawing --------------------------------------------------------------------------
 
-    /// Everything in one pass, for the home tile. The page draws the same scene as FOUR
+    /// Everything in one pass, for the home tile. The page draws the same scene as four
     /// canvases stacked in a `zstack`, each re-recorded on its own schedule: the backdrop
     /// once, the wall when a brick changes, the HUD when a number changes, and the play
-    /// layer (ball, paddle, particles, popups) every frame — so a frame costs the native
+    /// layer (ball, paddle, particles, popups) every frame, so a frame costs the native
     /// rasterizer a few dozen ops rather than the whole wall.
     fn draw(&self, d: &mut Draw, sz: Size) {
         self.draw_backdrop(d, sz);
@@ -1517,8 +1517,8 @@ impl Game {
     }
 }
 
-/// The home-grid tile preview: the REAL renderer over a curated mid-game state, scaled
-/// from a 280×320 virtual field into the tile.
+/// The home-grid tile preview: the game's renderer itself over a curated mid-game state,
+/// scaled from a 280×320 virtual field into the tile.
 pub fn breakout_preview() -> AnyPiece {
     canvas(|d, sz| {
         if sz.width < 4.0 || sz.height < 4.0 {
@@ -1616,7 +1616,7 @@ struct Ui {
     /// A pointer is inside the paddle's travel band: the paddle follows it and the cursor
     /// hides. Only pointer devices hover, so this stays false on a phone.
     pointer_in_band: Signal<bool>,
-    /// A pointer has hovered this field at least once — so a press is a click, not a finger,
+    /// A pointer has hovered this field at least once, so a press is a click, not a finger,
     /// and the paddle sits under it rather than lifted above it.
     pointer_seen: Cell<bool>,
 }
@@ -1774,8 +1774,8 @@ pub fn breakout_page() -> AnyPiece {
             du.game.borrow_mut().setup(sz.width, sz.height.max(10.0));
             du.game.borrow().draw_play(d);
         })
-        // A mouse, trackpad, or pen steers the paddle by moving over the field — no press
-        // needed — and the cursor hides while it is in the paddle's band. Touch never hovers
+        // A mouse, trackpad, or pen steers the paddle by moving over the field (no press
+        // needed), and the cursor hides while it is in the paddle's band. Touch never hovers
         // (docs/canvas.md), so a finger keeps the drag below.
         .on_hover(move |at| {
             hu.pointer_seen.set(true);
@@ -1869,7 +1869,7 @@ pub fn breakout_page() -> AnyPiece {
     .any()
 }
 
-/// The readouts under the header: the score, the lives left, and the level. Lives stay dots —
+/// The readouts under the header: the score, the lives left, and the level. Lives stay dots;
 /// three of them read faster than the numeral three.
 fn info_bar(ui: Rc<Ui>) -> AnyPiece {
     let (su, vu, lu) = (ui.clone(), ui.clone(), ui.clone());

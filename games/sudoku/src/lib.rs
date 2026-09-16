@@ -1,6 +1,6 @@
-//! Sudoku — a classic 9×9 with notes, unlimited undo/redo, checkpoints, hints, pause, a
+//! Sudoku is a classic 9×9 with notes, unlimited undo/redo, checkpoints, hints, pause, a
 //! difficulty picker, settings, per-difficulty best times, and a how-to-play sheet, following
-//! Faire-Games' Sudoku screen for screen. The board is built with Day's GRID layout
+//! Faire-Games' Sudoku screen for screen. The board is built with Day's grid layout
 //! (docs/grid.md): 9 `grid_row`s of 9 interactive cell canvases; the keypad and action
 //! buttons are canvases too, so the dark game surface reads the same on every toolkit; the
 //! pause, solved, difficulty, settings, and instructions surfaces are in-page overlays with
@@ -84,7 +84,7 @@ fn accent(d: Difficulty) -> Color {
     }
 }
 
-/// The difficulty display names, as LITERAL `tr` keys so `day lint` tracks their coverage.
+/// The difficulty display names, as literal `tr` keys so `day lint` tracks their coverage.
 fn difficulty_label(d: Difficulty) -> day_fluent::LocalizedText {
     match d {
         Difficulty::Easy => tr("su_easy"),
@@ -339,7 +339,7 @@ fn cell_background(g: &Model, i: usize) -> Color {
     CELL_BG
 }
 
-/// One board cell's full rendering — background, box lines, value or pencil marks.
+/// One board cell's full rendering: background, box lines, value or pencil marks.
 #[allow(clippy::too_many_arguments)]
 fn draw_cell(
     d: &mut Draw,
@@ -786,7 +786,7 @@ fn board_grid(ui: Rc<Ui>) -> impl Piece {
         }
         rows.push(grid_row(PieceVec(cells)).any());
     }
-    // The board's fill and rim sit UNDER the cells: a canvas above them would take every
+    // The board's fill and rim sit under the cells: a canvas above them would take every
     // press on the web, where the topmost element gets the pointer (native toolkits let a
     // handler-less canvas fall through). The cells leave the 4pt padding band for the rim.
     let rim = canvas(|d, sz| {

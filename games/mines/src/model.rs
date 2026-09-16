@@ -191,7 +191,7 @@ impl Board {
         self.mines as i64 - self.flags as i64
     }
 
-    /// Hidden cells that hold no mine — zero means the board is swept.
+    /// Hidden cells that hold no mine; zero means the board is swept.
     pub fn left_to_find(&self) -> usize {
         self.cells() - self.mines - self.revealed
     }
@@ -296,7 +296,7 @@ impl Board {
         }
     }
 
-    /// A revealed number with exactly its flags around it opens the rest of its neighbors — the
+    /// A revealed number with exactly its flags around it opens the rest of its neighbors: the
     /// move that makes a big board quick, and the one that ends a game on a misplaced flag.
     pub fn chord(&mut self, i: usize) -> Outcome {
         if self.state[i] != Cell::Revealed || self.near[i] == 0 || self.over() {
@@ -487,7 +487,7 @@ mod tests {
     }
 
     /// A revealed number that still has a hidden safe square beside it, so chording it has
-    /// something to open — a number whose hidden neighbors are all mines opens nothing, by design.
+    /// something to open; a number whose hidden neighbors are all mines opens nothing.
     fn chordable(b: &Board) -> usize {
         (0..b.cells())
             .find(|&i| {

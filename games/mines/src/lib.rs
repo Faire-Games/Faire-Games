@@ -1,12 +1,12 @@
-//! Mines — the classic sweeper on one immediate-mode canvas (docs/canvas.md), stepped on Day's
+//! Mines is the classic sweeper on one immediate-mode canvas (docs/canvas.md), stepped on Day's
 //! frame clock: squares pop open in rings out from the tap, flags plant with a wobble, a mine ends
 //! the game with a shake and a burst of sparks, and a swept board plants the flags it never had to.
-//! The first tap is always safe — the mines are laid around it (model.rs).
+//! The first tap is always safe: the mines are laid around it (model.rs).
 //!
 //! Hold a square to flag it without lifting your finger, or turn on Flag Mode and tap; tap a number
 //! whose flags are all placed and the rest of its neighbors open at once. On a keyboard the arrows
-//! move a pointer, Space or Return uncovers, and F flags. The board turns with the window — tall on
-//! a phone, wide on a desktop — so its squares stay big enough to hit at any size.
+//! move a pointer, Space or Return uncovers, and F flags. The board turns with the window (tall on
+//! a phone, wide on a desktop) so its squares stay big enough to hit at any size.
 
 use std::cell::{Cell, RefCell};
 use std::f64::consts::TAU;

@@ -1,15 +1,15 @@
-//! gamekit — the games' standard save-state mechanism. Each game serializes its durable state
+//! gamekit is the games' standard save-state mechanism. Each game serializes its durable state
 //! (board, score, best) to JSON in `day-part-prefs` (docs/prefs.md) and restores it the next
 //! time it opens. Two write triggers cover every exit path:
 //!
 //! - **game exit**: [`autosave`] hooks the page scope's cleanup, so closing the cover (the X
-//!   button, system back, a route change) saves — on every backend, ArkUI included;
+//!   button, system back, a route change) saves, on every backend, ArkUI included;
 //! - **app backgrounding**: one process-wide set of lifecycle handlers
 //!   (`DidEnterBackground` / `WillResignActive` / `WillTerminate`, where the backend delivers
-//!   them — docs/lifecycle.md) saves every open game.
+//!   them; docs/lifecycle.md) saves every open game.
 //!
 //! [`on_background`] rides the same lifecycle handlers for a game that wants to react to
-//! leaving the foreground — a timed game pauses its clock — before its state is saved.
+//! leaving the foreground (a timed game pauses its clock) before its state is saved.
 //!
 //! [`chrome`] is the shell every game shares: the pause menu, the results cards, the
 //! settings and how-to-play sheets, the pause button, and the haptic gate.
@@ -30,7 +30,7 @@ thread_local! {
     static SEED_OVERRIDE: Cell<Option<u64>> = const { Cell::new(None) };
 }
 
-/// Make every later [`seed`] return `seed` — what the app installs from `DAY_GAMES_SEED` so a
+/// Make every later [`seed`] return `seed`, what the app installs from `DAY_GAMES_SEED` so a
 /// dayscript walkthrough meets the same puzzle, brick layout, and piece order on every run
 /// and every target. One value for all games: they are independent, so sharing it costs
 /// nothing, and it keeps the answer independent of which game's preview drew first.
@@ -65,7 +65,7 @@ fn pref_key(key: &str) -> String {
 }
 
 /// The saved state for `key`, if a readable one exists. An unparsable save (a schema change)
-/// is discarded rather than propagated — the game starts fresh.
+/// is discarded rather than propagated: the game starts fresh.
 pub fn restore<T: DeserializeOwned>(key: &str) -> Option<T> {
     let raw = day_part_prefs::get(&pref_key(key))?;
     match serde_json::from_str(&raw) {
@@ -117,7 +117,7 @@ fn save_all() {
 }
 
 /// One process-wide lifecycle registration; `lifecycle_supported` skips phases this backend
-/// never delivers (docs/lifecycle.md) — scope-cleanup saving still covers those platforms.
+/// never delivers (docs/lifecycle.md); scope-cleanup saving still covers those platforms.
 fn hook_lifecycle() {
     let first = LIFECYCLE_HOOKED.with(|h| !h.replace(true));
     if first {
@@ -133,9 +133,9 @@ fn hook_lifecycle() {
     }
 }
 
-/// Run `f` whenever the app leaves the foreground while the CURRENT scope (the game's page) is
-/// alive — before that game's [`autosave`] snapshot is taken, so a clock it stops is saved
-/// stopped. Desktop backends deliver no such phase; the hook is simply never called there.
+/// Run `f` whenever the app leaves the foreground while the current scope (the game's page) is
+/// alive, before that game's [`autosave`] snapshot is taken, so a clock it stops is saved
+/// stopped. Desktop backends deliver no such phase; the hook is never called there.
 pub fn on_background(key: &'static str, f: impl Fn() + 'static) {
     let hook: Rc<dyn Fn()> = Rc::new(f);
     BACKGROUND.with(|m| m.borrow_mut().insert(key.to_string(), hook));
@@ -147,9 +147,9 @@ pub fn on_background(key: &'static str, f: impl Fn() + 'static) {
     });
 }
 
-/// Register what leaving a game does, for as long as the CURRENT scope (the shell's game cover)
-/// is alive. Leaving belongs to the shell — it owns the cover — while the button that asks for it
-/// sits in the game's own header row ([`chrome::game_header`]), which is what keeps the close
+/// Register what leaving a game does, for as long as the current scope (the shell's game cover)
+/// is alive. Leaving belongs to the shell (it owns the cover) while the button that asks for it
+/// sits in the game's header row ([`chrome::game_header`]), which is what keeps the close
 /// button aligned with the title and the pause button on every game.
 pub fn on_close(f: impl Fn() + 'static) {
     let hook: Rc<dyn Fn()> = Rc::new(f);
@@ -169,7 +169,7 @@ pub fn close() {
     }
 }
 
-/// Load the shell's shared clips and `clips` while the CURRENT scope (the game's page) is alive,
+/// Load the shell's shared clips and `clips` while the current scope (the game's page) is alive,
 /// and release every one of them when it closes. Call once from the game's page builder.
 pub fn sounds(clips: &'static [chrome::Sfx]) {
     day_part_sound::preload(chrome::cues::SHARED);
@@ -177,7 +177,7 @@ pub fn sounds(clips: &'static [chrome::Sfx]) {
     Scope::current().on_cleanup(day_part_sound::unload_all);
 }
 
-/// Keep `snapshot` registered as `key`'s live state provider while the CURRENT scope (the
+/// Keep `snapshot` registered as `key`'s live state provider while the current scope (the
 /// game's page) is alive: the state is saved when the scope is disposed (the game exited) and
 /// whenever the app is backgrounded. Call once from the game's page builder.
 pub fn autosave<T: Serialize>(key: &'static str, snapshot: impl Fn() -> T + 'static) {

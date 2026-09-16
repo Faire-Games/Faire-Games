@@ -1,4 +1,4 @@
-//! Charades — the party game played with a phone on your forehead. One player holds it up, screen
+//! Charades is the party game played with a phone on your forehead. One player holds it up, screen
 //! facing out, and guesses the word the others describe, act out or hum; a nod (the phone tilted
 //! toward the floor) scores it, tipping the head back passes. The accelerometer reads the tilt
 //! (model.rs `Tilt`); a device without one, or a player who prefers it, answers with buttons or the

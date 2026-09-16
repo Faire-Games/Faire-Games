@@ -1,4 +1,4 @@
-//! Sirtet — a falling-tetromino stacker on an immediate-mode canvas, with gravity on Day's frame
+//! Sirtet is a falling-tetromino stacker on an immediate-mode canvas, with gravity on Day's frame
 //! clock (§8.4). A composite Day piece: pure composition over `day_pieces`. Tap rotates, horizontal
 //! drag shifts, downward drag soft-drops.
 
@@ -482,7 +482,7 @@ impl Game {
         // The score, the level and the lines are read from the row under the header now, and the
         // next piece from the preview beside them (see `info_bar`), so the well has the canvas.
 
-        // The clear call-out: SINGLE / DOUBLE / TRIPLE / SIRTET!, gold for four, glowing
+        // The clear call-out: "SINGLE" / "DOUBLE" / "TRIPLE" / "SIRTET!", gold for four, glowing
         // blue, fading out over its last third above the bottom of the well.
         if let Some((n, life)) = self.clear_popup {
             let text = match n {
@@ -545,7 +545,7 @@ impl Game {
     }
 }
 
-/// One well cell at grid position `(r, c)` — the rounded-square rendering shared by the
+/// One well cell at grid position `(r, c)`: the rounded-square rendering shared by the
 /// gameplay renderer and the home-tile preview.
 fn draw_cell(d: &mut Draw, ox: f64, oy: f64, cs: f64, r: i32, c: i32, color: Color) {
     let x = ox + c as f64 * cs;
@@ -556,7 +556,7 @@ fn draw_cell(d: &mut Draw, ox: f64, oy: f64, cs: f64, r: i32, c: i32, color: Col
     );
 }
 
-/// The home-grid tile preview: a mini well drawn with the SAME cell renderer, piece shapes,
+/// The home-grid tile preview: a mini well drawn with the same cell renderer, piece shapes,
 /// and palette as gameplay ([`draw_cell`], [`SHAPES`], [`kind_color`]).
 pub fn sirtet_preview() -> AnyPiece {
     canvas(|d, sz| {
@@ -569,7 +569,7 @@ pub fn sirtet_preview() -> AnyPiece {
         );
         let cs = (sz.width / 8.0).min(sz.height / 8.0);
         let (ox, oy) = ((sz.width - cs * 8.0) / 2.0, (sz.height - cs * 8.0) / 2.0);
-        // A settled stack in the bottom rows: (row, col, kind) — kinds pick the real colors.
+        // A settled stack in the bottom rows: (row, col, kind); kinds pick the real colors.
         let settled: &[(i32, i32, usize)] = &[
             (7, 0, 5),
             (7, 1, 5),
@@ -816,7 +816,7 @@ pub fn sirtet_page() -> AnyPiece {
 }
 
 /// The readouts under the header: score, level, lines, the best so far, and the piece coming
-/// next — the preview stays drawn, since a shape is not something a label can say.
+/// next. The preview stays drawn, since a shape is not something a label can say.
 fn info_bar(ui: Rc<Ui>) -> AnyPiece {
     let (su, lu, nu, pu) = (ui.clone(), ui.clone(), ui.clone(), ui.clone());
     let score = chrome::info_stat(

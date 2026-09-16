@@ -1,4 +1,4 @@
-# Day Games — UI strings (https://daybrite.dev/docs/localization). Add a locale by dropping a
+# Day Games: UI strings (https://daybrite.dev/docs/localization). Add a locale by dropping a
 # sibling folder (e.g. locales/fr/app.ftl) and registering it in src/lib.rs.
 
 app_title = Day Games

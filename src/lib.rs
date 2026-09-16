@@ -1,8 +1,8 @@
-//! Day Games — a [Day](https://daybrite.dev) app of small arcade/puzzle games, one crate each.
+//! Day Games is a [Day](https://daybrite.dev) app of small arcade/puzzle games, one crate each.
 //! `root()` is the whole UI, shared by every platform: the phones, the desktops, and the web.
 //!
 //! The home screen is a wrapping grid of game tiles stretched to the window's width, whose
-//! previews are drawn by each game's crate with the SAME rendering code as gameplay. Tapping a tile presents the game in a fullscreen
+//! previews are drawn by each game's crate with the same rendering code as gameplay. Tapping a tile presents the game in a fullscreen
 //! `cover` (docs/cover.md) with an X in the top-leading corner to exit; the games defer the
 //! system's edge gestures and disable interactive dismissal so an edge swipe mid-game doesn't
 //! leave the game. Each game saves its state through `gamekit` when the cover closes or the
@@ -52,7 +52,7 @@ const HOME_BG: Color = Color::hex(0x10_10_24);
 /// so previews grow from here; this floor still fits two tiles to a line on a 360pt phone.
 const TILE_MIN: f64 = 126.0;
 
-/// Each game's own surface color — painted edge-to-edge behind the presented cover.
+/// Each game's surface color, painted edge-to-edge behind the presented cover.
 fn game_background(section: Section) -> Color {
     match section {
         Section::BlockBlast => blockblast::SURFACE,
@@ -205,9 +205,9 @@ fn home_page(open: Signal<Option<Section>>) -> impl Piece {
 fn game_cover(open: Signal<Option<Section>>) -> impl Piece {
     cover(open, move |section: &Section| {
         let section = *section;
-        // The header draws in ink that contrasts with the game's own surface: white on the dark
-        // boards, near-black on 2048's cream one. Set BEFORE the page is built — a title's ink is
-        // resolved as its piece is made, not when it draws.
+        // The header draws in ink that contrasts with the game's surface: white on the dark
+        // boards, near-black on 2048's cream one. Set before the page is built, because a
+        // title's ink is resolved as its piece is made, not when it draws.
         gamekit::chrome::set_surface(game_background(section));
         let game = match section {
             Section::BlockBlast => blockblast::blockblast_page(),

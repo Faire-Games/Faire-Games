@@ -6,8 +6,8 @@ license = "Apache-2.0"
 # Compiles every word list under words/ into the game (words/README.md).
 build = "build.rs"
 
-# A COMPOSITE Day piece: a reusable widget built PURELY from Day's core primitives and headless parts
-# — no native per-backend code and NO cargo features, so it works on every backend for free.
+# A composite Day piece: a reusable widget built purely from Day's core primitives and headless
+# parts, with no native per-backend code and no cargo features, so it works on every backend as is.
 
 [dependencies]
 day-pieces = { git = "https://github.com/daybrite/day.git" }

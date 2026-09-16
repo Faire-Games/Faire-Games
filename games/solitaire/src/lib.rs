@@ -1,4 +1,4 @@
-//! Solitaire — Klondike, dealt winnable. Two canvases draw the table (docs/canvas.md): the lower
+//! Solitaire: Klondike, dealt winnable. Two canvases draw the table (docs/canvas.md): the lower
 //! one holds the cards at rest and re-records only when something changes; the upper one takes
 //! every touch, click and key and draws whatever moves, stepped on Day's frame clock.
 //!
@@ -2399,7 +2399,8 @@ fn outlined_text(
 
 impl Play {
     /// Put a finished hint search on screen: the first move of a winning line, or, with none
-    /// known, the solver's favorite move and, when the position is proven lost, a word saying so.
+    /// known, the solver's favorite move and, when the solver found the position lost, a word
+    /// saying so.
     fn show_hint(&mut self, v: Verdict) {
         let first = |step| self.model.moves_for(step).and_then(|m| m.first().copied());
         let (mv, lost) = match v {

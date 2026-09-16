@@ -4,8 +4,8 @@ version = "0.1.3"
 edition = "2024"
 license = "Apache-2.0"
 
-# A COMPOSITE Day piece: a reusable widget built PURELY from Day's core primitives — no native /
-# per-backend code and NO cargo features, so it works on every backend for free. Depend on it with a
+# A composite Day piece: a reusable widget built purely from Day's core primitives, with no native
+# per-backend code and no cargo features, so it works on every backend as is. Depend on it with a
 # plain `{ workspace = true }` (or git) line and call the builder from `use day::prelude::*` code.
 
 [dependencies]

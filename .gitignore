@@ -10,7 +10,7 @@ Cargo.lock
 .gradle/
 local.properties
 
-# Xcode local state (DayApp.xcodeproj itself is source — do NOT ignore it)
+# Xcode local state (DayApp.xcodeproj itself is source; do not ignore it)
 xcuserdata/
 DerivedData/
 

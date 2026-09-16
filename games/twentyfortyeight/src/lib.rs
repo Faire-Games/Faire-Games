@@ -1,4 +1,4 @@
-//! 2048 — a sliding-tile number puzzle on an immediate-mode canvas. Slides/merges/spawns tween on
+//! 2048: a sliding-tile number puzzle on an immediate-mode canvas. Slides/merges/spawns tween on
 //! Day's frame clock (§8.4). A composite Day piece: pure composition over `day_pieces`. Swipe to
 //! move; combine equal tiles to reach 2048.
 
@@ -80,7 +80,7 @@ impl Difficulty {
             Difficulty::Hard => Color::rgb(0.90, 0.35, 0.30),
         }
     }
-    /// LITERAL `tr` keys, so `day lint` tracks their coverage.
+    /// Literal `tr` keys, so `day lint` tracks their coverage.
     fn label(self) -> day_fluent::LocalizedText {
         match self {
             Difficulty::Easy => tr("tf_easy"),
@@ -220,13 +220,13 @@ fn ease_out(t: f64) -> f64 {
     1.0 - (1.0 - t) * (1.0 - t)
 }
 
-/// The `t` at which [`ease_out`] reaches `v` — so an animation taking over from a
+/// The `t` at which [`ease_out`] reaches `v`, so an animation taking over from a
 /// finger-tracked (linear) preview starts exactly where the tiles are, no jump.
 fn ease_out_inv(v: f64) -> f64 {
     1.0 - (1.0 - v.clamp(0.0, 1.0)).sqrt()
 }
 
-/// One value tile in a `cell`-sized slot at `(x, y)` — the rendering (colors, corner radius,
+/// One value tile in a `cell`-sized slot at `(x, y)`: the rendering (colors, corner radius,
 /// digit sizing) shared by the gameplay renderer and the home-tile preview.
 fn draw_tile(d: &mut Draw, x: f64, y: f64, cell: f64, value: u32, scale: f64) {
     let s = cell * scale;
@@ -338,7 +338,7 @@ impl Game {
         out
     }
 
-    /// Work out what sliding toward `dir` would do — pure: nothing is applied. `None` when
+    /// Work out what sliding toward `dir` would do. Pure: nothing is applied. `None` when
     /// no tile can move that way.
     fn compute_move(&self, dir: u8) -> Option<Pending> {
         let mut next = [[0u32; N]; N];
@@ -573,7 +573,7 @@ impl Game {
                         self.anim.phase = Phase::Pop;
                         self.anim.t = 0.0;
                     } else {
-                        // A cancelled preview slid back — the board never changed.
+                        // A cancelled preview slid back; the board never changed.
                         self.anim.phase = Phase::Idle;
                         self.anim.pops.clear();
                     }
@@ -655,8 +655,8 @@ impl Game {
                     draw_tile(d, x, y, cell, s.value, 1.0);
                 }
             }
-            // A drag in progress: the provisional move, tiles tracking the finger LINEARLY
-            // (no ease — they must follow a slide back to the start exactly).
+            // A drag in progress: the provisional move, tiles tracking the finger linearly
+            // (no ease, because they must follow a slide back to the start exactly).
             Phase::Idle if self.pending.is_some() => {
                 if let Some(p) = &self.pending {
                     for s in &p.slides {
@@ -724,7 +724,7 @@ impl Game {
     }
 }
 
-/// The home-grid tile preview: a mini board drawn with the SAME tile renderer and palette
+/// The home-grid tile preview: a mini board drawn with the same tile renderer and palette
 /// as gameplay ([`draw_tile`], [`tile_color`]).
 pub fn twentyfortyeight_preview() -> AnyPiece {
     canvas(|d, sz| {
@@ -901,7 +901,7 @@ pub fn twentyfortyeight_page() -> AnyPiece {
             if dr.overlay.get_untracked() != Overlay::None {
                 return;
             }
-            // The slide is PROVISIONAL while the finger is down: tiles track the drag
+            // The slide is provisional while the finger is down: tiles track the drag
             // toward their post-move spots, slide back if the finger returns, and the move
             // commits only on release past the threshold.
             let mut g = dr.game.borrow_mut();
@@ -926,7 +926,7 @@ pub fn twentyfortyeight_page() -> AnyPiece {
                     let (tx, ty) = (dg.translation.x, dg.translation.y);
                     let mag = tx.abs().max(ty.abs());
                     if mag < 6.0 {
-                        // Too small to pick an axis — whatever was previewed eases to 0.
+                        // Too small to pick an axis; whatever was previewed eases to 0.
                         g.pending_t = 0.0;
                     } else {
                         let dir = if tx.abs() > ty.abs() {
@@ -1472,7 +1472,7 @@ mod tests {
     fn preview_is_provisional_and_cancel_changes_nothing() {
         let grid = [[2, 0, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
         let mut g = game_with(grid);
-        // Drag left, part way — nothing is applied while previewing.
+        // Drag left, part way; nothing is applied while previewing.
         g.preview(0, 0.3);
         assert!(g.pending.is_some());
         assert_eq!(g.grid, grid, "grid untouched during preview");

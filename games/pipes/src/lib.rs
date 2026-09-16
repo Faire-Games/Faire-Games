@@ -88,12 +88,12 @@ impl Ui {
         self.repaint.notify();
     }
     fn act(&self, i: usize, lock: bool) {
-        // The game's own state gates a move; the spin animation deliberately does not. It used
-        // to, and since `tick` advances that animation by FRAME deltas, a sparse frame clock left
+        // The game's state gates a move; the spin animation does not. It used
+        // to, and since `tick` advances that animation by frame deltas, a sparse frame clock left
         // `spinning` set for longer than the 0.2 s a scripted press waits: macos-appkit lost 4 of
         // 33 rotations in CI while gtk, qt and xaml took all 33. Rotating mid-spin just restarts
         // the animation from the tile's new orientation. A doubled report cannot double-rotate
-        // here because the board wires `on_tap` alone — a still press that some backend also
+        // here because the board wires `on_tap` alone: a still press that some backend also
         // reports as a zero-length drag has no second handler to reach (docs/canvas.md
         // "Interaction"; Day-Sketch's toggling tap is the case that needs a real guard).
         if !self.active() {
@@ -729,8 +729,8 @@ mod spin_tests {
     use super::*;
 
     /// The arithmetic that dropped input in CI. `tick` advances the spin by frame deltas, so the
-    /// animation's 0.16 s is really a frame COUNT; the app used to clamp each delta to 0.05 s,
-    /// making it four frames — more than a starved clock delivers inside the 0.2 s a scripted
+    /// animation's 0.16 s is really a frame count; the app used to clamp each delta to 0.05 s,
+    /// making it four frames, more than a starved clock delivers inside the 0.2 s a scripted
     /// press waits. Unclamped, day-core's own 0.1 s cap is the most one frame can carry.
     #[test]
     fn a_spin_lands_in_two_frames_rather_than_four() {

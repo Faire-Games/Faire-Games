@@ -1,4 +1,4 @@
-//! Block Blast — drag pieces from a three-piece tray onto an 8×8 board; a full row or column
+//! Block Blast: drag pieces from a three-piece tray onto an 8×8 board; a full row or column
 //! clears. One immediate-mode canvas (docs/canvas.md) draws the board, the tray and every effect,
 //! stepped on Day's frame clock: a picked-up piece grows to board size and rides above the
 //! finger, a shadow and a glow preview where it lands and which lines it would complete, placed
@@ -246,7 +246,7 @@ fn tier_color(tier: u8) -> Color {
     }
 }
 
-/// A call-out for a clear of `tier`, the `pick`th of its pool. LITERAL `tr` keys, so `day lint`
+/// A call-out for a clear of `tier`, the `pick`th of its pool. Literal `tr` keys, so `day lint`
 /// tracks their coverage.
 fn message(tier: u8, pick: usize) -> day_fluent::LocalizedText {
     match (tier, pick % 3) {
@@ -2023,7 +2023,8 @@ mod tests {
             p.pick(Point::new(tx + s, ty + s), false),
             "the tray piece picks up"
         );
-        // Aim the lifted piece's top-left at cell (2, 3): its center rides LIFT above the finger.
+        // Aim the lifted piece's top-left at cell (2, 3): its center rides `LIFT_TOUCH` cells
+        // above the finger.
         let target = Point::new(
             l.bx + 3.0 * l.cell + l.cell,
             l.by + 2.0 * l.cell + l.cell + LIFT_TOUCH * l.cell,

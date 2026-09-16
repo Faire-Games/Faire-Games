@@ -326,7 +326,7 @@ impl Round {
 
 /// Which way an accelerometer's axes point relative to gravity. CoreMotion reports the pull of
 /// gravity (a phone lying face up reads z ≈ −9.8), Android, HarmonyOS and the W3C web the
-/// opposite (z ≈ +9.8) — docs/sensors.md.
+/// opposite (z ≈ +9.8); see docs/sensors.md.
 pub fn native_sign() -> f64 {
     if cfg!(target_os = "ios") { 1.0 } else { -1.0 }
 }
@@ -815,7 +815,7 @@ mod tests {
     #[test]
     fn screen_down_follows_the_held_edge() {
         let mut t = Tilt::new(-1.0);
-        // Android: portrait, upright — gravity pulls toward −y, the reading is +y.
+        // Android: portrait, upright. Gravity pulls toward −y, the reading is +y.
         t.feed([0.0, G, 0.0], 0.05);
         assert_eq!(t.screen_down(), Some(0));
         let mut t = Tilt::new(-1.0);

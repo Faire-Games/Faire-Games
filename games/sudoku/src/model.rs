@@ -1,5 +1,5 @@
-//! The Sudoku game state — board, notes, cursor-based undo/redo, checkpoints, hints, pause,
-//! records, and settings — mirroring Faire-Games' SudokuModel. Pure logic, no UI: everything
+//! The Sudoku game state (board, notes, cursor-based undo/redo, checkpoints, hints, pause,
+//! records, and settings), mirroring Faire-Games' SudokuModel. Pure logic, no UI: everything
 //! here is host-testable with `cargo test`.
 
 use serde::{Deserialize, Serialize};
@@ -12,7 +12,7 @@ pub fn idx(row: usize, col: usize) -> usize {
     row * 9 + col
 }
 
-/// A tiny xorshift RNG — no `rand` dependency, deterministic per seed.
+/// A tiny xorshift RNG: no `rand` dependency, deterministic per seed.
 pub struct Rng(pub u64);
 impl Rng {
     fn next(&mut self) -> u64 {
@@ -371,7 +371,7 @@ impl Model {
         peers
     }
 
-    /// Enter a digit (or toggle a note) into the selected cell — Faire's placeDigit.
+    /// Enter a digit (or toggle a note) into the selected cell, Faire's placeDigit.
     /// Returns true when something changed.
     pub fn place(&mut self, digit: u8) -> bool {
         let Some(i) = self.selected else { return false };
@@ -468,7 +468,7 @@ impl Model {
     }
 
     /// Fill the correct digit into the selected cell, or the first empty or wrong one. A hint
-    /// is committed even inside a checkpoint — the player asked for the answer.
+    /// is committed even inside a checkpoint; the player asked for the answer.
     pub fn hint(&mut self) -> bool {
         if !self.can_hint() {
             return false;
@@ -532,7 +532,7 @@ impl Model {
         self.cursor = self.checkpoint_cursor;
     }
 
-    /// Reveal the solution in the EMPTY cells and lock the board. The player's own wrong
+    /// Reveal the solution in the empty cells and lock the board. The player's wrong
     /// entries stay, so the post-mortem shows them in red next to the green fills. No records.
     pub fn give_up(&mut self) {
         if self.locked() {
@@ -1057,7 +1057,7 @@ mod tests {
         let empties: Vec<usize> = (0..CELLS).filter(|&i| !m.original[i]).collect();
         let (i, j) = (empties[0], empties[1]);
         m.selected = Some(i);
-        m.place(m.solution[i] % 9 + 1); // wrong on purpose
+        m.place(m.solution[i] % 9 + 1); // a wrong digit
         m.enter_checkpoint();
         m.give_up();
         assert!(m.given_up && m.locked() && !m.checkpoint_active);

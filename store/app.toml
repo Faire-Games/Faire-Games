@@ -1,6 +1,6 @@
-# Store listing metadata that is NOT localized. The localized text lives in store/<locale>/.
-# bundle-id: omitted on purpose — `day store` falls back to Day.toml [app] id, which is
-# the source of truth. Set it here only to publish under an id the app does not build with.
+# Store listing metadata that is not localized. The localized text lives in store/<locale>/.
+# bundle-id is omitted: `day store` falls back to Day.toml [app] id, which is where the id
+# is defined. Set it here only to publish under an id the app does not build with.
 apple-category = "GAMES"
 copyright = "2026 Daybrite"
 contact-email = "hello@daybrite.dev"

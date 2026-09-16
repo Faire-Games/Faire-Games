@@ -4,7 +4,7 @@ version = "0.1.3"
 edition = "2024"
 license = "Apache-2.0"
 # Generates typed resource constants (`res::images::…`, `res::assets::…`, `res::fonts::…`) from the
-# files under `resource/` on every build — see build.rs and src/lib.rs (§18.5).
+# files under `resource/` on every build; see build.rs and src/lib.rs (§18.5).
 build = "build.rs"
 
 # One backend feature per toolkit; `day build`/`day launch` pass the real one per target
@@ -26,9 +26,9 @@ mock = ["day/mock"]
 # explicitly via `cargo rustc --crate-type` (a desktop cdylib blows past the windows-gnu PE
 # export cap).
 [lib]
-# A CONSTANT name, not the package's. Every artifact Day stages is named after the LIB target —
-# `libdayapp.a` for the iOS/macOS staticlib, `libdayapp.so` for the Android cdylib, and the
-# `dayapp::` path `src/main.rs` imports — so none of them move when the package is renamed.
+# A constant name, not the package's. Every artifact Day stages is named after the LIB target
+# (`libdayapp.a` for the iOS/macOS staticlib, `libdayapp.so` for the Android cdylib, and the
+# `dayapp::` path `src/main.rs` imports), so none of them move when the package is renamed.
 # Renaming this app is a one-line edit to `[package] name` above (DESIGN.md §17.5).
 name = "dayapp"
 crate-type = ["rlib"]
@@ -36,7 +36,7 @@ crate-type = ["rlib"]
 [dependencies]
 # The day framework resolves from git (the crates aren't on crates.io yet), here and in every
 # game crate. Local development against a checkout goes through the gitignored
-# .cargo/config.toml [patch] that `day patch --local ../day` writes — CI has no such file.
+# .cargo/config.toml [patch] that `day patch --local ../day` writes; CI has no such file.
 day = { git = "https://github.com/daybrite/day.git" }
 blockblast = { path = "games/blockblast" }
 breakout = { path = "games/breakout" }

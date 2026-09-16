@@ -1,4 +1,4 @@
-# A dayscript smoke test (https://daybrite.dev/docs/dayscript): drives the running app by
+# A dayscript walkthrough (https://daybrite.dev/docs/dayscript): drives the running app by
 # element id and route, on any target. Run it with:
 #
 #     day launch -p ios-uikit --script dayscript/smoke.yaml

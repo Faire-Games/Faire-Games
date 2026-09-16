@@ -23,7 +23,7 @@ thread_local! {
     static SURFACE_INK: std::cell::Cell<Option<Color>> = const { std::cell::Cell::new(None) };
 }
 
-/// Tell the chrome which surface the header sits on, for as long as the CURRENT scope (the
+/// Tell the chrome which surface the header sits on, for as long as the current scope (the
 /// shell's game cover) is alive. Nine of the ten games are dark, so white ink went unquestioned
 /// until 2048's cream board swallowed its own title and pause button.
 pub fn set_surface(surface: Color) {
@@ -34,7 +34,7 @@ pub fn set_surface(surface: Color) {
 }
 
 /// Ink for the current game's surface at `alpha`: white on a dark board, near-black on a light
-/// one. [`TEXT`] and [`TEXT_DIM`] stay white — cards and sheets bring their own dark surface with
+/// one. [`TEXT`] and [`TEXT_DIM`] stay white: cards and sheets bring their own dark surface with
 /// them, whatever the game behind them looks like.
 pub fn ink_at(alpha: f64) -> Color {
     // Rec. 709 luma: 2048's cream lands near 0.96, every other game's surface below 0.1.
@@ -428,7 +428,7 @@ pub fn close_button() -> AnyPiece {
 }
 
 /// The top row every game wears: the close button, the game's name, the pause button. One row,
-/// so the three line up with each other on every game and every screen — the close button is
+/// so the three line up with each other on every game and every screen. The close button is
 /// part of the layout rather than something laid over it, and no game leaves a gap of its own
 /// guessing at its width.
 pub fn game_header(
@@ -446,7 +446,7 @@ pub fn game_header(
     .any()
 }
 
-/// The header for a screen with nothing to pause — a game's deck picker, say. The pause button's
+/// The header for a screen with nothing to pause, a game's deck picker, say. The pause button's
 /// room is kept, so the title sits exactly where it does on the screens that have one.
 pub fn game_header_plain(title: LocalizedText) -> AnyPiece {
     row((
@@ -501,7 +501,7 @@ pub fn info_row(stats: Vec<AnyPiece>) -> AnyPiece {
 /// The shape of a game page: the header row, the readouts under it, the play area centered in
 /// what is left, and whatever controls belong at the foot of the page.
 ///
-/// Pass `None` for a game with no readouts or no footer; the row simply is not there. A play
+/// Pass `None` for a game with no readouts or no footer; the row is not there. A play
 /// area that grows fills the middle, and one with a size of its own is centered in it, which is
 /// what puts a board in the middle of the space between the readouts and the controls.
 pub fn game_frame(
@@ -512,7 +512,7 @@ pub fn game_frame(
 ) -> AnyPiece {
     // The play area is the only child that takes what the header and the rows around it leave.
     // A spacer either side of it would centre it, but spacers are the cells layout hands the
-    // slack to FIRST, which leaves a play area that grows sitting at its smallest. A growing
+    // slack to first, which leaves a play area that grows sitting at its smallest. A growing
     // stack centres instead: one that fills takes the whole box, one with a size of its own sits
     // in the middle of it.
     let mut kids: Vec<AnyPiece> = vec![header];
@@ -546,7 +546,7 @@ pub fn card(content: impl Piece) -> AnyPiece {
         .any()
 }
 
-/// A card's headline: "PAUSED", "GAME OVER".
+/// A card's headline: "PAUSED", "GAME over".
 pub fn card_title(text: LocalizedText, color: Color) -> AnyPiece {
     label(text)
         .font(Font::LargeTitle)
@@ -572,7 +572,7 @@ pub fn menu_button(
         .any()
 }
 
-/// A caption over a value, centered — the "Score / 1240" block of a results card.
+/// A caption over a value, centered: the "Score / 1240" block of a results card.
 pub fn stat<M>(
     caption: LocalizedText,
     value: impl IntoText<M>,
