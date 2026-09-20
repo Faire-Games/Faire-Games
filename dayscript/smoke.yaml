@@ -6,6 +6,7 @@
 flow:
   # The home grid mounts immediately on every platform.
   - wait_for: { id: home }
+  - assert_visible: { id: app-title }
   - assert_visible: { id: tile-breakout }
 
   # A tile tap presents the game in the fullscreen cover.

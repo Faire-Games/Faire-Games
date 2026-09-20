@@ -1,7 +1,8 @@
 # Day Games: UI strings (https://daybrite.dev/docs/localization). Add a locale by dropping a
 # sibling folder (e.g. locales/fr/app.ftl) and registering it in src/lib.rs.
 
-app_title = Day Games
+# The name comes from app metadata; translations can place it without duplicating the brand.
+app_title = { $title }
 
 nav_breakout = Breakout
 nav_sirtet = Sirtet
