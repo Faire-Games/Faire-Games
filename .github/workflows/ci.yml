@@ -29,9 +29,12 @@ jobs:
       scripts: dayscript/smoke.yaml dayscript/games.yaml dayscript/reversi.yaml dayscript/pipes.yaml
       # Pins every game's RNG so a scripted run meets the same puzzle and layout everywhere.
       launch-env: DAY_GAMES_SEED=15
-      # appfair.yml assembles the tag's release, because the App Fair's packages are the ones
-      # that belong on it. Two calls both assembling one release would race over its notes.
-      release-assets: false
+      # The only release workflow: App Fair rebuilds its flavor in appfair-apps, compares
+      # against these base packages, and owns all store signing and publication.
+      release-assets: true
+      upload-ios: "false"
+      upload-macos: "false"
+      upload-play: "false"
       # website/site.toml makes the workflow build and deploy the full project site
       # (https://daybrite.github.io/Day-Games/) from the daybrite/daysite template on every push
       # to main, with the web build hosted at /Day-Games/webapp/. deploy-web stays on as the
