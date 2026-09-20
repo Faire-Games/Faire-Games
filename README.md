@@ -20,6 +20,10 @@ running emulator or device, `-p harmony-arkui` for HarmonyOS, `-p web-dom` to se
 build. `day doctor` lists what each toolkit needs and prints the install command for anything
 missing. The launch prints where it put the checkout, so you can open the code and change it.
 
+To rename a fork, change `[app].title` in `Day.toml`. The home header and window title use
+that metadata automatically. `day build --flavor <name>` also honors the title in
+`Day-<name>.toml` and platform/toolkit overrides; a plain Cargo build uses the base title.
+
 ## The games
 
 - **Solitaire.** Klondike, turning the stock one card at a time or three. With Winnable Deals

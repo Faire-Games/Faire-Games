@@ -10,6 +10,9 @@
 
 use day::prelude::*;
 
+// Resolved from the app metadata, including flavor and target overrides when built with Day.
+include!(concat!(env!("OUT_DIR"), "/app_title.rs"));
+
 // Entry point for the mobile, macOS, and web hosts; a desktop binary enters through src/main.rs.
 day::day_start!(options: window(), root);
 
@@ -18,7 +21,7 @@ day::day_start!(options: window(), root);
 pub fn window() -> day::WindowOptions {
     day::WindowOptions {
         locales: Some((res::locales::DEFAULT, res::locales::CATALOG)),
-        title_fn: Some(|| res::str::app_title().format()),
+        title_fn: Some(|| res::str::app_title(APP_TITLE).format()),
         // Desktop only; phones fill the screen. Tall enough for the Sudoku board and keypad.
         size: day::prelude::Size::new(720.0, 780.0),
         ..Default::default()
@@ -110,10 +113,11 @@ fn tile(
 fn home_page(open: Signal<Option<Section>>) -> impl Piece {
     scroll(
         column((
-            label(res::str::app_title())
+            label(res::str::app_title(APP_TITLE))
                 .font(Font::Title)
                 .bold()
-                .color(Color::WHITE),
+                .color(Color::WHITE)
+                .id("app-title"),
             // As many columns as the narrowest tile allows, stretched to the window's width and
             // re-flowed as it resizes, so a new game is one more tile and never a layout change.
             row((
