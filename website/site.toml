@@ -3,7 +3,7 @@
 # screenshots, downloads) comes from Day.toml, store/, and the release pipeline; this file holds
 # only what is genuinely site-specific.
 
-host = "https://daybrite.github.io/Day-Games"
+host = "https://Faire-Games.github.io/Faire-Games"
 locales = ["en"]
 
 # The orange of the Breakout wall and the 2048 tiles, deep enough to read as link text on white.
