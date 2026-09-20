@@ -1,0 +1,45 @@
+name: appfair
+
+# The App Fair release: this repository's source, built as the `appfair` flavor
+# (Day-appfair.toml) and submitted to the App Store and Google Play as the next version of Fair
+# Games — the app the Skip build at appfair/Faire-Games-Skip published until 1.8.9 (35).
+#
+# ci.yml stays what it was: the base app, on all eight targets, for every push. This workflow
+# builds the two targets the stores want, and on a v-tag uploads them.
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+*"]
+  pull_request:
+    paths:
+      - Day-appfair.toml
+      - resource-appfair/**
+      - store-appfair/**
+      - .github/workflows/appfair.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write # release-asset upload on tag builds
+
+jobs:
+  appfair:
+    uses: daybrite/actions/.github/workflows/dayapp.yml@main
+    secrets: inherit
+    with:
+      targets: ios-uikit, android-mdc
+      # The flavor adds a leg per target; the base app builds beside it, as ci.yml does.
+      flavors: appfair
+      # The packages go on the tag's release, where the App Fair's submission queue fetches them
+      # to compare against the build it makes itself
+      # (https://github.com/appfair/appfair-apps). The stores are that queue's business: it
+      # signs with the project's keys and uploads, so this workflow uploads to neither.
+      release-flavor: appfair
+      upload-ios: "false"
+      upload-play: "false"
+      # main until the next day release: `[app] version` in a flavor manifest, which is what
+      # lets this build continue the Skip app's release train, is newer than the published CLI.
+      day-version: main
+      scripts: dayscript/smoke.yaml
+      launch-env: DAY_GAMES_SEED=15
+      # This call assembles the tag's release, because the flavor's packages belong on it; ci.yml
+      # keeps the website.
+      deploy-website: "false"

@@ -1,0 +1,44 @@
+Fair Games is a free, open-source collection of classic puzzle and arcade games, in one app that
+never asks you for anything.
+
+SOLITAIRE
+Klondike, turning one card at a time or three. With Winnable Deals Only on, a solver plays every
+deal through to a win before it reaches the table, and Hint shows a move on the way. Once every
+card is face up, the rest fly home by themselves.
+
+BLOCK BLAST
+Drag pieces onto the board and fill rows and columns to clear them. Clear on back-to-back moves
+for a combo, or empty the whole board for a 5,000-point bonus.
+
+BREAKOUT
+Clear the bricks. Power-ups widen the paddle, slow the ball, or let it smash straight through.
+Levels get faster.
+
+FALLING BLOCKS
+The one you already know how to play. Lines clear, the level climbs, the pieces come quicker.
+
+SUDOKU
+Puzzles at several difficulties, with the number pad where your thumb already is.
+
+2048
+Slide the tiles, watch them merge, chase your best score. Reaching 2048 is not the end if you do
+not want it to be.
+
+CHARADES
+Hold the phone to your forehead while your friends give clues, nod when you guess right, and tip
+your head back to pass. Decks run from animals and movies to sayings and things to act out, and
+the screen stays on for the whole round.
+
+MINES
+The classic sweeper. Your first tap is always safe, holding a square plants a flag, and a number
+with all its flags opens the rest around it. Three board sizes, each shaped to fit your screen.
+
+WHAT IT DOES NOT DO
+
+No advertising. No purchases. No account. No network access at all — every game runs entirely on
+your device. Your progress is saved when you leave a game and restored when you come back,
+including if the phone puts the app to sleep mid-round.
+
+Fair Games is published by the App Fair Project and open source under the Apache 2.0 license. It
+is built with the Day framework: one Rust codebase drawing itself with each platform's real
+native widgets. github.com/Faire-Games/Faire-Games

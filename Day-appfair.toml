@@ -1,0 +1,57 @@
+# The `appfair` build flavor (https://daybrite.dev/docs/flavors): this same source, shipped as
+# Fair Games — the App Fair Project's app, whose App Store and Google Play records already exist
+# and were served until now by the Skip build at appfair/Faire-Games-Skip.
+#
+#     day build --flavor appfair -p ios-uikit
+#     day pack  --flavor appfair -p android-mdc
+#
+# Everything here restates something the store record already knows, so a build from this flavor
+# is accepted as the next version of the app people already have installed. Nothing in the rest of
+# the checkout changes, which is what keeps this fork a fork.
+
+# The listing this flavor publishes: the App Fair copy, with the legacy app's name and URLs.
+store = "store-appfair"
+# The icon the existing app ships, so an update does not change on the home screen.
+resources = "resource-appfair"
+
+[app]
+# The bundle id of the live App Store record (App Store ID 6761661340). A submission under any
+# other id is a new app, not an update.
+id = "org.appfair.app.Faire-Games"
+# The published name, as it reads on both stores today.
+title = "Fair Games"
+# Both stores order releases by these two, and the last Skip build published 1.8.9 (35). A
+# submission that does not climb past them is rejected before review.
+version = "1.9.0"
+build = 36
+# `fair-games-1.9.0-ios-uikit.ipa`, rather than the base app's `day-games-…`.
+artifact = "fair-games"
+# The legacy app registered no URL scheme, so this one is new rather than inherited — and it
+# cannot be left to the default, which is the id's last segment (`Faire-Games`).
+scheme = "fairegames"
+# The two stores this app is published to. The base app's other six targets are not part of the
+# App Fair submission, and each would cost a CI leg that nothing consumes.
+targets = ["ios-uikit", "android-mdc"]
+
+# Android package names take no hyphen, and Google Play knows this app as
+# `org.appfair.app.Faire_Games` — the id the Skip build derived by replacing the one in the
+# bundle id. It is the identity of the live listing, capital letters and all.
+[app.android]
+id = "org.appfair.app.Faire_Games"
+
+# Release signing, for the store uploads on a tag. The base app declares none — it ships as
+# dev-signed packages on GitHub releases — and these tables exist only for this flavor, because
+# only this flavor goes to a store. Every value is an environment reference resolved at pack
+# time, so the keys live in the App Fair repository's secrets and nothing sensitive is committed
+# (`day sign check --flavor appfair` reports which are set without printing any).
+[signing.ios]
+team = "${DAY_APPLE_TEAM}"
+key-id = "${DAY_ASC_KEY_ID}"
+issuer = "${DAY_ASC_ISSUER}"
+key-path = "${DAY_ASC_KEY}" # App Store Connect API key (.p8), written by CI from a secret
+
+[signing.android]
+keystore = "${DAY_ANDROID_KEYSTORE}" # the Play upload keystore, written by CI from a secret
+key-alias = "${DAY_ANDROID_KEY_ALIAS}"
+store-pass = "${DAY_KS_PASS}"
+key-pass = "${DAY_KEY_PASS}"

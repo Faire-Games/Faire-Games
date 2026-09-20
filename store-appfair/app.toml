@@ -1,0 +1,19 @@
+# The store listing for the `appfair` flavor: the App Fair Project's Fair Games, whose App Store
+# record (ID 6761661340) and Google Play listing already exist. The localized copy is in
+# store-appfair/<locale>/; `day store stage --flavor appfair` turns this tree into the fastlane
+# layouts `deliver` and `supply` upload.
+#
+# bundle-id is omitted, so `day store` uses Day-appfair.toml's [app] id — the id of the live
+# record on each store.
+apple-category = "GAMES"
+copyright = "2026 The App Fair Project"
+contact-email = "support@appfair.org"
+review-notes = """
+This version is a rewrite of the app already on the store: the same games, rebuilt on the Day
+framework, and submitted from github.com/Faire-Games/Faire-Games.
+
+Every game plays offline from the first launch. Tap a tile on the home screen to open a game full
+screen; the X closes it and saves your progress.
+
+No account, no network access, no advertising, and no purchases of any kind.
+"""

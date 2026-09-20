@@ -1,0 +1,6 @@
+Fair Games has been rebuilt from the ground up on the Day framework, which draws each screen with
+the platform's own native widgets.
+
+Solitaire, Mines and Charades join Block Blast, Breakout, falling blocks, Sudoku and 2048. Every
+game saves and restores itself automatically, including mid-round, and the whole app still runs
+offline with no advertising, no purchases and no account.
