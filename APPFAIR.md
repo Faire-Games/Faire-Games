@@ -7,7 +7,8 @@ already exist.
 
 Those records were served until now by the Skip app at `appfair/Faire-Games-Skip`, whose last
 release was 1.8.9 (build 35). A build from this flavor is the next version of that app, not a new
-one, so everyone who has Fair Games installed gets it as an update.
+one, so everyone who has Fair Games installed gets it as an update: the version continues from
+this repository's own, and the build number carries on past 35.
 
 ## What the flavor restates
 
@@ -16,7 +17,7 @@ one, so everyone who has Fair Games installed gets it as an update.
 | app id | `dev.daybrite.games` | `org.appfair.app.Faire-Games` |
 | Android application id | (the same) | `org.appfair.app.Faire_Games` — the id Google Play knows |
 | name | Day Games | Fair Games |
-| version | from `Cargo.toml` | 1.9.0 — past the Skip app's 1.8.9 |
+| version | from `Cargo.toml` | (the same) — the tag names the version published |
 | build number | from `Day.toml` | 36 — past the Skip app's 35 |
 | deep-link scheme | `daygames` | `fairegames` |
 | targets | eight | `ios-uikit`, `android-mdc` |
@@ -46,15 +47,17 @@ After the release completes, submit its tag and exact commit to
 flavor itself, compares its code and resources with the base release while normalizing declared
 identity and launcher-icon differences, then audits the flavor's identity, permissions and
 provenance. On publication it signs that build with App Fair's keys and stages `store-appfair/`
-for the stores. Executables and non-branding resources must still match; comparison failures
-are not automatically waived.
+for the stores. The app's own binary is expected to differ, since day compiles the display name
+into it and this flavor states a different one; resources, components and everything else must
+match, and a difference the queue does not expect is not waived automatically.
 
-The repository tag (for example, `v2.0.1`) identifies the source release. The store version in
-`Day-appfair.toml` has its own sequence and does not have to equal the tag.
+The tag names the version published. `v2.0.2` publishes 2.0.2 on both stores, and a submission
+whose app builds anything else is refused, so the version lives in `Cargo.toml` alone.
 
-Before tagging a release, raise both numbers in `Day-appfair.toml`: `version` past the last one
-the App Store accepted, and `build` past the last one either store has seen. Google Play rejects a
-`versionCode` it already has, and App Store Connect rejects a version string that does not climb.
+Before tagging a release, raise the version in `Cargo.toml` (and the workspace crates with it),
+and raise `build` in `Day-appfair.toml` past the last one either store has seen. Google Play
+rejects a `versionCode` it already has, and App Store Connect rejects a version string that does
+not climb.
 
 ## Keeping the fork a fork
 

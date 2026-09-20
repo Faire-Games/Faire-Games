@@ -20,11 +20,11 @@ resources = "resource-appfair"
 id = "org.appfair.app.Faire-Games"
 # The published name, as it reads on both stores today.
 title = "Fair Games"
-# Both stores order releases by these two, and the last Skip build published 1.8.9 (35). A
-# submission that does not climb past them is rejected before review.
-version = "1.9.0"
+# No version here: the tag names the version the App Fair publishes, and this flavor takes the one
+# in Cargo.toml so the two cannot drift. The build number is this record's own — the last Skip
+# build published 1.8.9 (35), and both stores reject a submission that repeats or lowers it.
 build = 36
-# `fair-games-1.9.0-ios-uikit.ipa`, rather than the base app's `day-games-…`.
+# `fair-games-ios-uikit.ipa`, rather than the base app's `day-games-…`.
 artifact = "fair-games"
 # The legacy app registered no URL scheme, so this one is new rather than inherited — and it
 # cannot be left to the default, which is the id's last segment (`Faire-Games`).

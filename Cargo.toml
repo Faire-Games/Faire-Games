@@ -1,6 +1,6 @@
 [package]
 name = "day-games"
-version = "2.0.1"
+version = "2.0.2"
 edition = "2024"
 license = "Apache-2.0"
 # Generates typed resource constants (`res::images::…`, `res::assets::…`, `res::fonts::…`) from the
