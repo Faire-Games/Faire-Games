@@ -17,7 +17,9 @@ background gradient here were measured from that 1024px file and redrawn as rect
 | block colors | `#FF6F91` (top two rows), `#FF3D67` (the rest) |
 | background | vertical linear gradient, `#241C44` → `#0C081F` |
 
-Rendered at 1024px, the reconstruction differs from the original by an average of 0.5/255 per
-channel, all of it along antialiased corners. As vector it also gives `day icon build` the layers
-a raster master cannot: `day:background` and `day:foreground` for the Android adaptive icon, and
+The source grid above is translated 27px left and 27px up in both the foreground and monochrome
+layers. This centers the heart at (512, 512), with equal left/right margins of 165px and
+top/bottom margins of 209px in the 1024px frame.
+
+As vector it also gives `day icon build` the layers a raster master cannot: `day:background` and `day:foreground` for the Android adaptive icon, and
 `day:monochrome` for the themed one.

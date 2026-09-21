@@ -23,7 +23,7 @@ title = "Fair Games"
 # No version here: the tag names the version the App Fair publishes, and this flavor takes the one
 # in Cargo.toml so the two cannot drift. The build number is this record's own — the last Skip
 # build published 1.8.9 (35), and both stores reject a submission that repeats or lowers it.
-build = 36
+build = 37
 # `fair-games-ios-uikit.ipa`, rather than the base app's `day-games-…`.
 artifact = "fair-games"
 # The legacy app registered no URL scheme, so this one is new rather than inherited — and it

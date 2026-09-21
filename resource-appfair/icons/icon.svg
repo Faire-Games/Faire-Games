@@ -14,7 +14,7 @@
     </linearGradient>
   </defs>
   <rect id="day:background" width="1024" height="1024" fill="url(#bg)"/>
-  <g id="day:foreground">
+  <g id="day:foreground" transform="translate(-27 -27)">
     <rect x="280" y="236" width="78" height="78" rx="8" fill="#FF6F91"/>
     <rect x="368" y="236" width="78" height="78" rx="8" fill="#FF6F91"/>
     <rect x="632" y="236" width="78" height="78" rx="8" fill="#FF6F91"/>
@@ -56,7 +56,7 @@
     <rect x="456" y="764" width="78" height="78" rx="8" fill="#FF3D67"/>
     <rect x="544" y="764" width="78" height="78" rx="8" fill="#FF3D67"/>
   </g>
-  <g id="day:monochrome" display="none" fill="#000000">
+  <g id="day:monochrome" transform="translate(-27 -27)" display="none" fill="#000000">
     <rect x="280" y="236" width="78" height="78" rx="8"/>
     <rect x="368" y="236" width="78" height="78" rx="8"/>
     <rect x="632" y="236" width="78" height="78" rx="8"/>
