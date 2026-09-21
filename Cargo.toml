@@ -1,6 +1,6 @@
 [package]
 name = "day-games"
-version = "0.1.4"
+version.workspace = true
 edition = "2024"
 license = "Apache-2.0"
 # Generates typed resource constants (`res::images::…`, `res::assets::…`, `res::fonts::…`) from the
@@ -75,3 +75,6 @@ members = [
     "games/twentyfortyeight",
     "gamekit",
 ]
+
+[workspace.package]
+version = "0.1.4"
